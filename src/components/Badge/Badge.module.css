@@ -1,0 +1,8 @@
+.container {
+  background-color: var(--color-maroon);
+  color: white;
+  font-size: 0.8em;
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 0 8px;
+}

@@ -84,3 +84,5 @@ enum Role {
   LEADER
   ADMIN
 }
+
+// TODO: Join table to Users to Ride

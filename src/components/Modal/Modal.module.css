@@ -1,0 +1,234 @@
+.darkBG {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  height: 80vh;
+  background: white;
+  color: white;
+  z-index: 10;
+  border-radius: var(--corner-radius);
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  overflow: hidden;
+  border-top-left-radius: var(--corner-radius);
+  border-top-right-radius: var(--corner-radius);
+  border-bottom: 1px solid var(--color-text-lighter);
+  color: var(--color-text);
+  padding: 10px;
+}
+
+.heading {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.modalContent {
+  flex: 1;
+  font-size: 1em;
+  color: var(--color-text);
+  overflow-y: auto;
+}
+
+.modalActions {
+  width: 100%;
+}
+
+.actionsContainer {
+  width: calc(100% - 20px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-bottom-left-radius: var(--corner-radius);
+  border-bottom-right-radius: var(--corner-radius);
+  /* border-top: 1px solid var(--color-text-lighter); */
+}
+
+.closeBtn {
+  height: 24px;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  color: var(--color-text);
+  font-size: 1.4em;
+  background: white;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background-color: #e2e2e2;
+}
+
+.joinBtn {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 6px 14px;
+  border: none;
+  color: #fff;
+  background: var(--color-maroon);
+  font-size: 1.4em;
+  font-family: var(--font-family);
+  border-radius: var(--radius);
+}
+
+.joinBtn:hover {
+  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  background: #ff3e4e;
+}
+
+.cancelBtn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  border: none;
+  color: var(--color-text);
+  background: #fcfcfc;
+  font-size: 1em;
+  font-family: var(--font-family);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.cancelBtn:hover {
+  box-shadow: none;
+  background: whitesmoke;
+}
+
+@media (min-width: 620px) {
+  .modal {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+/* @media (min-width: 1280px) {
+  .container {
+    max-width: var(--max-width);
+  }
+} */
+
+.contentRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.riderRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--color-background);
+}
+
+.phone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.going {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(100% - 20px);
+  padding: 10px;
+  color: white;
+  background-color: var(--color-blue);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .mobius\/Modal.--slide-up {
+    animation: slide-up 300ms forwards;
+
+    &.--is-closing {
+      animation: slide-down 300ms forwards;
+    }
+  }
+
+  .mobius\/ModalOverlay.--fade::before,
+  .mobius\/Modal.--fade {
+    animation: fade-in 300ms forwards;
+  }
+
+  .mobius\/ModalOverlay.--fade.--is-closing::before,
+  .mobius\/Modal.--fade.--is-closing {
+    animation: fade-out 300ms forwards;
+  }
+} */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100vh);
+  }
+
+  100% {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(0vh);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
