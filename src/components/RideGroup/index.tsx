@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "../../components";
-import { ungroupRides } from "../../utils"
+import { ungroupRides } from "../../../shared/utils"
 import { Group, Ride } from "../../types"
 import styles from "./RideGroup.module.css";
 

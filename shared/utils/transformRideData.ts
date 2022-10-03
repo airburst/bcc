@@ -1,5 +1,5 @@
-import { formatDate } from '../utils';
-import { Ride, Group } from '../types';
+import { formatDate } from ".";
+import { Ride, Group } from "../../src/types";
 
 const groupByType = (data: Ride[]) => {
   // Group rides by date, then type
@@ -33,5 +33,5 @@ export const groupRides = (data: Ride[]): Group[] => {
 
 export const ungroupRides = (group: Group) =>
   Object.entries(group).flatMap(([date, types]) =>
-    Object.entries(types).map(([type, rides]) => ({ date, type, rides })),
+    Object.entries(types).map(([type, rides]) => ({ date, type, rides }))
   );

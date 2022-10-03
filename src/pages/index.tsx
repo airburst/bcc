@@ -1,33 +1,28 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Script from "next/script";
 import { useState } from "react";
+import { getRides } from "./api/rides"
 // import { useGetRides } from "../services/PlanetScaleService/hooks";
 import { RideGroup, RideModal } from "../components";
-import { getNextWeek, groupRides, formatDate } from "../utils"
+import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
 import { Ride } from "../types"
 import styles from "./index.module.css";
+
+type Props = {
+  data: Ride[];
+}
 
 let nextDate = getNextWeek();
 nextDate = "2022-10-09 23:59:59";
 
-const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
-  // const { data, error, loading } = useGetRides(userId, nextDate);
-
-  const data: Ride[] = [];
 
   // if (loading) {
   //   return (
   //     <Loading text="Fetching rides..." />
-  //   )
-  // }
-
-  // if (error) {
-  //   return (
-  //     <div className="error-message">
-  //       {error}
-  //     </div>
   //   )
   // }
 
@@ -46,6 +41,12 @@ const Home: NextPage = () => {
         <meta name="description" content="Bath Cycling Club Ride Planner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Script
+        id="fontawesome"
+        src="https://kit.fontawesome.com/329fae5f95.js"
+        defer
+      />
 
       <div className={styles.grid}>
         {ridesFound
@@ -70,3 +71,9 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps() {
+  const data = await getRides();
+
+  return { props: { data } }
+}

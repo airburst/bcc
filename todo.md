@@ -2,6 +2,9 @@
 
 ## Pages
 
+- next/script for fontawesome
+- many-to-many join
+- login
 - User roles? Sign in to enable join/unjoin?
 - Join ride / unjoin ride (user can only add/remove themselves)
 - remember user name (localStorage) - or require login?

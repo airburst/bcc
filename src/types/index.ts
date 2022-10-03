@@ -12,8 +12,8 @@ export type DbResponse<T> = {
 
 export type Ride = {
   id?: string;
-  title: string; // Enum sunday | paceline | event
-  rideGroup: string;
+  name: string; // Enum sunday | paceline | event
+  group: string;
   date: string;
   destination?: string;
   distance?: number;
