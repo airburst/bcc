@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 // import { useGetRides } from "../services/PlanetScaleService/hooks";
-import { RideGroup, Loading, RideModal } from "../components";
+import { RideGroup, RideModal } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../utils"
 import { Ride } from "../types"
 import styles from "./index.module.css";

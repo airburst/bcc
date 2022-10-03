@@ -19,7 +19,7 @@ export const RideModal: React.FC<Props> = ({ ride, setIsOpen }) => {
   }
 
   const {
-    id,
+    // id,
     title,
     rideGroup,
     destination,
