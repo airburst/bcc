@@ -53,6 +53,8 @@ model User {
     role          Role @default(USER)
     accounts      Account[]
     sessions      Session[]
+
+    @@index(email)
 }
 
 model VerificationToken {
@@ -73,6 +75,8 @@ model Ride {
     route         String?
     leader        String?
     speed         Int?
+
+    @@index(date)
 }
 
 enum Role {
