@@ -1,20 +1,23 @@
 import { useLongPress } from 'use-long-press';
 import { isMobile } from "../../../shared/utils";
 import { JoinButton } from "../../components";
-import { Ride } from "../../types";
+import { Ride, User } from "../../types";
 import styles from "./Card.module.css";
 
 type Props = {
   ride: Ride;
+  user?: User;
   onPress: (ride: Ride) => void;
 }
 
 /**
  * All ride instances share common date and type
  */
-export const Card: React.FC<Props> = ({ ride, onPress }) => {
-  const { name, group, riderCount, destination, distance, going } = ride;
+export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
+  const { id, name, group, riderCount, destination, distance, users } = ride;
   const details = destination ? `${destination} - ${distance} km` : `${distance} km`;
+
+  const isGoing = user && users?.includes(user.id!);
 
   const pressHandler = useLongPress(() => onPress(ride), {
     threshold: isMobile() ? 400 : 0,
@@ -36,7 +39,14 @@ export const Card: React.FC<Props> = ({ ride, onPress }) => {
         <span className={styles.count}>{riderCount}</span>
       </div>
       <div className={styles.alignRight}>
-        <JoinButton going={going} ariaLabel={`Join ${name} ride`} />
+        {user && (
+          <JoinButton
+            going={isGoing}
+            ariaLabel={`Join ${name} ride`}
+            rideId={id}
+            userId={user.id}
+          />)
+        }
       </div>
     </div>
   );

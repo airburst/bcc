@@ -2,12 +2,11 @@
 
 ## Pages
 
-- many-to-many join (https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations)
-- query riderCount and 'me' / going
-- login
-- Join ride / unjoin ride (user can only add/remove themselves)
-- remember user name (localStorage) - or require login?
+- Add rider count to card
+- unjoin ride (user can only add/remove themselves)
+
 - Should ride details be a new page? /ride/{id}
+- Show avatar and menu?
 
 ## Admin/Leader
 

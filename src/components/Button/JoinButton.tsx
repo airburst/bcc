@@ -1,24 +1,40 @@
-import { useState, MouseEventHandler } from "react";
+import { useState, useCallback, MouseEventHandler } from "react";
 import { Button, ButtonProps } from "./index";
 
 type Props = ButtonProps & {
-  going?: string;
+  userId?: string;
+  rideId?: string;
+  going?: boolean;
 }
 
-export const JoinButton: React.FC<Props> = ({ going, ...props }) => {
+export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props }) => {
   const [joining, setJoining] = useState<boolean>(false);
-  const [isGoing, setIsGoing] = useState<boolean>(going === "1");
+  const [isGoing, setIsGoing] = useState<boolean | undefined>(going);
 
-  const fakeJoinHandler: MouseEventHandler<HTMLButtonElement> = () => {
-    setJoining(true);
-    setTimeout(() => {
-      setIsGoing(true);
-      setJoining(false);
-    }, 600);
-  };
+  const fakeJoinHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    try {
+      setJoining(true);
+      fetch("/api/add-rider", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ rideId, userId })
+      })
+        .then((res) => res.json())
+        .then(() => {
+          setIsGoing(true);
+          setJoining(false);
+        })
+    } catch (err) {
+      console.error(err);
+    }
+  }, [rideId, userId]);
 
   const fakeUnjoinHandler: MouseEventHandler<HTMLButtonElement> = () => {
     setJoining(true);
+    console.log("Remove rider", userId); // FIXME:
     setTimeout(() => {
       setIsGoing(false);
       setJoining(false);

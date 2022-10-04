@@ -1,12 +1,13 @@
-// import { useAuth0 } from "@auth0/auth0-react";
 import Link from 'next/link';
+import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/future/image";
 import Logo from "public/static/images/bath-cc-logo.svg"
 import styles from "./Header.module.css";
 
 export const Header = () => {
-  // const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
-  const isAuthenticated = false; // FIXME:
+  const { status } = useSession();
+  // const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated";
 
   return (
     <div className={styles.container}>
@@ -22,12 +23,12 @@ export const Header = () => {
         {isAuthenticated
           ? (
             <div className={styles.right} >
-              <button className={styles.loginBtn} onClick={() => console.log("LOGOUT")}>Log out</button>
+              <button className={styles.loginBtn} onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}>Log out</button>
             </div>
           )
           : (
             <div className={styles.right} >
-              <button className={styles.loginBtn} onClick={() => console.log("LOGIN")}>Log in</button>
+              <button className={styles.loginBtn} onClick={() => signIn("auth0")}>Log in</button>
             </div>
           )
         }

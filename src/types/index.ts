@@ -1,6 +1,6 @@
 export type User = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   mobile?: string;
 };
 
@@ -21,7 +21,7 @@ export type Ride = {
   leader?: string;
   speed?: string;
   riderCount?: number;
-  going?: string;
+  users?: string[];
 };
 
 export type Riders = {
