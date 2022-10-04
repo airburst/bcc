@@ -36,7 +36,7 @@ export const Card: React.FC<Props> = ({ ride, onPress }) => {
         <span className={styles.count}>{riderCount}</span>
       </div>
       <div className={styles.alignRight}>
-        <JoinButton going={going} />
+        <JoinButton going={going} ariaLabel={`Join ${name} ride`} />
       </div>
     </div>
   );
