@@ -1,6 +1,6 @@
 // import { useAuth0 } from "@auth0/auth0-react";
 import Link from 'next/link';
-import Image from "next/image";
+import Image from "next/future/image";
 import Logo from "public/static/images/bath-cc-logo.svg"
 import styles from "./Header.module.css";
 
@@ -13,8 +13,10 @@ export const Header = () => {
       <div className={styles.inner}>
         <div className={styles.left}>
           <Link href="/" title="Home">
-            <Image className={styles.logo} src={Logo} alt="Bath Cycling Club Logo" />
-            BCC Rides
+            <>
+              <Image className={styles.logo} src={Logo} alt="Bath Cycling Club Logo" />
+              BCC Rides
+            </>
           </Link>
         </div>
         {isAuthenticated

@@ -1,7 +1,7 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { getNextWeek, formatDate } from "../../../shared/utils";
+import { getNextWeek } from "../../../shared/utils";
 
 const now = new Date().toISOString();
 let nextDate = getNextWeek();

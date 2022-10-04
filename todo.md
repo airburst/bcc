@@ -2,8 +2,7 @@
 
 ## Pages
 
-- Broken styles
-- many-to-many join
+- many-to-many join (https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations)
 - query riderCount and 'me' / going
 - login
 - Join ride / unjoin ride (user can only add/remove themselves)

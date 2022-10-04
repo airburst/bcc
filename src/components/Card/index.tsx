@@ -28,7 +28,7 @@ export const Card: React.FC<Props> = ({ ride, onPress }) => {
   return (
     <div className={styles.container} {...pressHandler()}>
       <div className={styles.col}>
-        <div className={styles.name}>{name} ({group})</div>
+        <div className={styles.title}>{name} ({group})</div>
         <div>{details}</div>
       </div>
       <div className={styles.riders}>
