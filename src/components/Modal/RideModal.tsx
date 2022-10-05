@@ -8,44 +8,34 @@ import styles from "./Modal.module.css";
 
 type Props = {
   ride: Ride | null;
+  user?: User;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const RideModal: React.FC<Props> = ({ ride, setIsOpen }) => {
-  // const [user, setUser] = useLocalStorage<User | null>("bcc-user", null);
-
+export const RideModal: React.FC<Props> = ({ ride, user, setIsOpen }) => {
   if (!ride) {
     return null;
   }
 
   const {
-    // id,
-    title,
-    rideGroup,
+    id,
+    name,
+    group,
     destination,
     distance,
     leader,
     route,
     // speed,
-    riderCount,
-    going
+    users
   } = ride;
 
-  // const { data, error, loading } = useGetRiders(id!.toString());
   const data: User[] = [];
-
-  // if (error) {
-  //   return (
-  //     <div className="error-message">
-  //       {error}
-  //     </div>
-  //   )
-  // }
+  const isGoing = user ? users?.includes(user.id) : false;
 
   const Content = (
     <>
       <div className={styles.contentRow}>
-        <div>{rideGroup} Group</div>
+        <div>{group} Group</div>
       </div>
       <div className={styles.contentRow}>
         {destination && <div>{destination}</div>}
@@ -64,7 +54,7 @@ export const RideModal: React.FC<Props> = ({ ride, setIsOpen }) => {
         </div>
       )}
       <div className={styles.going}>
-        <div>Going ({riderCount})</div>
+        <div>Going ({users?.length})</div>
       </div>
       {data?.map(({ name, mobile }) => (
         <div key={name} className={styles.riderRow}>
@@ -80,23 +70,16 @@ export const RideModal: React.FC<Props> = ({ ride, setIsOpen }) => {
     </>
   );
 
-  // const handleJoin = () => {
-  //   console.log("🚀 ~ RideModal ~ user", user); // FIXME:
-  //   if (!user) {
-  //     // Prompt user to set name and mobile
-
-  //     // Save to localStorage
-  //     setUser({ id: "4", name: "Mark Fairhurst" }) // FIXME:
-  //   }
-  //   // Add user to ride
-
-  //   // Close modal
-  //   setIsOpen(false);
-  // }
-
   const Actions = (
     <>
-      <JoinButton going={going} />
+      {user && (
+        <JoinButton
+          going={isGoing}
+          ariaLabel={`Join ${name} ride`}
+          rideId={id}
+          userId={user.id}
+        />)
+      }
       <button
         className={styles.cancelBtn}
         onClick={() => setIsOpen(false)}
@@ -107,6 +90,6 @@ export const RideModal: React.FC<Props> = ({ ride, setIsOpen }) => {
   );
 
   return (
-    <Modal heading={title} setIsOpen={setIsOpen} content={Content} actions={Actions} />
+    <Modal heading={name} setIsOpen={setIsOpen} content={Content} actions={Actions} />
   )
 }

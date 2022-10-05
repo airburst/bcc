@@ -11,9 +11,8 @@ const groupByType = (data: Ride[]) => {
     rideList.push(ride);
     groupedByName.set(d, rideList);
   }
-  // console.log('🚀 ~ file: transformRideData.ts ~ line 7 ~ groupByType ~ groupedByName', groupedByName);
 
-  return groupedByName;
+  return Object.fromEntries(groupedByName);
 };
 
 export const groupRides = (data: Ride[]): Group[] => {
@@ -27,14 +26,12 @@ export const groupRides = (data: Ride[]): Group[] => {
     groupedByDate.set(d, rideList);
   }
 
-  console.log('🚀 ~ file: transformRideData.ts ~ line 32 ~ groupRides ~ groupedByDate', groupedByDate);
-
   // Second pass: group by type
-  const grouped = groupedByDate.forEach((value, key) => {
-    return { [key]: groupByType(value) };
-  });
-  console.log('grouped', grouped);
+  const grouped: Group[] = [];
 
+  groupedByDate.forEach((value, key) => {
+    grouped.push({ [key]: groupByType(value) });
+  });
   return grouped;
 };
 

@@ -30,6 +30,6 @@ export type Riders = {
 
 export type Group = {
   [date: string]: {
-    [title: string]: Ride[];
+    [name: string]: Ride[];
   };
 };

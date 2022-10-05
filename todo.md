@@ -6,6 +6,7 @@
 
 - unjoin ride
 - Add route guard to api: user can only add/remove themselves and admin can remove any
+- Add Tailwindcss
 - Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
 
