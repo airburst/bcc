@@ -2,8 +2,10 @@
 
 ## Pages
 
-- unjoin ride
 - Add route guard to api: user can only add/remove themselves and admin can remove any
+- Optimistic update / refetch user count on rides after join/unjoin
+- Prevent joining > 1 ride on same day
+
 - Add Tailwindcss
 - Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
