@@ -2,6 +2,8 @@
 
 ## Pages
 
+- Change join/unjoin to use user.id
+- Display user name, mobile in modal
 - Add route guard to api: user can only add/remove themselves and admin can remove any
 - Optimistic update / refetch user count on rides after join/unjoin
 - Prevent joining > 1 ride on same day

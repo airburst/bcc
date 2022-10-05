@@ -61,7 +61,7 @@ model User {
     role          Role @default(USER)
     accounts      Account[]
     sessions      Session[]
-    rides         UsersOnRides[]
+    rides         UsersOnRides[]  @relation("usersOnRides_user")
 
     @@index(email)
 }
@@ -76,15 +76,15 @@ model Ride {
     route         String?
     leader        String?
     speed         Int?
-    users         UsersOnRides[]
+    users         UsersOnRides[] @relation("usersOnRides_ride")
 
     @@index(date)
 }
 
 model UsersOnRides {
-  ride       Ride     @relation(fields: [rideId], references: [id])
+  ride       Ride     @relation("usersOnRides_ride", fields: [rideId], references: [id])
   rideId     String   // relation scalar field (used in the `@relation` attribute above)
-  user       User @relation(fields: [userId], references: [id])
+  user       User @relation("usersOnRides_user", fields: [userId], references: [id])
   userId     String // relation scalar field (used in the `@relation` attribute above)
   createdAt DateTime @default(now())
 

@@ -17,9 +17,7 @@ export const getRides = async () => {
     },
     include: {
       users: {
-        select: {
-          userId: true // FIXME: include name, mobile
-        }
+        include: { user: true }
       }
     },
     orderBy: [
@@ -32,7 +30,11 @@ export const getRides = async () => {
   return rides.map(ride => ({
     ...ride,
     date: ride.date.toISOString(),
-    users: ride.users.map(({ userId }) => userId) // FIXME: include name, mobile
+    users: ride.users.map(({ user }) => ({
+      id: user.id,
+      name: user.name,
+      mobile: user.mobile
+    }))
   }));
 };
 
