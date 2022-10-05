@@ -2,8 +2,6 @@
 
 ## Pages
 
-- Unit tests for transformRideData and fix typing errors
-
 - unjoin ride
 - Add route guard to api: user can only add/remove themselves and admin can remove any
 - Add Tailwindcss
