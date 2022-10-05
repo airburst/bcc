@@ -4,8 +4,7 @@ import { prisma } from "../../server/db/client";
 import { getNextWeek, formatUserName } from "../../../shared/utils";
 
 const now = new Date().toISOString();
-let nextDate = getNextWeek();
-nextDate = "2022-10-09T23:59:59.000Z";
+const nextDate = getNextWeek();
 
 export const getRides = async () => {
   const rides = await prisma.ride.findMany({

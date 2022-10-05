@@ -7,9 +7,9 @@ export const getNextWeek = () => {
     .set("minute", 59)
     .set("second", 59)
     .toISOString();
-  // .format('YYYY-MM-DD HH:mm:ss');
 
   return nextWeek;
+  // return "2022-10-09T23:59:59.000Z";
 };
 
 export const formatDate = (date: string) => dayjs(date).format("dddd DD MMMM");

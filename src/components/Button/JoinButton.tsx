@@ -7,6 +7,12 @@ type Props = ButtonProps & {
   going?: boolean;
 }
 
+// const joinRide = async () => {
+//   const res = await fetch("/api/join-ride");
+//   const data = await res.json();
+//   return data;
+// }
+
 export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props }) => {
   const [joining, setJoining] = useState<boolean>(false);
   const [isGoing, setIsGoing] = useState<boolean | undefined>(going);

@@ -3,7 +3,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { useSession } from "next-auth/react"
 import { useState } from "react";
-import { getRides } from "./api/rides"
+import { useQuery } from '@tanstack/react-query'
 import { RideGroup, RideModal } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
 import { Ride, User } from "../types"
@@ -13,13 +13,29 @@ type Props = {
   data: Ride[];
 }
 
-let nextDate = getNextWeek();
-nextDate = "2022-10-09 23:59:59";
+const nextDate = getNextWeek();
 
-const Home: NextPage<Props> = ({ data }) => {
+const fetchRides = async () => {
+  const res = await fetch("/api/rides");
+  const data = await res.json();
+  return data;
+}
+
+const Home: NextPage<Props> = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
+  // Use CSR data fetching so we can refetch when users join/unjoin
+  const { status, data, error } = useQuery(['rides'], fetchRides)
+
+  if (status === 'loading') {
+    return <span>Loading...</span>
+  }
+
+  if (status === 'error') {
+    const err = error as Error;
+    return <span>Error: {err.message}</span>
+  }
 
   // Get user id from session
   const user = session?.user as User;
@@ -70,8 +86,8 @@ const Home: NextPage<Props> = ({ data }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const data = await getRides();
+// export async function getServerSideProps() {
+//   const data = await getRides();
 
-  return { props: { data } }
-}
+//   return { props: { data } }
+// }
