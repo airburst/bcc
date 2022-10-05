@@ -17,7 +17,7 @@ let nextDate = getNextWeek();
 nextDate = "2022-10-09 23:59:59";
 
 const Home: NextPage<Props> = ({ data }) => {
-  console.log("🚀 ~ file: index.tsx ~ line 20 ~ data", data); //FIXME:
+  console.log("🚀 ~ file: index.tsx ~ line 20 ~ data", JSON.stringify(data, null, 2)); //FIXME:
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
@@ -31,7 +31,8 @@ const Home: NextPage<Props> = ({ data }) => {
   }
 
   const groupedRides = groupRides(data);
-  const ridesFound = groupedRides.length > 0;
+  // const ridesFound = groupedRides.length > 0;
+  const ridesFound = false;
 
   return (
     <>

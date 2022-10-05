@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "check-types": "tsc --noEmit --incremental --emitDeclarationOnly false --pretty",
     "postinstall": "prisma generate",
     "connect": "pscale connect bcc-rides main --port 3309",
     "pushdb": "npx prisma db push",

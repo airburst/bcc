@@ -10,14 +10,12 @@ type Props = {
   onPress: (ride: Ride) => void;
 }
 
-/**
- * All ride instances share common date and type
- */
 export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
-  const { id, name, group, riderCount, destination, distance, users } = ride;
+  const { id, name, group, destination, distance, users } = ride;
   const details = destination ? `${destination} - ${distance} km` : `${distance} km`;
 
-  const isGoing = user && users?.includes(user.id!);
+  const isGoing = user ? users?.includes(user.id) : false;
+  const riderCount = users?.length;
 
   const pressHandler = useLongPress(() => onPress(ride), {
     threshold: isMobile() ? 400 : 0,
