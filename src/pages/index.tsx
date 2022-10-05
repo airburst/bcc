@@ -29,7 +29,7 @@ const Home: NextPage<Props> = ({ data }) => {
     setIsOpen(true);
   }
 
-  const groupedRides = groupRides(data);
+  const groupedRides = groupRides(data, user?.id);
   const ridesFound = groupedRides.length > 0;
 
   return (
