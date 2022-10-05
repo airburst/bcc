@@ -2,10 +2,10 @@
 
 ## Pages
 
-- Add rider count to card
-- unjoin ride (user can only add/remove themselves)
-
-- Should ride details be a new page? /ride/{id}
+- unjoin ride
+- Add route guard to api: user can only add/remove themselves and admin can remove any
+- Add Tailwindcss
+- Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
 
 ## Admin/Leader
@@ -19,5 +19,5 @@
 
 - precommit hooks (test, check-types, lint)
 - Add PWA manifest
-- add long expiry to js,css,image assets on FB host
+- add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy

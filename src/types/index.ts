@@ -1,5 +1,5 @@
 export type User = {
-  id?: string;
+  id: string;
   name?: string;
   mobile?: string;
 };
@@ -20,7 +20,6 @@ export type Ride = {
   route?: string;
   leader?: string;
   speed?: string;
-  riderCount?: number;
   users?: string[];
 };
 
@@ -31,6 +30,6 @@ export type Riders = {
 
 export type Group = {
   [date: string]: {
-    [title: string]: Ride[];
+    [name: string]: Ride[];
   };
 };
