@@ -20,7 +20,7 @@ export type Ride = {
   route?: string;
   leader?: string;
   speed?: string;
-  users?: string[];
+  users?: User[];
 };
 
 export type Riders = {

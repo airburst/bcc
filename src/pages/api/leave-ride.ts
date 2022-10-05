@@ -1,6 +1,6 @@
 // src/pages/api/add-rider-to-ride.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../server/db/client';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../server/db/client";
 
 type Props = {
   rideId: string;

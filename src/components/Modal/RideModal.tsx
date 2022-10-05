@@ -29,8 +29,7 @@ export const RideModal: React.FC<Props> = ({ ride, user, setIsOpen }) => {
     users
   } = ride;
 
-  const data: User[] = [];
-  const isGoing = user ? users?.includes(user.id) : false;
+  const isGoing = user ? users?.map(u => u.id).includes(user.id) : false;
 
   const Content = (
     <>
@@ -56,7 +55,7 @@ export const RideModal: React.FC<Props> = ({ ride, user, setIsOpen }) => {
       <div className={styles.going}>
         <div>Going ({users?.length})</div>
       </div>
-      {data?.map(({ name, mobile }) => (
+      {users?.map(({ name, mobile }) => (
         <div key={name} className={styles.riderRow}>
           <div>{name}</div>
           {mobile && (

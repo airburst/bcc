@@ -1,11 +1,11 @@
 // src/pages/api/rides.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../server/db/client';
-import { getNextWeek } from '../../../shared/utils';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../server/db/client";
+import { getNextWeek, formatUserName } from "../../../shared/utils";
 
 const now = new Date().toISOString();
 let nextDate = getNextWeek();
-nextDate = '2022-10-09T23:59:59.000Z';
+nextDate = "2022-10-09T23:59:59.000Z";
 
 export const getRides = async () => {
   const rides = await prisma.ride.findMany({
@@ -22,7 +22,7 @@ export const getRides = async () => {
     },
     orderBy: [
       {
-        date: 'asc'
+        date: "asc"
       }
     ]
   });
@@ -32,7 +32,7 @@ export const getRides = async () => {
     date: ride.date.toISOString(),
     users: ride.users.map(({ user }) => ({
       id: user.id,
-      name: user.name,
+      name: formatUserName(user.name),
       mobile: user.mobile
     }))
   }));
