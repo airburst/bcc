@@ -1,13 +1,13 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Card } from "../../components";
 import { ungroupRides } from "../../../shared/utils"
-import { Group, Ride, User } from "../../types"
+import { Group, User } from "../../types"
 import styles from "./RideGroup.module.css";
 
 type Props = {
   group: Group;
   user?: User;
-  onPress: (ride: Ride) => void;
+  onPress: (rideId: string | undefined) => void;
 }
 
 export const RideGroup: React.FC<Props> = ({ group, user, onPress }) => {

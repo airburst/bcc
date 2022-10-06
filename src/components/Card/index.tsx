@@ -7,7 +7,7 @@ import styles from "./Card.module.css";
 type Props = {
   ride: Ride;
   user?: User;
-  onPress: (ride: Ride) => void;
+  onPress: (rideId: string | undefined) => void;
 }
 
 export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
@@ -17,7 +17,7 @@ export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
   const isGoing = user ? users?.map(u => u.id).includes(user.id) : false;
   const riderCount = users?.length;
 
-  const pressHandler = useLongPress(() => onPress(ride), {
+  const pressHandler = useLongPress(() => onPress(id), {
     threshold: isMobile() ? 400 : 0,
     cancelOnMovement: true,
     filterEvents: event => {

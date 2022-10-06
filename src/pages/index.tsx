@@ -26,7 +26,7 @@ export const fetchRides = async () => {
 const Home: NextPage<Props> = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
+  const [selectedRideId, setSelectedRideId] = useState<string | null>(null);
   // Use CSR data fetching so we can refetch when users join/unjoin
   const { status, data, error } = useQuery(['rides'], fetchRides)
 
@@ -42,13 +42,16 @@ const Home: NextPage<Props> = () => {
   // Get user id from session
   const user = session?.user as User;
 
-  const handleRidePress = (ride: Ride) => {
-    setSelectedRide(ride);
-    setIsOpen(true);
+  const handleRidePress = (rideId: string | undefined) => {
+    if (rideId) {
+      setSelectedRideId(rideId);
+      setIsOpen(true);
+    }
   }
 
   const groupedRides = groupRides(data, user?.id);
   const ridesFound = groupedRides.length > 0;
+  const selectedRide = data.filter((ride: Ride) => ride.id === selectedRideId)[0];
 
   return (
     <>
@@ -69,7 +72,11 @@ const Home: NextPage<Props> = () => {
           ? (
             <>
               {groupedRides.map((group, index) => (
-                <RideGroup key={`group-${index}`} group={group} user={user} onPress={handleRidePress} />
+                <RideGroup
+                  key={`group-${index}`}
+                  group={group}
+                  user={user}
+                  onPress={handleRidePress} />
               ))}
             </>
           )

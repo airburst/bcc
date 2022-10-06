@@ -1,6 +1,5 @@
-import { useState, useCallback, MouseEventHandler } from "react";
-import { useQueryClient } from '@tanstack/react-query'
-
+import { useState, useCallback } from "react";
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { Button, ButtonProps } from "./index";
 
 type Props = ButtonProps & {
@@ -9,67 +8,54 @@ type Props = ButtonProps & {
   going?: boolean;
 }
 
+// Query factory
+const joinOrLeave = (action: string) => (ride: Props) => {
+  return fetch(`/api/${action}-ride`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(ride)
+  })
+    .then((res) => res.json())
+}
+const join = joinOrLeave("join");
+const leave = joinOrLeave("leave");
+
 export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props }) => {
-  const [joining, setJoining] = useState<boolean>(false);
-  const [isGoing, setIsGoing] = useState<boolean | undefined>(going);
+  const [loading, setLoading] = useState<boolean>(false);
   // Get QueryClient from the context
   const queryClient = useQueryClient();
+  const ride = { rideId, userId };
 
-  // console.log("Re-render JoinButton"); // FIXME:
+  const onSuccess = useCallback(() => {
+    queryClient.invalidateQueries(["rides"]);
+    setLoading(false);
+  }, [queryClient]);
 
+  const { mutate: joinRide } = useMutation(join, {
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess
+  });
 
-  const joinHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    try {
-      setJoining(true);
-      fetch("/api/join-ride", {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ rideId, userId })
-      })
-        .then((res) => res.json())
-        .then(() => {
-          queryClient.invalidateQueries(['rides']);
-          setIsGoing(true);
-          setJoining(false);
-        })
-    } catch (err) {
-      console.error(err);
-    }
-  }, [rideId, userId, queryClient]);
+  const { mutate: leaveRide } = useMutation(leave, {
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess
+  });
 
-  const unjoinHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    try {
-      setJoining(true);
-      fetch("/api/leave-ride", {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ rideId, userId })
-      })
-        .then((res) => res.json())
-        .then(() => {
-          queryClient.invalidateQueries(['rides']);
-          setIsGoing(false);
-          setJoining(false);
-        })
-    } catch (err) {
-      console.error(err);
-    }
-  }, [rideId, userId, queryClient]);
-
-  return isGoing
+  return going
     ? (
-      <Button {...props} variant="going" loading={joining} onClick={unjoinHandler}>
+      <Button {...props} variant="going" loading={loading} onClick={() => leaveRide(ride)}>
         <i className="fa-solid fa-check"></i>
       </Button>
     )
     : (
-      <Button {...props} variant="join" loading={joining} onClick={joinHandler}>
+      <Button {...props} variant="join" loading={loading} onClick={() => joinRide(ride)}>
         <i className="fa-solid fa-plus"></i>
       </Button>
     )

@@ -19,6 +19,7 @@
     12.5px 12.5px 13.8px rgba(0, 0, 0, 0.025),
     30.1px 30.1px 33.2px rgba(0, 0, 0, 0.033),
     100px 100px 110px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 }
 
 .title {

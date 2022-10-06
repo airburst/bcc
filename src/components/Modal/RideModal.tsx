@@ -28,7 +28,6 @@ export const RideModal: React.FC<Props> = ({ ride, user, setIsOpen }) => {
     // speed,
     users
   } = ride;
-
   const isGoing = user ? users?.map(u => u.id).includes(user.id) : false;
 
   const Content = (
