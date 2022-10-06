@@ -2,7 +2,6 @@
 
 ## Pages
 
-- Hoist Join/unjoin mutations and pass button state as a prop
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
 
