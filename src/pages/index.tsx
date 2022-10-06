@@ -3,7 +3,8 @@ import Head from "next/head";
 import Script from "next/script";
 import { useSession } from "next-auth/react"
 import { useState } from "react";
-import { useQuery } from '@tanstack/react-query'
+import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/react-query';
+import { getRides } from "./api/rides";
 import { RideGroup, RideModal } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
 import { Ride, User } from "../types"
@@ -11,15 +12,16 @@ import styles from "./index.module.css";
 
 type Props = {
   data: Ride[];
+  dehydratedState: DehydratedState;
 }
 
 const nextDate = getNextWeek();
 
-const fetchRides = async () => {
+export const fetchRides = async () => {
   const res = await fetch("/api/rides");
   const data = await res.json();
   return data;
-}
+};
 
 const Home: NextPage<Props> = () => {
   const { data: session } = useSession();
@@ -86,8 +88,16 @@ const Home: NextPage<Props> = () => {
 
 export default Home;
 
-// export async function getServerSideProps() {
-//   const data = await getRides();
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
 
-//   return { props: { data } }
-// }
+  // prefetch data on the server
+  await queryClient.fetchQuery(['rides'], getRides);
+
+  return {
+    props: {
+      // dehydrate query cache
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+}

@@ -2,13 +2,14 @@
 
 ## Pages
 
-- Optimistic update / refetch user count on rides after join/unjoin
+- Hoist Join/unjoin mutations and pass button state as a prop
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
 
 - Add Tailwindcss
 - Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
+- User change profile? Password? Set mobile?
 
 ## Admin/Leader
 

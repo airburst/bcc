@@ -1,28 +1,29 @@
-import "../styles/globals.css";
+import { useState } from "react";
 import type { AppType } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Hydrate, DehydratedState, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Layout } from '../components/Layout';
 
+import "../styles/globals.css";
 import "@fontsource/prompt/400.css";
 import "@fontsource/prompt/500.css";
 import "@fontsource/prompt/700.css";
 
-const queryClient = new QueryClient();
-
-
-const MyApp: AppType<{ session: Session | null }> = ({
+const MyApp: AppType<{ session: Session | null, dehydratedState: DehydratedState | null }> = ({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { session, dehydratedState, ...pageProps },
 }) => {
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Hydrate state={dehydratedState}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Hydrate>
       </QueryClientProvider>
     </SessionProvider>
   );

@@ -1,4 +1,6 @@
 import { useState, useCallback, MouseEventHandler } from "react";
+import { useQueryClient } from '@tanstack/react-query'
+
 import { Button, ButtonProps } from "./index";
 
 type Props = ButtonProps & {
@@ -7,15 +9,14 @@ type Props = ButtonProps & {
   going?: boolean;
 }
 
-// const joinRide = async () => {
-//   const res = await fetch("/api/join-ride");
-//   const data = await res.json();
-//   return data;
-// }
-
 export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props }) => {
   const [joining, setJoining] = useState<boolean>(false);
   const [isGoing, setIsGoing] = useState<boolean | undefined>(going);
+  // Get QueryClient from the context
+  const queryClient = useQueryClient();
+
+  // console.log("Re-render JoinButton"); // FIXME:
+
 
   const joinHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     try {
@@ -30,13 +31,14 @@ export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props })
       })
         .then((res) => res.json())
         .then(() => {
+          queryClient.invalidateQueries(['rides']);
           setIsGoing(true);
           setJoining(false);
         })
     } catch (err) {
       console.error(err);
     }
-  }, [rideId, userId]);
+  }, [rideId, userId, queryClient]);
 
   const unjoinHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     try {
@@ -51,13 +53,14 @@ export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props })
       })
         .then((res) => res.json())
         .then(() => {
+          queryClient.invalidateQueries(['rides']);
           setIsGoing(false);
           setJoining(false);
         })
     } catch (err) {
       console.error(err);
     }
-  }, [rideId, userId]);
+  }, [rideId, userId, queryClient]);
 
   return isGoing
     ? (
