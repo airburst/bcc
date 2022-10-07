@@ -6,10 +6,9 @@ import { Group, User } from "../types"
 type Props = {
   group: Group;
   user?: User;
-  onPress: (rideId: string | undefined) => void;
 }
 
-export const RideGroup: React.FC<Props> = ({ group, user, onPress }) => {
+export const RideGroup: React.FC<Props> = ({ group, user }) => {
   const rideData = ungroupRides(group);
   const date = rideData.map(({ date }) => date)[0];
   const types = rideData.map(({ rides }) => ({ rides }));
@@ -23,7 +22,7 @@ export const RideGroup: React.FC<Props> = ({ group, user, onPress }) => {
 
       {types.map(({ rides }) => rides.map(ride => (
         <div key={ride.id} className="w-full px-2 md:px-0">
-          <Card ride={ride} user={user} onPress={onPress} />
+          <Card ride={ride} user={user} />
         </div>
       )))}
     </div>

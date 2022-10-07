@@ -1,22 +1,23 @@
+import { useRouter } from 'next/router';
 import { useLongPress } from 'use-long-press';
 import { isMobile } from "../../shared/utils";
-import { JoinButton } from ".";
+import { CardJoinButton } from ".";
 import { Ride, User } from "../types";
 
 type Props = {
   ride: Ride;
   user?: User;
-  onPress: (rideId: string | undefined) => void;
 }
 
-export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
+export const Card: React.FC<Props> = ({ ride, user }) => {
+  const router = useRouter();
   const { id, name, group, destination, distance, users } = ride;
   const details = destination ? `${destination} - ${distance} km` : `${distance} km`;
 
   const isGoing = user ? users?.map(u => u.id).includes(user.id) : false;
   const riderCount = users?.length;
 
-  const pressHandler = useLongPress(() => onPress(id), {
+  const pressHandler = useLongPress(() => router.push(`/ride/${id}`), {
     threshold: isMobile() ? 400 : 0,
     cancelOnMovement: true,
     filterEvents: event => {
@@ -25,9 +26,14 @@ export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
     }
   });
 
+  if (!id) {
+    return null;
+  }
+
   // TODO: Show join button even if user is not signed in
   return (
     <div className="grid grid-cols-[1fr_auto_48px] md:grid-cols-3 gap-2 md:gap-2 w-full box-border md:mx-autotext-neutral-500 rounded bg-white shadow-md hover:shadow-lg hover:text-neutral-700 cursor-pointer" {...pressHandler()}>
+
       <div className="p-2">
         <div className="font-bold uppercase tracking-wide">
           {name} ({group})
@@ -40,7 +46,7 @@ export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
       </div>
       <div className="justify-self-end">
         {user && (
-          <JoinButton className="rounded-r w-12"
+          <CardJoinButton className="rounded-r w-12 md:w-16"
             going={isGoing}
             ariaLabel={`Join ${name} ride`}
             rideId={id}

@@ -1,4 +1,4 @@
 export * from "./dates";
 export * from "./isMobile";
-export * from "./text";
+export * from "./rides";
 export * from "./transformRideData";

@@ -13,7 +13,7 @@ export type ButtonProps = {
 // TODO: focus ring style
 
 export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, className, children, loading, ariaLabel, onClick }) => {
-  let classes = "px-4 h-full text-white text-md font-bold " + className || "";
+  let classes = "px-4 h-full text-white text-md " + className || "";
 
   switch (variant) {
     case "going":
@@ -42,4 +42,6 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, class
   );
 };
 
+export * from "./CardJoinButton";
 export * from "./JoinButton";
+export * from "./BackButton";

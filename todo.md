@@ -2,12 +2,9 @@
 
 ## Pages
 
-- Tailwindcss:
-
-  - Globals, body and font imports
-  - Modal (unless move to own page)
-
+- Refetch ride query on join
 - precommit hooks (test, check-types, lint)
+- use SVG icons instead of fontawesome
 
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)

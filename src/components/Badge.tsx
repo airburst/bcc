@@ -1,10 +1,10 @@
 type Props = {
-  text: string;
+  text?: string | number;
 };
 
 export const Badge: React.FC<Props> = ({ text }) => {
   return (
-    <div className="bg-blue-400 text-white text-md font-medium px-2 rounded">
+    <div className="bg-red-500 text-white text-md font-medium px-3 rounded-md">
       {text}
     </div>
   );

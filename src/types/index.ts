@@ -1,7 +1,10 @@
 export type User = {
   id: string;
-  name?: string;
-  mobile?: string;
+  name: string;
+  email: string;
+  mobile?: string | null;
+  image?: string | null; // url
+  role: string; // USER | ADMIN
 };
 
 export type DbResponse<T> = {
@@ -15,11 +18,11 @@ export type Ride = {
   name: string; // Enum sunday | paceline | event
   group: string;
   date: string;
-  destination?: string;
-  distance?: number;
-  route?: string;
-  leader?: string;
-  speed?: string;
+  destination?: string | null;
+  distance?: number | null;
+  route?: string | null;
+  leader?: string | null;
+  speed?: number | null;
   users?: User[];
 };
 

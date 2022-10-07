@@ -1,7 +1,7 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { getNextWeek, formatUserName } from "../../../shared/utils";
+import { getNextWeek, formatRideData } from "../../../shared/utils";
 
 const now = new Date().toISOString();
 const nextDate = getNextWeek();
@@ -26,15 +26,7 @@ export const getRides = async () => {
     ]
   });
 
-  return rides.map(ride => ({
-    ...ride,
-    date: ride.date.toISOString(),
-    users: ride.users.map(({ user }) => ({
-      id: user.id,
-      name: formatUserName(user.name),
-      mobile: user.mobile
-    }))
-  }));
+  return rides.map(ride => formatRideData(ride));
 };
 
 const rides = async (req: NextApiRequest, res: NextApiResponse) => {
