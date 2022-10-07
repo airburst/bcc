@@ -53,6 +53,31 @@ const Home: NextPage<Props> = () => {
   const ridesFound = groupedRides.length > 0;
   const selectedRide = data.filter((ride: Ride) => ride.id === selectedRideId)[0];
 
+  // .grid {
+  //   display: grid;
+  //   grid-template-columns: 1fr;
+  //   gap: 16px;
+  //   width: 100%;
+  //   height: 100%;
+  // }
+
+  // .noRides {
+  //   display: flex;
+  //   align-items: center;
+  //   height: 100%;
+  //   font-size: 2em;
+  //   line-height: 1.4em;
+  //   color: var(--color-text-lighter);
+  // }
+
+  // @media (min-width: 920px) {
+  //   .grid {
+  //     max-width: var(--max-width);
+  //     gap: 32px;
+  //   }
+  // }
+
+
   return (
     <>
       <Head>

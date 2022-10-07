@@ -1,8 +1,7 @@
 import { useLongPress } from 'use-long-press';
-import { isMobile } from "../../../shared/utils";
-import { JoinButton } from "../../components";
-import { Ride, User } from "../../types";
-import styles from "./Card.module.css";
+import { isMobile } from "../../shared/utils";
+import { JoinButton } from ".";
+import { Ride, User } from "../types";
 
 type Props = {
   ride: Ride;
@@ -27,16 +26,16 @@ export const Card: React.FC<Props> = ({ ride, user, onPress }) => {
   });
 
   return (
-    <div className={styles.container} {...pressHandler()}>
-      <div className={styles.col}>
-        <div className={styles.title}>{name} ({group})</div>
+    <div className="grid grid-cols-[1fr_100px_48px] md:grid-cols-3 gap-1 md:gap-2 w-full box-border p-2 md:mx-autotext-neutral-500 rounded bg-white shadow-md hover:shadow-lg hover:text-neutral-700 cursor-pointer" {...pressHandler()}>
+      <div>
+        <div className="font-bold uppercase">{name} ({group})</div>
         <div>{details}</div>
       </div>
-      <div className={styles.riders}>
+      <div className="flex items-center justify-center text-2xl font-bold gap-2">
         <i className="fa-solid fa-person-biking"></i>
-        <span className={styles.count}>{riderCount}</span>
+        <span className="text-4xl ">{riderCount}</span>
       </div>
-      <div className={styles.alignRight}>
+      <div className="justify-self-end">
         {user && (
           <JoinButton
             going={isGoing}

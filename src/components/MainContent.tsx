@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./Main.module.css";
 
 type Props = {
   children: JSX.Element,
@@ -7,8 +6,9 @@ type Props = {
 
 export const MainContent: React.FC<Props> = ({ children }) => {
   return (
-    <div className={styles.container}>
+    <main className="container mx-auto flex flex-col items-center justify-center w-full mt-16 sm:mt-24 md:px-4 text-neutral-500">
       {children}
-    </div>
+    </main>
   );
 };
+

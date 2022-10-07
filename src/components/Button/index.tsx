@@ -1,5 +1,4 @@
 import { MouseEventHandler } from "react";
-import styles from "./Button.module.css";
 
 export type ButtonProps = {
   variant?: string;
@@ -10,8 +9,22 @@ export type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
+// TODO: focus ring style
+
 export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, children, loading, ariaLabel, onClick }) => {
-  const classes = `${styles.button} ${styles[variant]}`;
+  let classes = "px-4 h-full text-white text-md font-bold rounded";
+
+  switch (variant) {
+    case "going":
+      classes += " bg-green-500 hover:bg-green-600";
+      break;
+    case "join":
+      classes += " bg-red-500 hover:bg-red-600";
+      break;
+    default: // primary
+      classes += " bg-blue-500 hover:bg-blue-600";
+      break;
+  }
 
   if (loading) {
     return (
@@ -27,6 +40,5 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, child
     </button>
   );
 };
-
 
 export * from "./JoinButton";

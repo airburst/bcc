@@ -1,61 +1,36 @@
-:root {
-  font-family: "Prompt", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+@layer base {
+  /* @font-face {
+    font-family: Proxima Nova;
+    font-weight: 400;
+    src: url(/fonts/proxima-nova/400-regular.woff) format("woff");
+  }
+  @font-face {
+    font-family: Proxima Nova;
+    font-weight: 500;
+    src: url(/fonts/proxima-nova/500-medium.woff) format("woff");
+  } */
+  body {
+    @apply flex;
+    @apply min-h-screen;
+    @apply m-0;
+    @apply bg-neutral-100;
+  }
 
-  --color-blue: #00157b;
-  --color-maroon: #8c1a19;
-  --color-green: #2ecc40;
-  --color-text: #262626;
-  --color-text-mid: #464646;
-  --color-text-lighter: #666666;
-  --color-border: #e2e2e2;
-  --color-border-light: #f6f6f6;
-  --color-background: #ebebeb;
-  --color-card-background: white;
-
-  --max-width: 960px;
-  --radius: 5px;
-  --font-family: "Prompt";
-  --corner-radius: 5px;
+  #__next {
+    @apply w-screen;
+  }
 }
 
+/* Prevent copy popup after long press on iphone */
 body {
-  margin: 0;
-  display: flex;
-  min-height: 100vh;
-  overflow-x: hidden;
-  background-color: var(--color-background);
-  /* Prevent copy popup after long press on iphone */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-#root {
-  width: 100%;
-  margin: 0 auto;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-.slide-left {
-  transform: translate(-90%);
-}
-
-* {
-  box-sizing: border-box;
 }
