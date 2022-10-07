@@ -6,10 +6,9 @@ import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/rea
 import { getRides } from "./api/rides";
 import { RideGroup } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
-import { Ride, User } from "../types"
+import { User } from "../types"
 
 type Props = {
-  data: Ride[];
   dehydratedState: DehydratedState;
 }
 

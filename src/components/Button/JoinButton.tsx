@@ -30,7 +30,8 @@ export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props })
   const ride = { rideId, userId };
 
   const onSuccess = useCallback(() => {
-    queryClient.invalidateQueries(["rides"]);
+    // Only called from ride/id page
+    queryClient.invalidateQueries(["ride"]);
     setLoading(false);
   }, [queryClient]);
 

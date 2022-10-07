@@ -1,17 +1,38 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
+import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/react-query';
 import { getRide } from "../api/ride"
 import { JoinButton, Badge, BackButton } from "../../components";
-import { Ride, User } from "../../types";
+import { User, Ride } from "../../types";
 
 type Props = {
-  data: Ride;
+  data: string;
+  dehydratedState: DehydratedState;
 }
 
-const RideDetails: NextPage<Props> = ({ data }) => {
+export const fetchRide = async (id: string | string[]) => {
+  const res = await fetch(`/api/ride?id=${id}`);
+  const data = await res.json();
+  return data;
+};
+
+const RideDetails: NextPage<Props> = ({ data: rideId }) => {
   const { data: session } = useSession();
   const user = session?.user as User;
+  // Use CSR data fetching so we can refetch when users join/unjoin
+  const { status, data, error } = useQuery(['ride'], () => fetchRide(rideId))
+
+  if (!data || status === 'loading') {
+    return <span>Loading...</span>
+  }
+
+  if (status === 'error') {
+    const err = error as Error;
+    return <span>Error: {err.message}</span>
+  }
+
   const {
     id,
     name,
@@ -22,10 +43,10 @@ const RideDetails: NextPage<Props> = ({ data }) => {
     route,
     speed,
     users
-  } = data;
+  } = data as Ride;
 
   const hasRiders = users && users?.length > 0;
-  const isGoing = users ? users?.map(u => u.id).includes(user.id) : false;
+  const isGoing = users ? users?.map((u: User) => u.id).includes(user?.id) : false;
 
   type RowProps = {
     children: JSX.Element | JSX.Element[] | null | undefined;
@@ -86,7 +107,7 @@ const RideDetails: NextPage<Props> = ({ data }) => {
             going={isGoing}
             ariaLabel={`Join ${name} ride`}
             rideId={id}
-            userId={user.id}
+            userId={user?.id}
           />
         </div>
       </div>
@@ -98,11 +119,16 @@ export default RideDetails;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context?.params?.id;
-  const data = await getRide(id);
+  const queryClient = new QueryClient();
+
+  // prefetch data on the server
+  // @ts-ignore
+  await queryClient.fetchQuery(["ride"], () => getRide(id));
 
   return {
     props: {
-      data
+      dehydratedState: dehydrate(queryClient),
+      data: id
     },
   }
 }

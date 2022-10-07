@@ -3,6 +3,7 @@
 ## Pages
 
 - Refetch ride query on join
+- Add ride time and date to details page
 - precommit hooks (test, check-types, lint)
 - use SVG icons instead of fontawesome
 
