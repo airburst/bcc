@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
-import styles from "./Button.module.css";
 
 export type ButtonProps = {
+  className?: string;
   variant?: string;
   text?: string;
   ariaLabel?: string;
@@ -10,8 +10,22 @@ export type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, children, loading, ariaLabel, onClick }) => {
-  const classes = `${styles.button} ${styles[variant]}`;
+// TODO: focus ring style
+
+export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, className, children, loading, ariaLabel, onClick }) => {
+  let classes = "px-4 h-full text-white text-md " + className || "";
+
+  switch (variant) {
+    case "going":
+      classes += " bg-green-500 hover:bg-green-600";
+      break;
+    case "join":
+      classes += " bg-red-500 hover:bg-red-600";
+      break;
+    default: // primary
+      classes += " bg-blue-500 hover:bg-blue-600";
+      break;
+  }
 
   if (loading) {
     return (
@@ -28,5 +42,6 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, child
   );
 };
 
-
+export * from "./CardJoinButton";
 export * from "./JoinButton";
+export * from "./BackButton";

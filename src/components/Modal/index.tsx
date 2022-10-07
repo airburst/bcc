@@ -56,5 +56,3 @@ export const Modal: React.FC<Props> = ({ heading, setIsOpen, content, actions })
     </>
   );
 };
-
-export * from "./RideModal";

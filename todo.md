@@ -2,10 +2,14 @@
 
 ## Pages
 
+- Refetch ride query on join
+- Add ride time and date to details page
+- precommit hooks (test, check-types, lint)
+- use SVG icons instead of fontawesome
+
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
 
-- Add Tailwindcss
 - Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
 - User change profile? Password? Set mobile?
@@ -19,7 +23,6 @@
 
 ## Engineering
 
-- precommit hooks (test, check-types, lint)
 - Add PWA manifest
 - add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy

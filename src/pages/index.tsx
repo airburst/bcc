@@ -2,16 +2,13 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Script from "next/script";
 import { useSession } from "next-auth/react"
-import { useState } from "react";
 import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/react-query';
 import { getRides } from "./api/rides";
-import { RideGroup, RideModal } from "../components";
+import { RideGroup } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
-import { Ride, User } from "../types"
-import styles from "./index.module.css";
+import { User } from "../types"
 
 type Props = {
-  data: Ride[];
   dehydratedState: DehydratedState;
 }
 
@@ -25,8 +22,6 @@ export const fetchRides = async () => {
 
 const Home: NextPage<Props> = () => {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedRideId, setSelectedRideId] = useState<string | null>(null);
   // Use CSR data fetching so we can refetch when users join/unjoin
   const { status, data, error } = useQuery(['rides'], fetchRides)
 
@@ -41,17 +36,8 @@ const Home: NextPage<Props> = () => {
 
   // Get user id from session
   const user = session?.user as User;
-
-  const handleRidePress = (rideId: string | undefined) => {
-    if (rideId) {
-      setSelectedRideId(rideId);
-      setIsOpen(true);
-    }
-  }
-
   const groupedRides = groupRides(data, user?.id);
   const ridesFound = groupedRides.length > 0;
-  const selectedRide = data.filter((ride: Ride) => ride.id === selectedRideId)[0];
 
   return (
     <>
@@ -67,7 +53,7 @@ const Home: NextPage<Props> = () => {
         defer
       />
 
-      <div className={styles.grid}>
+      <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
         {ridesFound
           ? (
             <>
@@ -75,19 +61,17 @@ const Home: NextPage<Props> = () => {
                 <RideGroup
                   key={`group-${index}`}
                   group={group}
-                  user={user}
-                  onPress={handleRidePress} />
+                  user={user} />
               ))}
             </>
           )
           : (
-            <div className={styles.noRides}>
+            <div className="flex items-center h-full text-3xl">
               No planned rides before{' '}
               {formatDate(nextDate)}
             </div>
           )
         }
-        {isOpen && <RideModal ride={selectedRide} user={user} setIsOpen={setIsOpen} />}
       </div>
     </>
   )
