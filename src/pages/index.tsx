@@ -8,7 +8,6 @@ import { getRides } from "./api/rides";
 import { RideGroup, RideModal } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
 import { Ride, User } from "../types"
-import styles from "./index.module.css";
 
 type Props = {
   data: Ride[];
@@ -53,31 +52,6 @@ const Home: NextPage<Props> = () => {
   const ridesFound = groupedRides.length > 0;
   const selectedRide = data.filter((ride: Ride) => ride.id === selectedRideId)[0];
 
-  // .grid {
-  //   display: grid;
-  //   grid-template-columns: 1fr;
-  //   gap: 16px;
-  //   width: 100%;
-  //   height: 100%;
-  // }
-
-  // .noRides {
-  //   display: flex;
-  //   align-items: center;
-  //   height: 100%;
-  //   font-size: 2em;
-  //   line-height: 1.4em;
-  //   color: var(--color-text-lighter);
-  // }
-
-  // @media (min-width: 920px) {
-  //   .grid {
-  //     max-width: var(--max-width);
-  //     gap: 32px;
-  //   }
-  // }
-
-
   return (
     <>
       <Head>
@@ -92,7 +66,7 @@ const Home: NextPage<Props> = () => {
         defer
       />
 
-      <div className={styles.grid}>
+      <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
         {ridesFound
           ? (
             <>
@@ -106,7 +80,7 @@ const Home: NextPage<Props> = () => {
             </>
           )
           : (
-            <div className={styles.noRides}>
+            <div className="flex items-center h-full text-3xl">
               No planned rides before{' '}
               {formatDate(nextDate)}
             </div>

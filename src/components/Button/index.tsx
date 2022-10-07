@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
 
 export type ButtonProps = {
+  className?: string;
   variant?: string;
   text?: string;
   ariaLabel?: string;
@@ -11,8 +12,8 @@ export type ButtonProps = {
 
 // TODO: focus ring style
 
-export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, children, loading, ariaLabel, onClick }) => {
-  let classes = "px-4 h-full text-white text-md font-bold rounded";
+export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, className, children, loading, ariaLabel, onClick }) => {
+  let classes = "px-4 h-full text-white text-md font-bold " + className || "";
 
   switch (variant) {
     case "going":

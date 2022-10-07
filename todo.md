@@ -4,8 +4,6 @@
 
 - Tailwindcss:
 
-  - Header
-  - index page
   - Globals, body and font imports
   - Modal (unless move to own page)
 
