@@ -6,7 +6,7 @@ const fetchRide = async (id: string | string[]) => {
   return data;
 };
 
-export const useRide = (id: string | string[] | undefined) => {
+export const useRide = (id: string | string[]) => {
   const { data, error } = useSWR(`/api/ride`, () => fetchRide(id));
 
   return {
