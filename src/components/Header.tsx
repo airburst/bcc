@@ -21,7 +21,7 @@ export const Header = () => {
 
   return (
     <div className="fixed flex items-center justify-center w-full h-16 sm:h-24 bg-neutral-100 text-neutral-500 z-10">
-      <div className="container flex flex-row justify-between w-full px-2 md:px-4" >
+      <div className="container lg:max-w-[1024px] flex flex-row justify-between w-full px-2 md:px-4" >
         <div className="flex items-center gap-4 text-4xl sm:text-5xl font-bold cursor-pointer tracking-wide">
           <Link href="/" title="Home">
             <>

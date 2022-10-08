@@ -9,7 +9,16 @@ export const getNextWeek = () => {
     .toISOString();
 
   return nextWeek;
-  // return "2022-10-09T23:59:59.000Z";
 };
 
+// // dayjs.utc('2020-04-22T14:56:09.388842'.substring(0, 23))
+
 export const formatDate = (date: string) => dayjs(date).format("dddd DD MMMM");
+export const formatTime = (date: string) => dayjs(date).format("HH:mm");
+
+export const getRideDateAndTime = (date: string) => {
+  return {
+    day: formatDate(date),
+    time: formatTime(date)
+  };
+};

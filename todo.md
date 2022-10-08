@@ -2,15 +2,29 @@
 
 ## Pages
 
-- Refetch ride query on join
+- Use UTC time!
 - Add ride time and date to details page
+- Create fresh data for rides
+
+- Remove all CSR queries for perf
+- Prefetch all ride/{id} data
+
+```javascript
+useEffect(() => {
+  router.prefetch("/contact");
+}, []);
+```
+
+- redirect on ellipsis menu; don't allow one-click join
+
+- Anonymous (localStorage) users can join but not see riders, or leave
+
 - precommit hooks (test, check-types, lint)
 - use SVG icons instead of fontawesome
 
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
 
-- Should ride details be a new page? /ride/{id} - fix styles
 - Show avatar and menu?
 - User change profile? Password? Set mobile?
 

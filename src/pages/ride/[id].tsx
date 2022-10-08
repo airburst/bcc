@@ -1,42 +1,23 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
-import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/react-query';
-import { getRide } from "../api/ride"
+import { getRide } from "../api/ride";
+import { getRideDateAndTime } from "../../../shared/utils"
 import { JoinButton, Badge, BackButton } from "../../components";
 import { User, Ride } from "../../types";
 
 type Props = {
-  data: string;
-  dehydratedState: DehydratedState;
+  data: Ride;
 }
 
-export const fetchRide = async (id: string | string[]) => {
-  const res = await fetch(`/api/ride?id=${id}`);
-  const data = await res.json();
-  return data;
-};
-
-const RideDetails: NextPage<Props> = ({ data: rideId }) => {
+const RideDetails: NextPage<Props> = ({ data }) => {
   const { data: session } = useSession();
   const user = session?.user as User;
-  // Use CSR data fetching so we can refetch when users join/unjoin
-  const { status, data, error } = useQuery(['ride'], () => fetchRide(rideId))
-
-  if (!data || status === 'loading') {
-    return <span>Loading...</span>
-  }
-
-  if (status === 'error') {
-    const err = error as Error;
-    return <span>Error: {err.message}</span>
-  }
-
   const {
     id,
     name,
     group,
+    date,
     destination,
     distance,
     leader,
@@ -44,6 +25,8 @@ const RideDetails: NextPage<Props> = ({ data: rideId }) => {
     speed,
     users
   } = data as Ride;
+
+  const { day, time } = getRideDateAndTime(date);
 
   const hasRiders = users && users?.length > 0;
   const isGoing = users ? users?.map((u: User) => u.id).includes(user?.id) : false;
@@ -73,11 +56,14 @@ const RideDetails: NextPage<Props> = ({ data: rideId }) => {
 
         <div className="flex w-full px-2 sm:px-0">
           <div className="flex flex-col gap-2 w-full bg-white rounded shadow-md py-2">
+            <Row>
+              <div className="font-bold tracking-wide text-xl">{day}</div>
+              <div className="font-bold tracking-wide text-xl">{time}</div>
+            </Row>
             {destination && (<Row><div>Destination</div><div>{destination}</div></Row>)}
             {distance && (<Row><div>Distance</div><div>{distance} km</div></Row>)}
-            {speed && (<Row><div>Average Speed</div><div>{speed} km/h</div></Row>)}
+            {speed && (<Row><div>Average Speed</div><div>{speed} km/h (est)</div></Row>)}
             {route && (<Row>
-              <div>Route</div>
               <a className="text-blue-500 underline hover:text-blue-600" href={route} target="_blank" rel="noreferrer">{route}</a>
             </Row>)}
             {leader && (<Row><div>Leader</div><div>{leader}</div></Row>)}
@@ -119,16 +105,11 @@ export default RideDetails;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context?.params?.id;
-  const queryClient = new QueryClient();
-
-  // prefetch data on the server
-  // @ts-ignore
-  await queryClient.fetchQuery(["ride"], () => getRide(id));
+  const data = await getRide(id);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      data: id
+      data
     },
   }
 }
