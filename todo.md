@@ -2,12 +2,8 @@
 
 ## Pages
 
-- Use UTC time!
-- Add ride time and date to details page
-- Create fresh data for rides
-
-- Remove all CSR queries for perf
-- Prefetch all ride/{id} data
+- Order riders by date created (join table) -- needs index too
+- Create fresh data for PL rides up to 6 months! (As an API..)
 
 ```javascript
 useEffect(() => {

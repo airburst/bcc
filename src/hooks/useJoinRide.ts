@@ -22,7 +22,6 @@ export const leave = joinOrLeave("leave");
 
 export const useJoinRide = (ride: MutationProps) => {
   const { data, error } = useSWR(`/api/join-ride`, () => join(ride));
-  console.log("🚀 ~ file: useJoinRide.ts ~ line 25 ~ useJoinRide ~ data", data);
 
   return {
     result: data,
@@ -33,10 +32,6 @@ export const useJoinRide = (ride: MutationProps) => {
 
 export const useLeaveRide = (ride: MutationProps) => {
   const { data, error } = useSWR(`/api/leave-ride`, () => leave(ride));
-  console.log(
-    "🚀 ~ file: useJoinRide.ts ~ line 36 ~ useJoinRide ~ leave",
-    leave
-  );
 
   return {
     result: data,

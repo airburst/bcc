@@ -1,18 +1,29 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
+import Error from "next/error";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { getRide } from "../api/ride";
+import { useRide } from "../../hooks";
 import { getRideDateAndTime } from "../../../shared/utils"
 import { JoinButton, Badge, BackButton } from "../../components";
 import { User, Ride } from "../../types";
 
-type Props = {
-  data: Ride;
-}
-
-const RideDetails: NextPage<Props> = ({ data }) => {
+const RideDetails: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
+
+  const router = useRouter();
+  const { ride, loading, error } = useRide(router.query.id);
+
+  if (error) {
+    console.error(error);
+    return <Error statusCode={500} />
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   const {
     id,
     name,
@@ -24,7 +35,7 @@ const RideDetails: NextPage<Props> = ({ data }) => {
     route,
     speed,
     users
-  } = data as Ride;
+  } = ride as Ride;
 
   const { day, time } = getRideDateAndTime(date);
 
@@ -63,10 +74,10 @@ const RideDetails: NextPage<Props> = ({ data }) => {
             {destination && (<Row><div>Destination</div><div>{destination}</div></Row>)}
             {distance && (<Row><div>Distance</div><div>{distance} km</div></Row>)}
             {speed && (<Row><div>Average Speed</div><div>{speed} km/h (est)</div></Row>)}
+            {leader && (<Row><div>Leader</div><div>{leader}</div></Row>)}
             {route && (<Row>
               <a className="text-blue-500 underline hover:text-blue-600" href={route} target="_blank" rel="noreferrer">{route}</a>
             </Row>)}
-            {leader && (<Row><div>Leader</div><div>{leader}</div></Row>)}
           </div>
         </div>
 
@@ -102,14 +113,3 @@ const RideDetails: NextPage<Props> = ({ data }) => {
 }
 
 export default RideDetails;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context?.params?.id;
-  const data = await getRide(id);
-
-  return {
-    props: {
-      data
-    },
-  }
-}

@@ -17,14 +17,14 @@ export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props })
   const handleJoin = async () => {
     // const options = { optimisticData: user, rollbackOnError: true }
     setLoading(true);
-    await mutate('/api/join-ride', () => join(ride));
+    await mutate('/api/ride', () => join(ride));
     setLoading(false);
   }
 
   const handleLeave = async () => {
     // const options = { optimisticData: user, rollbackOnError: true }
     setLoading(true);
-    await mutate('/api/leave-ride', () => leave(ride));
+    await mutate('/api/ride', () => leave(ride));
     setLoading(false);
   }
 
