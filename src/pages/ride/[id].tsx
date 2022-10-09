@@ -47,7 +47,7 @@ const RideDetails: NextPage = () => {
   }
 
   const Row = ({ children }: RowProps) => (
-    <div className="flex flex-row md:grid md:grid-cols-[160px_1fr] items-center justify-between md:justify-start md:gap-4 w-full font-medium px-2">{children}</div>
+    <div className="flex flex-row md:grid md:grid-cols-[220px_1fr] items-center justify-between md:justify-start md:gap-4 w-full font-medium px-2">{children}</div>
   );
 
   const Heading = ({ children }: RowProps) => (
@@ -68,8 +68,8 @@ const RideDetails: NextPage = () => {
         <div className="flex w-full px-2 sm:px-0">
           <div className="flex flex-col gap-2 w-full bg-white rounded shadow-md py-2">
             <Row>
-              <div className="font-bold tracking-wide text-xl">{day}</div>
-              <div className="font-bold tracking-wide text-xl">{time}</div>
+              <div className="font-bold tracking-wide text-xl text-neutral-700">{day}</div>
+              <div className="font-bold tracking-wide text-xl text-neutral-700">{time}</div>
             </Row>
             {destination && (<Row><div>Destination</div><div>{destination}</div></Row>)}
             {distance && (<Row><div>Distance</div><div>{distance} km</div></Row>)}

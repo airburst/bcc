@@ -1,4 +1,5 @@
-import { env } from "./src/env/server.mjs";
+// import { env } from "./src/env/server.mjs";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 /**
  * Don't be scared of the generics here.
@@ -12,12 +13,18 @@ function defineNextConfig(config) {
   return config;
 }
 
-export default defineNextConfig({
-  reactStrictMode: true,
-  swcMinify: true,
-  // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+export const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true"
 });
+
+export default withBundleAnalyzer(
+  defineNextConfig({
+    reactStrictMode: true,
+    swcMinify: true,
+    // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
+    i18n: {
+      locales: ["en"],
+      defaultLocale: "en"
+    }
+  })
+);
