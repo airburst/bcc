@@ -2,17 +2,9 @@
 
 ## Pages
 
-- Order riders by date created (join table) -- needs index too
+- redirect on ellipsis menu; don't allow one-click join
 - favicon and PWA
 - Create fresh data for PL rides up to 6 months! (As an API..)
-
-```javascript
-useEffect(() => {
-  router.prefetch("/contact");
-}, []);
-```
-
-- redirect on ellipsis menu; don't allow one-click join
 
 - Anonymous (localStorage) users can join but not see riders, or leave
 
@@ -37,6 +29,10 @@ useEffect(() => {
 - Add PWA manifest
 - add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy
+
+## Database Indexes
+
+- User.createdAt
 
 ## Dynamic imports
 

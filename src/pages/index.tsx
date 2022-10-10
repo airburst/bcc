@@ -1,6 +1,5 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import Script from "next/script";
 import { useSession } from "next-auth/react"
 import { getRides } from "./api/rides";
 import { RideGroup } from "../components";
@@ -24,7 +23,7 @@ const Home: NextPage<Props> = ({ data }) => {
 
   // Get user id from session
   const user = session?.user as User;
-  const groupedRides = groupRides(data, user?.id);
+  const groupedRides = groupRides(data);
   const ridesFound = groupedRides.length > 0;
 
   return (
@@ -34,12 +33,6 @@ const Home: NextPage<Props> = ({ data }) => {
         <meta name="description" content="Bath Cycling Club Ride Planner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Script
-        id="fontawesome"
-        src="https://kit.fontawesome.com/329fae5f95.js"
-        defer
-      />
 
       <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
         {ridesFound

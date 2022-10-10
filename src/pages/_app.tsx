@@ -8,7 +8,7 @@ import "@fontsource/prompt/500.css";
 import "@fontsource/prompt/700.css";
 import "../styles/globals.css";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+const App: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
@@ -22,4 +22,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default MyApp;
+export default App;

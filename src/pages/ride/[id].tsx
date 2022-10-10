@@ -51,7 +51,7 @@ const RideDetails: NextPage = () => {
   );
 
   const Heading = ({ children }: RowProps) => (
-    <div className="flex flex-row items-center justify-between w-full bg-blue-900 text-white p-2 font-bold uppercase tracking-wide sm:rounded">{children}</div>
+    <div className="flex flex-row items-center justify-center w-full bg-blue-900 text-white p-2 font-bold uppercase tracking-wide sm:rounded">{children}</div>
   );
 
   return (
@@ -63,20 +63,21 @@ const RideDetails: NextPage = () => {
       </Head>
 
       <div className="flex flex-col gap-2 w-full">
-        <Heading><>{name} ({group})</></Heading>
+        <Heading><>{day}</></Heading>
 
         <div className="flex w-full px-2 sm:px-0">
           <div className="flex flex-col gap-2 w-full bg-white rounded shadow-md py-2">
             <Row>
-              <div className="font-bold tracking-wide text-xl text-neutral-700">{day}</div>
               <div className="font-bold tracking-wide text-xl text-neutral-700">{time}</div>
+              <div className="font-bold tracking-wide text-xl text-neutral-700">{name}</div>
             </Row>
+            {group && (<Row><div>Group</div><div>{group}</div></Row>)}
             {destination && (<Row><div>Destination</div><div>{destination}</div></Row>)}
             {distance && (<Row><div>Distance</div><div>{distance} km</div></Row>)}
             {speed && (<Row><div>Average Speed</div><div>{speed} km/h (est)</div></Row>)}
             {leader && (<Row><div>Leader</div><div>{leader}</div></Row>)}
             {route && (<Row>
-              <a className="text-blue-500 underline hover:text-blue-600" href={route} target="_blank" rel="noreferrer">{route}</a>
+              <a className="text-blue-500 underline hover:text-blue-600" href={route} target="_blank" rel="noreferrer">Click to see route</a>
             </Row>)}
           </div>
         </div>

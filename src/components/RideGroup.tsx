@@ -1,4 +1,3 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Card } from ".";
 import { ungroupRides } from "../../shared/utils"
 import { Group, User } from "../types"
@@ -8,14 +7,14 @@ type Props = {
   user?: User;
 }
 
+
 export const RideGroup: React.FC<Props> = ({ group, user }) => {
   const rideData = ungroupRides(group);
   const date = rideData.map(({ date }) => date)[0];
   const types = rideData.map(({ rides }) => ({ rides }));
-  const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
   return (
-    <div ref={animationParent} className="flex flex-col items-start w-full gap-2">
+    <div className="flex flex-col items-start w-full gap-2">
       <div className="w-full p-2 text-white bg-blue-900 font-bold uppercase tracking-widest">
         <div>{date}</div>
       </div>
