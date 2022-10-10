@@ -1,27 +1,36 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { getRide } from "../api/ride";
 import { useRide } from "../../hooks";
 import { getRideDateAndTime } from "../../../shared/utils"
 import { JoinButton, Badge, BackButton } from "../../components";
 import { User, Ride } from "../../types";
+import { useEffect, useState } from "react";
 
-const RideDetails: NextPage = () => {
+type RidePageProps = {
+  data: Ride;
+}
+
+const RideDetails: NextPage<RidePageProps> = ({ data }) => {
+  const [usersData, setUsersData] = useState<User[] | undefined>(data.users);
   const { data: session } = useSession();
   const user = session?.user as User;
 
   const router = useRouter();
-  const { ride, loading, error } = useRide(router.query.id);
+  const { ride, error } = useRide(router.query.id);
+
+  useEffect(() => {
+    if (ride) {
+      setUsersData(ride.users);
+    }
+  }, [ride])
 
   if (error) {
     console.error(error);
     return <Error statusCode={500} />
-  }
-
-  if (loading) {
-    return <div>Loading...</div>
   }
 
   const {
@@ -34,13 +43,12 @@ const RideDetails: NextPage = () => {
     leader,
     route,
     speed,
-    users
-  } = ride as Ride;
+  } = data;
 
   const { day, time } = getRideDateAndTime(date);
 
-  const hasRiders = users && users?.length > 0;
-  const isGoing = users ? users?.map((u: User) => u.id).includes(user?.id) : false;
+  const hasRiders = usersData && usersData?.length > 0;
+  const isGoing = usersData ? usersData?.map((u: User) => u.id).includes(user?.id) : false;
 
   type RowProps = {
     children: JSX.Element | JSX.Element[] | null | undefined;
@@ -81,12 +89,16 @@ const RideDetails: NextPage = () => {
           </div>
         </div>
 
-        <Heading><div className="flex items-center gap-4">Going<Badge text={users?.length} /></div></Heading>
+        <Heading>
+          <div className="flex items-center gap-4">
+            Going<Badge text={usersData?.length} />
+          </div>
+        </Heading>
 
         <div className="flex w-full px-2 sm:px-0">
           {hasRiders && (
             <div className="flex flex-col gap-2 w-full bg-white rounded shadow-md py-2">
-              {users?.map(({ name, mobile }) => (
+              {usersData?.map(({ name, mobile }) => (
                 <Row key={name}>
                   <div>{name}</div>
                   <div className="flex items-center gap-2">
@@ -100,7 +112,7 @@ const RideDetails: NextPage = () => {
 
         <div className="flex flex-row justify-between h-4 pt-8 px-2 sm:px-0">
           <BackButton />
-          <JoinButton className="rounded flex items-center justify-center w-24 p-5"
+          <JoinButton className="rounded flex items-center justify-center w-28 p-5"
             going={isGoing}
             ariaLabel={`Join ${name} ride`}
             rideId={id}
@@ -113,3 +125,13 @@ const RideDetails: NextPage = () => {
 }
 
 export default RideDetails;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const data = await getRide(query.id);
+
+  return {
+    props: {
+      data
+    },
+  }
+}

@@ -2,14 +2,11 @@
 
 ## Pages
 
-- Fix bug in production console
-- favicon and PWA
+- Fix bug in production console: https://stackoverflow.com/questions/73005663/next-js-new-date-constructor-throwing-console-errors
+- precommit hooks (test, check-types, lint)
 - Create fresh data for PL rides up to 6 months! (As an API..)
 
 - Anonymous (localStorage) users can join but not see riders, or leave
-
-- precommit hooks (test, check-types, lint)
-- use SVG icons instead of fontawesome
 
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
@@ -26,7 +23,7 @@
 
 ## Engineering / Perf
 
-- Remove FA icons from index page
+- Setup PWA
 - add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy
 
