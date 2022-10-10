@@ -59,14 +59,8 @@ const Home: NextPage<Props> = ({ data }) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const data = await getRides();
-
-  // Cache rides
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=300'
-  )
 
   return {
     props: {

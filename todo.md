@@ -7,7 +7,9 @@
 ## Pages
 
 - precommit hooks (test, check-types, lint)
+
 - Anonymous (localStorage) users can join but not see riders, or leave
+- USER can only join one ride per day
 
 - Create fresh data for PL rides up to 6 months! (As an API..)
 - ADMIN role can remove any rider
