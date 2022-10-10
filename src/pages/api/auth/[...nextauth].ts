@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         // eslint-disable-next-line no-param-reassign
         session.user.id = user.id;
       }
-      return session;
+      return { ...session, role: user.role };
     },
   },
   // Configure one or more authentication providers

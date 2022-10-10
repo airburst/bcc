@@ -1,7 +1,9 @@
+/* eslint-disable react/button-has-type */
 import { MouseEventHandler } from "react";
 
 export type ButtonProps = {
   className?: string;
+  type?: "button" | "submit" | "reset";
   variant?: string;
   text?: string;
   ariaLabel?: string;
@@ -14,6 +16,7 @@ export type ButtonProps = {
 
 export const Button: React.FC<ButtonProps> = ({
   variant = "primary",
+  type = "button",
   text,
   className,
   children,
@@ -21,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   onClick,
 }: ButtonProps) => {
-  let classes = `px-4 h-full text-white text-lg ${className}` || "";
+  let classes = `px-4 h-full text-white text-lg rounded ${className}` || "";
 
   switch (variant) {
     case "going":
@@ -45,7 +48,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      type="button"
+      type={type}
       className={classes}
       aria-label={ariaLabel}
       onClick={onClick}

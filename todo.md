@@ -2,21 +2,20 @@
 
 ## Pages
 
-- Anonymous users cannot see riders
 - Anonymous users can join but not leave
 - USER can only join one ride per day
 
-- Create fresh data for PL rides up to 6 months! (As an API..)
-- ADMIN role can remove any rider
-- ADMIN role can add any rider (which might mean creating a user account!)
+- View to show all riders out on a day (presumably only for logged-in users..)
 
+- Create fresh data for PL rides up to 6 months! (As an API..)
+- User profile: change password, set name and mobile : forgotten password ???
 - Show avatar and menu?
-- User change profile? Password? Set mobile?
 
 ## Admin/Leader
 
-- Add / edit ride form
-- delete ride
+- LEADER can create a ride
+- LEADER can edit a ride
+- LEADER can delete a ride
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
 
@@ -31,6 +30,7 @@
 ## Database Indexes
 
 - User.createdAt
+- Bulk creation of users? Probably not
 
 ## Snags
 

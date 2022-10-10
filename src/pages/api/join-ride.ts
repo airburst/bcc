@@ -1,7 +1,7 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { prisma } from "../../server/db/client";
+import { isLoggedIn, isMe, isLeader } from "./auth/authHelpers";
 
 type Props = {
   rideId: string;
@@ -14,21 +14,29 @@ export const addRiderToRide = async ({ rideId, userId }: Props) => {
   return result;
 };
 
-// Only a user or admin can add/remove themselves from a ride
+// Only a logged-in user can join a ride
 const joinRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerAuthSession({ req, res });
+  const isAuth = await isLoggedIn(req, res);
 
-  if (!session) {
+  if (!isAuth) {
     return res.status(401).send({
-      error:
-        "You must be signed in to view the protected content on this page.",
+      error: "You must be signed in to join a ride.",
     });
   }
 
   try {
     const { rideId, userId } = req.body;
-    const success = await addRiderToRide({ rideId, userId });
-    return res.status(200).json(success);
+    // A user can only add themselves; a leader can add other riders
+    const isMyRecord = await isMe(req, res)(userId);
+    const hasLeaderRole = await isLeader(req, res);
+
+    if (isMyRecord || hasLeaderRole) {
+      const success = await addRiderToRide({ rideId, userId });
+      return res.status(200).json(success);
+    }
+    return res.status(401).send({
+      error: "Not authorised to use this API",
+    });
   } catch (err) {
     return res.status(401).send({
       error: "Not authorised to use this API",

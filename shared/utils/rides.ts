@@ -9,7 +9,7 @@ type RideData = Ride & {
   })[];
 };
 
-export const formatUserName = (name: string | null): string => {
+export const formatUserName = (name: string | null | undefined): string => {
   if (!name) {
     return "";
   }
