@@ -1,7 +1,7 @@
 import { formatDate } from ".";
 import { Ride, Group } from "../../src/types";
 
-const groupByType = (data: Ride[], userId?: string) => {
+const groupByType = (data: Ride[]) => {
   // Group rides by date, then type
   const groupedByName = new Map<string, Ride[]>();
 
@@ -13,22 +13,22 @@ const groupByType = (data: Ride[], userId?: string) => {
   }
 
   // If user has joined a ride on a day, only return that ride
-  if (userId) {
-    groupedByName.forEach((value, key) => {
-      const rideWithUser = value.filter(({ users }) =>
-        users?.map(({ id }) => id).includes(userId)
-      );
+  // if (userId) {
+  //   groupedByName.forEach((value, key) => {
+  //     const rideWithUser = value.filter(({ users }) =>
+  //       users?.map(({ id }) => id).includes(userId)
+  //     );
 
-      if (rideWithUser.length > 0) {
-        groupedByName.set(key, rideWithUser);
-      }
-    });
-  }
+  //     if (rideWithUser.length > 0) {
+  //       groupedByName.set(key, rideWithUser);
+  //     }
+  //   });
+  // }
 
   return Object.fromEntries(groupedByName);
 };
 
-export const groupRides = (data: Ride[], userId?: string): Group[] => {
+export const groupRides = (data: Ride[]): Group[] => {
   // Group rides by date
   const groupedByDate = new Map<string, Ride[]>();
 
@@ -43,7 +43,7 @@ export const groupRides = (data: Ride[], userId?: string): Group[] => {
   const grouped: Group[] = [];
 
   groupedByDate.forEach((value, key) => {
-    grouped.push({ [key]: groupByType(value, userId) });
+    grouped.push({ [key]: groupByType(value) });
   });
   return grouped;
 };

@@ -16,7 +16,8 @@ export const getRide = async (id: string | string[] | undefined) => {
     },
     include: {
       users: {
-        include: { user: true }
+        include: { user: true },
+        orderBy: { createdAt: "asc" }
       }
     }
   });

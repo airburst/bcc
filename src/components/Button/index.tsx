@@ -13,14 +13,14 @@ export type ButtonProps = {
 // TODO: focus ring style
 
 export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, className, children, loading, ariaLabel, onClick }) => {
-  let classes = "px-4 h-full text-white text-md " + className || "";
+  let classes = "px-4 h-full text-white text-lg " + className || "";
 
   switch (variant) {
     case "going":
-      classes += " bg-green-500 hover:bg-green-600";
+      classes += " font-bold bg-green-500 hover:bg-green-600";
       break;
     case "join":
-      classes += " bg-red-500 hover:bg-red-600";
+      classes += " font-bold bg-red-500 hover:bg-red-600";
       break;
     default: // primary
       classes += " bg-blue-500 hover:bg-blue-600";

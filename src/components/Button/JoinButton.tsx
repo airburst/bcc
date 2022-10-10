@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
-import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { useState } from "react";
+import { useSWRConfig } from 'swr'
+import { join, leave } from "../../hooks";
 import { Button, ButtonProps } from "./index";
 
 type Props = ButtonProps & {
@@ -8,56 +9,40 @@ type Props = ButtonProps & {
   going?: boolean;
 }
 
-// Query factory
-const joinOrLeave = (action: string) => (ride: Props) => {
-  return fetch(`/api/${action}-ride`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(ride)
-  })
-    .then((res) => res.json())
-}
-const join = joinOrLeave("join");
-const leave = joinOrLeave("leave");
-
 export const JoinButton: React.FC<Props> = ({ going, rideId, userId, ...props }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  // Get QueryClient from the context
-  const queryClient = useQueryClient();
   const ride = { rideId, userId };
+  const { mutate } = useSWRConfig();
 
-  const onSuccess = useCallback(() => {
-    // Only called from ride/id page
-    queryClient.invalidateQueries(["ride"]);
+  const handleJoin = async () => {
+    // const options = { optimisticData: user, rollbackOnError: true }
+    setLoading(true);
+    await mutate('/api/ride', () => join(ride));
     setLoading(false);
-  }, [queryClient]);
+  }
 
-  const { mutate: joinRide } = useMutation(join, {
-    onMutate: () => {
-      setLoading(true);
-    },
-    onSuccess
-  });
-
-  const { mutate: leaveRide } = useMutation(leave, {
-    onMutate: () => {
-      setLoading(true);
-    },
-    onSuccess
-  });
+  const handleLeave = async () => {
+    // const options = { optimisticData: user, rollbackOnError: true }
+    setLoading(true);
+    await mutate('/api/ride', () => leave(ride));
+    setLoading(false);
+  }
 
   return going
     ? (
-      <Button {...props} variant="going" loading={loading} onClick={() => leaveRide(ride)}>
-        <>Going</>
+      <Button {...props} variant="going" loading={loading} onClick={handleLeave}>
+        <div className="flex items-center gap-2">
+          <i className="fa-solid fa-check"></i>
+          Going
+        </div>
       </Button>
     )
     : (
-      <Button {...props} variant="join" loading={loading} onClick={() => joinRide(ride)}>
-        <>Join</>
+      <Button {...props} variant="join" loading={loading} onClick={handleJoin}>
+        <div className="flex items-center gap-2">
+          <i className="fa-solid fa-plus"></i>
+          Join
+        </div>
       </Button>
     )
     ;

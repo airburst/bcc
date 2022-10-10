@@ -1,15 +1,13 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import Script from "next/script";
 import { useSession } from "next-auth/react"
-import { dehydrate, DehydratedState, QueryClient, useQuery } from '@tanstack/react-query';
 import { getRides } from "./api/rides";
 import { RideGroup } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
-import { User } from "../types"
+import { User, Ride } from "../types"
 
 type Props = {
-  dehydratedState: DehydratedState;
+  data: Ride[];
 }
 
 const nextDate = getNextWeek();
@@ -20,23 +18,12 @@ export const fetchRides = async () => {
   return data;
 };
 
-const Home: NextPage<Props> = () => {
+const Home: NextPage<Props> = ({ data }) => {
   const { data: session } = useSession();
-  // Use CSR data fetching so we can refetch when users join/unjoin
-  const { status, data, error } = useQuery(['rides'], fetchRides)
-
-  if (status === 'loading') {
-    return <span>Loading...</span>
-  }
-
-  if (status === 'error') {
-    const err = error as Error;
-    return <span>Error: {err.message}</span>
-  }
 
   // Get user id from session
   const user = session?.user as User;
-  const groupedRides = groupRides(data, user?.id);
+  const groupedRides = groupRides(data);
   const ridesFound = groupedRides.length > 0;
 
   return (
@@ -46,12 +33,6 @@ const Home: NextPage<Props> = () => {
         <meta name="description" content="Bath Cycling Club Ride Planner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Script
-        id="fontawesome"
-        src="https://kit.fontawesome.com/329fae5f95.js"
-        defer
-      />
 
       <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
         {ridesFound
@@ -79,16 +60,18 @@ const Home: NextPage<Props> = () => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const data = await getRides();
 
-  // prefetch data on the server
-  await queryClient.fetchQuery(['rides'], getRides);
+  // Cache rides
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
 
   return {
     props: {
-      // dehydrate query cache
-      dehydratedState: dehydrate(queryClient),
+      data
     },
   }
 }
