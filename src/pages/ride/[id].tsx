@@ -4,7 +4,7 @@ import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { getRide } from "../api/ride";
 import { useRide } from "../../hooks";
@@ -175,7 +175,8 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
 export default RideDetails;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await getRide(query.id);
+  const session = await getSession();
+  const data = await getRide(query.id, !!session);
 
   return {
     props: {

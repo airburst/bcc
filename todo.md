@@ -2,7 +2,8 @@
 
 ## Pages
 
-- Anonymous (localStorage) users can join but not see riders, or leave
+- Anonymous users cannot see riders
+- Anonymous users can join but not leave
 - USER can only join one ride per day
 
 - Create fresh data for PL rides up to 6 months! (As an API..)
@@ -22,6 +23,8 @@
 ## Engineering / Perf
 
 - Setup PWA
+- Alternative Auth? Socials etc.
+- Handle useSession jank?
 - add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy
 
@@ -32,25 +35,3 @@
 ## Snags
 
 - Jank when user joins / leaves a ride (repaints "Going" section)
-
-## Dynamic imports
-
-```javascript
-// SimpleBarChart.dynamic.tsx
-import dynamic from 'next/dynamic';
-import { SimpleBarChart } from './SimpleBarChart';
-
-export const SimpleBarChartDynamic = dynamic(
-  () => import('./SimpleBarChart' /* webpackChunkName: "SimpleBarChart" */).then((mod) => mod.SimpleBarChart as any),
-  { ssr: false }
-) as typeof SimpleBarChart;
-
-//or
-
-handleScrollToTop() {
-    import('react-scroll').then(scroll => {
-      scroll.animateScroll.scrollToTop({
-      })
-    })
-  }
-```

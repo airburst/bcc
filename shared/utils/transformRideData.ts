@@ -1,4 +1,4 @@
-import { formatDate } from ".";
+import { formatDate } from "./dates";
 import { Ride, Group } from "../../src/types";
 
 const groupByType = (data: Ride[]) => {

@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { getRides } from "./api/rides";
 import { RideGroup } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
@@ -57,7 +57,8 @@ const Home: NextPage<Props> = ({ data }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getRides();
+  const session = await getSession();
+  const data = await getRides(!!session);
 
   return {
     props: {

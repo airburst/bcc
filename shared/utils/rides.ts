@@ -1,6 +1,8 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
 import { getRideDateAndTime } from "./dates";
 
+const ANONYMISED_NAME = "Log in to see rider's details";
+
 type RideData = Ride & {
   users: (UsersOnRides & {
     user: User;
@@ -12,24 +14,32 @@ export const formatUserName = (name: string | null): string => {
     return "";
   }
 
-  return name.replace(".", " ").replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
+  return name
+    .replace(".", " ")
+    .replace(
+      /\w\S*/g,
+      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
 };
 
-export const formatUser = (user: User) => {
+export const formatUser = (user: User, isAuth = false) => {
   const { id, name, email, image, mobile, role } = user;
+
+  if (!isAuth) {
+    return { id, name: ANONYMISED_NAME };
+  }
+
   return {
     id,
     name: formatUserName(name),
     email,
     image,
     mobile,
-    role
+    role,
   };
 };
 
-export const formatRideData = (ride: RideData) => {
+export const formatRideData = (ride: RideData, isAuth = false) => {
   const { date, users, ...rest } = ride;
   const { day, time } = getRideDateAndTime(date.toISOString());
 
@@ -39,7 +49,7 @@ export const formatRideData = (ride: RideData) => {
     day,
     time,
     users: users.map(({ user: u }) => ({
-      ...formatUser(u)
-    }))
+      ...formatUser(u, isAuth),
+    })),
   };
 };
