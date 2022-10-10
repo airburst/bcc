@@ -1,14 +1,14 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 import { getRides } from "./api/rides";
 import { RideGroup } from "../components";
-import { getNextWeek, groupRides, formatDate } from "../../shared/utils"
-import { User, Ride } from "../types"
+import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
+import { User, Ride } from "../types";
 
 type Props = {
   data: Ride[];
-}
+};
 
 const nextDate = getNextWeek();
 
@@ -18,7 +18,7 @@ export const fetchRides = async () => {
   return data;
 };
 
-const Home: NextPage<Props> = ({ data }) => {
+const Home: NextPage<Props> = ({ data }: Props) => {
   const { data: session } = useSession();
 
   // Get user id from session
@@ -33,28 +33,25 @@ const Home: NextPage<Props> = ({ data }) => {
         <meta name="description" content="Bath Cycling Club Ride Planner" />
       </Head>
 
-      <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
-        {ridesFound
-          ? (
-            <>
-              {groupedRides.map((group, index) => (
-                <RideGroup
-                  key={`group-${index}`}
-                  group={group}
-                  user={user} />
-              ))}
-            </>
-          )
-          : (
-            <div className="flex items-center h-full text-3xl">
-              No planned rides before{' '}
-              {formatDate(nextDate)}
-            </div>
-          )
-        }
+      <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+        {ridesFound ? (
+          <>
+            {groupedRides.map((group) => (
+              <RideGroup
+                key={Object.keys(group)[0]}
+                group={group}
+                user={user}
+              />
+            ))}
+          </>
+        ) : (
+          <div className="flex h-full items-center text-3xl">
+            No planned rides before {formatDate(nextDate)}
+          </div>
+        )}
       </div>
     </>
-  )
+  );
 };
 
 export default Home;
@@ -64,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      data
+      data,
     },
-  }
-}
+  };
+};

@@ -6,16 +6,15 @@ type MutationProps = {
 };
 
 // Query factory
-const joinOrLeave = (action: string) => (ride: MutationProps) => {
-  return fetch(`/api/${action}-ride`, {
+const joinOrLeave = (action: string) => (ride: MutationProps) =>
+  fetch(`/api/${action}-ride`, {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(ride)
-  }).then(res => res.json());
-};
+    body: JSON.stringify(ride),
+  }).then((res) => res.json());
 
 export const join = joinOrLeave("join");
 export const leave = joinOrLeave("leave");
@@ -26,7 +25,7 @@ export const useJoinRide = (ride: MutationProps) => {
   return {
     result: data,
     loading: !error && !data,
-    error
+    error,
   };
 };
 
@@ -36,6 +35,6 @@ export const useLeaveRide = (ride: MutationProps) => {
   return {
     result: data,
     loading: !error && !data,
-    error
+    error,
   };
 };

@@ -11,27 +11,27 @@ export const getRides = async () => {
     where: {
       date: {
         lte: nextDate,
-        gte: now
-      }
+        gte: now,
+      },
     },
     include: {
       users: {
-        include: { user: true }
-      }
+        include: { user: true },
+      },
     },
     orderBy: [
       {
-        date: "asc"
-      }
-    ]
+        date: "asc",
+      },
+    ],
   });
 
-  return rides.map(ride => formatRideData(ride));
+  return rides.map((ride) => formatRideData(ride));
 };
 
 const rides = async (req: NextApiRequest, res: NextApiResponse) => {
-  const rides = await getRides();
-  res.status(200).json(rides);
+  const rideData = await getRides();
+  res.status(200).json(rideData);
 };
 
 export default rides;

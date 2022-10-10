@@ -20,18 +20,18 @@ const joinRide = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!session) {
     return res.status(401).send({
-      error: "You must be signed in to view the protected content on this page."
+      error:
+        "You must be signed in to view the protected content on this page.",
     });
   }
 
   try {
     const { rideId, userId } = req.body;
     const success = await addRiderToRide({ rideId, userId });
-    res.status(200).json(success);
+    return res.status(200).json(success);
   } catch (err) {
-    console.log("🚀 ~ file: join-ride.ts ~ line 34 ~ joinRide ~ err", err);
-    res.status(401).send({
-      error: "Not authorised to use this API"
+    return res.status(401).send({
+      error: "Not authorised to use this API",
     });
   }
 };

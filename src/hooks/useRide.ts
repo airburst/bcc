@@ -12,6 +12,6 @@ export const useRide = (id: string | string[] | undefined) => {
   return {
     ride: data,
     loading: !error && !data,
-    error
+    error,
   };
 };

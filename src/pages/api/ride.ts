@@ -12,14 +12,14 @@ export const getRide = async (id: string | string[] | undefined) => {
 
   const ride = await prisma.ride.findUnique({
     where: {
-      id: rideId
+      id: rideId,
     },
     include: {
       users: {
         include: { user: true },
-        orderBy: { createdAt: "asc" }
-      }
-    }
+        orderBy: { createdAt: "asc" },
+      },
+    },
   });
 
   if (!ride) {

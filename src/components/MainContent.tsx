@@ -1,14 +1,11 @@
 import React from "react";
 
 type Props = {
-  children: JSX.Element,
+  children: JSX.Element;
 };
 
-export const MainContent: React.FC<Props> = ({ children }) => {
-  return (
-    <main className="container mx-auto lg:max-w-[1024px] flex flex-col items-center justify-center w-full mt-16 sm:mt-24 md:px-4 pb-8 text-neutral-500">
-      {children}
-    </main>
-  );
-};
-
+export const MainContent: React.FC<Props> = ({ children }) => (
+  <main className="container mx-auto mt-16 flex w-full flex-col items-center justify-center pb-8 text-neutral-500 sm:mt-24 md:px-4 lg:max-w-[1024px]">
+    {children}
+  </main>
+);

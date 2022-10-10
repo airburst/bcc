@@ -13,9 +13,9 @@ export const removeRiderFromRide = async ({ rideId, userId }: Props) => {
     where: {
       rideId_userId: {
         rideId,
-        userId
-      }
-    }
+        userId,
+      },
+    },
   });
 
   return record;
@@ -27,18 +27,18 @@ const leaveRide = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!session) {
     return res.status(401).send({
-      error: "You must be signed in to view the protected content on this page."
+      error:
+        "You must be signed in to view the protected content on this page.",
     });
   }
 
   try {
     const { rideId, userId } = req.body;
     const success = await removeRiderFromRide({ rideId, userId });
-    res.status(200).json(success);
+    return res.status(200).json(success);
   } catch (err) {
-    console.log("🚀 ~ file: leave-ride.ts ~ line 39 ~ leaveRide ~ err", err);
-    res.status(401).send({
-      error: "Not authorised to use this API"
+    return res.status(401).send({
+      error: "Not authorised to use this API",
     });
   }
 };

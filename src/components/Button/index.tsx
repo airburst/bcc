@@ -12,8 +12,16 @@ export type ButtonProps = {
 
 // TODO: focus ring style
 
-export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, className, children, loading, ariaLabel, onClick }) => {
-  let classes = "px-4 h-full text-white text-lg " + className || "";
+export const Button: React.FC<ButtonProps> = ({
+  variant = "primary",
+  text,
+  className,
+  children,
+  loading,
+  ariaLabel,
+  onClick,
+}: ButtonProps) => {
+  let classes = `px-4 h-full text-white text-lg ${className}` || "";
 
   switch (variant) {
     case "going":
@@ -29,18 +37,20 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, class
 
   if (loading) {
     return (
-      <button className={classes} aria-label={ariaLabel} >
-        <i className="fas fa-cog fa-spin"></i>
+      <button type="button" className={classes} aria-label={ariaLabel}>
+        <i className="fas fa-cog fa-spin" />
       </button>
-    )
+    );
   }
 
   return (
-    <button className={classes} aria-label={ariaLabel} onClick={onClick}>
+    <button
+      type="button"
+      className={classes}
+      aria-label={ariaLabel}
+      onClick={onClick}
+    >
       {text || children}
     </button>
   );
 };
-
-export * from "./JoinButton";
-export * from "./BackButton";

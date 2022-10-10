@@ -2,14 +2,12 @@ import { Header } from "./Header";
 import { MainContent } from "./MainContent";
 
 type Props = {
-  children: JSX.Element,
+  children: JSX.Element;
 };
 
-export const Layout: React.FC<Props> = ({ children }) => {
-  return (
-    <>
-      <Header />
-      <MainContent>{children}</MainContent>
-    </>
-  );
-}
+export const Layout: React.FC<Props> = ({ children }: Props) => (
+  <>
+    <Header />
+    <MainContent>{children}</MainContent>
+  </>
+);
