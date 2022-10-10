@@ -15,7 +15,7 @@ export const RideGroup: React.FC<Props> = ({ group, user }) => {
 
   return (
     <div className="flex flex-col items-start w-full gap-2">
-      <div className="w-full p-2 text-white bg-blue-900 font-bold uppercase tracking-widest">
+      <div className="flex justify-center w-full p-2 text-white bg-blue-900 font-bold uppercase tracking-widest">
         <div>{date}</div>
       </div>
 

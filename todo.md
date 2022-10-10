@@ -1,9 +1,5 @@
 # TODO
 
-## Snags
-
-- Jank when user joins / leaves a ride (repaints "Going" section)
-
 ## Pages
 
 - precommit hooks (test, check-types, lint)
@@ -34,6 +30,10 @@
 ## Database Indexes
 
 - User.createdAt
+
+## Snags
+
+- Jank when user joins / leaves a ride (repaints "Going" section)
 
 ## Dynamic imports
 
