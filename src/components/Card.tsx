@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from "next/future/image";
 import { useLongPress } from 'use-long-press';
 import { getRideDateAndTime } from "../../shared/utils";
 import { isMobile } from "../../shared/utils"; import { Ride, User } from "../types";
@@ -40,26 +41,17 @@ export const Card: React.FC<Props> = ({ ride, user }) => {
         </div>
         <div className="justify-self-center">
           {isGoing && (
-            <div className="bg-green-500 text-white p-1 px-2 font-bold tracking-wide rounded-tr-md">GOING</div>
+            <div className="bg-green-700 text-white p-1 px-2 font-bold tracking-wide rounded-tr-md">GOING</div>
           )}
         </div>
 
         <div className="font-bold tracking-wide text-neutral-600 p-1">{time}</div>
         <div className="p-1">{details}</div>
         <div className="flex flex-row items-center justify-center p-1 gap-1">
-          <i className="fa-solid fa-person-biking text-xs"></i>
+          <Image src="/static/images/biking-neutral-500-64.png" width={16} height={16} alt="Number of riders"></Image>
           <span className="font-bold text-xl">{riderCount}</span>
         </div>
       </div>
-
-      {/* <div className="flex flex-col items-center justify-center p-2">
-        <div>going</div>
-        <div className="flex flex-row">
-          <i className="fa-solid fa-person-biking"></i>
-          <span className="text-xl">{riderCount}</span>
-        </div>
-      </div> */}
-
     </div>
   );
 };

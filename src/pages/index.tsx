@@ -31,7 +31,6 @@ const Home: NextPage<Props> = ({ data }) => {
       <Head>
         <title>BCC Rides</title>
         <meta name="description" content="Bath Cycling Club Ride Planner" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="grid grid-cols-1 w-full gap-4 md:gap-8">
@@ -66,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   // Cache rides
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
+    'public, s-maxage=10, stale-while-revalidate=300'
   )
 
   return {

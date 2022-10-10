@@ -2,7 +2,7 @@
 
 ## Pages
 
-- redirect on ellipsis menu; don't allow one-click join
+- Fix bug in production console
 - favicon and PWA
 - Create fresh data for PL rides up to 6 months! (As an API..)
 
@@ -24,9 +24,9 @@
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
 
-## Engineering
+## Engineering / Perf
 
-- Add PWA manifest
+- Remove FA icons from index page
 - add long expiry to js,css,image assets on host?
 - Add tables to support multi-tenacy
 
@@ -55,7 +55,3 @@ handleScrollToTop() {
     })
   }
 ```
-
-https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375
-
-https://stackoverflow.com/questions/66014730/next-js-bundle-size-is-exploding-as-a-result-of-dynamic-component-lookup-how-to

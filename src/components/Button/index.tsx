@@ -17,10 +17,10 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, class
 
   switch (variant) {
     case "going":
-      classes += " font-bold bg-green-500 hover:bg-green-600";
+      classes += " bg-green-700 hover:bg-green-800";
       break;
     case "join":
-      classes += " font-bold bg-red-500 hover:bg-red-600";
+      classes += " bg-red-700 hover:bg-red-800";
       break;
     default: // primary
       classes += " bg-blue-500 hover:bg-blue-600";
@@ -42,6 +42,5 @@ export const Button: React.FC<ButtonProps> = ({ variant = "primary", text, class
   );
 };
 
-export * from "./CardJoinButton";
 export * from "./JoinButton";
 export * from "./BackButton";

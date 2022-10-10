@@ -58,8 +58,7 @@ const RideDetails: NextPage = () => {
     <>
       <Head>
         <title>BCC Ride Details</title>
-        <meta name="description" content="Bath Cycling Club Ride Planner" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Bath Cycling Club Ride Details" />
       </Head>
 
       <div className="flex flex-col gap-2 w-full">
