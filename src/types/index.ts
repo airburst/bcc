@@ -18,6 +18,8 @@ export type Ride = {
   name: string; // Enum sunday | paceline | event
   group: string;
   date: string;
+  day: string;
+  time: string;
   destination?: string | null;
   distance?: number | null;
   route?: string | null;

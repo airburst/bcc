@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { getRide } from "../api/ride";
 import { useRide } from "../../hooks";
-import { getRideDateAndTime } from "../../../shared/utils"
 import { JoinButton, Badge, BackButton } from "../../components";
 import { User, Ride } from "../../types";
 import { useEffect, useState } from "react";
@@ -37,15 +36,14 @@ const RideDetails: NextPage<RidePageProps> = ({ data }) => {
     id,
     name,
     group,
-    date,
+    day,
+    time,
     destination,
     distance,
     leader,
     route,
     speed,
   } = data;
-
-  const { day, time } = getRideDateAndTime(date);
 
   const hasRiders = usersData && usersData?.length > 0;
   const isGoing = usersData ? usersData?.map((u: User) => u.id).includes(user?.id) : false;

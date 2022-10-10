@@ -1,5 +1,9 @@
 # TODO
 
+## Snags
+
+- Jank when user joins / leaves a ride (repaints "Going" section)
+
 ## Pages
 
 - Fix bug in production console: https://stackoverflow.com/questions/73005663/next-js-new-date-constructor-throwing-console-errors

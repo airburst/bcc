@@ -1,4 +1,5 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
+import { getRideDateAndTime } from "./dates";
 
 type RideData = Ride & {
   users: (UsersOnRides & {
@@ -30,10 +31,13 @@ export const formatUser = (user: User) => {
 
 export const formatRideData = (ride: RideData) => {
   const { date, users, ...rest } = ride;
+  const { day, time } = getRideDateAndTime(date.toISOString());
 
   return {
     ...rest,
     date: date.toString(),
+    day,
+    time,
     users: users.map(({ user: u }) => ({
       ...formatUser(u)
     }))

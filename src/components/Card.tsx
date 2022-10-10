@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import Image from "next/future/image";
 import { useLongPress } from 'use-long-press';
-import { getRideDateAndTime } from "../../shared/utils";
 import { isMobile } from "../../shared/utils"; import { Ride, User } from "../types";
 
 type Props = {
@@ -11,10 +10,9 @@ type Props = {
 
 export const Card: React.FC<Props> = ({ ride, user }) => {
   const router = useRouter();
-  const { id, name, date, group, destination, distance, users } = ride;
+  const { id, name, time, group, destination, distance, users } = ride;
 
   const details = destination ? `${destination} - ${distance} km` : `${distance} km`;
-  const { time } = getRideDateAndTime(date);
 
   const pressHandler = useLongPress(() => router.push(`/ride/${id}`), {
     threshold: isMobile() ? 400 : 0,
