@@ -13,8 +13,7 @@
     "connect": "pscale connect bcc-rides main --port 3309",
     "pushdb": "npx prisma db push",
     "seed": "node prisma/seed.js",
-    "add:paceline": "node prisma/paceline.js",
-    "prepare": "husky install"
+    "add:paceline": "node prisma/paceline.js"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.1",
@@ -49,7 +48,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.17",
     "prettier": "2.7.1",
