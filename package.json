@@ -13,7 +13,8 @@
     "connect": "pscale connect bcc-rides main --port 3309",
     "pushdb": "npx prisma db push",
     "seed": "node prisma/seed.js",
-    "add:paceline": "node prisma/paceline.js"
+    "add:paceline": "node prisma/paceline.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.1",
