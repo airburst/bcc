@@ -6,12 +6,10 @@
 
 ## Pages
 
-- Fix bug in production console: https://stackoverflow.com/questions/73005663/next-js-new-date-constructor-throwing-console-errors
 - precommit hooks (test, check-types, lint)
-- Create fresh data for PL rides up to 6 months! (As an API..)
-
 - Anonymous (localStorage) users can join but not see riders, or leave
 
+- Create fresh data for PL rides up to 6 months! (As an API..)
 - ADMIN role can remove any rider
 - ADMIN role can add any rider (which might mean creating a user account!)
 
