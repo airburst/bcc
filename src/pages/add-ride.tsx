@@ -1,23 +1,29 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { formatUserName } from "../../shared/utils";
+import { useSWRConfig } from "swr";
+import { addRide } from "../hooks";
+import { formatUserName, makeUtcDate } from "../../shared/utils";
 import { CancelButton, Button } from "../components";
 
 type FormValues = {
   name: string;
-  group?: string;
+  date: string;
+  time: string;
+  group: string;
   destination?: string;
-  distance: string;
+  distance: number;
   leader: string;
+  route: string;
 };
-
-// TODO: Add datepicker and time picker
 
 const AddRide: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user;
+  const { mutate } = useSWRConfig();
+  const router = useRouter();
 
   const {
     register,
@@ -29,9 +35,33 @@ const AddRide: NextPage = () => {
     return null;
   }
 
-  const onSubmit: SubmitHandler<FormValues> = (data) =>
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(data, null, 2));
+  const onSubmit: SubmitHandler<FormValues> = async ({
+    name,
+    date,
+    time,
+    group,
+    destination,
+    distance,
+    leader,
+    route,
+  }) => {
+    // Transform data before sending
+    const utcDate = makeUtcDate(date, time);
+    const results = await mutate("/api/create-ride", () =>
+      addRide({
+        name,
+        date: utcDate,
+        group,
+        destination,
+        distance: +distance,
+        leader,
+        route,
+      })
+    );
+    if (results.id) {
+      router.push("/");
+    }
+  };
 
   return (
     <>
@@ -68,14 +98,54 @@ const AddRide: NextPage = () => {
           </div>
 
           <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+            <label htmlFor="date" className="flex flex-col gap-1 font-medium">
+              Date *
+              <input
+                id="date"
+                type="date"
+                className="rounded font-normal"
+                {...register("date", { required: true })}
+              />
+              {errors.date && (
+                <span className="font-normal text-red-500">
+                  Ride date is required
+                </span>
+              )}
+            </label>
+          </div>
+
+          <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+            <label htmlFor="time" className="flex flex-col gap-1 font-medium">
+              Start time *
+              <input
+                id="time"
+                type="time"
+                className="rounded font-normal"
+                defaultValue="08:30"
+                {...register("time", { required: true })}
+              />
+              {errors.time && (
+                <span className="font-normal text-red-500">
+                  Start time is required
+                </span>
+              )}
+            </label>
+          </div>
+
+          <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
             <label htmlFor="group" className="flex flex-col gap-1 font-medium">
-              Group name
+              Group name *
               <input
                 id="group"
                 type="text"
                 className="rounded font-normal"
-                {...register("group")}
+                {...register("group", { required: true })}
               />
+              {errors.group && (
+                <span className="font-normal text-red-500">
+                  Group name is required
+                </span>
+              )}
             </label>
           </div>
 
@@ -117,6 +187,18 @@ const AddRide: NextPage = () => {
                 className="rounded"
                 defaultValue={formatUserName(user.name)}
                 {...register("leader")}
+              />
+            </label>
+          </div>
+
+          <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+            <label htmlFor="route" className="flex flex-col">
+              Route Link
+              <input
+                id="route"
+                type="text"
+                className="rounded"
+                {...register("route")}
               />
             </label>
           </div>

@@ -9,13 +9,13 @@
 
 - Create fresh data for PL rides up to 6 months! (As an API..)
 - User profile: change password, set name and mobile : forgotten password ???
-- Show avatar and menu?
+- Animate user menu, TBC
 
 ## Admin/Leader
 
-- LEADER can create a ride
 - LEADER can edit a ride
 - LEADER can delete a ride
+- Animation for errors, TBC
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
 

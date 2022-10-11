@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Image from "next/future/image";
+import { UserMenu } from "./UserMenu";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
 
 type ButtonProps = {
@@ -8,7 +9,6 @@ type ButtonProps = {
   children: string;
 };
 
-// TODO: Replace logout button with a hamburger menu
 const LinkButton = ({ children, ...props }: ButtonProps) => (
   <button
     type="button"
@@ -20,8 +20,9 @@ const LinkButton = ({ children, ...props }: ButtonProps) => (
 );
 
 export const Header = () => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const isAuthenticated = status === "authenticated";
+  const role = session?.role as string;
 
   return (
     <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-neutral-100 text-neutral-700 sm:h-24">
@@ -40,11 +41,7 @@ export const Header = () => {
         </div>
         <div className="flex items-center">
           {isAuthenticated ? (
-            <LinkButton
-              onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
-            >
-              Log out
-            </LinkButton>
+            <UserMenu role={role} />
           ) : (
             <LinkButton onClick={() => signIn("auth0")}>Log in</LinkButton>
           )}

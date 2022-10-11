@@ -16,9 +16,13 @@ export const getNextWeek = () => {
 export const formatDate = (date: string) => dayjs(date).format("dddd DD MMMM");
 export const formatTime = (date: string) => dayjs(date).format("HH:mm");
 
-export const getRideDateAndTime = (date: string) => {
-  return {
-    day: formatDate(date),
-    time: formatTime(date)
-  };
+export const getRideDateAndTime = (date: string) => ({
+  day: formatDate(date),
+  time: formatTime(date),
+});
+
+export const makeUtcDate = (day: string, time: string): string => {
+  const dt = dayjs(`${day}T${time}:00.000Z`);
+  const offset = dt.utcOffset();
+  return dt.add(-offset, "minutes").toISOString();
 };
