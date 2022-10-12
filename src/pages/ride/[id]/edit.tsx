@@ -2,6 +2,7 @@ import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { getRide } from "../../api/ride";
@@ -18,6 +19,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
   const user = session?.user;
   const { mutate } = useSWRConfig();
   const router = useRouter();
+  const [waiting, setWaiting] = useState(false);
 
   const {
     register,
@@ -45,6 +47,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
     leader,
     route,
   }) => {
+    setWaiting(true);
     // Transform data before sending
     const utcDate = makeUtcDate(date, time);
     const results = await mutate("/api/ride/edit", () =>
@@ -60,7 +63,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
       })
     );
     if (results.id) {
-      router.push("/");
+      router.back();
     }
   };
 
@@ -81,6 +84,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
           errors={errors}
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
+          waiting={waiting}
         />
       </div>
     </>

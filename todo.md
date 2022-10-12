@@ -4,8 +4,9 @@
 
 ## Admin/Leader
 
+- Confirm before delete
 - Remove UTC hour when reading for form (live?)
-- Animation loaders on buttons
+
 - Form cleansing (values)
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
@@ -20,21 +21,17 @@
 
 - Create fresh data for PL rides up to 6 months! (As an API..)
 - User profile: change password, set name and mobile : forgotten password ???
+- Jank when user joins / leaves a ride (repaints "Going" section)
 - Animate user menu, TBC
 
 ## Engineering / Perf
 
 - Setup PWA
 - Alternative Auth? Socials etc.
-- Handle useSession jank?
-- add long expiry to js,css,image assets on host?
-- Add tables to support multi-tenacy
 
-## Database Indexes
+## Database Indexes and Schema
 
 - User.createdAt
+- Ride.deleted
 - Bulk creation of users? Probably not
-
-## Snags
-
-- Jank when user joins / leaves a ride (repaints "Going" section)
+- Group non-mandatory?

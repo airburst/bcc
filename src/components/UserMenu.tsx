@@ -34,6 +34,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
         deleteRide(rideId)
       );
       if (results.id) {
+        closeMenu();
         router.push("/");
       }
     }
@@ -56,34 +57,41 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
         <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-lg">
           {isLeader && (
             <Link href="/ride/new">
-              <button
-                type="button"
-                className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
-                onClick={closeMenu}
-              >
-                Add Ride
-              </button>
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                <button
+                  type="button"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                  onClick={closeMenu}
+                >
+                  <i className="fa-solid fa-plus" />
+                  <span className="justify-self-start">Add Ride</span>
+                </button>
+              </div>
             </Link>
           )}
 
           {isLeader && rideId && (
             <>
               <Link href={`/ride/${rideId}/edit`}>
-                <button
-                  type="button"
-                  className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
-                  onClick={closeMenu}
-                >
-                  Edit Ride
-                </button>
+                <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                  <button
+                    type="button"
+                    className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                    onClick={closeMenu}
+                  >
+                    <i className="fa-solid fa-pen-to-square" />
+                    <span className="justify-self-start">Edit Ride</span>
+                  </button>
+                </div>
               </Link>
-              <div className="cursor-pointer rounded p-1 hover:bg-neutral-200">
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
                 <button
                   type="button"
-                  className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={handleDelete}
                 >
-                  Delete Ride
+                  <i className="fa-solid fa-trash" />
+                  <span className="justify-self-start">Delete Ride</span>
                 </button>
               </div>
             </>
@@ -91,10 +99,11 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
           <button
             type="button"
-            className="flex border-0 border-b-4 border-b-transparent bg-transparent p-2 hover:bg-neutral-200 hover:text-neutral-900"
+            className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2 p-2 hover:bg-neutral-200 hover:text-neutral-900"
             onClick={handleSignout}
           >
-            Log out
+            <i className="fa-solid fa-right-from-bracket" />
+            <span className="justify-self-start">Log out</span>
           </button>
         </div>
       )}

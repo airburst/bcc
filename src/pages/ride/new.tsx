@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { addRide } from "../../hooks";
@@ -13,6 +14,7 @@ const AddRide: NextPage = () => {
   const user = session?.user;
   const { mutate } = useSWRConfig();
   const router = useRouter();
+  const [waiting, setWaiting] = useState(false);
 
   const {
     register,
@@ -46,6 +48,7 @@ const AddRide: NextPage = () => {
     leader,
     route,
   }) => {
+    setWaiting(true);
     // Transform data before sending
     const utcDate = makeUtcDate(date, time);
     const results = await mutate("/api/ride/create", () =>
@@ -81,6 +84,7 @@ const AddRide: NextPage = () => {
           errors={errors}
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
+          waiting={waiting}
         />
       </div>
     </>

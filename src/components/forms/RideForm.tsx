@@ -20,6 +20,7 @@ type RideFormProps = {
   register: UseFormRegister<FormValues>;
   errors: Partial<FieldErrorsImpl<FormValues>>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
+  waiting: boolean;
 };
 
 export const RideForm = ({
@@ -27,6 +28,7 @@ export const RideForm = ({
   register,
   errors,
   handleSubmit,
+  waiting,
 }: RideFormProps) => (
   <form
     className="relative grid w-full grid-cols-1 gap-4 p-2"
@@ -160,7 +162,7 @@ export const RideForm = ({
     </div>
 
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
-      <Button type="submit">
+      <Button loading={waiting} type="submit">
         <div>Submit</div>
       </Button>
       <CancelButton />
