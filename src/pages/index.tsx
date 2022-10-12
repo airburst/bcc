@@ -19,7 +19,7 @@ export const fetchRides = async () => {
 };
 
 const Home: NextPage<Props> = ({ data }: Props) => {
-  console.log("🚀 ~ file: index.tsx ~ line 22 ~ data", data);
+  console.log("🚀 ~ file: index.tsx ~ line 22 ~ data", data); // FIXME:
   const { data: session } = useSession();
 
   // Get user id from session

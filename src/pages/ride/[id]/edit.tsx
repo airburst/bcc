@@ -15,6 +15,7 @@ type Props = {
 };
 
 const EditRide: NextPage<Props> = ({ data }: Props) => {
+  console.log("🚀 ~ file: edit.tsx ~ line 18 ~ data", data); // FIXME:
   const { data: session } = useSession();
   const user = session?.user;
   const { mutate } = useSWRConfig();
