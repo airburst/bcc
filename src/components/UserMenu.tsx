@@ -8,9 +8,10 @@ import HamburgerIcon from "../../public/static/images/hamburger-50.png";
 type MenuProps = {
   // user: User | null;
   role: string | null;
+  rideId?: string | string[];
 };
 
-export const UserMenu = ({ role }: MenuProps) => {
+export const UserMenu = ({ role, rideId }: MenuProps) => {
   const [show, setShow] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
 
@@ -39,7 +40,7 @@ export const UserMenu = ({ role }: MenuProps) => {
       {show && (
         <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-lg">
           {isLeader && (
-            <Link href="/add-ride">
+            <Link href="/ride/new">
               <button
                 type="button"
                 className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
@@ -48,6 +49,29 @@ export const UserMenu = ({ role }: MenuProps) => {
                 Add Ride
               </button>
             </Link>
+          )}
+
+          {isLeader && rideId && (
+            <>
+              <Link href={`/ride/${rideId}/edit`}>
+                <button
+                  type="button"
+                  className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
+                  onClick={closeMenu}
+                >
+                  Edit Ride
+                </button>
+              </Link>
+              <Link href={`/ride/${rideId}/delete`}>
+                <button
+                  type="button"
+                  className="flex w-full justify-self-start border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900"
+                  onClick={closeMenu}
+                >
+                  Delete Ride
+                </button>
+              </Link>
+            </>
           )}
 
           <button

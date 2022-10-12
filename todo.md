@@ -2,6 +2,32 @@
 
 ## Pages
 
+- Session bug
+
+[next-auth][error][CLIENT_FETCH_ERROR]
+https://next-auth.js.org/errors#client_fetch_error Unexpected token < in JSON at position 0 {
+error: {
+message: 'Unexpected token < in JSON at position 0',
+stack: 'SyntaxError: Unexpected token < in JSON at position 0\n' +
+' at JSON.parse (<anonymous>)\n' +
+' at Response.json (node:internal/deps/undici/undici:2291:23)\n' +
+' at process.processTicksAndRejections (node:internal/process/task_queues:95:5)',
+name: 'SyntaxError'
+},
+url: 'http://localhost:3000/api/auth/session',
+message: 'Unexpected token < in JSON at position 0'
+}
+
+## Admin/Leader
+
+- LEADER can edit a ride (decide route, add query)
+- LEADER can delete a ride
+- Animation for errors, TBC
+- View of rides on calendar
+- (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
+
+## Users
+
 - Anonymous users can join but not leave
 - USER can only join one ride per day
 
@@ -10,14 +36,6 @@
 - Create fresh data for PL rides up to 6 months! (As an API..)
 - User profile: change password, set name and mobile : forgotten password ???
 - Animate user menu, TBC
-
-## Admin/Leader
-
-- LEADER can edit a ride
-- LEADER can delete a ride
-- Animation for errors, TBC
-- View of rides on calendar
-- (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
 
 ## Engineering / Perf
 

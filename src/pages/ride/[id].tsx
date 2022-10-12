@@ -122,7 +122,7 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
             {route && (
               <Row>
                 <a
-                  className="text-blue-500 underline hover:text-blue-600"
+                  className="text-blue-700 underline hover:text-blue-800"
                   href={route}
                   target="_blank"
                   rel="noreferrer"

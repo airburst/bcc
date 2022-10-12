@@ -4,9 +4,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { addRide } from "../hooks";
-import { formatUserName, makeUtcDate } from "../../shared/utils";
-import { CancelButton, Button } from "../components";
+import { addRide } from "../../hooks";
+import { formatUserName, makeUtcDate } from "../../../shared/utils";
+import { CancelButton, Button } from "../../components";
 
 type FormValues = {
   name: string;

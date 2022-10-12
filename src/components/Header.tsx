@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import Image from "next/future/image";
 import { UserMenu } from "./UserMenu";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
@@ -23,6 +24,8 @@ export const Header = () => {
   const { status, data: session } = useSession();
   const isAuthenticated = status === "authenticated";
   const role = session?.role as string;
+  const router = useRouter();
+  const rideId = router.query.id;
 
   return (
     <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-neutral-100 text-neutral-700 sm:h-24">
@@ -41,7 +44,7 @@ export const Header = () => {
         </div>
         <div className="flex items-center">
           {isAuthenticated ? (
-            <UserMenu role={role} />
+            <UserMenu role={role} rideId={rideId} />
           ) : (
             <LinkButton onClick={() => signIn("auth0")}>Log in</LinkButton>
           )}
