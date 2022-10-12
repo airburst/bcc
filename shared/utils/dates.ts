@@ -13,13 +13,8 @@ export const getNextWeek = () => {
 
 export const formatDate = (date: string) => dayjs(date).format("dddd DD MMMM");
 export const formatTime = (date: string) => dayjs(date).format("HH:mm");
-export const formatFormDate = (date: string) => {
-  const offset = dayjs(date).utcOffset();
-  console.log({ offset }); // FIXME:
-  alert(`UTC offset = ${offset}s`);
-
-  return dayjs(date).format("YYYY-MM-DD");
-};
+export const formatFormDate = (date: string) =>
+  dayjs(date).format("YYYY-MM-DD");
 
 export const getRideDateAndTime = (date: string) => ({
   day: formatDate(date),
