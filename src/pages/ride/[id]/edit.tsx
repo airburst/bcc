@@ -37,6 +37,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
     ...data,
     ...getFormRideDateAndTime(data.date),
   };
+  console.log("🚀 ~ file: edit.tsx ~ line 37 ~ defaultValues", defaultValues);
 
   const onSubmit: SubmitHandler<FormValues> = async ({
     name,
