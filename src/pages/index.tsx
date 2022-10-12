@@ -19,6 +19,7 @@ export const fetchRides = async () => {
 };
 
 const Home: NextPage<Props> = ({ data }: Props) => {
+  console.log("🚀 ~ file: index.tsx ~ line 22 ~ data", data);
   const { data: session } = useSession();
 
   // Get user id from session

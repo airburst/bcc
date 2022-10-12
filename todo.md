@@ -4,9 +4,9 @@
 
 ## Admin/Leader
 
+- Remove UTC hour when reading for form (live?) 60s offset!!
 - Confirm before delete
 - Show delete waiting
-- Remove UTC hour when reading for form (live?)
 - Consistent times for browser and mobile!!
 
 - Form cleansing (values)
