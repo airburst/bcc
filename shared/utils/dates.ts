@@ -13,8 +13,14 @@ export const getNextWeek = () => {
 
 export const formatDate = (date: string) => dayjs(date).format("dddd DD MMMM");
 export const formatTime = (date: string) => dayjs(date).format("HH:mm");
+
 export const formatFormDate = (date: string) =>
   dayjs(date).format("YYYY-MM-DD");
+export const formatFormTime = (date: string) => {
+  const dt = dayjs(date);
+  const offset = dt.utcOffset();
+  return dt.add(-offset, "minutes").format("HH:mm");
+};
 
 export const getRideDateAndTime = (date: string) => ({
   day: formatDate(date),
@@ -25,7 +31,7 @@ export const getRideDateAndTime = (date: string) => ({
 // date = "yyyy-mm-dd" and time = "hh:mm"
 export const getFormRideDateAndTime = (date: string) => ({
   date: formatFormDate(date),
-  time: formatTime(date),
+  time: formatFormTime(date),
 });
 
 // Set ISO time in db; no offset calculation
