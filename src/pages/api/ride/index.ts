@@ -26,8 +26,8 @@ export const getRide = async (
     },
   });
 
-  if (!ride) {
-    return null;
+  if (!ride || ride.deleted) {
+    return {};
   }
 
   return formatRideData(ride, isAuth);

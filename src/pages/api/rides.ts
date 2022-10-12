@@ -10,10 +10,15 @@ const nextDate = getNextWeek();
 export const getRides = async (isAuth = false) => {
   const rides = await prisma.ride.findMany({
     where: {
-      date: {
-        lte: nextDate,
-        gte: now,
-      },
+      AND: [
+        {
+          date: {
+            lte: nextDate,
+            gte: now,
+          },
+          deleted: false,
+        },
+      ],
     },
     include: {
       users: {

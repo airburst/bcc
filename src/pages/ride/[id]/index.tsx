@@ -46,6 +46,19 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
     speed,
   } = data;
 
+  if (!id) {
+    return (
+      <>
+        <div className="flex h-64 w-full items-center justify-center text-2xl">
+          This ride is no longer available
+        </div>
+        <div className="flex h-4 flex-row justify-between px-2 pt-8 sm:px-0">
+          <BackButton />
+        </div>
+      </>
+    );
+  }
+
   const hasRiders = usersData && usersData?.length > 0;
   const isGoing = usersData
     ? usersData?.map((u: User) => u.id).includes(user?.id)

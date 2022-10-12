@@ -4,8 +4,7 @@
 
 ## Admin/Leader
 
-- LEADER can edit a ride (decide route, add query)
-- LEADER can delete a ride
+- Remove UTC hour when reading for form (live?)
 - Animation loaders on buttons
 - Form cleansing (values)
 - View of rides on calendar
@@ -13,6 +12,7 @@
 
 ## Users
 
+- CANNOT add a ride or delete one
 - Anonymous users can join but not leave
 - USER can only join one ride per day
 
