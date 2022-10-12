@@ -16,6 +16,7 @@ export const formatTime = (date: string) => dayjs(date).format("HH:mm");
 export const formatFormDate = (date: string) => {
   const offset = dayjs(date).utcOffset();
   console.log({ offset }); // FIXME:
+  alert(`UTC offset = ${offset}s`);
 
   return dayjs(date).format("YYYY-MM-DD");
 };
