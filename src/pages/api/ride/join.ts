@@ -1,28 +1,21 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../server/db/client";
-import { isLoggedIn, isMe, isLeader } from "./auth/authHelpers";
+import { prisma } from "../../../server/db/client";
+import { isLoggedIn, isMe, isLeader } from "../auth/authHelpers";
 
 type Props = {
   rideId: string;
   userId: string;
 };
 
-export const removeRiderFromRide = async ({ rideId, userId }: Props) => {
-  const record = await prisma.usersOnRides.delete({
-    where: {
-      rideId_userId: {
-        rideId,
-        userId,
-      },
-    },
-  });
+export const addRiderToRide = async ({ rideId, userId }: Props) => {
+  const result = await prisma.usersOnRides.create({ data: { rideId, userId } });
 
-  return record;
+  return result;
 };
 
-// Only a logged-in user can remove themselves from a ride
-const leaveRide = async (req: NextApiRequest, res: NextApiResponse) => {
+// Only a logged-in user can join a ride
+const joinRide = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAuth = await isLoggedIn(req, res);
 
   if (!isAuth) {
@@ -33,12 +26,12 @@ const leaveRide = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { rideId, userId } = req.body;
-    // A user can only remove themselves; a leader can remove other riders
+    // A user can only add themselves; a leader can add other riders
     const isMyRecord = await isMe(req, res)(userId);
     const hasLeaderRole = await isLeader(req, res);
 
     if (isMyRecord || hasLeaderRole) {
-      const success = await removeRiderFromRide({ rideId, userId });
+      const success = await addRiderToRide({ rideId, userId });
       return res.status(200).json(success);
     }
     return res.status(401).send({
@@ -51,4 +44,4 @@ const leaveRide = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default leaveRide;
+export default joinRide;

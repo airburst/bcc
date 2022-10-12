@@ -1,8 +1,8 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../server/db/client";
-import { isLoggedIn, isLeader } from "./auth/authHelpers";
-import { Ride } from "../../types";
+import { prisma } from "../../../server/db/client";
+import { isLoggedIn, isLeader } from "../auth/authHelpers";
+import { Ride } from "../../../types";
 
 export const addRide = async (ride: Ride) => {
   const result = await prisma.ride.create({ data: ride });

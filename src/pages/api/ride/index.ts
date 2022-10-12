@@ -1,8 +1,8 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../server/db/client";
-import { formatRideData } from "../../../shared/utils";
-import { isLoggedIn } from "./auth/authHelpers";
+import { prisma } from "../../../server/db/client";
+import { formatRideData } from "../../../../shared/utils";
+import { isLoggedIn } from "../auth/authHelpers";
 
 export const getRide = async (
   id: string | string[] | undefined,

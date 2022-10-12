@@ -1,10 +1,10 @@
 import useSWR from "swr";
 import { Ride } from "../types";
 
-type NewRide = Omit<Ride, "id" | "day" | "time">;
+type UpdateRide = Omit<Ride, "day" | "time">;
 
-export const addRide = (ride: NewRide) =>
-  fetch(`/api/ride/create`, {
+export const updateRide = (ride: UpdateRide) =>
+  fetch(`/api/ride/edit`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -13,8 +13,8 @@ export const addRide = (ride: NewRide) =>
     body: JSON.stringify(ride),
   }).then((res) => res.json());
 
-export const useAddRide = (ride: NewRide) => {
-  const { data, error } = useSWR(`/api/ride/create`, () => addRide(ride));
+export const useEditRide = (ride: UpdateRide) => {
+  const { data, error } = useSWR(`/api/ride/edit`, () => updateRide(ride));
 
   return {
     ride: data,

@@ -10,3 +10,4 @@ export * from "./MainContent";
 export * from "./Modal";
 export * from "./NoMatch";
 export * from "./RideGroup";
+export * from "./forms/RideForm";

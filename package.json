@@ -11,6 +11,7 @@
     "check-types": "tsc --noEmit --incremental --emitDeclarationOnly false --pretty",
     "postinstall": "prisma generate",
     "connect": "pscale connect bcc-rides main --port 3309",
+    "connect:dev": "pscale connect bcc-rides dev --port 3309",
     "pushdb": "npx prisma db push",
     "seed": "node prisma/seed.js",
     "add:paceline": "node prisma/paceline.js"

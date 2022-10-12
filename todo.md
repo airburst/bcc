@@ -2,27 +2,12 @@
 
 ## Pages
 
-- Session bug
-
-[next-auth][error][CLIENT_FETCH_ERROR]
-https://next-auth.js.org/errors#client_fetch_error Unexpected token < in JSON at position 0 {
-error: {
-message: 'Unexpected token < in JSON at position 0',
-stack: 'SyntaxError: Unexpected token < in JSON at position 0\n' +
-' at JSON.parse (<anonymous>)\n' +
-' at Response.json (node:internal/deps/undici/undici:2291:23)\n' +
-' at process.processTicksAndRejections (node:internal/process/task_queues:95:5)',
-name: 'SyntaxError'
-},
-url: 'http://localhost:3000/api/auth/session',
-message: 'Unexpected token < in JSON at position 0'
-}
-
 ## Admin/Leader
 
 - LEADER can edit a ride (decide route, add query)
 - LEADER can delete a ride
-- Animation for errors, TBC
+- Animation loaders on buttons
+- Form cleansing (values)
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
 

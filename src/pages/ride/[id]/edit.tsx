@@ -1,14 +1,19 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { addRide } from "../../hooks";
-import { formatUserName, makeUtcDate } from "../../../shared/utils";
-import { RideForm, FormValues } from "../../components";
+import { getRide } from "../../api/ride";
+import { updateRide } from "../../../hooks";
+import { makeUtcDate, getFormRideDateAndTime } from "../../../../shared/utils";
+import { RideForm, FormValues } from "../../../components";
 
-const AddRide: NextPage = () => {
+type Props = {
+  data: FormValues;
+};
+
+const EditRide: NextPage<Props> = ({ data }: Props) => {
   const { data: session } = useSession();
   const user = session?.user;
   const { mutate } = useSWRConfig();
@@ -26,14 +31,8 @@ const AddRide: NextPage = () => {
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
-    name: "Sunday Ride",
-    date: "",
-    time: "08:30",
-    group: "",
-    destination: "",
-    distance: 0,
-    leader: formatUserName(user.name),
-    route: "",
+    ...data,
+    ...getFormRideDateAndTime(data.date),
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({
@@ -48,8 +47,9 @@ const AddRide: NextPage = () => {
   }) => {
     // Transform data before sending
     const utcDate = makeUtcDate(date, time);
-    const results = await mutate("/api/ride/create", () =>
-      addRide({
+    const results = await mutate("/api/ride/edit", () =>
+      updateRide({
+        id: data.id,
         name,
         date: utcDate,
         group,
@@ -87,4 +87,15 @@ const AddRide: NextPage = () => {
   );
 };
 
-export default AddRide;
+export default EditRide;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const session = await getSession();
+  const data = await getRide(query.id, !!session);
+
+  return {
+    props: {
+      data,
+    },
+  };
+};

@@ -77,6 +77,7 @@ model Ride {
     leader        String?
     speed         Int?
     users         UsersOnRides[] @relation("usersOnRides_ride")
+    deleted       Boolean    @default(false)
 
     @@index(date)
 }

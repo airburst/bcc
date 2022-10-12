@@ -6,10 +6,10 @@ import Error from "next/error";
 import { useRouter } from "next/router";
 import { useSession, getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { getRide } from "../api/ride";
-import { useRide } from "../../hooks";
-import { JoinButton, Badge, BackButton } from "../../components";
-import { User, Ride } from "../../types";
+import { getRide } from "../../api/ride";
+import { useRide } from "../../../hooks";
+import { JoinButton, Badge, BackButton } from "../../../components";
+import { User, Ride } from "../../../types";
 
 type RidePageProps = {
   data: Ride;
