@@ -20,11 +20,6 @@ export const formatTime = (date: string) => dayjs(date).utc().format("HH:mm");
 
 export const formatFormDate = (date: string) =>
   dayjs(date).utc().format("YYYY-MM-DD");
-// export const formatFormTime = (date: string) => {
-//   const dt = dayjs(date);
-//   const offset = dt.utcOffset();
-//   return dt.add(-offset, "minutes").format("HH:mm");
-// };
 
 export const getRideDateAndTime = (date: string) => ({
   day: formatDate(date),
@@ -41,8 +36,3 @@ export const getFormRideDateAndTime = (date: string) => ({
 // Set ISO time in db; no offset calculation
 export const makeUtcDate = (day: string, time: string): string =>
   dayjs(`${day}T${time}:00.000Z`).utc().format();
-// const dt = dayjs(`${day}T${time}:00.000Z`).utc().format();
-// const offset = dt.utcOffset();
-// return dt.add(-offset, "minutes").toISOString();
-
-// // dayjs.utc('2020-04-22T14:56:09.388842'.substring(0, 23))

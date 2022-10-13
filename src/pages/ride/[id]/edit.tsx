@@ -15,7 +15,6 @@ type Props = {
 };
 
 const EditRide: NextPage<Props> = ({ data }: Props) => {
-  console.log("🚀 ~ file: edit.tsx ~ line 18 ~ data", data); // FIXME:
   const { data: session } = useSession();
   const user = session?.user;
   const { mutate } = useSWRConfig();
@@ -37,7 +36,6 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
     ...data,
     ...getFormRideDateAndTime(data.date),
   };
-  console.log("🚀 ~ file: edit.tsx ~ line 37 ~ defaultValues", defaultValues);
 
   const onSubmit: SubmitHandler<FormValues> = async ({
     name,

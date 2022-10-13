@@ -16,7 +16,6 @@ type RidePageProps = {
 };
 
 const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
-  console.log("🚀 ~ file: index.tsx ~ line 19 ~ data", data); // FIXME:
   const [usersData, setUsersData] = useState<User[] | undefined>(data.users);
   const { data: session } = useSession();
   const user = session?.user as User;

@@ -4,12 +4,6 @@
 
 ## Admin/Leader
 
-- Remove UTC hour when reading for form in production {why is this different in DEV??}
-- Consistent times for browser and mobile!!
-
-  - PROD: "Sat Oct 15 2022 08:44:00 GMT+0000 (Coordinated Universal Time)"
-  - DEV: "Sat Oct 15 2022 09:44:00 GMT+0100 (British Summer Time)"
-
 - Confirm before delete
 - Show delete waiting
 - Check that join and leave still work
