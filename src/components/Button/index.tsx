@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
   type?: "button" | "submit" | "reset";
   variant?: string;
