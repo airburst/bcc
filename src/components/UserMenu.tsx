@@ -38,7 +38,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
     closeMenu();
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (cb: (flag: boolean) => void) => {
     if (rideId) {
       const results = await mutate("/api/ride/create", () =>
         deleteRide(rideId)
@@ -46,7 +46,10 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
       if (results.id) {
         closeMenu();
         router.push("/");
+        cb(true);
       }
+    } else {
+      cb(false);
     }
   };
 
@@ -125,7 +128,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
         open={showConfirm}
         closeHandler={closeMenu}
         heading="Are you sure you want to delete this ride?"
-        onYes={handleDelete}
+        onYes={(callback) => handleDelete(callback)}
       />
     </div>
   );

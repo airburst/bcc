@@ -1,7 +1,5 @@
 /* eslint-disable react/button-has-type */
-import { MouseEventHandler } from "react";
-
-export type ButtonProps = {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
   type?: "button" | "submit" | "reset";
   variant?: string;
@@ -9,8 +7,8 @@ export type ButtonProps = {
   ariaLabel?: string;
   children?: JSX.Element;
   loading?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+  disabled?: boolean;
+}
 
 // TODO: focus ring style
 
@@ -21,10 +19,13 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   children,
   loading,
+  disabled,
   ariaLabel,
   onClick,
 }: ButtonProps) => {
-  let classes = `px-6 h-full text-white text-lg rounded ${className}` || "";
+  let classes =
+    `px-6 h-full text-white text-lg rounded disabled:bg-neutral-100 disabled:text-neutral-500 ${className}` ||
+    "";
 
   switch (variant) {
     case "going":
@@ -55,6 +56,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={classes}
       aria-label={ariaLabel}
       onClick={onClick}
+      disabled={disabled}
     >
       {text || children}
     </button>

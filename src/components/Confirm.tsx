@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Button } from "./Button";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   okLabel?: string;
   cancelLabel?: string;
   closeHandler: () => void;
-  onYes?: () => void;
+  onYes?: (cb: (flag: boolean) => void) => void;
 };
 
 export const Confirm = ({
@@ -21,11 +21,13 @@ export const Confirm = ({
   closeHandler,
   onYes,
 }: Props) => {
+  const [waiting, setWaiting] = useState<boolean>(false);
+
   const confirmHandler = () => {
     if (onYes) {
-      onYes();
+      setWaiting(true);
+      onYes(() => setWaiting(false));
     }
-    closeHandler();
   };
 
   return (
@@ -65,10 +67,18 @@ export const Confirm = ({
                 <div className="mt-2">{children}</div>
 
                 <div className="mt-4 flex h-10 flex-row gap-4">
-                  <Button type="button" onClick={confirmHandler}>
+                  <Button
+                    type="button"
+                    onClick={confirmHandler}
+                    loading={waiting}
+                  >
                     <span>{okLabel}</span>
                   </Button>
-                  <Button variant="cancel" onClick={closeHandler}>
+                  <Button
+                    variant="cancel"
+                    onClick={closeHandler}
+                    disabled={waiting}
+                  >
                     <span>{cancelLabel}</span>
                   </Button>
                 </div>

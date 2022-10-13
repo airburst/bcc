@@ -4,7 +4,6 @@
 
 ## Admin/Leader
 
-- Show delete waiting
 - Check that join and leave still work
 - Can I delete a ride with riders?
 
@@ -23,7 +22,7 @@
 
 - View to show all riders out on a day (presumably only for logged-in users..)
 
-- Animate user menu, TBC
+- Usability of Long Press?
 
 ## Engineering / Perf
 
