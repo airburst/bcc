@@ -157,8 +157,8 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
         <div className="flex w-full px-2 sm:px-0">
           {hasRiders && (
             <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
-              {usersData?.map(({ name: userName, mobile }) => (
-                <Row key={userName}>
+              {usersData?.map(({ id: userId, name: userName, mobile }) => (
+                <Row key={userId}>
                   <div>{userName}</div>
                   <div className="flex items-center gap-2">
                     {mobile && <i className="fa-solid fa-phone" />}

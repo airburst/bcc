@@ -50,7 +50,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
     setWaiting(true);
     // Transform data before sending
     const utcDate = makeUtcDate(date, time);
-    const results = await mutate("/api/ride/edit", () =>
+    const results = await mutate("/api/ride", () =>
       updateRide({
         id: data.id,
         name,

@@ -51,7 +51,7 @@ const AddRide: NextPage = () => {
     setWaiting(true);
     // Transform data before sending
     const utcDate = makeUtcDate(date, time);
-    const results = await mutate("/api/ride/create", () =>
+    const results = await mutate("/api/ride", () =>
       addRide({
         name,
         date: utcDate,

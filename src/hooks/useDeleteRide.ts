@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
-export const deleteRide = (id: string | string[]) =>
-  fetch(`/api/ride/delete`, {
+export const deleteRide = async (id: string | string[]) => {
+  const results = await fetch(`/api/ride/delete`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -9,6 +9,8 @@ export const deleteRide = (id: string | string[]) =>
     },
     body: JSON.stringify(id),
   }).then((res) => res.json());
+  return results;
+};
 
 export const useDeleteRide = (id: string) => {
   const { data, error } = useSWR(`/api/ride/delete`, () => deleteRide(id));

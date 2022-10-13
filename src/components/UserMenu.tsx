@@ -40,14 +40,16 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
   const handleDelete = async (cb: (flag: boolean) => void) => {
     if (rideId) {
-      const results = await mutate("/api/ride/create", () =>
-        deleteRide(rideId)
-      );
-      if (results.id) {
-        closeMenu();
-        router.push("/");
-        cb(true);
-      }
+      mutate("/api/ride", async () => {
+        const results = await deleteRide(rideId);
+        if (results.id) {
+          closeMenu();
+          router.push("/");
+          cb(true);
+        } else {
+          cb(false);
+        }
+      });
     } else {
       cb(false);
     }

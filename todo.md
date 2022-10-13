@@ -4,7 +4,6 @@
 
 ## Admin/Leader
 
-- Check that join and leave still work
 - Can I delete a ride with riders?
 
 - Form cleansing (values)
