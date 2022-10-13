@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 import HamburgerIcon from "../../public/static/images/hamburger-50.png";
+import { Confirm } from "./Confirm";
 import { deleteRide } from "../hooks";
 
 type MenuProps = {
@@ -15,13 +16,22 @@ type MenuProps = {
 
 export const UserMenu = ({ role, rideId }: MenuProps) => {
   const [show, setShow] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
-  const toggleMenu = () => setShow(!show);
+  const toggleMenu = () => {
+    setShow(!show);
+    if (show) {
+      setShowConfirm(false);
+    }
+  };
 
-  const closeMenu = () => setShow(false);
+  const closeMenu = () => {
+    setShow(false);
+    setShowConfirm(false);
+  };
 
   const handleSignout = () => {
     signOut({ callbackUrl: "http://localhost:3000" });
@@ -39,6 +49,8 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
       }
     }
   };
+
+  const confirmDelete = () => setShowConfirm(true);
 
   return (
     <div className="relative">
@@ -84,11 +96,12 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
                   </button>
                 </div>
               </Link>
+
               <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
                 <button
                   type="button"
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
-                  onClick={handleDelete}
+                  onClick={confirmDelete}
                 >
                   <i className="fa-solid fa-trash" />
                   <span className="justify-self-start">Delete Ride</span>
@@ -107,6 +120,13 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
           </button>
         </div>
       )}
+
+      <Confirm
+        open={showConfirm}
+        closeHandler={closeMenu}
+        heading="Are you sure you want to delete this ride?"
+        onYes={handleDelete}
+      />
     </div>
   );
 };

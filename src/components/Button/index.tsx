@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   onClick,
 }: ButtonProps) => {
-  let classes = `px-4 h-full text-white text-lg rounded ${className}` || "";
+  let classes = `px-6 h-full text-white text-lg rounded ${className}` || "";
 
   switch (variant) {
     case "going":
@@ -32,6 +32,9 @@ export const Button: React.FC<ButtonProps> = ({
       break;
     case "join":
       classes += " bg-red-700 hover:bg-red-800";
+      break;
+    case "cancel":
+      classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
       break;
     default: // primary
       classes += " bg-blue-500 hover:bg-blue-600";

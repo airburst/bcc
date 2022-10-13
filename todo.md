@@ -4,7 +4,6 @@
 
 ## Admin/Leader
 
-- Confirm before delete
 - Show delete waiting
 - Check that join and leave still work
 - Can I delete a ride with riders?

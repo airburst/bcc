@@ -7,7 +7,7 @@ export * from "./Card";
 export * from "./Header";
 export * from "./Loading";
 export * from "./MainContent";
-export * from "./Modal";
+export * from "./Confirm";
 export * from "./NoMatch";
 export * from "./RideGroup";
 export * from "./forms/RideForm";
