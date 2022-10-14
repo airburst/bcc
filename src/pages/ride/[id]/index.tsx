@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/no-unstable-nested-components */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
@@ -10,6 +8,22 @@ import { getRide } from "../../api/ride";
 import { useRide } from "../../../hooks";
 import { JoinButton, Badge, BackButton } from "../../../components";
 import { User, Ride } from "../../../types";
+
+type RowProps = {
+  children: JSX.Element | JSX.Element[] | null | undefined;
+};
+
+const Row = ({ children }: RowProps) => (
+  <div className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4">
+    {children}
+  </div>
+);
+
+const Heading = ({ children }: RowProps) => (
+  <div className="flex w-full flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded">
+    {children}
+  </div>
+);
 
 type RidePageProps = {
   data: Ride;
@@ -63,22 +77,6 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
   const isGoing = usersData
     ? usersData?.map((u: User) => u.id).includes(user?.id)
     : false;
-
-  type RowProps = {
-    children: JSX.Element | JSX.Element[] | null | undefined;
-  };
-
-  const Row = ({ children }: RowProps) => (
-    <div className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4">
-      {children}
-    </div>
-  );
-
-  const Heading = ({ children }: RowProps) => (
-    <div className="flex w-full flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded">
-      {children}
-    </div>
-  );
 
   return (
     <>
@@ -157,15 +155,19 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
         <div className="flex w-full px-2 sm:px-0">
           {hasRiders && (
             <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
-              {usersData?.map(({ id: userId, name: userName, mobile }) => (
-                <Row key={userId}>
-                  <div>{userName}</div>
-                  <div className="flex items-center gap-2">
-                    {mobile && <i className="fa-solid fa-phone" />}
-                    <span>{mobile}</span>
-                  </div>
-                </Row>
-              ))}
+              {user ? (
+                usersData?.map(({ id: userId, name: userName, mobile }) => (
+                  <Row key={userId}>
+                    <div>{userName}</div>
+                    <div className="flex items-center gap-2">
+                      {mobile && <i className="fa-solid fa-phone" />}
+                      <span>{mobile}</span>
+                    </div>
+                  </Row>
+                ))
+              ) : (
+                <div className="p-2">Please log in to see rider details</div>
+              )}
             </div>
           )}
         </div>

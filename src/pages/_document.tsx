@@ -5,6 +5,7 @@ const Document = () => (
   <Html>
     <Head>
       <meta name="description" content="Bath Cycling Club Ride Planner" />
+      <meta name="author" content="Mark Fairhurst" />
       <link
         rel="apple-touch-icon"
         sizes="180x180"

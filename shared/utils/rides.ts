@@ -1,5 +1,4 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
-// import { nanoid } from "nanoid";
 import { getRideDateAndTime } from "./dates";
 
 const ANONYMISED_NAME = "Log in to see rider's details";
@@ -28,7 +27,6 @@ export const formatUser = (user: User, isAuth = false) => {
 
   if (!isAuth) {
     return { id, name: ANONYMISED_NAME };
-    // return { id: nanoid(), name: ANONYMISED_NAME };
   }
 
   return {
