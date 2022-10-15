@@ -93,8 +93,21 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
 
 export default EditRide;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const session = await getSession();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const role = session && (session.role as string);
+  const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
+
+  if (!isAuthorised) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const { query } = context;
   const data = await getRide(query.id, !!session);
 
   return {

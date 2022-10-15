@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -92,3 +92,22 @@ const AddRide: NextPage = () => {
 };
 
 export default AddRide;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const role = session && (session.role as string);
+  const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
+
+  if (!isAuthorised) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
