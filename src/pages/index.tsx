@@ -1,25 +1,41 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
-import { useSession, getSession } from "next-auth/react";
-import { getRides } from "./api/rides";
-import { RideGroup } from "../components";
+import Error from "next/error";
+import { useSession } from "next-auth/react";
+import { useRides } from "../hooks";
+import { RideGroup, RideGroupSkeleton } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
-import { User, Ride } from "../types";
-
-type Props = {
-  data: Ride[];
-};
+import { User } from "../types";
 
 const nextDate = getNextWeek();
 
-export const fetchRides = async () => {
-  const res = await fetch("/api/rides");
-  const data = await res.json();
-  return data;
-};
-
-const Home: NextPage<Props> = ({ data }: Props) => {
+const Home: NextPage = () => {
   const { data: session } = useSession();
+  // Fetch rides for next 2 weeks
+  const { data, loading, error } = useRides();
+
+  // Skeleton while loading
+  if (loading) {
+    return (
+      <>
+        <Head>
+          <title>BCC Rides</title>
+          <meta name="description" content="Bath Cycling Club Ride Planner" />
+        </Head>
+        <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+          <RideGroupSkeleton
+            numberOfCards={5}
+            dateText="SATURDAY 10 NOWONDER"
+          />
+          <RideGroupSkeleton numberOfCards={5} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return <Error statusCode={500} />;
+  }
 
   // Get user id from session
   const user = session?.user as User;
@@ -55,14 +71,3 @@ const Home: NextPage<Props> = ({ data }: Props) => {
 };
 
 export default Home;
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const session = await getSession();
-  const data = await getRides(!!session);
-
-  return {
-    props: {
-      data,
-    },
-  };
-};
