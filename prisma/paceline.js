@@ -1,45 +1,47 @@
 const { PrismaClient } = require("@prisma/client");
 const dayjs = require("dayjs");
+
 const prisma = new PrismaClient();
 
 const rides = [
   {
     group: "UBER",
     distance: 70,
-    speed: 39
+    speed: 39,
     // notes: "Expected time: 1hr 45min - 1hr 50min"
   },
   {
     group: "FAST1",
     distance: 70,
-    speed: 37
+    speed: 37,
     // notes: "Expected time: 1hr 50min - 1hr 55min"
   },
   {
     group: "FAST2",
     distance: 70,
-    speed: 35
+    speed: 35,
     // notes: "Expected time: 2hr"
   },
   {
     group: "MEDIUM",
     distance: 70,
-    speed: 33
+    speed: 33,
     // notes: "Expected time: 2hr 5min"
   },
   {
     group: "MODS",
     distance: 70,
-    speed: 30
+    speed: 30,
     // notes: "Expected time: 2hr 15min"
   },
   {
     group: "ROCKERS",
     distance: 70,
-    speed: 26
-  }
+    speed: 26,
+  },
 ];
 
+// Get next Day of Week
 const findNextDay = (day = 6) => {
   const today = dayjs().day();
 
@@ -51,17 +53,16 @@ const findNextDay = (day = 6) => {
   return dayjs().add(delta, "day");
 };
 
-// dayjs.utc('2020-04-22T14:56:09.388842'.substring(0, 23))
-
+// Does start time change for Winter (1 Nov - 28 Feb)?
 const getNextPaceline = () => {
-  return findNextDay(6) // Saturday
+  const firstRide = findNextDay(6) // Saturday
     .set("hour", 8)
     .set("minute", 40)
-    .set("second", 0)
-    .toISOString();
+    .set("second", 0);
+  // Calculate utc offset
+  const offset = dayjs().utcOffset();
+  return firstRide.add(offset, "minute").toISOString();
 };
-
-// Does start time change for Winter (1 Nov - 28 Feb)?
 
 const nextDate = getNextPaceline();
 
@@ -75,7 +76,7 @@ const generateRides = () =>
       name: "Paceline",
       route: "https://ridewithgps.com/routes/31250554",
       ...ride,
-      date
+      date,
     };
   });
 
@@ -86,7 +87,7 @@ const load = async () => {
   try {
     // Add paceline data for next week
     await prisma.ride.createMany({
-      data: generateRides()
+      data: generateRides(),
     });
 
     console.log("Added Paceline data");

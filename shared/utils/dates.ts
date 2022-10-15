@@ -10,6 +10,10 @@ export const getNow = () => {
   return dayjs().utc().add(delta, "minutes").toISOString();
 };
 
+// Set ISO time in db; no offset calculation
+export const makeUtcDate = (day: string, time: string): string =>
+  dayjs(`${day}T${time}:00.000Z`).utc().format();
+
 export const getNextWeek = () => {
   const nextWeek = dayjs()
     .add(7, "day")
@@ -39,7 +43,3 @@ export const getFormRideDateAndTime = (date: string) => ({
   date: formatFormDate(date),
   time: formatTime(date),
 });
-
-// Set ISO time in db; no offset calculation
-export const makeUtcDate = (day: string, time: string): string =>
-  dayjs(`${day}T${time}:00.000Z`).utc().format();
