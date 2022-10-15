@@ -3,6 +3,13 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
+// Current local time
+export const getNow = () => {
+  const delta = dayjs().utcOffset();
+
+  return dayjs().utc().add(delta, "minutes").toISOString();
+};
+
 export const getNextWeek = () => {
   const nextWeek = dayjs()
     .add(7, "day")

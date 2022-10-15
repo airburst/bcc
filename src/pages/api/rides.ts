@@ -1,10 +1,9 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { getNextWeek, formatRideData } from "../../../shared/utils";
+import { getNow, getNextWeek, formatRideData } from "../../../shared/utils";
 import { isLoggedIn } from "./auth/authHelpers";
 
-const now = new Date().toISOString();
 const nextDate = getNextWeek();
 
 export const getRides = async (isAuth = false) => {
@@ -14,7 +13,7 @@ export const getRides = async (isAuth = false) => {
         {
           date: {
             lte: nextDate,
-            gte: now,
+            gte: getNow(),
           },
           deleted: false,
         },
