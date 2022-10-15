@@ -11,3 +11,4 @@ export * from "./Confirm";
 export * from "./NoMatch";
 export * from "./RideGroup";
 export * from "./forms/RideForm";
+export * from "./forms/UserProfileForm";

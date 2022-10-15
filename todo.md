@@ -2,13 +2,11 @@
 
 ## Users
 
-- USER can only join one ride per day
-- Anonymous users can join but not leave
 - User profile: change password, set name and mobile : forgotten password ???
-- Jank when user joins / leaves a ride (repaints "Going" section)
-
 - Improve menu: https://headlessui.com/react/menu
 
+- Anonymous users can join but not leave
+- USER can only join one ride per day
 - Secure API with middleware and expiring signed token?
   https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
 
