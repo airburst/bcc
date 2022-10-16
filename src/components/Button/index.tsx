@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
 }: ButtonProps) => {
   let classes =
-    `px-6 h-full text-white text-lg rounded disabled:bg-neutral-100 disabled:text-neutral-500 ${className}` ||
+    `px-6 h-full text-white text-lg rounded disabled:bg-neutral-200 disabled:text-neutral-500 disabled:cursor-not-allowed ${className}` ||
     "";
 
   switch (variant) {
