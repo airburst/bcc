@@ -22,7 +22,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<UserProfileValues>();
 
   if (!user) {
@@ -35,26 +35,25 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
     name: user.name,
     email: user.email,
     mobile: user.mobile,
-    role: user.role,
   };
 
   const onSubmit: SubmitHandler<UserProfileValues> = async ({
-    id,
     name,
     mobile,
   }) => {
-    console.log("submitting", id, name, mobile);
-    // setWaiting(true);
-    // const results = await mutate("/api/user", () =>
-    //   updateUser({
-    //     id,
-    //     name,
-    //     mobile,
-    //   })
-    // );
-    // if (results.id) {
-    //   router.push("/");
-    // }
+    setWaiting(true);
+    await mutate("/api/user", async () => {
+      const userRecord = await updateUser({
+        id: user.id,
+        name,
+        mobile,
+      });
+
+      if (userRecord?.id) {
+        router.push("/");
+      }
+      setWaiting(false);
+    });
   };
 
   return (
@@ -72,6 +71,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
         <UserProfileForm
           defaultValues={defaultValues}
           errors={errors}
+          isDirty={isDirty}
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}

@@ -7,6 +7,7 @@ import { useSWRConfig } from "swr";
 import HamburgerIcon from "../../public/static/images/hamburger-50.png";
 import { Confirm } from "./Confirm";
 import { deleteRide } from "../hooks";
+import pkg from "../../package.json";
 
 type MenuProps = {
   // user: User | null;
@@ -59,7 +60,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
   return (
     <div className="relative">
-      <div className="cursor-pointer rounded p-1 hover:bg-neutral-200">
+      <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-200">
         <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
           <Image
             src={HamburgerIcon}
@@ -115,14 +116,31 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
             </>
           )}
 
+          <Link href="/profile">
+            <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+              <button
+                type="button"
+                className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                onClick={closeMenu}
+              >
+                <i className="fa-solid fa-user" />
+                <span className="justify-self-start">Profile</span>
+              </button>
+            </div>
+          </Link>
+
           <button
             type="button"
-            className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2 p-2 hover:bg-neutral-200 hover:text-neutral-900"
+            className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2 border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900 "
             onClick={handleSignout}
           >
             <i className="fa-solid fa-right-from-bracket" />
             <span className="justify-self-start">Log out</span>
           </button>
+
+          <div className="flex h-6 items-center pl-2 text-xs text-neutral-400">
+            Version {pkg.version}
+          </div>
         </div>
       )}
 

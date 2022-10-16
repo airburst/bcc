@@ -7,15 +7,16 @@ export type UserProfileValues = {
   id: string;
   name: string;
   email: string;
-  image?: string;
   mobile?: string | null;
-  role: string;
+  // image?: string;
+  // role: string;
 };
 
 type UserProfileFormProps = {
   defaultValues: UserProfileValues;
   register: UseFormRegister<UserProfileValues>;
   errors: Partial<FieldErrorsImpl<UserProfileValues>>;
+  isDirty: boolean;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   waiting: boolean;
 };
@@ -24,6 +25,7 @@ export const UserProfileForm = ({
   defaultValues,
   register,
   errors,
+  isDirty,
   handleSubmit,
   waiting,
 }: UserProfileFormProps) => (
@@ -50,20 +52,6 @@ export const UserProfileForm = ({
     </div>
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
-      <label htmlFor="group" className="flex flex-col gap-1 font-medium">
-        Email
-        <input
-          id="group"
-          type="text"
-          className="rounded font-normal"
-          defaultValue={defaultValues.email}
-          disabled
-          {...register("email", { required: true })}
-        />
-      </label>
-    </div>
-
-    <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
       <label htmlFor="destination" className="flex flex-col">
         Mobile
         <input
@@ -76,8 +64,22 @@ export const UserProfileForm = ({
       </label>
     </div>
 
+    <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+      <label htmlFor="group" className="flex flex-col gap-1 font-medium">
+        Email
+        <input
+          id="group"
+          type="text"
+          className="rounded border-neutral-300 bg-neutral-200 font-normal text-neutral-600"
+          defaultValue={defaultValues.email}
+          disabled
+          {...register("email")}
+        />
+      </label>
+    </div>
+
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
-      <Button loading={waiting} type="submit">
+      <Button loading={waiting} type="submit" disabled={!isDirty}>
         <div>Submit</div>
       </Button>
       <CancelButton />

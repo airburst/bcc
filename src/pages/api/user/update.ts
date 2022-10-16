@@ -8,6 +8,7 @@ import { User } from "../../../types";
 // Restricted editable fields: name, mobile
 export const updateProfile = async (user: User) => {
   const { id, name, mobile } = user;
+
   try {
     const result = await prisma.user.update({
       data: {
@@ -29,16 +30,25 @@ const editProfile = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ error: "Not authorised" });
   }
 
-  const isMyRecord = await isMe(req, res)(session.user.id);
-  const hasLeaderRole = await isAdmin(req, res);
+  try {
+    const user = req.body;
+    // A user can only add themselves; a leader can add other riders
+    const isMyRecord = await isMe(req, res)(user.id);
+    const hasLeaderRole = await isAdmin(req, res);
 
-  if (isMyRecord || hasLeaderRole) {
-    const userData = await updateProfile(session.user as User);
-    return res.status(200).json(userData);
+    if (isMyRecord || hasLeaderRole) {
+      const userData = await updateProfile(user);
+      return res.status(200).json(userData);
+    }
+    return res.status(401).send({
+      error: "Not authorised to use this API",
+    });
+  } catch (err) {
+    // Could send actual error!
+    return res.status(401).send({
+      error: err,
+    });
   }
-  return res.status(401).send({
-    error: "Not authorised to use this API",
-  });
 };
 
 export default editProfile;
