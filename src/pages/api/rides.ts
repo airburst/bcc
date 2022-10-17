@@ -41,3 +41,7 @@ const rides = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default rides;
+
+export const config = {
+  runtime: "experimental-edge",
+};
