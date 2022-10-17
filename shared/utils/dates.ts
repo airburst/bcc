@@ -27,6 +27,10 @@ export const getNextWeek = () => {
 
 export const formatDate = (date: string) =>
   dayjs(date).utc().format("dddd DD MMMM");
+
+export const formatCalendarDate = (date: string) =>
+  dayjs(date).utc().format("MMMM YYYY");
+
 export const formatTime = (date: string) => dayjs(date).utc().format("HH:mm");
 
 export const formatFormDate = (date: string) =>
@@ -43,3 +47,18 @@ export const getFormRideDateAndTime = (date: string) => ({
   date: formatFormDate(date),
   time: formatTime(date),
 });
+
+// Calendar view helpers
+export const getMonth = () => dayjs().month();
+
+export const getLastMonth = (date?: string) =>
+  dayjs(date).subtract(31, "day").toISOString();
+
+export const getNextMonth = (date?: string) =>
+  dayjs(date).add(31, "day").toISOString();
+
+export const firstDayOfMonth = (date?: string) =>
+  date ? dayjs(date).startOf("month").day() : dayjs().startOf("month").day();
+
+export const daysInMonth = (date?: string) =>
+  date ? dayjs(date).daysInMonth() : dayjs().daysInMonth();

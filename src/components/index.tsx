@@ -3,6 +3,7 @@ export * from "./Button";
 export * from "./Button/BackButton";
 export * from "./Button/CancelButton";
 export * from "./Button/JoinButton";
+export * from "./Calendar";
 export * from "./Card";
 export * from "./Header";
 export * from "./Loading";
