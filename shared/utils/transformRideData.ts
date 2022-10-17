@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { formatDate } from "./dates";
 import { Ride, Group } from "../../src/types";
 
@@ -52,3 +53,6 @@ export const ungroupRides = (group: Group) =>
   Object.entries(group).flatMap(([date, types]) =>
     Object.entries(types).map(([type, rides]) => ({ date, type, rides }))
   );
+
+export const mapRidesToDate = (rides: Ride[], date: string): Ride[] =>
+  rides.filter((r) => r?.date?.startsWith(date));

@@ -3,7 +3,7 @@ type Props = {
 };
 
 export const Badge: React.FC<Props> = ({ text }: Props) => (
-  <div className="text-md rounded-md bg-red-500 px-3 font-medium text-white">
+  <div className="flex justify-center truncate rounded bg-red-500 px-1 text-xs text-white">
     {text}
   </div>
 );

@@ -3,7 +3,7 @@ type Props = {
 };
 
 export const Heading = ({ day }: Props) => (
-  <div className="items-self-center flex w-full bg-blue-100 p-2 font-bold">
+  <div className="items-self-center flex w-full bg-blue-100 p-2 font-bold tracking-wider text-neutral-900">
     {day}
   </div>
 );

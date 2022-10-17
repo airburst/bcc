@@ -8,14 +8,12 @@
 - View to show all riders out on a day (presumably only for logged-in users..)
 
 - Usability of Long Press?
-- Improve menu: https://headlessui.com/react/menu
 
 ## Admin/Leader
 
-- Form cleansing (values)
-
 - View of rides on calendar
 - (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
+- Form cleansing (values)
 
 ## Engineering / Perf
 
@@ -32,3 +30,11 @@
 - Ride.deleted
 - Bulk creation of users? Probably not
 - Group non-mandatory?
+
+## Could Do (Low pri)
+
+- Secure API with middleware and expiring signed token?
+  https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
+
+- Improve menu: https://headlessui.com/react/menu
+- Alternative Auth? Socials etc.

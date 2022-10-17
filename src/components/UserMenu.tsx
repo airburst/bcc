@@ -74,18 +74,33 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
       {show && (
         <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-lg">
           {isLeader && (
-            <Link href="/ride/new">
-              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
-                <button
-                  type="button"
-                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
-                  onClick={closeMenu}
-                >
-                  <i className="fa-solid fa-plus" />
-                  <span className="justify-self-start">Add Ride</span>
-                </button>
-              </div>
-            </Link>
+            <>
+              <Link href="/ride/new">
+                <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                  <button
+                    type="button"
+                    className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                    onClick={closeMenu}
+                  >
+                    <i className="fa-solid fa-plus" />
+                    <span className="justify-self-start">Add Ride</span>
+                  </button>
+                </div>
+              </Link>
+
+              <Link href="/ride/calendar">
+                <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                  <button
+                    type="button"
+                    className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                    onClick={closeMenu}
+                  >
+                    <i className="fa-regular fa-calendar" />
+                    <span className="justify-self-start">Calendar</span>
+                  </button>
+                </div>
+              </Link>
+            </>
           )}
 
           {isLeader && rideId && (

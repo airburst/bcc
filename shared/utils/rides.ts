@@ -1,4 +1,5 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
+import { Ride as RideType } from "../../src/types";
 import { getRideDateAndTime } from "./dates";
 
 const ANONYMISED_NAME = "Log in to see rider's details";
@@ -45,11 +46,28 @@ export const formatRideData = (ride: RideData, isAuth = false) => {
 
   return {
     ...rest,
-    date: date.toString(),
+    date: date.toISOString(),
     day,
     time,
     users: users.map(({ user: u }) => ({
       ...formatUser(u, isAuth),
     })),
   };
+};
+
+export const formatInitials = (words: string): string => {
+  const parts = words.split(" ");
+  return parts
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+};
+
+export const formatRideBadge = (ride: RideType): string => {
+  if (ride.name === "Paceline" || ride.name === "Sunday Ride") {
+    return ride.group.substring(0, 3) + ride.group.replace(/\D/g, "");
+  }
+  const name = formatInitials(ride.name);
+  const group = formatInitials(ride.group);
+  return `${name} (${group})`;
 };
