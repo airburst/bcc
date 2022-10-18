@@ -2,17 +2,24 @@
 
 ## Users
 
-- Anonymous users can join but not leave
-- USER can only join one ride per day
+1. Anonymous users can join but not leave
+2. Usability of Long Press? Try touchStart/touchMove hook
+3. USER can only join one ride per day
+4. View to show all riders out on a day (presumably only for logged-in users..)
 
-- View to show all riders out on a day (presumably only for logged-in users..)
-
-- Usability of Long Press?
+- /riders/[date]
+- Needs a new api and query
 
 ## Admin/Leader
 
-- View of rides on calendar
-- (https://github.com/moodydev/react-calendar/blob/master/src/components/Calendar.jsx)
+- /ride/planner/[date] view
+
+  - Use a variation of /api/rides query with to, from date params
+  - Update indexes in Ride schema (notes?, group?)
+  - Use a variation of / page, listing only rides on day from query
+  - If Saturday and no Paceline rides, button to generate them
+  - (Same for Sunday?)
+
 - Form cleansing (values)
 
 ## Engineering / Perf
@@ -36,5 +43,11 @@
 - Secure API with middleware and expiring signed token?
   https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
 
-- Improve menu: https://headlessui.com/react/menu
 - Alternative Auth? Socials etc.
+
+## Cosmetic Snags
+
+- Rounded corners on sm+ calendar
+- Better badges on mobile calendar
+- last-child borders in calendar days
+- Improve menu: https://headlessui.com/react/menu

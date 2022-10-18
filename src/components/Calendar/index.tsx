@@ -71,24 +71,34 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
   }));
 
   return loading ? (
-    <div className="m-2 grid grid-cols-7 gap-0 rounded bg-white shadow-md lg:m-0">
+    <div className="grid grid-cols-7 gap-0  bg-white shadow-md sm:m-2 lg:m-0">
       <HeadingGroup />
-      {calGrid.map(({ type, day }) =>
+      {calGrid.map(({ type, day, date: calDate }) =>
         type === "outside" ? (
-          <OutsideDay key={`${type}-${day}`} day={day} loading />
+          <OutsideDay key={`${type}-${day}`} day={day} date={calDate} loading />
         ) : (
-          <Day key={`cal-${day}`} day={day} loading />
+          <Day key={`cal-${day}`} day={day} date={calDate} loading />
         )
       )}
     </div>
   ) : (
-    <div className="m-2 grid grid-cols-7 gap-0 rounded bg-white shadow-md lg:m-0">
+    <div className="grid grid-cols-7 gap-0  bg-white shadow-md  lg:m-0">
       <HeadingGroup />
-      {daysWithRides.map(({ type, day, rides: mappedRides }) =>
+      {daysWithRides.map(({ type, day, rides: mappedRides, date: calDate }) =>
         type === "outside" ? (
-          <OutsideDay key={`${type}-${day}`} day={day} rides={mappedRides} />
+          <OutsideDay
+            key={`${type}-${day}`}
+            day={day}
+            date={calDate}
+            rides={mappedRides}
+          />
         ) : (
-          <Day key={`cal-${day}`} day={day} rides={mappedRides} />
+          <Day
+            key={`cal-${day}`}
+            day={day}
+            date={calDate}
+            rides={mappedRides}
+          />
         )
       )}
     </div>

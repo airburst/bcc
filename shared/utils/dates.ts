@@ -10,19 +10,57 @@ export const getNow = () => {
   return dayjs().utc().add(delta, "minutes").toISOString();
 };
 
+export const getDateFromString = (dateString: string, end?: boolean) => {
+  const delta = dayjs().utcOffset();
+
+  return end
+    ? dayjs(dateString)
+        .utc()
+
+        .toISOString()
+    : dayjs(dateString).utc().add(delta, "minutes").toISOString();
+};
+
 // Set ISO time in db; no offset calculation
 export const makeUtcDate = (day: string, time: string): string =>
   dayjs(`${day}T${time}:00.000Z`).utc().format();
 
 export const getNextWeek = () => {
-  const nextWeek = dayjs()
-    .add(7, "day")
+  const nextWeek = dayjs().add(7, "day").toISOString();
+
+  return nextWeek;
+};
+
+export const getQueryDateRange = ({
+  start,
+  end,
+}: {
+  start?: string;
+  end?: string;
+}) => {
+  const now = getNow();
+  const st = start ? getDateFromString(start) : now;
+  let en = end ? getDateFromString(end, true) : getNextWeek();
+
+  // Set end of day on en
+  en = dayjs(en)
     .set("hour", 23)
     .set("minute", 59)
     .set("second", 59)
     .toISOString();
 
-  return nextWeek;
+  return { start: st, end: en };
+};
+
+export const getMonthDateRange = (date: string) => {
+  // Extract month and year from date
+  const year = dayjs(date).year();
+  const month = dayjs(date).month() + 1;
+  const formattedMonth = month.toString().padStart(2, "0");
+  const start = `${year}-${formattedMonth}-01`;
+  const end = `${year}-${formattedMonth}-${dayjs(date).daysInMonth()}`;
+
+  return { start, end };
 };
 
 export const formatDate = (date: string) =>

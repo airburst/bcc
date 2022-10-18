@@ -1,19 +1,24 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { getNow, getNextWeek, formatRideData } from "../../../shared/utils";
+import { formatRideData, getQueryDateRange } from "../../../shared/utils";
 import { isLoggedIn } from "./auth/authHelpers";
 
-const nextDate = getNextWeek();
+type QueryType = {
+  start?: string;
+  end?: string;
+};
 
-export const getRides = async (isAuth = false) => {
+export const getRides = async (query: QueryType, isAuth = false) => {
+  const { start, end } = getQueryDateRange(query);
+
   const rides = await prisma.ride.findMany({
     where: {
       AND: [
         {
           date: {
-            lte: nextDate,
-            gte: getNow(),
+            gte: start,
+            lte: end,
           },
           deleted: false,
         },
@@ -36,7 +41,8 @@ export const getRides = async (isAuth = false) => {
 
 const rides = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAuth = await isLoggedIn(req, res);
-  const rideData = await getRides(isAuth);
+  const { query } = req;
+  const rideData = await getRides(query, isAuth);
   return res.status(200).json(rideData);
 };
 
