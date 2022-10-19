@@ -13,6 +13,8 @@
 
 ## Admin/Leader
 
+- FIX HUSKY!
+
 - /ride/planner/[date] view
 
   - Use a variation of /api/rides query with to, from date params
