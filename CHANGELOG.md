@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.1] - 2022-10-19
+
+### Fixed
+
+- Husky pre-commit setup
+
 ## [0.6.0] - 2022-10-19
 
 Planner (calendar) API and view updated with working navigation and visual indication of rides on each day.
