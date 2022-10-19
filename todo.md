@@ -5,10 +5,11 @@
 1. Anonymous users can join but not leave
 2. Usability of Long Press? Try touchStart/touchMove hook
 3. USER can only join one ride per day
-4. View to show all riders out on a day (presumably only for logged-in users..)
 
-- /riders/[date]
-- Needs a new api and query
+- View to show all riders out on a day (presumably only for logged-in users..)
+
+  - /riders/[date]
+  - Needs a new api and query
 
 ## Admin/Leader
 
@@ -17,15 +18,18 @@
   - Use a variation of /api/rides query with to, from date params
   - Update indexes in Ride schema (notes?, group?)
   - Use a variation of / page, listing only rides on day from query
-  - If Saturday and no Paceline rides, button to generate them
+  - If Saturday and no Paceline rides, button to generate them (+)
   - (Same for Sunday?)
+
+- Route guards on API, pages above for leaders
 
 - Form cleansing (values)
 
 ## Engineering / Perf
 
 - Setup PWA
-- Create fresh data for PL rides up to 6 months! (As an API..)
+- Remove fontawesome icons
+- Locally host fonts
 - Alternative Auth? Socials etc.
 - Move route guard redirects to edge middleware
 - Secure API with middleware and expiring signed token?
@@ -47,7 +51,6 @@
 
 ## Cosmetic Snags
 
-- Rounded corners on sm+ calendar
 - Better badges on mobile calendar
 - last-child borders in calendar days
 - Improve menu: https://headlessui.com/react/menu

@@ -88,7 +88,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
                 </div>
               </Link>
 
-              <Link href="/ride/calendar">
+              <Link href="/ride/planner">
                 <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
                   <button
                     type="button"

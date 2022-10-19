@@ -8,3 +8,13 @@ export const Badge: React.FC<Props> = ({ text, size = "md" }: Props) => {
 
   return <div className={classes}>{text}</div>;
 };
+
+export const RoundBadge: React.FC<Props> = ({ text, size = "md" }: Props) => {
+  const classes = `flex justify-center truncate rounded-full bg-red-500 px-3 py-1 text-${size} text-white`;
+
+  return (
+    <div className={classes}>
+      <span className="flex w-3 justify-center">{text}</span>
+    </div>
+  );
+};

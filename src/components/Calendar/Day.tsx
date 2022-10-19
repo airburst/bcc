@@ -1,6 +1,6 @@
 import { formatRideBadge, getNow } from "../../../shared/utils";
 import { Ride } from "../../types";
-import { Badge } from "../Badge";
+import { RoundBadge, Badge } from "../Badge";
 
 type Props = {
   day: number;
@@ -26,8 +26,10 @@ export const Day = ({ day, date, rides, classes }: Props) => {
       <div>
         {day}
 
-        <div className="flex justify-center py-4 sm:hidden lg:grid-cols-3 lg:gap-2">
-          {rides && rides.length > 0 && <Badge text={rides.length} size="lg" />}
+        <div className="flex justify-center py-2 sm:hidden lg:grid-cols-3 lg:gap-2">
+          {rides && rides.length > 0 && (
+            <RoundBadge text={rides.length} size="lg" />
+          )}
         </div>
 
         <div className="invisible grid grid-cols-2 gap-1 sm:visible lg:grid-cols-3 lg:gap-2">

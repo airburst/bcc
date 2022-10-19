@@ -22,14 +22,9 @@ const RideCalendar: NextPage = () => {
   // Fetch rides for month selected
   const { data, loading, error } = useRides(start, end);
 
-  // TODO: refresh data fetch on nav
-  const goToNextMonth = () => {
-    setDate(getNextMonth(date));
-  };
+  const goToNextMonth = () => setDate(getNextMonth(date));
 
-  const goToLastMonth = () => {
-    setDate(getLastMonth(date));
-  };
+  const goToLastMonth = () => setDate(getLastMonth(date));
 
   if (error) {
     return <Error statusCode={500} />;
