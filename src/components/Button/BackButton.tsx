@@ -10,7 +10,7 @@ export const BackButton = ({ children, ...props }: ButtonProps) => {
   return (
     <button
       type="button"
-      className="flex h-8 items-center rounded bg-blue-600 p-5  px-6 text-lg text-white hover:bg-blue-700"
+      className="flex h-8 items-center rounded bg-blue-600 p-5 px-6 text-lg text-white hover:bg-blue-700"
       {...props}
       onClick={() => router.back()}
     >

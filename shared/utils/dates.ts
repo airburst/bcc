@@ -52,6 +52,8 @@ export const getQueryDateRange = ({
   return { start: st, end: en };
 };
 
+export const isSaturday = (date: string) => dayjs(date).day() === 6;
+
 export const getMonthDateRange = (date: string) => {
   // Extract month and year from date
   const year = dayjs(date).year();

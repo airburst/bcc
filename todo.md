@@ -13,15 +13,11 @@
 
 ## Admin/Leader
 
-- FIX HUSKY!
-
 - /ride/planner/[date] view
 
-  - Use a variation of /api/rides query with to, from date params
-  - Update indexes in Ride schema (notes?, group?)
-  - Use a variation of / page, listing only rides on day from query
   - If Saturday and no Paceline rides, button to generate them (+)
-  - (Same for Sunday?)
+  - API to create bulk PL rides
+  - Update indexes in Ride schema (notes?, group?)
 
 - Route guards on API, pages above for leaders
 

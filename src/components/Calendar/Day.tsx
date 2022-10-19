@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatRideBadge, getNow } from "../../../shared/utils";
 import { Ride } from "../../types";
 import { RoundBadge, Badge } from "../Badge";
@@ -15,15 +16,15 @@ export const Day = ({ day, date, rides, classes }: Props) => {
   const isToday = today.startsWith(date);
   const cellStyle = isToday
     ? "bg-blue-700 text-white hover:bg-blue-50 hover:text-neutral-900"
-    : "hover:bg-blue-50 hover:text-neutral-900";
+    : "hover:bg-blue-50 hover:text-neutral-900 cursor-pointer";
 
   const wrapperClasses =
     classes ||
-    `lg:text-md h-24 w-full justify-self-center border-b-[1px] border-r-[1px] border-neutral-100 p-1 text-sm last:border-b-0 last:border-r-0 lg:h-24 ${cellStyle}`;
+    `lg:text-md h-24 w-full justify-self-center border-b-[1px] border-r-[1px] border-neutral-100 p-1 text-sm last:border-b-0 last:border-r-0 lg:h-24 cursor-pointer ${cellStyle}`;
 
   return (
-    <div className={wrapperClasses}>
-      <div>
+    <Link href={`/ride/planner/${date}`}>
+      <div className={wrapperClasses}>
         {day}
 
         <div className="flex justify-center py-2 sm:hidden lg:grid-cols-3 lg:gap-2">
@@ -41,7 +42,7 @@ export const Day = ({ day, date, rides, classes }: Props) => {
             ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

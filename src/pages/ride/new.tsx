@@ -6,7 +6,11 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { addRide } from "../../hooks";
-import { formatUserName, makeUtcDate } from "../../../shared/utils";
+import {
+  formatUserName,
+  makeUtcDate,
+  flattenQuery,
+} from "../../../shared/utils";
 import { RideForm, FormValues } from "../../components";
 
 const AddRide: NextPage = () => {
@@ -14,6 +18,11 @@ const AddRide: NextPage = () => {
   const user = session?.user;
   const { mutate } = useSWRConfig();
   const router = useRouter();
+  const {
+    query: { date: queryDate },
+  } = router;
+  const dateString = flattenQuery(queryDate);
+
   const [waiting, setWaiting] = useState(false);
 
   const {
@@ -28,8 +37,8 @@ const AddRide: NextPage = () => {
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
-    name: "Sunday Ride",
-    date: "",
+    name: "",
+    date: dateString,
     time: "08:30",
     group: "",
     destination: "",
