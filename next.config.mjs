@@ -1,4 +1,5 @@
 // import { env } from "./src/env/server.mjs";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import bundleAnalyzer from "@next/bundle-analyzer";
 
 /**
@@ -14,17 +15,16 @@ function defineNextConfig(config) {
 }
 
 export const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === "true"
+  enabled: process.env.ANALYZE === "true",
 });
 
 export default withBundleAnalyzer(
   defineNextConfig({
     reactStrictMode: true,
     swcMinify: true,
-    // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
     i18n: {
       locales: ["en"],
-      defaultLocale: "en"
-    }
+      defaultLocale: "en",
+    },
   })
 );

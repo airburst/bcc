@@ -31,6 +31,10 @@ const Document = () => (
       />
       <meta name="msapplication-TileColor" content="#2b5797" />
       <meta name="theme-color" content="#ffffff" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
     </Head>
     <body>
       <Main />
