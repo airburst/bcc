@@ -75,9 +75,9 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
       <HeadingGroup />
       {calGrid.map(({ type, day, date: calDate }) =>
         type === "outside" ? (
-          <OutsideDay key={`${type}-${day}`} day={day} date={calDate} loading />
+          <OutsideDay key={`${type}-${day}`} day={day} date={calDate} />
         ) : (
-          <Day key={`cal-${day}`} day={day} date={calDate} loading />
+          <Day key={`cal-${day}`} day={day} date={calDate} />
         )
       )}
     </div>
