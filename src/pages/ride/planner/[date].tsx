@@ -4,7 +4,9 @@ import Error from "next/error";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useRides } from "../../../hooks";
+import { useSWRConfig } from "swr";
+import { useState } from "react";
+import { useRides, addPacelineRides } from "../../../hooks";
 import {
   BackButton,
   Button,
@@ -18,20 +20,39 @@ import {
   isSaturday,
   getNow,
 } from "../../../../shared/utils";
-import { User } from "../../../types";
+import { User, Ride } from "../../../types";
 
 const Rides: NextPage = () => {
+  const [creatingPL, setCreatingPL] = useState<boolean>(false);
   const { data: session } = useSession();
+  const router = useRouter();
   const {
     query: { date },
-  } = useRouter();
+  } = router;
   const dateString = `${flattenQuery(date)}T01:00:00.000Z`;
   const isInFuture = dateString > getNow();
-  // TODO: Check for any existing PL rides too!
-  const showPacelineButton = isInFuture && isSaturday(dateString);
+
+  const { mutate } = useSWRConfig();
+
+  const handleAddPacelineRides = () => {
+    setCreatingPL(true);
+    mutate(`/api/rides?start=${date}&end=${date}`, async () => {
+      const results = await addPacelineRides(dateString);
+      if (results?.count) {
+        router.push("/ride/planner");
+      }
+      setCreatingPL(false);
+    });
+  };
 
   // Fetch rides for given date
   const { data, loading, error } = useRides(date, date);
+
+  // Check for any existing PL rides
+  const hasPaceline =
+    data?.filter((ride: Ride) => ride?.name === "Paceline").length > 0;
+  const showPacelineButton =
+    isInFuture && isSaturday(dateString) && !hasPaceline;
 
   // Skeleton while loading
   if (loading) {
@@ -83,7 +104,11 @@ const Rides: NextPage = () => {
         </div>
         {showPacelineButton && (
           <div className="flex h-10 flex-row justify-center gap-4">
-            <Button variant="red">
+            <Button
+              variant="red"
+              loading={creatingPL}
+              onClick={handleAddPacelineRides}
+            >
               <div>
                 <i className="fa-solid fa-plus" />
                 <span>&nbsp;Add ALL Paceline Rides</span>

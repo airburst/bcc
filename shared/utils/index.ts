@@ -1,5 +1,6 @@
 export * from "./dates";
 export * from "./isMobile";
+export * from "./paceline";
 export * from "./rides";
 export * from "./transformRideData";
 

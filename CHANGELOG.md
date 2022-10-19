@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] - 2022-10-20
+
+### Added
+
+- /ride/planner/[date] view shows rides on a given day, and a button to add a new ride (populated with that date)
+- Add Paceline rides in bulk from planner (if day is in future, is a Saturday and has no pre-existing PL rides)
+
 ## [0.6.2] - 2022-10-19
 
 ### Changed

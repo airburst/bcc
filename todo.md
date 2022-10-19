@@ -13,14 +13,7 @@
 
 ## Admin/Leader
 
-- /ride/planner/[date] view
-
-  - If Saturday and no Paceline rides, button to generate them (+)
-  - API to create bulk PL rides
-  - Update indexes in Ride schema (notes?, group?)
-
 - Route guards on API, pages above for leaders
-
 - Form cleansing (values)
 
 ## Engineering / Perf
@@ -37,8 +30,9 @@
 
 - User.createdAt
 - Ride.deleted
-- Bulk creation of users? Probably not
 - Group non-mandatory?
+- Update indexes in Ride schema (notes?, group?)
+- Bulk creation of users? Probably not
 
 ## Could Do (Low pri)
 
@@ -49,6 +43,5 @@
 
 ## Cosmetic Snags
 
-- Better badges on mobile calendar
 - last-child borders in calendar days
 - Improve menu: https://headlessui.com/react/menu
