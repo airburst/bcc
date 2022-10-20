@@ -42,10 +42,12 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
     date,
     time,
     group,
+    meetPoint,
     destination,
     distance,
     leader,
     route,
+    notes,
   }) => {
     setWaiting(true);
     // Transform data before sending
@@ -56,10 +58,12 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
         name,
         date: utcDate,
         group,
+        meetPoint,
         destination,
         distance: +distance,
         leader,
         route,
+        notes,
       })
     );
     if (results.id) {

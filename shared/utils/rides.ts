@@ -24,7 +24,8 @@ export const formatUserName = (name: string | null | undefined): string => {
 };
 
 export const formatUser = (user: User, isAuth = false) => {
-  const { id, name, email, image, mobile, role } = user;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, name, email, image, mobile, createdAt, role } = user;
 
   if (!isAuth) {
     return { id, name: ANONYMISED_NAME };
@@ -41,7 +42,8 @@ export const formatUser = (user: User, isAuth = false) => {
 };
 
 export const formatRideData = (ride: RideData, isAuth = false) => {
-  const { date, users, ...rest } = ride;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { date, createdAt, users, ...rest } = ride;
   const { day, time } = getRideDateAndTime(date.toISOString());
 
   return {
@@ -65,9 +67,12 @@ export const formatInitials = (words: string): string => {
 
 export const formatRideBadge = (ride: RideType): string => {
   if (ride.name === "Paceline" || ride.name === "Sunday Ride") {
-    return ride.group.substring(0, 3) + ride.group.replace(/\D/g, "");
+    return ride.group
+      ? ride.group.substring(0, 3) + ride.group.replace(/\D/g, "")
+      : ride.name.substring(0, 3);
   }
+
   const name = formatInitials(ride.name);
-  const group = formatInitials(ride.group);
-  return `${name} (${group})`;
+  const group = ride.group ? ` ${formatInitials(ride.group)}` : "";
+  return `${name}${group}`;
 };

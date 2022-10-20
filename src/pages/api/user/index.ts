@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isMe, isAdmin } from "../auth/authHelpers";
+import { formatUser } from "../../../../shared/utils";
 import { User } from "../../../types";
 
 export const getProfile = async (user: User) => {
@@ -16,7 +17,7 @@ export const getProfile = async (user: User) => {
     return {};
   }
 
-  return userRecord;
+  return formatUser(userRecord, true);
 };
 
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -42,9 +42,11 @@ const AddRide: NextPage = () => {
     time: "08:30",
     group: "",
     destination: "",
+    meetPoint: "Brunel Square",
     distance: 0,
     leader: formatUserName(user.name),
     route: "",
+    notes: "",
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({
@@ -52,10 +54,12 @@ const AddRide: NextPage = () => {
     date,
     time,
     group,
+    meetPoint,
     destination,
     distance,
     leader,
     route,
+    notes,
   }) => {
     setWaiting(true);
     // Transform data before sending
@@ -69,6 +73,8 @@ const AddRide: NextPage = () => {
         distance: +distance,
         leader,
         route,
+        meetPoint,
+        notes,
       })
     );
     if (results.id) {

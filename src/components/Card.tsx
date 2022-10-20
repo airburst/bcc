@@ -42,7 +42,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     >
       <div className="grid w-full grid-cols-[auto_1fr_68px] pl-1">
         <div className="col-span-2 p-1 font-bold uppercase tracking-wide">
-          {name} - {group}
+          {name} {group ? `- ${group}` : ""}
         </div>
         <div className="justify-self-center">
           {isGoing && (

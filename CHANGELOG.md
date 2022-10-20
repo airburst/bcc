@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Added
+
+- Validation for minimum ride distance
+- Added notes and meeting point to rides
+- Group is no longer mandatory
+- Show notes section on ride details
+
 ## [0.7.0] - 2022-10-20
 
 ### Added

@@ -25,3 +25,26 @@ And then launch in dev mode:
 ```bash
 npm run dev
 ```
+
+## Making database schema changes
+
+Schema changes cannot be pushed directly to production (main branch). Read more [here](https://www.prisma.io/docs/guides/database/using-prisma-with-planetscale).
+
+1. Make desired DDL changes to `prisma/schema.prisma`
+2. Connect to a non-production PlanetScale db instance:
+
+```bash
+yarn connect:dev
+```
+
+3. Deploy changes to a non-production database:
+
+```bash
+yarn pushdb
+```
+
+3. Once you are happy with your changes on your development branch, you can open a deploy request to deploy these to your production branch.
+
+- Navigate to [https://app.planetscale.com/mark-fairhurst/bcc-rides/deploy-requests](https://app.planetscale.com/mark-fairhurst/bcc-rides/deploy-requests)
+- Click `Create Deploy Request`
+- If that passes, click `Deploy Changes`

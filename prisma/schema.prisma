@@ -31,6 +31,7 @@ model Account {
     id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt        DateTime @default(now())
 
     @@unique([provider, providerAccountId])
 }
@@ -62,6 +63,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     rides         UsersOnRides[]  @relation("usersOnRides_user")
+    createdAt     DateTime @default(now())
 
     @@index(email)
 }
@@ -73,13 +75,16 @@ model Ride {
     date          DateTime
     destination   String?
     distance      Int?
+    meetPoint     String?
     route         String?
     leader        String?
+    notes         String?   @db.Text
     speed         Int?
     users         UsersOnRides[] @relation("usersOnRides_ride")
     deleted       Boolean    @default(false)
+    createdAt     DateTime @default(now())
 
-    @@index(date)
+    @@index([date, deleted])
 }
 
 model UsersOnRides {

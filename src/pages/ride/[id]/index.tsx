@@ -53,11 +53,13 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
     group,
     day,
     time,
+    meetPoint,
     destination,
     distance,
     leader,
     route,
     speed,
+    notes,
   } = data;
 
   if (!id) {
@@ -90,7 +92,7 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
           <div>{day}</div>
         </Heading>
 
-        <div className="flex w-full px-2 sm:px-0">
+        <div className="flex w-full flex-col gap-2 px-2 sm:px-0">
           <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
             <Row>
               <div className="text-xl font-bold tracking-wide text-neutral-700">
@@ -104,6 +106,12 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
               <Row>
                 <div>Group</div>
                 <div>{group}</div>
+              </Row>
+            )}
+            {meetPoint && (
+              <Row>
+                <div>Meeting point</div>
+                <div>{meetPoint}</div>
               </Row>
             )}
             {destination && (
@@ -143,6 +151,16 @@ const RideDetails: NextPage<RidePageProps> = ({ data }: RidePageProps) => {
               </Row>
             )}
           </div>
+          {notes && (
+            <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
+              <div className="px-2 text-xl font-bold tracking-wide text-neutral-700">
+                Notes
+              </div>
+              <Row>
+                <div className="whitespace-pre-line">{notes}</div>
+              </Row>
+            </div>
+          )}
         </div>
 
         <Heading>

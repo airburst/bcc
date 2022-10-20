@@ -16,15 +16,17 @@ export type DbResponse<T> = {
 export type Ride = {
   id?: string;
   name: string; // Enum sunday | paceline | event
-  group: string;
   date: string;
   day: string;
   time: string;
   destination?: string | null;
+  group?: string | null;
   distance?: number | null;
+  meetPoint?: string | null;
   route?: string | null;
   leader?: string | null;
   speed?: number | null;
+  notes?: string | null;
   users?: User[];
 };
 
