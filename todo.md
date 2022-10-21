@@ -1,21 +1,23 @@
 # TODO
 
-## Users
+## Long press
 
-1. Anonymous users can join but not leave
-2. Usability of Long Press? Try touchStart/touchMove hook
+- Usability of Long Press? Try touchStart/touchMove hook
 
-- View to show all riders out on a day (presumably only for logged-in users..)
+## Feat: Anonymous Joiners
 
-  - /riders/[date]
-  - Needs a new api and query
+- Add emergencyContact to user schema
+- Anonymous users can join but not leave - reuse User form?
 
 ## Rides
 
 - Create sunday rides bulk defaults (and saturday socials)
 - Set bulk ride meeting points
+- Add an API key and setup GH cron workflow
+- Show 'unready' rides, e.g. default leader, dist, etc.
+- Duplicate ride?
 
-## Admin/Leader
+## Admin/Leader Forms
 
 - Route guards on API, pages above for leaders
 - Form cleansing (values)
@@ -33,6 +35,12 @@
 
 - Secure API with middleware and expiring signed token?
   https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
+
+  ## Who's out view TBD
+
+- View to show all riders out on a day (presumably only for logged-in users..)
+- /riders/[date]
+- Needs a new api and query
 
 ## Cosmetic Snags
 
