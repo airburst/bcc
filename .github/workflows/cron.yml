@@ -2,8 +2,7 @@ name: Generate Weekly Rides
 on:
   schedule:
     # At 01:00 every Sunday
-    # - cron: "0 1 * * 7"
-    - cron: "0/5 * * * *"
+    - cron: "0 1 * * 7"
 
 jobs:
   cron:
