@@ -12,7 +12,6 @@ import {
 import { User } from "../../../types";
 
 const RideDetailsPage: NextPage = () => {
-  // const [usersData, setUsersData] = useState<User[] | undefined>([]);
   const { data: session } = useSession();
   const user = session?.user as User;
 

@@ -1,9 +1,5 @@
 # TODO
 
-## Long press
-
-- Usability of Long Press? Try touchStart/touchMove hook
-
 ## Feat: Anonymous Joiners
 
 - Add emergencyContact to user schema
