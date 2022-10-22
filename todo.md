@@ -8,7 +8,6 @@
 ## Rides
 
 - Create sunday rides bulk defaults (and saturday socials)
-- Set bulk ride meeting points
 - Add an API key and setup GH cron workflow
 - Show 'unready' rides, e.g. default leader, dist, etc.
 - Duplicate ride?

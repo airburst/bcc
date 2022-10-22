@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added notes and meeting point to rides
 - Group is no longer mandatory
 - Show notes section on ride details
+- Replaced long press on cards with faster swipe detection; speeds up navigation to ride details page
+- Added notes and meeting point to Paceline rides
 
 ## [0.7.0] - 2022-10-20
 
