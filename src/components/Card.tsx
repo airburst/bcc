@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/future/image";
-import { useLongPress } from "use-long-press";
+import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { isMobile } from "../../shared/utils";
 import { Ride, User } from "../types";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -12,6 +11,7 @@ type Props = {
 };
 
 export const Card: React.FC<Props> = ({ ride, user }: Props) => {
+  const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   const { id, name, time, group, destination, distance, users } = ride;
 
@@ -19,14 +19,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     ? `${destination} - ${distance} km`
     : `${distance} km`;
 
-  const pressHandler = useLongPress(() => router.push(`/ride/${id}`), {
-    threshold: isMobile() ? 400 : 0,
-    cancelOnMovement: true,
-    filterEvents: (event) => {
-      const target = event.target as Element;
-      return target.tagName.toLowerCase() === "div";
-    },
-  });
+  const onPress = () => router.push(`/ride/${id}`);
 
   if (!id) {
     return null;
@@ -37,8 +30,25 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
 
   return (
     <div
+      role="presentation"
       className="md:mx-autotext-neutral-500 box-border flex w-full cursor-pointer gap-2 rounded bg-white shadow-md hover:text-neutral-700 hover:shadow-lg md:gap-2"
-      {...pressHandler()}
+      onMouseDown={() => setSwiping(false)}
+      onMouseMove={() => setSwiping(true)}
+      onMouseUp={(e) => {
+        if (!isSwiping && e.button === 0) {
+          onPress();
+        }
+        setSwiping(false);
+      }}
+      onTouchStart={() => setSwiping(false)}
+      onTouchMove={() => setSwiping(true)}
+      onTouchEnd={(e) => {
+        if (e.cancelable) e.preventDefault();
+        if (!isSwiping) {
+          onPress();
+        }
+        setSwiping(false);
+      }}
     >
       <div className="grid w-full grid-cols-[auto_1fr_68px] pl-1">
         <div className="col-span-2 p-1 font-bold uppercase tracking-wide">

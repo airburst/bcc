@@ -10,6 +10,8 @@ export * from "./Loading";
 export * from "./MainContent";
 export * from "./Confirm";
 export * from "./NoMatch";
+export * from "./RideDetails";
+export * from "./RideDetailsSkeleton";
 export * from "./RideGroup";
 export * from "./forms/RideForm";
 export * from "./forms/UserProfileForm";
