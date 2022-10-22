@@ -1,0 +1,16 @@
+name: Generate Weekly Rides
+on:
+  schedule:
+    # At 01:00 every Sunday
+    # - cron: "0 1 * * 7"
+    - cron: "0/5 * * * *"
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call API route to create rides for the week
+        run: |
+          curl --request POST \
+          --url 'https://bcc-psi.vercel.app/api/cron' \
+          --header 'Authorization: Bearer ${{ secrets.API_KEY }}'
