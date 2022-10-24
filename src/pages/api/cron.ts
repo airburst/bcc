@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { addPacelineRides } from "./ride/create-paceline";
-
-// TODO: calculate date for next PL Saturday
+import { findNextDay } from "../../../shared/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,10 +11,18 @@ export default async function handler(
       const { authorization } = req.headers;
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
-        // Create Paceline rides on Saturday
-        const results = await addPacelineRides("2022-10-08");
+        // Get date for Saturday after next
+        // (6 = Saturday; 7 = start search 7 days from now)
+        const nextSaturday = findNextDay(6, 7);
+        const nextSunday = findNextDay(0, 7);
+        const pacelineResults = await addPacelineRides(nextSaturday);
+
         // More rides to follow
-        res.status(200).json({ success: true, results });
+        res.status(200).json({
+          success: true,
+          pacelineResults,
+          sundayResults: nextSunday,
+        });
       } else {
         res.status(401).json({ success: false });
       }
