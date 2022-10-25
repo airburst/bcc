@@ -1,63 +1,49 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { isWinter } from "./dates";
 import { PACELINE, SATURDAY_SOCIAL, SUNDAY } from "../../src/constants";
-import { PartialRide } from "../../src/types";
+import { PartialRide, SeasonStartTime } from "../../src/types";
 
 dayjs.extend(utc);
 
-const findRidesForDay = (day: number): PartialRide[] =>
-  [PACELINE, SATURDAY_SOCIAL, SUNDAY]
-    .filter(({ day: rideDay }) => day === rideDay)
-    .map(({ rides }) => rides)
-    .flatMap((r) => r);
+type PartialRideWithDate = PartialRide & { date: string };
 
-// TODO: time change for Winter (1 Nov - 28 Feb)?
-export const getStartTime = (date: string, time: string) => {
-  const [hour, minute] = time.split(":").map((t) => +t);
+export const getStartTime = (date: string, startTime: SeasonStartTime) => {
+  const season = isWinter(date) ? startTime.winter : startTime.summer;
   const rideTime = dayjs(date)
-    .set("hour", hour || 0)
-    .set("minute", minute || 0)
+    .set("hour", season.hour)
+    .set("minute", season.minute)
     .set("second", 0);
   // Calculate utc offset
   // const offset = dayjs().utcOffset();
   // return rideTime.add(offset, "minute").toISOString();
   return rideTime.toISOString();
 };
-// TODO: time change for Winter (1 Nov - 28 Feb)?
-// Paceline starts are rolling minute intervals
-export const getPLStartTime = (date: string) => {
-  const rideTime = dayjs(date)
-    .set("hour", PACELINE.startTime.summer.hour)
-    .set("minute", PACELINE.startTime.summer.minute)
-    .set("second", 0);
-  // Calculate utc offset
-  // const offset = dayjs().utcOffset();
-  // return rideTime.add(offset, "minute").toISOString();
-  return rideTime.toISOString();
+
+const findRidesForDay = (date: string): PartialRideWithDate[] => {
+  const day = dayjs(date).day();
+  return [PACELINE, SATURDAY_SOCIAL, SUNDAY]
+    .filter(({ day: rideDay }) => day === rideDay)
+    .map(({ rides, startTime }) =>
+      rides.map((r) => ({ ...r, date: getStartTime(date, startTime) }))
+    )
+    .flatMap((r) => r);
 };
 
 // Generate all rides for a given date
 export const generateRides = (date: string) => {
-  const day = dayjs(date).day();
-  const rideList = findRidesForDay(day);
-  const pacelineStartTime = getPLStartTime(date);
-  let dateTime;
+  const rideList = findRidesForDay(date);
 
   return rideList.map((ride, index) => {
-    const { time, ...rest } = ride;
-
-    // FIXME: Set start time for Sunday rides
-    if (time) {
-      dateTime = getStartTime(date, time);
-    } else {
-      const minutes = dayjs(pacelineStartTime).minute();
-      dateTime = dayjs(pacelineStartTime)
-        .set("minute", minutes + index)
-        .toISOString();
+    if (ride.name !== "Paceline") {
+      return ride;
     }
-    return {
-      ...rest,
-      date: dateTime,
-    };
+
+    const minutes = dayjs(ride.date).minute();
+    const dateTime = dayjs(ride.date)
+      .set("minute", minutes + index)
+      .toISOString();
+
+    return { ...ride, date: dateTime };
   });
 };

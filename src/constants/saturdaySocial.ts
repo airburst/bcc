@@ -1,5 +1,16 @@
-import { PartialRide } from "../types";
+import { PartialRide, SeasonStartTime } from "../types";
 import { DAYS } from "./days";
+
+export const SOCIAL_START_TIME: SeasonStartTime = {
+  summer: {
+    hour: 9,
+    minute: 15,
+  },
+  winter: {
+    hour: 9,
+    minute: 15,
+  },
+};
 
 const name = "Saturday Social";
 const meetPoint =
@@ -9,12 +20,10 @@ export const SOCIAL_RIDES: PartialRide[] = [
   {
     group: "Longer",
     distance: 70,
-    time: "09:15", // Start time varies per ride?
   },
   {
     group: "Shorter",
     distance: 40,
-    time: "09:15",
   },
 ].map((ride) => ({
   name,
@@ -27,4 +36,5 @@ export const SOCIAL_RIDES: PartialRide[] = [
 export const SATURDAY_SOCIAL = {
   day: DAYS.SATURDAY,
   rides: SOCIAL_RIDES,
+  startTime: SOCIAL_START_TIME,
 };

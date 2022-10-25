@@ -115,3 +115,10 @@ export const firstDayOfMonth = (date?: string) =>
 
 export const daysInMonth = (date?: string) =>
   date ? dayjs(date).daysInMonth() : dayjs().daysInMonth();
+
+// Winter is 01 Nov - end Feb
+export const isWinter = (date: string): boolean => {
+  const month = dayjs(date).month();
+
+  return month > 9 || month < 3;
+};
