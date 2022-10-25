@@ -9,6 +9,10 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const { authorization } = req.headers;
+      console.log(
+        "🚀 ~ file: cron.ts ~ line 12 ~ authorization",
+        authorization
+      );
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         // Get date for Saturday after next
