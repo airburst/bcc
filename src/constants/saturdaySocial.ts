@@ -28,7 +28,6 @@ export const SOCIAL_RIDES: PartialRide[] = [
 ].map((ride) => ({
   name,
   meetPoint,
-  route: "TBA",
   leader: "TBA",
   ...ride,
 }));

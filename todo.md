@@ -4,6 +4,7 @@
 
 - Only create rides in future
 - Remove edit/add/delete Menu options for past dates (and API guards)
+- fix permalinks for ride/{id}
 
 ## Feat: Anonymous Joiners
 
