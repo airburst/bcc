@@ -19,5 +19,5 @@ jobs:
       - name: Create rides for following week
         run: |
           curl --request POST \
-          --url 'https://bcc-psi.vercel.app/api/cron' \
-          --header 'Authorization: Bearer ${{ secrets.API_KEY }}'
+          --url "https://bcc-psi.vercel.app/api/cron" \
+          --header "Authorization: Bearer ${{ secrets.API_KEY }}"
