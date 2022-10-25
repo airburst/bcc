@@ -7,11 +7,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    console.log(req.headers); // FIXME:
-
     try {
       const { authorization } = req.headers;
-      console.log("🚀 ~ file: cron.ts ~ line 12 ~ passed", authorization);
       console.log(
         "🚀 ~ file: cron.ts ~ line 12 ~ int",
         `Bearer ${process.env.API_KEY}`
