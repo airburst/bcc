@@ -14,7 +14,7 @@ export const SOCIAL_START_TIME: SeasonStartTime = {
 
 const name = "Saturday Social";
 const meetPoint =
-  "Car Park of the Dental Implant Surgery on the corner of Newbridge Rd(A4) and Chelsea Rd (https://g.page/thedentalimplantclinicbath?share)";
+  "Car Park of the Dental Implant Surgery on the corner of Newbridge Rd(A4) and Chelsea Rd";
 
 export const SOCIAL_RIDES: PartialRide[] = [
   {

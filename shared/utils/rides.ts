@@ -76,3 +76,10 @@ export const formatRideBadge = (ride: RideType): string => {
   const group = ride.group ? ` ${formatInitials(ride.group)}` : "";
   return `${name}${group}`;
 };
+
+// Rides are generated with TBA as route and leader
+// Return true if these have not been changed
+export const isReady = (ride: RideType): boolean => {
+  const { leader, route } = ride;
+  return leader !== "TBA" && route !== "TBA";
+};

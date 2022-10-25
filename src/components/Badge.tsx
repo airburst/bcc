@@ -1,16 +1,21 @@
 type Props = {
   text?: string | number;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  color?: string;
 };
 
-export const Badge: React.FC<Props> = ({ text, size = "md" }: Props) => {
-  const classes = `flex justify-center truncate rounded bg-red-500 px-1 text-${size} text-white`;
+export const Badge = ({ text, size = "md", color = "bg-red-500" }: Props) => {
+  const classes = `flex justify-center truncate rounded ${color} px-1 text-${size} text-white`;
 
   return <div className={classes}>{text}</div>;
 };
 
-export const RoundBadge: React.FC<Props> = ({ text, size = "md" }: Props) => {
-  const classes = `flex justify-center truncate rounded-full bg-red-500 px-3 py-1 text-${size} text-white`;
+export const RoundBadge = ({
+  text,
+  size = "md",
+  color = "bg-red-500",
+}: Props) => {
+  const classes = `flex justify-center truncate rounded-full ${color} px-3 py-1 text-${size} text-white`;
 
   return (
     <div className={classes}>

@@ -8,7 +8,7 @@ type RowProps = {
 };
 
 const Row = ({ children }: RowProps) => (
-  <div className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4">
+  <div className="grid w-full grid-cols-[100px_1fr] items-center justify-between px-2 font-medium md:grid-cols-[220px_1fr] md:justify-start md:gap-4">
     {children}
   </div>
 );
@@ -100,7 +100,7 @@ export const RideDetails = ({ ride, user }: Props) => {
           {route && (
             <Row>
               <a
-                className="text-blue-700 underline hover:text-blue-800"
+                className="col-span-2 text-blue-700 underline hover:text-blue-800"
                 href={route}
                 target="_blank"
                 rel="noreferrer"
@@ -116,7 +116,7 @@ export const RideDetails = ({ ride, user }: Props) => {
               Notes
             </div>
             <Row>
-              <div className="whitespace-pre-line">{notes}</div>
+              <div className="col-span-2 whitespace-pre-line">{notes}</div>
             </Row>
           </div>
         )}

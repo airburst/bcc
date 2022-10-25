@@ -1,15 +1,14 @@
 # TODO
 
+## Rides
+
+- Only create rides in future
+- Remove edit/add/delete Menu options for past dates (and API guards)
+
 ## Feat: Anonymous Joiners
 
 - Add emergencyContact to user schema
 - Anonymous users can join but not leave - reuse User form?
-
-## Rides
-
-- Show 'unready' rides, e.g. default leader, dist, etc.
-- Only create rides in future
-- Remove edit/add/delete Menu options for past dates (and API guards)
 
 ## Admin/Leader Forms
 

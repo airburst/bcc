@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatRideBadge, getNow } from "../../../shared/utils";
+import { formatRideBadge, getNow, isReady } from "../../../shared/utils";
 import { Ride } from "../../types";
 import { RoundBadge, Badge } from "../Badge";
 
@@ -11,11 +11,13 @@ type Props = {
 };
 
 // TODO: fix last-child borders
-export const Day = ({ day, date, rides, classes }: Props) => {
+export const Day = ({ day, date, rides = [], classes }: Props) => {
   const today = getNow();
   const isToday = today.startsWith(date);
+  const hasUnreadyRides = rides.filter((r) => !isReady(r)).length > 0;
+
   const cellStyle = isToday
-    ? "bg-blue-700 text-white hover:bg-blue-50 hover:text-neutral-900"
+    ? "bg-indigo-100 text-black hover:bg-blue-50 hover:text-neutral-900"
     : "hover:bg-blue-50 hover:text-neutral-900 cursor-pointer";
 
   const wrapperClasses =
@@ -29,7 +31,11 @@ export const Day = ({ day, date, rides, classes }: Props) => {
 
         <div className="flex justify-center py-2 sm:hidden lg:grid-cols-3 lg:gap-2">
           {rides && rides.length > 0 && (
-            <RoundBadge text={rides.length} size="lg" />
+            <RoundBadge
+              text={rides.length}
+              size="lg"
+              color={hasUnreadyRides ? "bg-red-500" : "bg-teal-700"}
+            />
           )}
         </div>
 
@@ -37,7 +43,15 @@ export const Day = ({ day, date, rides, classes }: Props) => {
           {rides &&
             rides.map((ride) => (
               <div key={ride.id} className="truncate">
-                <Badge text={formatRideBadge(ride)} size="xs" />
+                {isReady(ride) ? (
+                  <Badge
+                    text={formatRideBadge(ride)}
+                    size="xs"
+                    color="bg-teal-700"
+                  />
+                ) : (
+                  <Badge text={formatRideBadge(ride)} size="xs" />
+                )}
               </div>
             ))}
         </div>

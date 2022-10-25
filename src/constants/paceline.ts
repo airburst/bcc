@@ -14,7 +14,7 @@ export const PACELINE_START_TIME: SeasonStartTime = {
 
 const name = "Paceline";
 const meetPoint =
-  "Car Park of the Dental Implant Surgery on the corner of Newbridge Rd(A4) and Chelsea Rd (https://g.page/thedentalimplantclinicbath?share)";
+  "Car Park of the Dental Implant Surgery on the corner of Newbridge Rd(A4) and Chelsea Rd";
 const route = "https://ridewithgps.com/routes/31250554";
 const distance = 70;
 

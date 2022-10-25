@@ -3,6 +3,7 @@ import Image from "next/future/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Ride, User } from "../types";
+import { isReady } from "../../shared/utils";
 import "react-loading-skeleton/dist/skeleton.css";
 
 type Props = {
@@ -14,6 +15,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   const { id, name, time, group, destination, distance, users } = ride;
+  const isNotReady = !isReady(ride);
 
   const details = destination
     ? `${destination} - ${distance} km`
@@ -52,7 +54,12 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     >
       <div className="grid w-full grid-cols-[auto_1fr_68px] pl-1">
         <div className="col-span-2 p-1 font-bold uppercase tracking-wide">
-          {name} {group ? `- ${group}` : ""}
+          {name} {group ? `- ${group}` : ""}{" "}
+          {isNotReady && (
+            <span className="text-red-700">
+              <i className="fa-solid fa-triangle-exclamation" />
+            </span>
+          )}
         </div>
         <div className="justify-self-center">
           {isGoing && (
