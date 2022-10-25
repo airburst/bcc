@@ -16,7 +16,7 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Call API route to create rides for the week
+      - name: Create rides for following week
         run: |
           curl --request POST \
           --url 'https://bcc-psi.vercel.app/api/cron' \
