@@ -7,9 +7,7 @@
 
 ## Rides
 
-- Create sunday rides bulk defaults (and saturday socials)
 - Show 'unready' rides, e.g. default leader, dist, etc.
-- Timing start for winer
 - Only create rides in future
 - Remove edit/add/delete Menu options for past dates (and API guards)
 
