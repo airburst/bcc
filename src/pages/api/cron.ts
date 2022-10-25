@@ -9,14 +9,6 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const { authorization } = req.headers;
-      console.log(
-        "🚀 ~ file: cron.ts ~ line 12 ~ int",
-        `Bearer ${process.env.API_KEY}`
-      );
-      console.log(
-        "🚀 ~ file: cron.ts ~ match",
-        authorization === `Bearer ${process.env.API_KEY}`
-      );
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         // Get date for Saturday after next
