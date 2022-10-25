@@ -1,21 +1,19 @@
-import { Ride } from "../types";
-
-type SocialStub = Omit<Ride, "day" | "date">;
+import { PartialRide } from "../types";
+import { DAYS } from "./days";
 
 const name = "Saturday Social";
 const meetPoint =
   "Car Park of the Dental Implant Surgery on the corner of Newbridge Rd(A4) and Chelsea Rd (https://g.page/thedentalimplantclinicbath?share)";
 
-// Saturday socials
-export const SOCIAL_RIDES: SocialStub[] = [
+export const SOCIAL_RIDES: PartialRide[] = [
   {
     group: "Longer",
     distance: 70,
-    time: "09:15",
+    time: "09:15", // Start time varies per ride?
   },
   {
     group: "Shorter",
-    speed: 40,
+    distance: 40,
     time: "09:15",
   },
 ].map((ride) => ({
@@ -25,3 +23,8 @@ export const SOCIAL_RIDES: SocialStub[] = [
   leader: "TBA",
   ...ride,
 }));
+
+export const SATURDAY_SOCIAL = {
+  day: DAYS.SATURDAY,
+  rides: SOCIAL_RIDES,
+};

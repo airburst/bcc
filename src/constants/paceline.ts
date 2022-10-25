@@ -1,6 +1,16 @@
-import { Ride } from "../types";
+import { PartialRide, SeasonStartTime } from "../types";
+import { DAYS } from "./days";
 
-type PacelineStub = Omit<Ride, "day" | "date" | "time">;
+export const PACELINE_START_TIME: SeasonStartTime = {
+  summer: {
+    hour: 8,
+    minute: 40,
+  },
+  winter: {
+    hour: 9,
+    minute: 0,
+  },
+};
 
 const name = "Paceline";
 const meetPoint =
@@ -8,7 +18,7 @@ const meetPoint =
 const route = "https://ridewithgps.com/routes/31250554";
 const distance = 70;
 
-export const PACELINE_RIDES: PacelineStub[] = [
+export const PACELINE_RIDES: PartialRide[] = [
   {
     group: "UBER",
     speed: 39,
@@ -39,3 +49,9 @@ export const PACELINE_RIDES: PacelineStub[] = [
     speed: 26,
   },
 ].map((ride) => ({ ...ride, name, meetPoint, distance, route }));
+
+export const PACELINE = {
+  day: DAYS.SATURDAY,
+  rides: PACELINE_RIDES,
+  startTime: PACELINE_START_TIME,
+};

@@ -1,12 +1,21 @@
-import { Ride } from "../types";
+import { PartialRide, SeasonStartTime } from "../types";
+import { DAYS } from "./days";
 
-type SundayStub = Omit<Ride, "day" | "date" | "time">;
+export const SUNDAY_START_TIME: SeasonStartTime = {
+  summer: {
+    hour: 8,
+    minute: 30,
+  },
+  winter: {
+    hour: 9,
+    minute: 0,
+  },
+};
 
 const name = "Sunday Ride";
 const meetPoint = "Brunel Square";
 
-// Saturday socials
-export const SUNDAY_RIDES: SundayStub[] = [
+export const SUNDAY_RIDES: PartialRide[] = [
   {
     group: "DE",
     distance: 110,
@@ -43,3 +52,9 @@ export const SUNDAY_RIDES: SundayStub[] = [
   leader: "TBA",
   ...ride,
 }));
+
+export const SUNDAY = {
+  day: DAYS.SUNDAY,
+  rides: SUNDAY_RIDES,
+  startTime: SUNDAY_START_TIME,
+};
