@@ -4,7 +4,7 @@ import { prisma } from "../../../server/db/client";
 import { isLoggedIn, isLeader } from "../auth/authHelpers";
 import { generateRides } from "../../../../shared/utils";
 
-export const addPacelineRides = async (date: string) => {
+export const addRidesForDay = async (date: string) => {
   const result = await prisma.ride.createMany({
     data: generateRides(date),
   });
@@ -12,10 +12,7 @@ export const addPacelineRides = async (date: string) => {
 };
 
 // Only a logged-in user can join a ride
-const createPacelineRides = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const createRidesForDay = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAuth = await isLoggedIn(req, res);
 
   if (!isAuth) {
@@ -26,11 +23,15 @@ const createPacelineRides = async (
 
   try {
     const date = req.body;
+
+    // TODO: Test that date is in the future
+
     // A user can only add themselves; a leader can add other riders
     const hasLeaderRole = await isLeader(req, res);
 
     if (hasLeaderRole) {
-      const success = await addPacelineRides(date);
+      const success = await addRidesForDay(date);
+
       return res.status(200).json(success);
     }
     return res.status(401).send({
@@ -44,4 +45,4 @@ const createPacelineRides = async (
   }
 };
 
-export default createPacelineRides;
+export default createRidesForDay;

@@ -30,6 +30,10 @@ export type Ride = {
   users?: User[];
 };
 
+export type PartialRide = Omit<Ride, "day" | "date" | "time"> & {
+  time?: string;
+};
+
 export type Riders = {
   name: string;
   mobile?: string;
@@ -39,4 +43,14 @@ export type Group = {
   [date: string]: {
     [name: string]: Ride[];
   };
+};
+
+export type StartTime = {
+  hour: number;
+  minute: number;
+};
+
+export type SeasonStartTime = {
+  winter: StartTime;
+  summer: StartTime;
 };

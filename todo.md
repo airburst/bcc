@@ -8,9 +8,10 @@
 ## Rides
 
 - Create sunday rides bulk defaults (and saturday socials)
-- Add an API key and setup GH cron workflow
 - Show 'unready' rides, e.g. default leader, dist, etc.
-- Duplicate ride?
+- Timing start for winer
+- Only create rides in future
+- Remove edit/add/delete Menu options for past dates (and API guards)
 
 ## Admin/Leader Forms
 

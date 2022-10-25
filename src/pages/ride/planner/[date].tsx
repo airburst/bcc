@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSWRConfig } from "swr";
 import { useState } from "react";
-import { useRides, addPacelineRides } from "../../../hooks";
+import { useRides, addRidesForDay } from "../../../hooks";
 import {
   BackButton,
   Button,
@@ -34,10 +34,10 @@ const Rides: NextPage = () => {
 
   const { mutate } = useSWRConfig();
 
-  const handleAddPacelineRides = () => {
+  const handleAddRides = () => {
     setCreatingPL(true);
     mutate(`/api/rides?start=${date}&end=${date}`, async () => {
-      const results = await addPacelineRides(dateString);
+      const results = await addRidesForDay(dateString);
       if (results?.count) {
         router.push("/ride/planner");
       }
@@ -51,6 +51,7 @@ const Rides: NextPage = () => {
   // Check for any existing PL rides
   const hasPaceline =
     data?.filter((ride: Ride) => ride?.name === "Paceline").length > 0;
+  // TODO: generic for sunday too
   const showPacelineButton =
     isInFuture && isSaturday(dateString) && !hasPaceline;
 
@@ -104,14 +105,10 @@ const Rides: NextPage = () => {
         </div>
         {showPacelineButton && (
           <div className="flex h-10 flex-row justify-center gap-4">
-            <Button
-              variant="red"
-              loading={creatingPL}
-              onClick={handleAddPacelineRides}
-            >
+            <Button variant="red" loading={creatingPL} onClick={handleAddRides}>
               <div>
                 <i className="fa-solid fa-plus" />
-                <span>&nbsp;Add ALL Paceline Rides</span>
+                <span>&nbsp;Add ALL Rides for day</span>
               </div>
             </Button>
           </div>

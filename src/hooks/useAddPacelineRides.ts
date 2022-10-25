@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
-export const addPacelineRides = (date: string) =>
-  fetch(`/api/ride/create-paceline`, {
+export const addRidesForDay = (date: string) =>
+  fetch(`/api/ride/create-rides-for-day`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -11,8 +11,8 @@ export const addPacelineRides = (date: string) =>
   }).then((res) => res.json());
 
 export const useAddPacelineRides = (date: string) => {
-  const { data, error } = useSWR(`/api/ride/create-paceline`, () =>
-    addPacelineRides(date)
+  const { data, error } = useSWR(`/api/ride/create-rides-for-day`, () =>
+    addRidesForDay(date)
   );
 
   return {
