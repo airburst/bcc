@@ -6,6 +6,7 @@ import {
   getLastMonth,
   getNextMonth,
   mapRidesToDate,
+  getNow,
 } from "../../../shared/utils";
 import { Ride } from "../../types";
 
@@ -22,6 +23,7 @@ const getDateStub = (date: string) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
+  const today = getNow().split("T")[0] || "";
   const startDay = firstDayOfMonth(date);
   const lastDay = daysInMonth(date);
 
@@ -31,22 +33,29 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
   if (startDay > 0) {
     const lastMonth = getLastMonth(date);
     const endOfLastMonth = daysInMonth(lastMonth);
+
     for (let pd = 0; pd < startDay; pd += 1) {
       const day = endOfLastMonth - startDay + pd + 1;
+      const calDate = `${getDateStub(lastMonth)}-${day
+        .toString()
+        .padStart(2, "0")}`;
+
       calGrid.push({
-        type: "outside",
+        type: calDate >= today ? "future" : "historic",
         day,
-        date: `${getDateStub(lastMonth)}-${day.toString().padStart(2, "0")}`,
+        date: calDate,
       });
     }
   }
 
   // Add all of the days in month
   for (let d = 1; d < lastDay + 1; d += 1) {
+    const calDate = `${getDateStub(date)}-${d.toString().padStart(2, "0")}`;
+
     calGrid.push({
-      type: "inside",
+      type: calDate >= today ? "future" : "historic",
       day: d,
-      date: `${getDateStub(date)}-${d.toString().padStart(2, "0")}`,
+      date: calDate,
     });
   }
 
@@ -55,11 +64,16 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
 
   if (remainder > 0) {
     const nextMonth = getNextMonth(date);
+
     for (let nd = 1; nd < 8 - remainder; nd += 1) {
+      const calDate = `${getDateStub(nextMonth)}-${nd
+        .toString()
+        .padStart(2, "0")}`;
+
       calGrid.push({
-        type: "outside",
+        type: calDate >= today ? "future" : "historic",
         day: nd,
-        date: `${getDateStub(nextMonth)}-${nd.toString().padStart(2, "0")}`,
+        date: calDate,
       });
     }
   }
@@ -74,10 +88,10 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
     <div className="grid grid-cols-7 gap-0  bg-white shadow-md sm:m-2 lg:m-0">
       <HeadingGroup />
       {calGrid.map(({ type, day, date: calDate }) =>
-        type === "outside" ? (
-          <OutsideDay key={`${type}-${day}`} day={day} date={calDate} />
+        type === "historic" ? (
+          <OutsideDay key={`historic-${calDate}`} day={day} date={calDate} />
         ) : (
-          <Day key={`cal-${day}`} day={day} date={calDate} />
+          <Day key={`cal-${calDate}`} day={day} date={calDate} />
         )
       )}
     </div>
@@ -85,16 +99,16 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
     <div className="grid grid-cols-7 gap-0  bg-white shadow-md  lg:m-0">
       <HeadingGroup />
       {daysWithRides.map(({ type, day, rides: mappedRides, date: calDate }) =>
-        type === "outside" ? (
+        type === "historic" ? (
           <OutsideDay
-            key={`${type}-${day}`}
+            key={`historic-${calDate}`}
             day={day}
             date={calDate}
             rides={mappedRides}
           />
         ) : (
           <Day
-            key={`cal-${day}`}
+            key={`cal-${calDate}`}
             day={day}
             date={calDate}
             rides={mappedRides}

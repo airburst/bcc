@@ -67,17 +67,6 @@ export const getQueryDateRange = ({
 
 export const isSaturday = (date: string) => dayjs(date).day() === 6;
 
-export const getMonthDateRange = (date: string) => {
-  // Extract month and year from date
-  const year = dayjs(date).year();
-  const month = dayjs(date).month() + 1;
-  const formattedMonth = month.toString().padStart(2, "0");
-  const start = `${year}-${formattedMonth}-01`;
-  const end = `${year}-${formattedMonth}-${dayjs(date).daysInMonth()}`;
-
-  return { start, end };
-};
-
 export const formatDate = (date: string) =>
   dayjs(date).utc().format("dddd DD MMMM");
 
@@ -121,4 +110,42 @@ export const isWinter = (date: string): boolean => {
   const month = dayjs(date).month();
 
   return month > 10 || month < 3;
+};
+
+const getDateStub = (date: string) => {
+  const parts = date.split("-");
+  return `${parts[0]}-${parts[1]}`;
+};
+
+// Get start and end dates for a month view in planner
+export const getMonthDateRange = (date: string) => {
+  // Extract month and year from date
+  const year = dayjs(date).year();
+  const month = dayjs(date).month() + 1;
+  const formattedMonth = month.toString().padStart(2, "0");
+  let start = `${year}-${formattedMonth}-01`;
+  let end = `${year}-${formattedMonth}-${dayjs(date).daysInMonth()}`;
+
+  const startDay = firstDayOfMonth(date);
+  const lastDay = daysInMonth(date);
+
+  // If first day > 0 (Sunday) we need to include days from end of previous month
+  if (startDay > 0) {
+    const lastMonth = getLastMonth(date);
+    const endOfLastMonth = daysInMonth(lastMonth);
+    const day = endOfLastMonth - startDay + 1;
+
+    start = `${getDateStub(lastMonth)}-${day.toString().padStart(2, "0")}`;
+  }
+
+  const remainder = (startDay + lastDay) % 7;
+
+  if (remainder > 0) {
+    const nextMonth = getNextMonth(date);
+    const endDays = 7 - remainder;
+
+    end = `${getDateStub(nextMonth)}-${endDays.toString().padStart(2, "0")}`;
+  }
+
+  return { start, end };
 };

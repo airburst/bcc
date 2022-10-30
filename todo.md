@@ -2,14 +2,19 @@
 
 ## Rides
 
-- Only create rides in future
-- Remove edit/add/delete Menu options for past dates (and API guards)
-- fix permalinks for ride/{id}
+- Change cron task to generate all rides for next month (on 1st of current month) (generateRides)
 
 ## Feat: Anonymous Joiners
 
 - Add emergencyContact to user schema
+- Only leader can see this number in rides
 - Anonymous users can join but not leave - reuse User form?
+
+## Planner
+
+- Historic days cannot be clicked (rides cannot be changed)
+- Planner persists month in state (or route), so that back button doesn't jump to today
+- Remove edit/add/delete Menu options for past dates (API guards)
 
 ## Admin/Leader Forms
 
@@ -18,6 +23,7 @@
 
 ## Engineering / Perf
 
+- fix permalinks for ride/{id}
 - Setup PWA
 - Remove fontawesome icons
 - Alternative Auth? Socials etc.
@@ -39,4 +45,5 @@
 ## Cosmetic Snags
 
 - last-child borders in calendar days
+- Click outside of menu closes it
 - Improve menu: https://headlessui.com/react/menu

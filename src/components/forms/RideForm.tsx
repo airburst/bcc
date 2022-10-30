@@ -1,7 +1,10 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+import { getNow } from "../../../shared/utils";
 import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
+
+const today = getNow().split("T")[0] || "";
 
 export type FormValues = {
   id?: string;
@@ -73,9 +76,12 @@ export const RideForm = ({
           <input
             id="date"
             type="date"
+            min={today}
             className="rounded font-normal"
             defaultValue={defaultValues.date}
-            {...register("date", { required: true })}
+            {...register("date", {
+              required: true,
+            })}
           />
           {errors.date && (
             <span className="font-normal text-red-500">

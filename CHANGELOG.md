@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [0.11.2]
+
+### Changed
+
+- Removed 'add all rides' paceline button from planner/{day} view. These rides will be added from a controlled cron job.
+- Prevent adding a ride for an historic date
+
+## [0.10.0]
 
 ### Added
 
