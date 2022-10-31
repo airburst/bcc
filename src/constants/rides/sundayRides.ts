@@ -1,5 +1,5 @@
-import { PartialRide, SeasonStartTime } from "../types";
-import { DAYS } from "./days";
+import { PartialRide, SeasonStartTime } from "../../types";
+import { DAYS } from "../days";
 
 export const SUNDAY_START_TIME: SeasonStartTime = {
   summer: {

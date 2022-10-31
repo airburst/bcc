@@ -1,7 +1,15 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { isWinter } from "./dates";
-import { PACELINE, SATURDAY_SOCIAL, SUNDAY } from "../../src/constants";
+import { isWinter, daysInMonth } from "./dates";
+import {
+  TUESDAY_RIDES,
+  WEDNESDAY_RIDES,
+  WEDNESDAY_HILLS,
+  FRIDAY_RIDES,
+  PACELINE,
+  SATURDAY_SOCIAL,
+  SUNDAY,
+} from "../../src/constants";
 import { PartialRide, SeasonStartTime } from "../../src/types";
 
 dayjs.extend(utc);
@@ -14,15 +22,20 @@ export const getStartTime = (date: string, startTime: SeasonStartTime) => {
     .set("hour", season.hour)
     .set("minute", season.minute)
     .set("second", 0);
-  // Calculate utc offset
-  // const offset = dayjs().utcOffset();
-  // return rideTime.add(offset, "minute").toISOString();
   return rideTime.toISOString();
 };
 
 const findRidesForDay = (date: string): PartialRideWithDate[] => {
   const day = dayjs(date).day();
-  return [PACELINE, SATURDAY_SOCIAL, SUNDAY]
+  return [
+    TUESDAY_RIDES,
+    WEDNESDAY_RIDES,
+    WEDNESDAY_HILLS,
+    FRIDAY_RIDES,
+    PACELINE,
+    SATURDAY_SOCIAL,
+    SUNDAY,
+  ]
     .filter(({ day: rideDay }) => day === rideDay)
     .map(({ rides, startTime }) =>
       rides.map((r) => ({ ...r, date: getStartTime(date, startTime) }))
@@ -46,4 +59,16 @@ export const generateRides = (date: string) => {
 
     return { ...ride, date: dateTime };
   });
+};
+
+export const generateRidesForMonth = (date: string) => {
+  const lastDay = daysInMonth(date);
+  // Generate a map of dates for the month in format yyyy-mm-dd
+  const dateMap = Array.from(
+    { length: lastDay },
+    (_, i) => `${date.substring(0, 8)}${(i + 1).toString().padStart(2, "0")}`
+  );
+  // Walk through each day and generate rides
+  // Flatten map and return
+  return dateMap.flatMap((dt) => generateRides(dt));
 };

@@ -1,28 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { addRidesForDay } from "./ride/create-rides-for-day";
-import { findNextDay } from "../../../shared/utils";
+import { addRidesForMonth } from "./ride/create-rides-for-month";
+import { getNextMonth } from "../../../shared/utils";
 
+/**
+ * This API is designed to be hit by a scheduled workflow
+ * in GitHub.  The cron schedule is for the first of each month
+ * and the default is to generate all rides for the following month.
+ * You can override that by passing a date in the POST body.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    const { date } = req.body;
+
     try {
       const { authorization } = req.headers;
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
-        // Get date for Saturday after next
-        // (6 = Saturday; 7 = start search 7 days from now)
-        const nextSaturday = findNextDay(6, 7);
-        const saturdayResults = await addRidesForDay(nextSaturday);
-        const nextSunday = findNextDay(0, 7);
-        const sundayResults = await addRidesForDay(nextSunday);
+        const targetMonth = date || getNextMonth();
+        const results = await addRidesForMonth(targetMonth);
 
         // More rides to follow
         res.status(200).json({
           success: true,
-          saturdayResults,
-          sundayResults,
+          targetMonth,
+          results,
         });
       } else {
         res.status(401).json({ success: false });
