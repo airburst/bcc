@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useState } from "react";
-// import { useSession } from "next-auth/react";
 import { useRides } from "../../../hooks";
 import { Button, Calendar } from "../../../components";
 import {
@@ -12,13 +11,10 @@ import {
   formatCalendarDate,
   getMonthDateRange,
 } from "../../../../shared/utils";
-// import { User } from "../../../types";
 
 const RideCalendar: NextPage = () => {
-  // const { data: session } = useSession();
   const [date, setDate] = useState<string>(getNow());
   const { start, end } = getMonthDateRange(date);
-
   // Fetch rides for month selected
   const { data, loading, error } = useRides(start, end);
 

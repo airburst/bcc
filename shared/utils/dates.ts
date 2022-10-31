@@ -94,10 +94,10 @@ export const getFormRideDateAndTime = (date: string) => ({
 export const getMonth = () => dayjs().month();
 
 export const getLastMonth = (date?: string) =>
-  dayjs(date).subtract(31, "day").toISOString();
+  dayjs(date).subtract(1, "month").toISOString();
 
 export const getNextMonth = (date?: string) =>
-  dayjs(date).add(31, "day").toISOString();
+  dayjs(date).add(1, "month").toISOString();
 
 export const firstDayOfMonth = (date?: string) =>
   date ? dayjs(date).startOf("month").day() : dayjs().startOf("month").day();

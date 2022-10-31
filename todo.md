@@ -10,9 +10,12 @@
 - Only leader can see this number in rides
 - Anonymous users can join but not leave - reuse User form?
 
+## Next 13
+
+- Upgrade to use hook. Might improve rides/{id} persist
+
 ## Planner
 
-- Historic days cannot be clicked (rides cannot be changed)
 - Planner persists month in state (or route), so that back button doesn't jump to today
 - Remove edit/add/delete Menu options for past dates (API guards)
 
