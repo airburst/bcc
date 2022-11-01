@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Button } from "./Button";
 import { BackButton } from "./Button/BackButton";
 import { JoinButton } from "./Button/JoinButton";
 import { Badge } from "./Badge";
@@ -22,9 +24,10 @@ const Heading = ({ children }: RowProps) => (
 type Props = {
   ride: Ride;
   user?: User;
+  role?: string;
 };
 
-export const RideDetails = ({ ride, user }: Props) => {
+export const RideDetails = ({ ride, user, role }: Props) => {
   const {
     id,
     name,
@@ -44,6 +47,7 @@ export const RideDetails = ({ ride, user }: Props) => {
   const hasRiders = users && users?.length > 0;
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
+  const isLeader = ["ADMIN", "LEADER"].includes(role || "");
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -133,15 +137,28 @@ export const RideDetails = ({ ride, user }: Props) => {
         {hasRiders && (
           <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
             {user ? (
-              users?.map(({ id: userId, name: userName, mobile }) => (
-                <Row key={userId}>
-                  <div>{userName}</div>
-                  <div className="flex items-center gap-2">
-                    {mobile && <i className="fa-solid fa-phone" />}
-                    <span>{mobile}</span>
+              users?.map(
+                ({ id: userId, name: userName, mobile, emergency }) => (
+                  <div
+                    className="flex w-full flex-row  items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4"
+                    key={userId}
+                  >
+                    <div>{userName}</div>
+                    <div className="flex flex-col items-end">
+                      <div className="flex items-center gap-2">
+                        {mobile && <i className="fa-solid fa-phone" />}
+                        <span>{mobile}</span>
+                      </div>
+                      {isLeader && (
+                        <div className="flex items-center gap-2 text-red-700">
+                          {emergency && <i className="fa-solid fa-phone" />}
+                          <span>{emergency}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </Row>
-              ))
+                )
+              )
             ) : (
               <div className="p-2">Please log in to see rider details</div>
             )}
@@ -151,13 +168,26 @@ export const RideDetails = ({ ride, user }: Props) => {
 
       <div className="flex h-4 flex-row justify-between px-2 pt-8 sm:px-0">
         <BackButton />
-        <JoinButton
-          className="flex w-28 items-center justify-center rounded p-5"
-          going={isGoing}
-          ariaLabel={`Join ${name} ride`}
-          rideId={id}
-          userId={user?.id}
-        />
+        {user ? (
+          <JoinButton
+            className="flex w-28 items-center justify-center rounded p-5"
+            going={isGoing}
+            ariaLabel={`Join ${name} ride`}
+            rideId={id}
+            userId={user?.id}
+          />
+        ) : (
+          <Link href={`/ride/${id}/join`}>
+            <div className="flex h-10">
+              <Button variant="join">
+                <div className="flex items-center gap-2">
+                  <i className="fa-solid fa-plus" />
+                  Join
+                </div>
+              </Button>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );

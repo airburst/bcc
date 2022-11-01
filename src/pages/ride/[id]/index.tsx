@@ -14,6 +14,7 @@ import { User } from "../../../types";
 const RideDetailsPage: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
+  const role = session?.role as string;
 
   const router = useRouter();
   const { ride, loading, error } = useRide(router.query.id);
@@ -46,7 +47,7 @@ const RideDetailsPage: NextPage = () => {
         <meta name="description" content="Bath Cycling Club Ride Details" />
       </Head>
 
-      <RideDetails ride={ride} user={user} />
+      <RideDetails ride={ride} user={user} role={role} />
     </>
   );
 };

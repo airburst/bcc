@@ -72,7 +72,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
         <div className="p-1 font-bold tracking-wide text-neutral-600">
           {time}
         </div>
-        <div className="p-1">{details}</div>
+        <div className="truncate p-1">{details}</div>
         <div className="flex flex-row items-center justify-center gap-1 p-1">
           <Image
             src="/static/images/biking-neutral-500-64.png"

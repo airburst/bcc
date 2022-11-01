@@ -2,7 +2,8 @@
 
 ## Feat: Anonymous Joiners
 
-- Only leader can see this number in rides
+- How does anon user know they have joined...?
+- Prevent logged-in user from accessing /join route?
 
 ## Next 13
 
@@ -12,11 +13,11 @@
 
 - Planner persists month in state (or route), so that back button doesn't jump to today
 - Remove edit/add/delete Menu options for past dates (API guards)
+- Add API guards for edit/add/delete/join on past dates
 
 ## Admin/Leader Forms
 
 - Route guards on API, pages above for leaders
-- Form cleansing (values)
 
 ## Engineering / Perf
 
@@ -24,6 +25,7 @@
 - Setup PWA
 - Remove fontawesome icons
 - Alternative Auth? Socials etc.
+- Redirect user to profile on first login?
 - Move route guard redirects to edge middleware
 - Secure API with middleware and expiring signed token?
   https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts

@@ -61,6 +61,20 @@ const JoinRidePage: NextPage = () => {
           Join Ride
         </div>
 
+        <div className="m-2">
+          <p>
+            Please provide some contact details (Non Bath CC members only). If
+            you are not a member and want to join please visit the{" "}
+            <a
+              className="cursor-pointer text-blue-600 underline"
+              href="https://www.bathcc.net/join"
+            >
+              Bath CC website
+            </a>
+            .
+          </p>
+        </div>
+
         <AnonymousUserForm
           defaultValues={defaultValues}
           errors={errors}
@@ -69,6 +83,13 @@ const JoinRidePage: NextPage = () => {
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
         />
+
+        <div className="m-2 italic text-neutral-700">
+          <p>
+            Note: if you sign in to this app you will only have to provide your
+            details once and can then join and leave rides with one click.
+          </p>
+        </div>
       </div>
     </>
   );
