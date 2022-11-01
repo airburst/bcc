@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Capture emergency contact number for users in profile
+- Leaders can see emergency contact info in ride details view
 - Allow anonymous users to join rides
 
 ## [0.12.0]
