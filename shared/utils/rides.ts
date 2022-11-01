@@ -25,7 +25,7 @@ export const formatUserName = (name: string | null | undefined): string => {
 
 export const formatUser = (user: User, isAuth = false) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, name, email, image, mobile, createdAt, role } = user;
+  const { id, name, email, image, mobile, emergency, createdAt, role } = user;
 
   if (!isAuth) {
     return { id, name: ANONYMISED_NAME };
@@ -37,6 +37,7 @@ export const formatUser = (user: User, isAuth = false) => {
     email,
     image,
     mobile,
+    emergency,
     role,
   };
 };

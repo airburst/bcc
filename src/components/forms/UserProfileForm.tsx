@@ -8,7 +8,7 @@ export type UserProfileValues = {
   name: string;
   email: string;
   mobile?: string | null;
-  // image?: string;
+  emergency?: string | null;
   // role: string;
 };
 
@@ -52,7 +52,7 @@ export const UserProfileForm = ({
     </div>
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
-      <label htmlFor="destination" className="flex flex-col">
+      <label htmlFor="mobile" className="flex flex-col">
         Mobile
         <input
           id="mobile"
@@ -65,10 +65,24 @@ export const UserProfileForm = ({
     </div>
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
-      <label htmlFor="group" className="flex flex-col gap-1 font-medium">
+      <label htmlFor="emergency" className="flex flex-col">
+        Emergency Contact
+        <input
+          id="emergency"
+          type="text"
+          placeholder="Name and contact number"
+          className="rounded"
+          defaultValue={defaultValues.emergency || ""}
+          {...register("emergency")}
+        />
+      </label>
+    </div>
+
+    <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+      <label htmlFor="email" className="flex flex-col gap-1 font-medium">
         Email
         <input
-          id="group"
+          id="email"
           type="text"
           className="rounded border-neutral-300 bg-neutral-200 font-normal text-neutral-600"
           defaultValue={defaultValues.email}

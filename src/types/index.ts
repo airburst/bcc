@@ -3,6 +3,7 @@ export type User = {
   name: string;
   email: string;
   mobile?: string | null;
+  emergency?: string | null;
   image?: string | null; // url
   role: string; // USER | ADMIN
 };

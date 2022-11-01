@@ -2,7 +2,6 @@
 
 ## Feat: Anonymous Joiners
 
-- Add emergencyContact to user schema
 - Only leader can see this number in rides
 - Anonymous users can join but not leave - reuse User form?
 

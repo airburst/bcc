@@ -4,6 +4,7 @@ type UpdateUser = {
   id: string;
   name: string;
   mobile?: string | null;
+  emergency?: string | null;
 };
 
 export const updateUser = (user: UpdateUser) =>
@@ -20,7 +21,7 @@ export const useUpdateUser = (user: UpdateUser) => {
   const { data, error } = useSWR(`/api/user/update`, () => updateUser(user));
 
   return {
-    ride: data,
+    user: data,
     loading: !error && !data,
     error,
   };

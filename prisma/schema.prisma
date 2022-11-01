@@ -59,6 +59,7 @@ model User {
     emailVerified DateTime?
     image         String?
     mobile        String?
+    emergency     String?
     role          Role @default(USER)
     accounts      Account[]
     sessions      Session[]

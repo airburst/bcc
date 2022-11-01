@@ -45,6 +45,6 @@ yarn pushdb
 
 3. Once you are happy with your changes on your development branch, you can open a deploy request to deploy these to your production branch.
 
-- Navigate to [https://app.planetscale.com/mark-fairhurst/bcc-rides/deploy-requests](https://app.planetscale.com/mark-fairhurst/bcc-rides/deploy-requests)
+- Navigate to [https://app.planetscale.com/mark-fairhurst/bcc-rides/dev](https://app.planetscale.com/mark-fairhurst/bcc-rides/dev)
 - Click `Create Deploy Request`
 - If that passes, click `Deploy Changes`
