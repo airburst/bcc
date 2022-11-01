@@ -140,11 +140,11 @@ export const RideDetails = ({ ride, user, role }: Props) => {
               users?.map(
                 ({ id: userId, name: userName, mobile, emergency }) => (
                   <div
-                    className="flex w-full flex-row  items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4"
+                    className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4"
                     key={userId}
                   >
                     <div>{userName}</div>
-                    <div className="flex flex-col items-end">
+                    <div className="flex flex-col items-end md:flex-row md:justify-between">
                       <div className="flex items-center gap-2">
                         {mobile && <i className="fa-solid fa-phone" />}
                         <span>{mobile}</span>
