@@ -13,5 +13,6 @@ export * from "./NoMatch";
 export * from "./RideDetails";
 export * from "./RideDetailsSkeleton";
 export * from "./RideGroup";
+export * from "./forms/AnonymousUserForm";
 export * from "./forms/RideForm";
 export * from "./forms/UserProfileForm";

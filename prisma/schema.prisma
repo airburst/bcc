@@ -102,4 +102,5 @@ enum Role {
   USER
   LEADER
   ADMIN
+  ANONYMOUS
 }

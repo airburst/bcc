@@ -3,7 +3,6 @@
 ## Feat: Anonymous Joiners
 
 - Only leader can see this number in rides
-- Anonymous users can join but not leave - reuse User form?
 
 ## Next 13
 

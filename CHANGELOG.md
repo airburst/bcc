@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0]
+
+### Added
+
+- Capture emergency contact number for users in profile
+- Allow anonymous users to join rides
+
 ## [0.12.0]
 
 ### Added
