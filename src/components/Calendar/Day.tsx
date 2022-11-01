@@ -23,7 +23,7 @@ export const Day = ({ day, date, rides = [], classes, noClick }: Props) => {
 
   const wrapperClasses =
     classes ||
-    `lg:text-md h-24 w-full justify-self-center border-b-[1px] border-r-[1px] border-neutral-100 p-1 text-sm last:border-b-0 last:border-r-0 lg:h-24 cursor-pointer ${cellStyle}`;
+    `lg:text-md h-24 w-full justify-self-center border-b-[1px] border-r-[1px] border-neutral-100 p-1 text-sm last:border-b-0 last:border-r-0 lg:h-24 cursor-pointer overflow-hidden ${cellStyle}`;
 
   const Content = (
     <div className={wrapperClasses}>
