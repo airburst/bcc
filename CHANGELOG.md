@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.12.0]
+
+### Added
+
+- Create full month of rides on schedule
+- Added midweek rides (Tue, Wed ride and hills, Ladies Friday)
+
+### Changed
+
+- Default view is two weeks of rides ahead
+
 ## [0.11.3]
 
 ### Fixed

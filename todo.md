@@ -1,9 +1,5 @@
 # TODO
 
-## Rides
-
-- Change cron task to generate all rides for next month (on 1st of current month) (generateRides)
-
 ## Feat: Anonymous Joiners
 
 - Add emergencyContact to user schema

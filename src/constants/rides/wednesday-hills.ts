@@ -17,12 +17,13 @@ const meetPoint = "Cadence";
 
 const RIDES: PartialRide[] = [
   {
-    distance: 20,
+    distance: 22,
+    route: "https://ridewithgps.com/routes/41345023",
   },
 ].map((ride) => ({
   name,
   meetPoint,
-  leader: "TBA",
+  leader: "David Stoyle",
   ...ride,
 }));
 
