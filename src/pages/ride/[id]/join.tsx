@@ -4,9 +4,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { addAnonymousUser } from "../../../hooks";
+import { addAnonymousUser, useLocalStorage } from "../../../hooks";
 import { AnonymousUserForm, AnonymousUserValues } from "../../../components";
 import { flattenQuery } from "../../../../shared/utils";
+import { AnonymousUser } from "../../../types";
+
+// TODO: redirect if user in session
 
 const JoinRidePage: NextPage = () => {
   const { mutate } = useSWRConfig();
@@ -14,6 +17,7 @@ const JoinRidePage: NextPage = () => {
   const {
     query: { id: rideId },
   } = router;
+  const [rider, setRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const [waiting, setWaiting] = useState(false);
 
   const {
@@ -24,28 +28,25 @@ const JoinRidePage: NextPage = () => {
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
-    name: "",
-    mobile: "",
-    emergency: "",
+    id: rider.id || null,
+    name: rider.name || "",
+    mobile: rider.mobile || "",
+    emergency: rider.emergency || "",
     rideId: "",
   };
 
-  const onSubmit: SubmitHandler<AnonymousUserValues> = async ({
-    name,
-    mobile,
-    emergency,
-  }) => {
+  const onSubmit: SubmitHandler<AnonymousUserValues> = async (user) => {
     setWaiting(true);
     // Transform data before sending
     const results = await mutate(`/api/ride/${rideId}`, () =>
       addAnonymousUser({
-        name,
-        mobile,
-        emergency,
+        ...user,
         rideId: flattenQuery(rideId),
       })
     );
     if (results.userId) {
+      // Store detail in localStorage
+      setRider({ id: results.userId, ...user });
       router.back();
     }
   };

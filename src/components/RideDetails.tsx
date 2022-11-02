@@ -3,7 +3,8 @@ import { Button } from "./Button";
 import { BackButton } from "./Button/BackButton";
 import { JoinButton } from "./Button/JoinButton";
 import { Badge } from "./Badge";
-import { User, Ride } from "../types";
+import { useLocalStorage } from "../hooks";
+import { User, Ride, AnonymousUser } from "../types";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export const RideDetails = ({ ride, user, role }: Props) => {
+  const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const {
     id,
     name,
@@ -45,6 +47,8 @@ export const RideDetails = ({ ride, user, role }: Props) => {
   } = ride;
 
   const hasRiders = users && users?.length > 0;
+  const isGoingAnonymously =
+    anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
@@ -160,7 +164,12 @@ export const RideDetails = ({ ride, user, role }: Props) => {
                 )
               )
             ) : (
-              <div className="p-2">Please log in to see rider details</div>
+              <div className="flex flex-col gap-2 px-2">
+                {isGoingAnonymously && (
+                  <div className="text-red-700">You are going</div>
+                )}
+                <div>Please log in to see rider details</div>
+              </div>
             )}
           </div>
         )}
@@ -168,7 +177,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
 
       <div className="flex h-4 flex-row justify-between px-2 pt-8 sm:px-0">
         <BackButton />
-        {user ? (
+        {user && (
           <JoinButton
             className="flex w-28 items-center justify-center rounded p-5"
             going={isGoing}
@@ -176,7 +185,8 @@ export const RideDetails = ({ ride, user, role }: Props) => {
             rideId={id}
             userId={user?.id}
           />
-        ) : (
+        )}
+        {!user && !isGoingAnonymously && (
           <Link href={`/ride/${id}/join`}>
             <div className="flex h-10">
               <Button variant="join">

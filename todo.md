@@ -2,12 +2,14 @@
 
 ## Feat: Anonymous Joiners
 
-- How does anon user know they have joined...?
-- Prevent logged-in user from accessing /join route?
+- Prevent logged-in user from accessing /join route? (redirect)
+- Tidy up Alert component for note in /join page
+- We /could/ allow anon users to leave a ride
 
 ## Next 13
 
-- Upgrade to use hook. Might improve rides/{id} persist
+- Upgrade to use hook
+- Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
 
 ## Planner
 
@@ -21,14 +23,12 @@
 
 ## Engineering / Perf
 
-- fix permalinks for ride/{id}
+- Alternative Auth? Socials etc.
 - Setup PWA
 - Remove fontawesome icons
-- Alternative Auth? Socials etc.
 - Redirect user to profile on first login?
+- Clear localStorage after sign in?
 - Move route guard redirects to edge middleware
-- Secure API with middleware and expiring signed token?
-  https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
 
 ## Could Do (Low pri)
 
@@ -45,4 +45,3 @@
 
 - last-child borders in calendar days
 - Click outside of menu closes it
-- Improve menu: https://headlessui.com/react/menu

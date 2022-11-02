@@ -8,6 +8,13 @@ export type User = {
   role: string; // USER | ADMIN
 };
 
+export type AnonymousUser = {
+  id?: string;
+  name?: string;
+  mobile?: string | null;
+  emergency?: string | null;
+};
+
 export type DbResponse<T> = {
   data?: T[];
   error?: string;

@@ -5,12 +5,12 @@ import { prisma } from "../../../server/db/client";
 import { User } from "../../../types";
 
 export const addAnonymousUser = async (user: User) => {
-  const { name, mobile, emergency } = user;
+  const { id, name, mobile, emergency } = user;
 
   try {
     const result = await prisma.user.create({
       data: {
-        id: nanoid(),
+        id: id || nanoid(),
         name,
         mobile,
         emergency,

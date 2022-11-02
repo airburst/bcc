@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import Image from "next/future/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Ride, User } from "../types";
+import { useLocalStorage } from "../hooks";
+import { Ride, User, AnonymousUser } from "../types";
 import { isReady } from "../../shared/utils";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -16,6 +17,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const router = useRouter();
   const { id, name, time, group, destination, distance, users } = ride;
   const isNotReady = !isReady(ride);
+  const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
 
   const details = destination
     ? `${destination} - ${distance} km`
@@ -28,6 +30,8 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   }
 
   const isGoing = user ? users?.map((u) => u.id).includes(user.id) : false;
+  const isGoingAnonymously =
+    anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const riderCount = users?.length;
 
   return (
@@ -62,7 +66,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
           )}
         </div>
         <div className="justify-self-center">
-          {isGoing && (
+          {(isGoing || isGoingAnonymously) && (
             <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
               GOING
             </div>

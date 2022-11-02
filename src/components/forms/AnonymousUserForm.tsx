@@ -4,6 +4,7 @@ import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
 
 export type AnonymousUserValues = {
+  id?: string | null;
   name: string;
   mobile?: string | null;
   emergency?: string | null;
@@ -82,7 +83,11 @@ export const AnonymousUserForm = ({
     </div>
 
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
-      <Button loading={waiting} type="submit" disabled={!isDirty}>
+      <Button
+        loading={waiting}
+        type="submit"
+        disabled={!isDirty && !defaultValues.id}
+      >
         <div>Join Ride</div>
       </Button>
       <CancelButton />
