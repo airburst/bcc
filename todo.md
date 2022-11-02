@@ -1,5 +1,9 @@
 # TODO
 
+## Auth
+
+- Add more OIDC providers, and email
+
 ## Feat: Anonymous Joiners
 
 - Prevent logged-in user from accessing /join route? (redirect)
@@ -23,7 +27,6 @@
 
 ## Engineering / Perf
 
-- Alternative Auth? Socials etc.
 - Setup PWA
 - Remove fontawesome icons
 - Redirect user to profile on first login?

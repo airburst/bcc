@@ -13,6 +13,10 @@ export const serverSchema = z.object({
   AUTH0_CLIENT_ID: z.string(),
   AUTH0_CLIENT_SECRET: z.string(),
   AUTH0_ISSUER: z.string(),
+  FACEBOOK_CLIENT_ID: z.string(),
+  FACEBOOK_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
 });
 
 /**
