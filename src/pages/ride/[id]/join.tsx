@@ -1,5 +1,6 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -85,10 +86,14 @@ const JoinRidePage: NextPage = () => {
           waiting={waiting}
         />
 
-        <div className="m-2 italic text-neutral-700">
+        <div className="m-2 flex flex-row items-center gap-2 rounded border-2 border-blue-200 bg-blue-100 p-2 text-neutral-700">
+          <div className="px-2 text-3xl text-blue-500">
+            <i className="fa-solid fa-circle-info" />
+          </div>
           <p>
-            Note: if you sign in to this app you will only have to provide your
-            details once and can then join and leave rides with one click.
+            If you sign up to use this app you will only have to provide your
+            details once and can then join and leave rides with one click,
+            across multiple devices.
           </p>
         </div>
       </div>
@@ -97,3 +102,22 @@ const JoinRidePage: NextPage = () => {
 };
 
 export default JoinRidePage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const { id } = context.query;
+
+  // Redirect user back to ride if they are aleready logged in
+  if (session) {
+    return {
+      redirect: {
+        destination: `/ride/${id}`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

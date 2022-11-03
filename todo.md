@@ -1,24 +1,8 @@
 # TODO
 
-## Auth
-
-- Add Credentials provider - test
-- Create custom signin page
-  - https://next-auth.js.org/configuration/pages#credentials-sign-in
-  - https://blog.devso.io/implementing-credentials-provider-on-nextjs-and-nextauth
-  - https://www.youtube.com/watch?v=kB6YNYZ63fw
-- Test Email Provider (must be free)
-
 ## Feat: Anonymous Joiners
 
-- Prevent logged-in user from accessing /join route? (redirect)
-- Tidy up Alert component for note in /join page
 - We /could/ allow anon users to leave a ride
-
-## Next 13
-
-- Upgrade to use hook
-- Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
 
 ## Planner
 
@@ -29,6 +13,13 @@
 ## Admin/Leader Forms
 
 - Route guards on API, pages above for leaders
+
+- https://www.riderhq.com/api/reference
+
+## Next 13
+
+- Upgrade to use hook
+- Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
 
 ## Engineering / Perf
 

@@ -53,28 +53,52 @@ export const UserProfileForm = ({
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
       <label htmlFor="mobile" className="flex flex-col">
-        Mobile
+        Mobile *
         <input
           id="mobile"
           type="text"
           className="rounded"
           defaultValue={defaultValues.mobile || ""}
-          {...register("mobile")}
+          {...register("mobile", {
+            required: true,
+            minLength: {
+              value: 11,
+              message:
+                "This doesn't look long enough to contain a phone number",
+            },
+          })}
         />
+        {errors.mobile && (
+          <span className="font-normal text-red-500">
+            Please enter a valid phone number
+          </span>
+        )}
       </label>
     </div>
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
       <label htmlFor="emergency" className="flex flex-col">
-        Emergency Contact
+        Emergency Contact *
         <input
           id="emergency"
           type="text"
           placeholder="Name and contact number"
           className="rounded"
           defaultValue={defaultValues.emergency || ""}
-          {...register("emergency")}
+          {...register("emergency", {
+            required: true,
+            minLength: {
+              value: 11,
+              message:
+                "This doesn't look long enough to contain a phone number",
+            },
+          })}
         />
+        {errors.emergency && (
+          <span className="font-normal text-red-500">
+            Please enter a valid name and phone number for contact
+          </span>
+        )}
       </label>
     </div>
 
