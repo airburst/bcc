@@ -2,7 +2,9 @@
 
 ## Auth
 
-- Add more OIDC providers, and email
+- Add Credentials provider - test
+- Create custom signin page (https://www.youtube.com/watch?v=kB6YNYZ63fw)
+- Test Email Provider (must be free)
 
 ## Feat: Anonymous Joiners
 
