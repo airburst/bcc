@@ -5,7 +5,7 @@ type Props = {
 };
 
 export const Badge = ({ text, size = "md", color = "bg-red-500" }: Props) => {
-  const classes = `flex justify-center truncate rounded ${color} px-1 text-${size} text-white`;
+  const classes = `flex justify-center truncate rounded ${color} px-2 text-${size} text-white`;
 
   return <div className={classes}>{text}</div>;
 };

@@ -7,13 +7,11 @@
 ## Planner
 
 - Planner persists month in state (or route), so that back button doesn't jump to today
-- Remove edit/add/delete Menu options for past dates (API guards)
 - Add API guards for edit/add/delete/join on past dates
 
 ## Admin/Leader Forms
 
 - Route guards on API, pages above for leaders
-
 - https://www.riderhq.com/api/reference
 
 ## Next 13

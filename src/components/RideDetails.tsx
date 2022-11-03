@@ -149,15 +149,17 @@ export const RideDetails = ({ ride, user, role }: Props) => {
                   >
                     <div>{userName}</div>
                     <div className="flex flex-col items-end md:flex-row md:justify-between">
-                      <div className="flex items-center gap-2">
-                        {mobile && <i className="fa-solid fa-phone" />}
-                        <span>{mobile}</span>
-                      </div>
                       {isLeader && (
-                        <div className="flex items-center gap-2 text-red-700">
-                          {emergency && <i className="fa-solid fa-phone" />}
-                          <span>{emergency}</span>
-                        </div>
+                        <>
+                          <div className="flex items-center gap-2">
+                            {mobile && <i className="fa-solid fa-phone" />}
+                            <span>{mobile}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-red-700">
+                            {emergency && <i className="fa-solid fa-phone" />}
+                            <span>{emergency}</span>
+                          </div>
+                        </>
                       )}
                     </div>
                   </div>
