@@ -3,7 +3,10 @@
 ## Auth
 
 - Add Credentials provider - test
-- Create custom signin page (https://www.youtube.com/watch?v=kB6YNYZ63fw)
+- Create custom signin page
+  - https://next-auth.js.org/configuration/pages#credentials-sign-in
+  - https://blog.devso.io/implementing-credentials-provider-on-nextjs-and-nextauth
+  - https://www.youtube.com/watch?v=kB6YNYZ63fw
 - Test Email Provider (must be free)
 
 ## Feat: Anonymous Joiners
@@ -39,6 +42,7 @@
 
 - Secure API with middleware and expiring signed token?
   https://github.com/vercel/examples/blob/main/edge-functions/basic-auth-password/middleware.ts
+- Leaflet maps for meeting point, route?
 
   ## Who's out view TBD
 

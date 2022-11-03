@@ -26,6 +26,10 @@ export const authOptions: NextAuthOptions = {
       issuer: env.AUTH0_ISSUER,
     }),
   ],
+  // Custom pages
+  pages: {
+    newUser: "/profile",
+  },
 };
 
 export default NextAuth(authOptions);
