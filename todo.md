@@ -1,18 +1,11 @@
 # TODO
 
-## Feat: Anonymous Joiners
-
-- We /could/ allow anon users to leave a ride
-
-## Planner
-
-- Planner persists month in state (or route), so that back button doesn't jump to today
 - Add API guards for edit/add/delete/join on past dates
-
-## Admin/Leader Forms
-
 - Route guards on API, pages above for leaders
+
+- Leaders linked by id: only show riders for MY rides
 - https://www.riderhq.com/api/reference
+- We /could/ allow anon users to leave a ride
 
 ## Next 13
 
@@ -27,6 +20,12 @@
 - Clear localStorage after sign in?
 - Move route guard redirects to edge middleware
 
+## Cosmetic Snags
+
+- last-child borders in calendar days
+- Click outside of menu closes it
+- Planner persists month in state (or route), so that back button doesn't jump to today
+
 ## Could Do (Low pri)
 
 - Secure API with middleware and expiring signed token?
@@ -38,8 +37,3 @@
 - View to show all riders out on a day (presumably only for logged-in users..)
 - /riders/[date]
 - Needs a new api and query
-
-## Cosmetic Snags
-
-- last-child borders in calendar days
-- Click outside of menu closes it

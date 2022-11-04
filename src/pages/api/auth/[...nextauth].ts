@@ -30,6 +30,13 @@ export const authOptions: NextAuthOptions = {
   pages: {
     newUser: "/profile",
   },
+  // Hook into signOut event and clear session on server
+  // events: {
+  //   async signOut(session) {
+  //     // add here
+  //     console.log("📛📛📛 Sign out actions...", session);
+  //   },
+  // },
 };
 
 export default NextAuth(authOptions);
