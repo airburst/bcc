@@ -2,6 +2,8 @@
 
 - Refactor Rider component with toggle for emergency number (on mobile)
 
+- Investigate backups of DB
+
 - Experiment with Push Notifications for cancelled rides
 - https://www.youtube.com/watch?v=Bm0JjR4kP8w
 

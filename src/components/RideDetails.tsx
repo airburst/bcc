@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "./Button";
 import { BackButton } from "./Button/BackButton";
 import { JoinButton } from "./Button/JoinButton";
+import { RiderDetails } from "./RiderDetails";
 import { Badge } from "./Badge";
 import { useLocalStorage } from "../hooks";
 import { User, Ride, AnonymousUser } from "../types";
@@ -141,29 +142,9 @@ export const RideDetails = ({ ride, user, role }: Props) => {
         {hasRiders && (
           <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
             {user ? (
-              users?.map(
-                ({ id: userId, name: userName, mobile, emergency }) => (
-                  <div
-                    className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4"
-                    key={userId}
-                  >
-                    <div>{userName}</div>
-                    <div className="flex flex-col items-end md:flex-row md:justify-between">
-                      {isLeader && (
-                        <>
-                          <div className="flex items-center gap-2">
-                            {mobile && <i className="fa-solid fa-phone" />}
-                            <span>{mobile}</span>
-                          </div>
-                          <div className="flex items-center gap-2 truncate text-red-700">
-                            <span>{emergency}</span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                )
-              )
+              users?.map((u) => (
+                <RiderDetails key={u.id} user={u} isLeader={isLeader} />
+              ))
             ) : (
               <div className="flex flex-col gap-2 px-2">
                 {isGoingAnonymously && (

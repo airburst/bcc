@@ -12,6 +12,7 @@ export * from "./Confirm";
 export * from "./NoMatch";
 export * from "./RideDetails";
 export * from "./RideDetailsSkeleton";
+export * from "./RiderDetails";
 export * from "./RideGroup";
 export * from "./forms/AnonymousUserForm";
 export * from "./forms/RideForm";
