@@ -155,7 +155,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
                             {mobile && <i className="fa-solid fa-phone" />}
                             <span>{mobile}</span>
                           </div>
-                          <div className="flex items-center gap-2 text-red-700">
+                          <div className="flex items-center gap-2 truncate text-red-700">
                             <span>{emergency}</span>
                           </div>
                         </>
