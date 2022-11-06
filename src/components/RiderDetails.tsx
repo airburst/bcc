@@ -34,13 +34,12 @@ export const RiderDetails = ({ user, isLeader }: Props) => {
           {!showEmergency && (
             <div className="flex items-center gap-2">
               {mobile && <i className="fa-solid fa-phone" />}
-              <span>{mobile}</span>
+              <span className="text-right">{mobile}</span>
             </div>
           )}
           {showEmergency && (
             <div className="flex items-center gap-2 text-red-700">
-              {emergency && <i className="fa-solid fa-phone" />}
-              <span>{emergency}</span>
+              <span className="text-right">{emergency}</span>
             </div>
           )}
 
