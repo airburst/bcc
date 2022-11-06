@@ -1,5 +1,8 @@
 # TODO
 
+- Change expiry of rides to end of day
+- Refactor Rider component with toggle for emergency number (on mobile)
+
 - Experiment with Push Notifications for cancelled rides
 - https://www.youtube.com/watch?v=Bm0JjR4kP8w
 
@@ -19,6 +22,7 @@
 
 - Setup PWA
 - Remove fontawesome icons
+- Refactor RideDetails
 - Redirect user to profile on first login?
 - Clear localStorage after sign in?
 - Move route guard redirects to edge middleware
