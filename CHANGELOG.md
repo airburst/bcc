@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.16.1]
+
+### Changed
+
+- Show full group name for Sunday rides
+- Replace "ride not ready" warning icon with red left border on card
+
 ## [0.16.0]
 
 ### Changed

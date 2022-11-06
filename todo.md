@@ -1,5 +1,8 @@
 # TODO
 
+- Experiment with Push Notifications for cancelled rides
+- https://www.youtube.com/watch?v=Bm0JjR4kP8w
+
 - Add API guards for edit/add/delete/join on past dates
 - Route guards on API, pages above for leaders
 
@@ -19,6 +22,15 @@
 - Redirect user to profile on first login?
 - Clear localStorage after sign in?
 - Move route guard redirects to edge middleware
+
+## Auth
+
+- User management screens (Admin only)
+  - list users (with search)
+  - Get/update user - incl make Leader
+  - Delete user
+  - Block user
+- Using Auth0 management API to list, block users
 
 ## Cosmetic Snags
 

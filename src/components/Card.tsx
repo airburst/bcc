@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Image from "next/future/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import clsx from "clsx";
 import { useLocalStorage } from "../hooks";
 import { Ride, User, AnonymousUser } from "../types";
 import { isReady } from "../../shared/utils";
@@ -34,6 +35,11 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const riderCount = users?.length;
 
+  const cardClass = clsx(
+    "grid w-full grid-cols-[auto_1fr_68px] pl-1 border-l-4",
+    isNotReady ? "border-red-500 rounded-l" : "border-transparent"
+  );
+
   return (
     <div
       role="presentation"
@@ -56,15 +62,11 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
         setSwiping(false);
       }}
     >
-      <div className="grid w-full grid-cols-[auto_1fr_68px] pl-1">
-        <div className="col-span-2 p-1 font-bold uppercase tracking-wide">
+      <div className={cardClass}>
+        <div className="col-span-2 truncate p-1 font-bold uppercase tracking-wide">
           {name} {group ? `- ${group}` : ""}{" "}
-          {isNotReady && (
-            <span className="text-red-700">
-              <i className="fa-solid fa-triangle-exclamation" />
-            </span>
-          )}
         </div>
+
         <div className="justify-self-center">
           {(isGoing || isGoingAnonymously) && (
             <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">

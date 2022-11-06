@@ -17,27 +17,27 @@ const meetPoint = "Brunel Square";
 
 export const SUNDAY_RIDES: PartialRide[] = [
   {
-    group: "DE",
+    group: "Double Espresso",
     distance: 110,
     notes: "Approx. pace is 29 - 31km/h",
   },
   {
-    group: "E",
+    group: "Espresso",
     distance: 96,
     notes: "Approx. pace is 24km/h",
   },
   {
-    group: "A",
+    group: "Americano",
     distance: 90,
     notes: "Approx. pace is 22km/h",
   },
   {
-    group: "DSL",
+    group: "Double Shot Latte",
     distance: 82,
     notes: "Approx. pace is 21km/h",
   },
   {
-    group: "C",
+    group: "Cappuccino",
     distance: 67,
     notes: "Approx. pace is 20km/h",
   },
