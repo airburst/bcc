@@ -57,8 +57,17 @@ export const getQueryDateRange = ({
   start?: string;
   end?: string;
 }) => {
-  const now = getNow();
+  // Show all rides until end of day
+  const delta = dayjs().utcOffset();
+  const now = dayjs()
+    .utc()
+    .set("hour", delta / 60)
+    .set("minute", 0)
+    .set("second", 0)
+    .toISOString();
+
   const st = start ? getDateFromString(start) : now;
+  // st.set("hour", 0);
   let en = end ? getDateFromString(end, true) : getNextTwoWeeks();
 
   // Set end of day on en

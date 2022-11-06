@@ -1,6 +1,5 @@
 # TODO
 
-- Change expiry of rides to end of day
 - Refactor Rider component with toggle for emergency number (on mobile)
 
 - Experiment with Push Notifications for cancelled rides
