@@ -7,8 +7,8 @@ export const PACELINE_START_TIME: SeasonStartTime = {
     minute: 40,
   },
   winter: {
-    hour: 9,
-    minute: 0,
+    hour: 8,
+    minute: 40,
   },
 };
 

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Rides do not expire until end of day
+- Paceline starts at 08:40 in winter
 
 ## [0.16.1]
 
