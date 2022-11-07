@@ -23,7 +23,7 @@ export const RideGroup: React.FC<Props> = ({ group, user }: Props) => {
           <div
             id={ride.id}
             key={ride.id}
-            className="w-full scroll-mt-16 px-2 md:px-0"
+            className="w-full scroll-mt-16 px-2 md:scroll-mt-24 md:px-0"
           >
             <Card ride={ride} user={user} />
           </div>
