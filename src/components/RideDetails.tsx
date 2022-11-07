@@ -158,7 +158,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
       </div>
 
       <div className="flex h-4 flex-row justify-between px-2 pt-8 sm:px-0">
-        <BackButton />
+        <BackButton url={`/#${id}`} />
         {user && (
           <JoinButton
             className="flex w-28 items-center justify-center rounded p-5"

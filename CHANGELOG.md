@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.0]
+
+### Added
+
+- Back button on ride details screen takes returns you to the position you left in the 'all rides' screen.
+
 ## [0.18.0]
 
 ### Added

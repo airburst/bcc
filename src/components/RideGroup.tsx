@@ -20,7 +20,11 @@ export const RideGroup: React.FC<Props> = ({ group, user }: Props) => {
 
       {types.map(({ rides }) =>
         rides.map((ride) => (
-          <div key={ride.id} className="w-full px-2 md:px-0">
+          <div
+            id={ride.id}
+            key={ride.id}
+            className="w-full scroll-mt-16 px-2 md:px-0"
+          >
             <Card ride={ride} user={user} />
           </div>
         ))
