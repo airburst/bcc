@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.2]
+
+### Changed
+
+- Rider mobile and emergency contact numbers are now callable links
+
 ## [0.19.1]
 
 ### Changed

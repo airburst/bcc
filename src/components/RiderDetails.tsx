@@ -11,6 +11,8 @@ type Props = {
 export const RiderDetails = ({ user, isLeader }: Props) => {
   const [showEmergency, setShowEmergency] = useState<boolean>(false);
   const { id: userId, name: userName, mobile, emergency } = user;
+  // Make emergency number callable - strip out text
+  const emergencyNumber = emergency?.replace(/\D+/g, "");
 
   const switchClass = clsx(
     "relative inline-flex h-6 w-11 items-center rounded-full",
@@ -34,12 +36,16 @@ export const RiderDetails = ({ user, isLeader }: Props) => {
           {!showEmergency && (
             <div className="flex items-center gap-2">
               {mobile && <i className="fa-solid fa-phone" />}
-              <span className="text-right">{mobile}</span>
+              <a href={`tel:${mobile}`} className="text-right">
+                {mobile}
+              </a>
             </div>
           )}
           {showEmergency && (
             <div className="flex items-center gap-2 text-red-700">
-              <span className="text-right">{emergency}</span>
+              <a href={`tel:${emergencyNumber}`} className="text-right">
+                {emergency}
+              </a>
             </div>
           )}
 
