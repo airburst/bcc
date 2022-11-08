@@ -45,7 +45,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
         const results = await deleteRide(rideId);
         if (results.id) {
           closeMenu();
-          router.push("/");
+          router.back();
           cb(true);
         } else {
           cb(false);
