@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.3]
+
+### Added
+
+- Robots.txt file to block scraping
+
+### Fixed
+
+- Title of Profile page
+
 ## [0.19.2]
 
 ### Changed

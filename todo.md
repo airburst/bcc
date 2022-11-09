@@ -1,6 +1,5 @@
 # TODO
 
-- Investigate backups of DB
 - Add API guards for edit/add/delete/join on past dates
 - Route guards on API, pages above for leaders
 
@@ -20,9 +19,7 @@
 - Setup PWA
 - Remove fontawesome icons
 - Refactor RideDetails
-- Redirect user to profile on first login?
 - Clear localStorage after sign in?
-- Move route guard redirects to edge middleware
 
 ## Auth
 
