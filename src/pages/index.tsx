@@ -47,10 +47,6 @@ const Home: NextPage = () => {
       <Head>
         <title>BCC Rides</title>
         <meta name="description" content="Bath Cycling Club Ride Planner" />
-        <meta
-          name="google-site-verification"
-          content="Mo-wRmOnufCVny2ZCkZG6iEZhuO0GMB5jLGUJJ6Ne_0"
-        />
       </Head>
 
       <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
