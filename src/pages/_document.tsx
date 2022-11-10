@@ -35,11 +35,8 @@ const Document = () => (
         href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap"
         rel="stylesheet"
       />
-      <meta
-        name="google-site-verification"
-        content="Mo-wRmOnufCVny2ZCkZG6iEZhuO0GMB5jLGUJJ6Ne_0"
-      />
     </Head>
+
     <body>
       <Main />
       <NextScript />

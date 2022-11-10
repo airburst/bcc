@@ -3,21 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  /* @font-face {
-    font-family: Proxima Nova;
-    font-weight: 400;
-    src: url(/fonts/proxima-nova/400-regular.woff) format("woff");
-  }
-  @font-face {
-    font-family: Proxima Nova;
-    font-weight: 500;
-    src: url(/fonts/proxima-nova/500-medium.woff) format("woff");
-  } */
   body {
     @apply flex;
     @apply min-h-screen;
     @apply m-0;
-    @apply bg-neutral-100;
   }
 
   #__next {

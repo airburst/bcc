@@ -43,7 +43,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   return (
     <div
       role="presentation"
-      className="md:mx-autotext-neutral-500 box-border flex w-full cursor-pointer gap-2 rounded bg-white shadow-md hover:text-neutral-700 hover:shadow-lg md:gap-2"
+      className="box-border flex w-full cursor-pointer gap-2 rounded-lg bg-stone-100 text-neutral-500 hover:text-neutral-700 md:mx-auto md:gap-2"
       onMouseDown={() => setSwiping(false)}
       onMouseMove={() => setSwiping(true)}
       onMouseUp={(e) => {

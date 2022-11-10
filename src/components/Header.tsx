@@ -29,9 +29,9 @@ export const Header = () => {
   const rideId = router.query.id;
 
   return (
-    <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-neutral-100 text-neutral-700 sm:h-24">
+    <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-white text-neutral-700 sm:h-24">
       <div className="container flex w-full flex-row justify-between px-2 md:px-4 lg:max-w-[1024px]">
-        <div className=" text-4xl font-bold tracking-wide sm:text-5xl">
+        <div className=" text-4xl  tracking-wide sm:text-5xl">
           <button
             type="button"
             onClick={goHome}
@@ -43,7 +43,7 @@ export const Header = () => {
               src={Logo}
               alt="Bath Cycling Club Logo"
             />
-            BCC Rides
+            Rides
           </button>
         </div>
         <div className="flex items-center">

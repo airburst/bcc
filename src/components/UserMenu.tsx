@@ -64,7 +64,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
   return (
     <div ref={ref} className="relative">
-      <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-200">
+      <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-100">
         <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
           <Image
             src={HamburgerIcon}
