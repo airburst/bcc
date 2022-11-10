@@ -6,6 +6,7 @@ import { RiderDetails } from "./RiderDetails";
 import { Badge } from "./Badge";
 import { useLocalStorage } from "../hooks";
 import { User, Ride, AnonymousUser } from "../types";
+import { getNow } from "../../shared/utils";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -35,6 +36,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
     id,
     name,
     group,
+    date,
     day,
     time,
     meetPoint,
@@ -53,6 +55,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
+  const isInFuture = date >= getNow();
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -159,7 +162,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
 
       <div className="flex h-4 flex-row justify-between px-2 pt-8 sm:px-0">
         <BackButton url={`/#${id}`} />
-        {user && (
+        {user && isInFuture && (
           <JoinButton
             className="flex w-28 items-center justify-center rounded p-5"
             going={isGoing}
@@ -168,7 +171,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
             userId={user?.id}
           />
         )}
-        {!user && !isGoingAnonymously && (
+        {!user && !isGoingAnonymously && isInFuture && (
           <Link href={`/ride/${id}/join`}>
             <div className="flex h-10">
               <Button variant="join">
