@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.19.3]
+## [0.20.0]
 
 ### Added
+
+- Clicking outside menu when open closes it. Pressing Escape button does the same.
+
+## [0.19.3]
+
+### Changed
 
 - Updated baseline for Wednesday social and Friday ladies rides.
 
