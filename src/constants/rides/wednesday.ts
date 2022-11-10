@@ -4,16 +4,18 @@ import { DAYS } from "../days";
 const WEDNESDAY_START_TIME: SeasonStartTime = {
   summer: {
     hour: 9,
-    minute: 0,
+    minute: 15,
   },
   winter: {
     hour: 9,
-    minute: 0,
+    minute: 15,
   },
 };
 
-const name = "Wednesday Slackers";
+const name = "Wednesday Social";
 const meetPoint = "TBA";
+const notes =
+  "This ride is aimed at Expresso/Americano riders so an average of between 24km/hr and 26km/hr depending on the route and weather.  We ride together and tend to use smaller roads than the Sunday rides.  We normally get back to Bath in mid afternoon. ";
 
 const RIDES: PartialRide[] = [
   {
@@ -22,7 +24,8 @@ const RIDES: PartialRide[] = [
 ].map((ride) => ({
   name,
   meetPoint,
-  leader: "TBA",
+  leader: "David Oliver",
+  notes,
   ...ride,
 }));
 

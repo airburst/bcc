@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Robots.txt file to block scraping
+- Updated baseline for Wednesday social and Friday ladies rides.
 
 ### Fixed
 

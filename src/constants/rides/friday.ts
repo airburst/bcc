@@ -17,16 +17,16 @@ const meetPoint = "TBA";
 
 const RIDES: PartialRide[] = [
   {
-    group: "Fast",
-    distance: 60, // or 40
+    group: "Quicker",
+    distance: 40,
   },
   {
     group: "Medium",
-    distance: 60, // or 40
+    distance: 40,
   },
   {
-    group: "Social",
-    distance: 60, // or 40
+    group: "Steady",
+    distance: 40,
   },
 ].map((ride) => ({
   name,
