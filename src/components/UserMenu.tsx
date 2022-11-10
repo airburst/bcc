@@ -11,18 +11,19 @@ import { deleteRide } from "../hooks";
 import pkg from "../../package.json";
 
 type MenuProps = {
-  // user: User | null;
   role: string | null;
   rideId?: string | string[];
+  isHistoric: boolean;
 };
 
-export const UserMenu = ({ role, rideId }: MenuProps) => {
+export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
+  const ref = useRef(null);
   const [show, setShow] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
+  const showEditAndDelete = isLeader && rideId && !isHistoric;
   const router = useRouter();
   const { mutate } = useSWRConfig();
-  const ref = useRef(null);
 
   const toggleMenu = () => {
     setShow(!show);
@@ -76,38 +77,51 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
       </div>
 
       {show && (
-        <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-lg">
-          {isLeader && (
-            <>
-              <Link href="/ride/new">
-                <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
-                  <button
-                    type="button"
-                    className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
-                    onClick={closeMenu}
-                  >
-                    <i className="fa-solid fa-plus" />
-                    <span className="justify-self-start">Add Ride</span>
-                  </button>
-                </div>
-              </Link>
+        <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-xl">
+          <Link href="/ride/planner">
+            <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+              <button
+                type="button"
+                className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                onClick={closeMenu}
+              >
+                <i className="fa-regular fa-calendar" />
+                <span className="justify-self-start">Calendar</span>
+              </button>
+            </div>
+          </Link>
 
-              <Link href="/ride/planner">
-                <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
-                  <button
-                    type="button"
-                    className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
-                    onClick={closeMenu}
-                  >
-                    <i className="fa-regular fa-calendar" />
-                    <span className="justify-self-start">Calendar</span>
-                  </button>
-                </div>
-              </Link>
-            </>
+          {isLeader && (
+            <Link href="/ride/new">
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                <button
+                  type="button"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                  onClick={closeMenu}
+                >
+                  <i className="fa-solid fa-plus" />
+                  <span className="justify-self-start">Add Ride</span>
+                </button>
+              </div>
+            </Link>
           )}
 
           {isLeader && rideId && (
+            <Link href={`/ride/${rideId}/copy`}>
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                <button
+                  type="button"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                  onClick={closeMenu}
+                >
+                  <i className="fa-solid fa-copy" />
+                  <span className="justify-self-start">Copy Ride</span>
+                </button>
+              </div>
+            </Link>
+          )}
+
+          {showEditAndDelete && (
             <>
               <Link href={`/ride/${rideId}/edit`}>
                 <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">

@@ -6,13 +6,23 @@ import { RoundBadge, Badge } from "../Badge";
 type Props = {
   day: number;
   date: string;
-  noClick?: boolean;
+  past?: boolean;
   rides?: Ride[];
   classes?: string;
 };
 
+const getBadgeColour = (
+  past: boolean | undefined,
+  hasUnreadyRides: boolean | undefined
+): string => {
+  if (past) {
+    return "bg-neutral-500";
+  }
+  return hasUnreadyRides ? "bg-red-500" : "bg-teal-700";
+};
+
 // TODO: fix last-child borders
-export const Day = ({ day, date, rides = [], classes, noClick }: Props) => {
+export const Day = ({ day, date, rides = [], classes, past }: Props) => {
   const today = getNow();
   const isToday = today.startsWith(date);
   const hasUnreadyRides = rides.filter((r) => !isReady(r)).length > 0;
@@ -34,7 +44,7 @@ export const Day = ({ day, date, rides = [], classes, noClick }: Props) => {
           <RoundBadge
             text={rides.length}
             size="lg"
-            color={hasUnreadyRides ? "bg-red-500" : "bg-teal-700"}
+            color={getBadgeColour(past, hasUnreadyRides)}
           />
         )}
       </div>
@@ -47,10 +57,14 @@ export const Day = ({ day, date, rides = [], classes, noClick }: Props) => {
                 <Badge
                   text={formatRideBadge(ride)}
                   size="xs"
-                  color="bg-teal-700"
+                  color={getBadgeColour(past, false)}
                 />
               ) : (
-                <Badge text={formatRideBadge(ride)} size="xs" />
+                <Badge
+                  text={formatRideBadge(ride)}
+                  size="xs"
+                  color={getBadgeColour(past, true)}
+                />
               )}
             </div>
           ))}
@@ -59,17 +73,13 @@ export const Day = ({ day, date, rides = [], classes, noClick }: Props) => {
   );
 
   // Disable link for 'outside' days
-  return noClick ? (
-    Content
-  ) : (
-    <Link href={`/ride/planner/${date}`}>{Content}</Link>
-  );
+  return <Link href={`/ride/planner/${date}`}>{Content}</Link>;
 };
 
 export const OutsideDay = (props: Props) => (
   <Day
     {...props}
-    classes="lg:text-md h-24 w-full justify-self-center bg-neutral-50 p-1 text-sm text-neutral-400 lg:h-24 cursor-not-allowed"
-    noClick
+    classes="lg:text-md h-24 w-full justify-self-center bg-neutral-50 p-1 text-sm text-neutral-400 lg:h-24 cursor-pointer"
+    past
   />
 );

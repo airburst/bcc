@@ -16,7 +16,7 @@ type Props = {
 export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
-  const { id, name, time, group, destination, distance, users } = ride;
+  const { id, name, date, time, group, destination, distance, users } = ride;
   const isNotReady = !isReady(ride);
   const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
 
@@ -24,7 +24,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     ? `${destination} - ${distance} km`
     : `${distance} km`;
 
-  const onPress = () => router.push(`/ride/${id}`);
+  const onPress = () => router.push(`/ride/${id}/${date.split("T")[0]}`);
 
   if (!id) {
     return null;

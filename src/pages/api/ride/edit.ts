@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
 import { isLoggedIn, isLeader } from "../auth/authHelpers";
 import { Ride } from "../../../types";
+import { getNow } from "../../../../shared/utils";
 
 export const changeRide = async (ride: Ride) => {
   const { id, ...data } = ride;
@@ -31,8 +32,10 @@ const editRide = async (req: NextApiRequest, res: NextApiResponse) => {
     const ride = req.body;
     // A user can only add themselves; a leader can add other riders
     const hasLeaderRole = await isLeader(req, res);
+    // Do not edit historic rides
+    const isInFuture = ride.date >= getNow();
 
-    if (hasLeaderRole) {
+    if (hasLeaderRole && isInFuture) {
       const success = await changeRide(ride);
       return res.status(200).json(success);
     }

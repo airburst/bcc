@@ -4,7 +4,6 @@
 
 ### 2
 
-- Copy ride: "Needs calendar to be unlocked, so that historic days and rides can be reached. Not only past rides. Might want to copy a future ride? For past rides, block edit/delete but add a new option to 'Copy ride', which populates a 'new ride' form."
 - Add rider notes after joining
 
 ### 3
@@ -20,7 +19,7 @@
 
 ## Engineering / Perf
 
-- Add API guards for edit/add/delete/join on past dates
+- Add API guards for add/delete/join on past dates
 - Route guards on API, pages above for leaders
 - Setup PWA
 - Remove fontawesome icons
