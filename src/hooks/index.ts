@@ -1,3 +1,4 @@
+export * from "./useClickOutside";
 export * from "./useRide";
 export * from "./useRides";
 export * from "./useJoinRide";

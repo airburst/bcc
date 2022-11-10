@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 import HamburgerIcon from "../../public/static/images/hamburger-50.png";
 import { Confirm } from "./Confirm";
-import { deleteRide } from "../hooks";
+import { deleteRide, useClickOutside } from "../hooks";
 import pkg from "../../package.json";
 
 type MenuProps = {
@@ -58,10 +58,17 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
   const confirmDelete = () => setShowConfirm(true);
 
+  const ref = useClickOutside(closeMenu);
+
   return (
     <div className="relative">
       <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-200">
-        <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
+        <button
+          ref={ref}
+          type="button"
+          onClick={toggleMenu}
+          onKeyDown={toggleMenu}
+        >
           <Image
             src={HamburgerIcon}
             width={32}
