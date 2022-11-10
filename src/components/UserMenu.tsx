@@ -2,11 +2,12 @@ import Image from "next/future/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSWRConfig } from "swr";
+import useOnClickOutside from "use-onclickoutside";
 import HamburgerIcon from "../../public/static/images/hamburger-50.png";
 import { Confirm } from "./Confirm";
-import { deleteRide, useClickOutside } from "../hooks";
+import { deleteRide } from "../hooks";
 import pkg from "../../package.json";
 
 type MenuProps = {
@@ -21,6 +22,7 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
   const router = useRouter();
   const { mutate } = useSWRConfig();
+  const ref = useRef(null);
 
   const toggleMenu = () => {
     setShow(!show);
@@ -58,17 +60,12 @@ export const UserMenu = ({ role, rideId }: MenuProps) => {
 
   const confirmDelete = () => setShowConfirm(true);
 
-  const ref = useClickOutside(closeMenu);
+  useOnClickOutside(ref, closeMenu);
 
   return (
-    <div className="relative">
+    <div ref={ref} className="relative">
       <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-200">
-        <button
-          ref={ref}
-          type="button"
-          onClick={toggleMenu}
-          onKeyDown={toggleMenu}
-        >
+        <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
           <Image
             src={HamburgerIcon}
             width={32}

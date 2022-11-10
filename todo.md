@@ -2,11 +2,6 @@
 
 ## Priorities
 
-### 1
-
-- Click outside of menu closes it
-- Planner persists month in state (or route), so that back button doesn't jump to today
-
 ### 2
 
 - Copy ride: "Needs calendar to be unlocked, so that historic days and rides can be reached. Not only past rides. Might want to copy a future ride? For past rides, block edit/delete but add a new option to 'Copy ride', which populates a 'new ride' form."
@@ -16,6 +11,7 @@
 
 - Preference for miles or km
 - Filtering rides
+- Planner persists month in state (or route), so that back button doesn't jump to today
 
 ## Next 13
 
