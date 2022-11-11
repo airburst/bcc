@@ -36,8 +36,8 @@ export const JoinButton: React.FC<Props> = ({
   return going ? (
     <Button {...props} variant="going" loading={loading} onClick={handleLeave}>
       <div className="flex items-center gap-2">
-        <i className="fa-solid fa-check" />
-        Going
+        <i className="fa-solid fa-xmark" />
+        Leave
       </div>
     </Button>
   ) : (
