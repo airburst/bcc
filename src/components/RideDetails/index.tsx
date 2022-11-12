@@ -4,12 +4,12 @@ import { Button } from "../Button";
 import { BackButton } from "../Button/BackButton";
 import { JoinButton } from "../Button/JoinButton";
 import { Badge } from "../Badge";
-import { Confirm } from "../Confirm";
 import { useLocalStorage } from "../../hooks";
 import { User, Ride, AnonymousUser } from "../../types";
 import { getNow } from "../../../shared/utils";
 import { RideInfo } from "./RideInfo";
 import { RidersGoing } from "./RidersGoing";
+import { RideNotes } from "./RideNotesForm";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -40,6 +40,8 @@ export const RideDetails = ({ ride, user, role }: Props) => {
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
   const isInFuture = date >= getNow();
+  const rideNotes =
+    users && user && users?.find((u: User) => u.id === user.id)?.rideNotes;
 
   const openNotes = () => setShowNotesForm(true);
   const closeNotes = () => setShowNotesForm(false);
@@ -105,16 +107,14 @@ export const RideDetails = ({ ride, user, role }: Props) => {
           </Link>
         )}
       </div>
-      <Confirm
-        open={showNotesForm}
-        heading="Add ride note"
-        okLabel="Add"
-        cancelLabel="Cancel"
+
+      <RideNotes
+        userId={user?.id}
+        rideId={id}
+        rideNotes={rideNotes}
+        showNotesForm={showNotesForm}
         closeHandler={closeNotes}
-        onYes={() => console.log("Add note")}
-      >
-        <div>Notes</div>
-      </Confirm>
+      />
     </div>
   );
 };

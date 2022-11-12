@@ -11,6 +11,7 @@ export type User = {
   image?: string | null; // url
   role: string; // USER | ADMIN
   preferences?: Preferences;
+  rideNotes?: string;
 };
 
 export type AnonymousUser = {
