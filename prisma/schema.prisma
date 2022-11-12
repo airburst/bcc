@@ -64,6 +64,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     rides         UsersOnRides[]  @relation("usersOnRides_user")
+    preferences   Json?
     createdAt     DateTime @default(now())
 
     @@index(email)
@@ -89,13 +90,14 @@ model Ride {
 }
 
 model UsersOnRides {
-  ride       Ride     @relation("usersOnRides_ride", fields: [rideId], references: [id])
-  rideId     String   // relation scalar field (used in the `@relation` attribute above)
-  user       User @relation("usersOnRides_user", fields: [userId], references: [id])
-  userId     String // relation scalar field (used in the `@relation` attribute above)
-  createdAt DateTime @default(now())
+    ride       Ride     @relation("usersOnRides_ride", fields: [rideId], references: [id])
+    rideId     String   // relation scalar field (used in the `@relation` attribute above)
+    user       User @relation("usersOnRides_user", fields: [userId], references: [id])
+    userId     String // relation scalar field (used in the `@relation` attribute above)
+    notes      String?   @db.Text
+    createdAt  DateTime @default(now())
 
-  @@id([rideId, userId])
+    @@id([rideId, userId])
 }
 
 enum Role {

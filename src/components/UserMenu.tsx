@@ -1,11 +1,9 @@
-import Image from "next/future/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import { useState, useRef } from "react";
 import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
-import HamburgerIcon from "../../public/static/images/hamburger-50.png";
 import { Confirm } from "./Confirm";
 import { deleteRide } from "../hooks";
 import pkg from "../../package.json";
@@ -65,19 +63,14 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
 
   return (
     <div ref={ref} className="relative">
-      <div className="h-10 cursor-pointer rounded p-1 hover:bg-neutral-200">
+      <div className="h-10 cursor-pointer rounded p-1 text-3xl md:hover:bg-neutral-200">
         <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
-          <Image
-            src={HamburgerIcon}
-            width={32}
-            height={32}
-            alt="Click to open user menu"
-          />
+          <i className="fa-solid fa-bars" />
         </button>
       </div>
 
       {show && (
-        <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white shadow-xl">
+        <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white text-neutral-700 shadow-xl">
           <Link href="/ride/planner">
             <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
               <button

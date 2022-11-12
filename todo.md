@@ -4,6 +4,7 @@
 
 ### 2
 
+- Make header white-on-blue
 - Add rider notes after joining
 
 ### 3

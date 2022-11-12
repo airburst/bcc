@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 
@@ -11,10 +12,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ session, user }) {
       if (session.user) {
-        // eslint-disable-next-line no-param-reassign
         session.user.id = user.id;
       }
-      return { ...session, role: user.role };
+
+      return { ...session, role: user.role, preferences: user.preferences };
     },
   },
   // Configure one or more authentication providers
@@ -30,13 +31,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     newUser: "/profile",
   },
-  // Hook into signOut event and clear session on server
-  // events: {
-  //   async signOut(session) {
-  //     // add here
-  //     console.log("📛📛📛 Sign out actions...", session);
-  //   },
-  // },
 };
 
 export default NextAuth(authOptions);
