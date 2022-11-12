@@ -17,7 +17,7 @@ export const getProfile = async (user: User) => {
     return {};
   }
 
-  return formatUser(userRecord, true);
+  return formatUser(userRecord, null, true);
 };
 
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {
