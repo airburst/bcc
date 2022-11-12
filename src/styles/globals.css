@@ -17,7 +17,7 @@
     @apply flex;
     @apply min-h-screen;
     @apply m-0;
-    @apply bg-neutral-100;
+    @apply bg-slate-100;
   }
 
   #__next {

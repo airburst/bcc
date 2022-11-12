@@ -16,7 +16,7 @@ const getBadgeColour = (
   hasUnreadyRides: boolean | undefined
 ): string => {
   if (past) {
-    return "bg-neutral-500";
+    return "bg-slate-500";
   }
   return hasUnreadyRides ? "bg-red-500" : "bg-teal-700";
 };

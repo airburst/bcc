@@ -34,6 +34,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       "";
 
     switch (variant) {
+      case "primary":
+        classes += " bg-blue-500 hover:bg-blue-600";
+        break;
+      case "secondary":
+        classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
+        break;
       case "going":
         classes += " bg-green-700 hover:bg-green-800";
         break;
@@ -46,8 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       case "cancel":
         classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
         break;
-      case "secondary":
-        classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
+      case "custom":
         break;
       default: // primary
         classes += " bg-blue-500 hover:bg-blue-600";

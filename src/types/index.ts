@@ -1,3 +1,7 @@
+export type Preferences = {
+  units: "km" | "miles";
+};
+
 export type User = {
   id: string;
   name: string;
@@ -6,6 +10,8 @@ export type User = {
   emergency?: string | null;
   image?: string | null; // url
   role: string; // USER | ADMIN
+  preferences?: Preferences;
+  rideNotes?: string;
 };
 
 export type AnonymousUser = {

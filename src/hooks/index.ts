@@ -7,4 +7,5 @@ export * from "./useAddPacelineRides";
 export * from "./useEditRide";
 export * from "./useDeleteRide";
 export * from "./useUpdateUser";
+export * from "./useUpdateRideNotes";
 export * from "./useLocalStorage";

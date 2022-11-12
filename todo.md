@@ -19,12 +19,11 @@
 
 ## Engineering / Perf
 
+- Clear localStorage after sign in?
 - Add API guards for add/delete/join on past dates
 - Route guards on API, pages above for leaders
 - Setup PWA
 - Remove fontawesome icons
-- Refactor RideDetails
-- Clear localStorage after sign in?
 
 ## Auth
 

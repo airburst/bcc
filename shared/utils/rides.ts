@@ -23,12 +23,16 @@ export const formatUserName = (name: string | null | undefined): string => {
     );
 };
 
-export const formatUser = (user: User, isAuth = false) => {
+export const formatUser = (
+  user: User,
+  notes?: string | null,
+  isAuth = false
+) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, name, email, image, mobile, emergency, createdAt, role } = user;
+  const { id, name, email, image, mobile, emergency, role } = user;
 
   if (!isAuth) {
-    return { id, name: ANONYMISED_NAME };
+    return { id, name: ANONYMISED_NAME, rideNotes: notes };
   }
 
   return {
@@ -39,6 +43,7 @@ export const formatUser = (user: User, isAuth = false) => {
     mobile,
     emergency,
     role,
+    rideNotes: notes,
   };
 };
 
@@ -52,8 +57,8 @@ export const formatRideData = (ride: RideData, isAuth = false) => {
     date: date.toISOString(),
     day,
     time,
-    users: users.map(({ user: u }) => ({
-      ...formatUser(u, isAuth),
+    users: users.map(({ user: u, notes }) => ({
+      ...formatUser(u, notes, isAuth),
     })),
   };
 };

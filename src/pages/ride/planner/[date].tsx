@@ -66,7 +66,7 @@ const Rides: NextPage = () => {
       </Head>
 
       <div className="flex w-full flex-col gap-2 md:gap-4">
-        <div className="flex h-10 flex-row justify-center gap-4">
+        <div className="mt-2 flex h-10 flex-row justify-center gap-4">
           <BackButton />
           {isInFuture && (
             <Link href={`/ride/new?date=${date}`}>

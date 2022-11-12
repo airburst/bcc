@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.0]
+
+### Added
+
+- A user can set notes for a ride
+- User table can store preferences. First one allows choice of units (km|miles)
+
+### Changed
+
+- Header is white-on-blue for mobile
+
 ## [0.21.2]
 
 ### Changed
