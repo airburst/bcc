@@ -19,7 +19,7 @@ export const useUpdateRideNotes = (
   userId: string,
   notes: string
 ) => {
-  const { data, error } = useSWR(`/api/ride/${rideId}`, () =>
+  const { data, error } = useSWR(`/api/ride/notes/${rideId}`, () =>
     updateRideNotes(rideId, userId, notes)
   );
 

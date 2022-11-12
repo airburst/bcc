@@ -75,7 +75,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
         {(isGoing || isGoingAnonymously) && (
           <Button
             variant="custom"
-            className="flex w-28 items-center justify-center rounded bg-green-800 p-5 hover:bg-green-900"
+            className="flex w-28 items-center justify-center rounded bg-slate-700 p-5 hover:bg-slate-800"
             onClick={openNotes}
           >
             <div className="flex items-center gap-2">

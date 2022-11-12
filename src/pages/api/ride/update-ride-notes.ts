@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
 import { isMe } from "../auth/authHelpers";
+import { getRide } from "./index";
 
 export const changeRideNote = async (
   rideId: string,
@@ -9,11 +10,13 @@ export const changeRideNote = async (
   notes: string
 ) => {
   try {
-    const result = await prisma.usersOnRides.updateMany({
+    await prisma.usersOnRides.updateMany({
       data: { notes },
       where: { AND: [{ userId }, { rideId }] },
     });
-    return result;
+    // Refetch ride
+    const ride = await getRide(rideId);
+    return ride;
   } catch (err) {
     return { error: err };
   }

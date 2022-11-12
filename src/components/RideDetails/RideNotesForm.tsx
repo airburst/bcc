@@ -90,15 +90,14 @@ export const RideNotes = ({
 
   const onSubmit: SubmitHandler<FormValues> = async ({ notes }) => {
     setWaiting(true);
-    const results = await mutate(`/api/ride/${rideId}`, () => {
-      if (rideId && userId) {
-        updateRideNotes(rideId, userId, notes || "");
-      }
-    });
-
-    if (results.id) {
-      closeHandler();
+    if (rideId && userId) {
+      await mutate(`/api/ride/${rideId}`, async () => {
+        // Await update and subsequent requery, to refresh notes in page
+        await updateRideNotes(rideId, userId, notes || "");
+      });
     }
+    setWaiting(false);
+    closeHandler();
   };
 
   return (
