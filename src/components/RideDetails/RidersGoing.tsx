@@ -7,6 +7,7 @@ type Props = {
   isLeader: boolean;
   hasRiders?: boolean;
   isGoingAnonymously?: boolean;
+  rideNotes?: string;
 };
 
 export const RidersGoing = ({
@@ -15,6 +16,7 @@ export const RidersGoing = ({
   hasRiders,
   isLeader,
   isGoingAnonymously,
+  rideNotes,
 }: Props) => {
   if (!hasRiders) {
     return null;
@@ -37,7 +39,8 @@ export const RidersGoing = ({
             {isGoingAnonymously && (
               <div className="text-red-700">You are going</div>
             )}
-            <div>Please log in to see rider details</div>
+            {rideNotes && <div>Note: {rideNotes}</div>}
+            <div>Please log in to see other rider details</div>
           </div>
         )}
       </div>

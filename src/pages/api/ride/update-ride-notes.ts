@@ -1,7 +1,6 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isMe } from "../auth/authHelpers";
 import { getRide } from "./index";
 
 export const changeRideNote = async (
@@ -9,9 +8,10 @@ export const changeRideNote = async (
   userId: string,
   notes: string
 ) => {
+  const newNotes = notes === "" ? null : notes;
   try {
     await prisma.usersOnRides.updateMany({
-      data: { notes },
+      data: { notes: newNotes },
       where: { AND: [{ userId }, { rideId }] },
     });
     // Refetch ride
@@ -26,10 +26,8 @@ export const changeRideNote = async (
 const updateRideNotes = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { rideId, userId, notes } = req.body;
-    // A user can only add themselves; a leader can add other riders
-    const isMyRecord = await isMe(req, res)(userId);
 
-    if (isMyRecord && notes) {
+    if (rideId && userId) {
       const success = await changeRideNote(rideId, userId, notes);
       return res.status(200).json(success);
     }

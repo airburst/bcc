@@ -32,7 +32,7 @@ export const formatUser = (
   const { id, name, email, image, mobile, emergency, role } = user;
 
   if (!isAuth) {
-    return { id, name: ANONYMISED_NAME };
+    return { id, name: ANONYMISED_NAME, rideNotes: notes };
   }
 
   return {

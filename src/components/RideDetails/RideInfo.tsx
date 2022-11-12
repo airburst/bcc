@@ -1,4 +1,4 @@
-import { Ride } from "../../types";
+import { Ride, User } from "../../types";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -26,7 +26,12 @@ export const RideInfo = ({ ride }: Props) => {
     route,
     speed,
     notes,
+    users,
   } = ride;
+
+  const riderNotes = users
+    ?.filter((u: User) => u.rideNotes)
+    .map(({ name: riderName, rideNotes }) => ({ name: riderName, rideNotes }));
 
   return (
     <div className="flex w-full flex-col gap-2 px-2 sm:px-0">
@@ -88,6 +93,7 @@ export const RideInfo = ({ ride }: Props) => {
           </Row>
         )}
       </div>
+
       {notes && (
         <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
           <div className="px-2 text-xl font-bold tracking-wide text-neutral-700">
@@ -96,6 +102,20 @@ export const RideInfo = ({ ride }: Props) => {
           <Row>
             <div className="col-span-2 whitespace-pre-line">{notes}</div>
           </Row>
+        </div>
+      )}
+
+      {(riderNotes || []).length > 0 && (
+        <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
+          <div className="px-2 text-xl font-bold tracking-wide text-neutral-700">
+            Rider Notes
+          </div>
+          {riderNotes?.map((rider) => (
+            <Row key={rider.name}>
+              <div className="whitespace-pre-line">{rider.name}</div>
+              <div className="whitespace-pre-line">{rider.rideNotes}</div>
+            </Row>
+          ))}
         </div>
       )}
     </div>

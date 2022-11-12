@@ -9,7 +9,7 @@ import { User, Ride, AnonymousUser } from "../../types";
 import { getNow } from "../../../shared/utils";
 import { RideInfo } from "./RideInfo";
 import { RidersGoing } from "./RidersGoing";
-import { RideNotes } from "./RideNotesForm";
+import { RideNotes } from "./RideNotes";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -41,7 +41,9 @@ export const RideDetails = ({ ride, user, role }: Props) => {
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
   const isInFuture = date >= getNow();
   const rideNotes =
-    users && user && users?.find((u: User) => u.id === user.id)?.rideNotes;
+    (users && user && users?.find((u: User) => u.id === user.id)?.rideNotes) ||
+    (anonRider?.id &&
+      users?.find((u: User) => u.id === anonRider.id)?.rideNotes);
 
   const openNotes = () => setShowNotesForm(true);
   const closeNotes = () => setShowNotesForm(false);
@@ -109,7 +111,7 @@ export const RideDetails = ({ ride, user, role }: Props) => {
       </div>
 
       <RideNotes
-        userId={user?.id}
+        userId={user?.id || anonRider?.id}
         rideId={id}
         rideNotes={rideNotes}
         showNotesForm={showNotesForm}
