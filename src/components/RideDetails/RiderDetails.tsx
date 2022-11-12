@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import clsx from "clsx";
-import { User } from "../types";
+import { User } from "../../types";
 
 type Props = {
   user: User;
   isLeader: boolean;
+  sessionUser?: string;
 };
 
-export const RiderDetails = ({ user, isLeader }: Props) => {
+export const RiderDetails = ({ user, isLeader, sessionUser }: Props) => {
   const [showEmergency, setShowEmergency] = useState<boolean>(false);
   const { id: userId, name: userName, mobile, emergency } = user;
+  const isMe = sessionUser === userId;
   // Make emergency number callable - strip out text
   const emergencyNumber = emergency?.replace(/\D+/g, "");
 
@@ -24,11 +26,13 @@ export const RiderDetails = ({ user, isLeader }: Props) => {
     showEmergency ? "translate-x-6" : "translate-x-1"
   );
 
+  const rowClass = clsx(
+    "flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4",
+    isMe && "text-neutral-800"
+  );
+
   return (
-    <div
-      className="flex w-full flex-row items-center justify-between px-2 font-medium md:grid md:grid-cols-[220px_1fr] md:justify-start md:gap-4"
-      key={userId}
-    >
+    <div className={rowClass} key={userId}>
       <div>{userName}</div>
 
       {isLeader && (
