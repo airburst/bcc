@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.2]
+
+### Changed
+
+- Route link for saturday social shorter group
+- Change "Meeitng point" label to "Meet at" (for space)
+
 ## [0.22.0]
 
 ### Added

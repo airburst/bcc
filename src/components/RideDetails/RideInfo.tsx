@@ -52,7 +52,7 @@ export const RideInfo = ({ ride }: Props) => {
         )}
         {meetPoint && (
           <Row>
-            <div>Meeting point</div>
+            <div>Meet at</div>
             <div>{meetPoint}</div>
           </Row>
         )}
