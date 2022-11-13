@@ -24,6 +24,7 @@ export const SOCIAL_RIDES: PartialRide[] = [
   {
     group: "Shorter",
     distance: 40,
+    route: "https://www.bathcc.net/ride/saturday-easy-ride/",
   },
 ].map((ride) => ({
   name,

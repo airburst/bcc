@@ -2,10 +2,6 @@
 
 ## Priorities
 
-### 2
-
-- Add rider notes after joining
-
 ### 3
 
 - Preference for miles or km
