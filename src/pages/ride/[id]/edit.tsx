@@ -18,6 +18,7 @@ type Props = {
 const EditRide: NextPage<Props> = ({ data }: Props) => {
   const { data: session } = useSession();
   const user = session?.user;
+  const preferences = session?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const [waiting, setWaiting] = useState(false);
@@ -35,6 +36,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
   // Initial state for form: set name, leader and time
   const defaultValues = {
     ...data,
+    distance: parseInt(data.distance.toString(), 10),
     ...getFormRideDateAndTime(data.date),
   };
 
@@ -90,6 +92,7 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
+          preferences={preferences}
         />
       </div>
     </>

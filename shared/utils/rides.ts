@@ -53,7 +53,7 @@ export const formatUser = (
 
 export const convertToMiles = (kms: number): number => Math.floor(kms / 1.6142);
 export const convertToKms = (miles: number): number =>
-  Math.floor(miles * 1.6142);
+  Math.ceil(miles * 1.6142);
 
 export const convertDistance = (
   distance: number | null,

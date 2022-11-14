@@ -39,7 +39,9 @@ const Home: NextPage = () => {
 
   // Get user id from session
   const user = session?.user as User;
-  user.preferences = session?.preferences as Preferences; // TODO: bind to user
+  if (user) {
+    user.preferences = session?.preferences as Preferences;
+  }
   const groupedRides = groupRides(data);
   const ridesFound = groupedRides.length > 0;
 

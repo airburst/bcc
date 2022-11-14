@@ -12,10 +12,12 @@ import {
   flattenQuery,
 } from "../../../shared/utils";
 import { RideForm, FormValues } from "../../components";
+import { Preferences } from "../../types";
 
 const AddRide: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user;
+  const preferences = session?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const {
@@ -100,6 +102,7 @@ const AddRide: NextPage = () => {
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
+          preferences={preferences}
         />
       </div>
     </>

@@ -19,6 +19,7 @@ export const updateProfile = async (user: User) => {
       },
       where: { id },
     });
+
     return result;
   } catch (err) {
     return { error: err };
