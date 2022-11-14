@@ -36,12 +36,14 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
     email: user.email,
     mobile: user.mobile,
     emergency: user.emergency,
+    preferences: user.preferences,
   };
 
   const onSubmit: SubmitHandler<UserProfileValues> = async ({
     name,
     mobile,
     emergency,
+    preferences,
   }) => {
     setWaiting(true);
     await mutate("/api/user", async () => {
@@ -50,6 +52,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
         name,
         mobile,
         emergency,
+        preferences,
       });
 
       if (userRecord?.id) {

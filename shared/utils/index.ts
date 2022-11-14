@@ -1,6 +1,7 @@
 export * from "./dates";
 export * from "./isMobile";
 export * from "./generateRides";
+export * from "./preferences";
 export * from "./rides";
 export * from "./transformRideData";
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { formatDate } from "./dates";
-import { Ride, Group } from "../../src/types";
+import { Ride, Group, Preferences } from "../../src/types";
+import { DEFAULT_PREFERENCES } from "../../src/constants";
 
 const groupByType = (data: Ride[]) => {
   // Group rides by date, then type
@@ -12,19 +13,6 @@ const groupByType = (data: Ride[]) => {
     rideList.push(ride);
     groupedByName.set(d, rideList);
   }
-
-  // If user has joined a ride on a day, only return that ride
-  // if (userId) {
-  //   groupedByName.forEach((value, key) => {
-  //     const rideWithUser = value.filter(({ users }) =>
-  //       users?.map(({ id }) => id).includes(userId)
-  //     );
-
-  //     if (rideWithUser.length > 0) {
-  //       groupedByName.set(key, rideWithUser);
-  //     }
-  //   });
-  // }
 
   return Object.fromEntries(groupedByName);
 };
@@ -49,10 +37,17 @@ export const groupRides = (data: Ride[]): Group[] => {
   return grouped;
 };
 
-export const ungroupRides = (group: Group) =>
-  Object.entries(group).flatMap(([date, types]) =>
+export const ungroupRides = (
+  group: Group,
+  preferences: Preferences | undefined
+) => {
+  const units = preferences?.units || DEFAULT_PREFERENCES.units;
+  console.log("🚀 ~ file: transformRideData.ts ~ line 45 ~ units", units);
+
+  return Object.entries(group).flatMap(([date, types]) =>
     Object.entries(types).map(([type, rides]) => ({ date, type, rides }))
   );
+};
 
 export const mapRidesToDate = (rides: Ride[], date: string): Ride[] =>
   rides.filter((r) => r?.date?.startsWith(date));

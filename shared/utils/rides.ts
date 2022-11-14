@@ -1,6 +1,7 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
 import { Ride as RideType } from "../../src/types";
 import { getRideDateAndTime } from "./dates";
+import { getPreferences } from "./preferences";
 
 const ANONYMISED_NAME = "Log in to see rider's details";
 
@@ -30,6 +31,7 @@ export const formatUser = (
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, name, email, image, mobile, emergency, role } = user;
+  const preferences = getPreferences(user);
 
   if (!isAuth) {
     return { id, name: ANONYMISED_NAME, rideNotes: notes };
@@ -44,6 +46,7 @@ export const formatUser = (
     emergency,
     role,
     rideNotes: notes,
+    preferences,
   };
 };
 

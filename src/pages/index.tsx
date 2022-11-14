@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRides } from "../hooks";
 import { RideGroup, RideGroupSkeleton } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
-import { User } from "../types";
+import { Preferences, User } from "../types";
 
 const nextDate = getNextWeek();
 
@@ -39,6 +39,7 @@ const Home: NextPage = () => {
 
   // Get user id from session
   const user = session?.user as User;
+  user.preferences = session?.preferences as Preferences; // TODO: bind to user
   const groupedRides = groupRides(data);
   const ridesFound = groupedRides.length > 0;
 
