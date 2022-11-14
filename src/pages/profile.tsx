@@ -46,7 +46,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
     preferences,
   }) => {
     setWaiting(true);
-    await mutate("/api/user", async () => {
+    await mutate("/api/rides", async () => {
       const userRecord = await updateUser({
         id: user.id,
         name,

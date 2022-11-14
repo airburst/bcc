@@ -12,8 +12,8 @@ Adds the first user preference in Settings menu; units in km or miles.
 ### Added
 
 - Add default preferences (km) in constants and section in settings form
-- TODO: Convert and display all distances in correct units
-- TODO: Convert all submitted rides to use kms
+- Convert and display all distances in correct units
+- Convert all submitted rides to use kms
 
 ### Changed
 
