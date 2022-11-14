@@ -1,8 +1,9 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isLeader } from "../auth/authHelpers";
-import { Ride } from "../../../types";
+import { isLoggedIn, isLeader, getUserPreferences } from "../auth/authHelpers";
+import { convertToKms } from "../../../../shared/utils";
+import { Ride, Preferences } from "../../../types";
 
 export const addRide = async (ride: Ride) => {
   const result = await prisma.ride.create({ data: ride });
@@ -25,6 +26,13 @@ const createRide = async (req: NextApiRequest, res: NextApiResponse) => {
     const hasLeaderRole = await isLeader(req, res);
 
     if (hasLeaderRole) {
+      // Convert to kms if necessary
+      const preferences = (await getUserPreferences(req, res)) as Preferences;
+
+      if (preferences.units === "miles") {
+        ride.distance = convertToKms(ride.distance);
+      }
+
       const success = await addRide(ride);
       return res.status(200).json(success);
     }

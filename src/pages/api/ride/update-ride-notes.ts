@@ -15,7 +15,7 @@ export const changeRideNote = async (
       where: { AND: [{ userId }, { rideId }] },
     });
     // Refetch ride
-    const ride = await getRide(rideId);
+    const ride = await getRide(rideId, undefined);
     return ride;
   } catch (err) {
     return { error: err };

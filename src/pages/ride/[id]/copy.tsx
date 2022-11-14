@@ -13,6 +13,7 @@ import {
   getNow,
 } from "../../../../shared/utils";
 import { RideForm, FormValues } from "../../../components";
+import { Preferences } from "../../../types";
 
 type Props = {
   data: FormValues;
@@ -21,6 +22,7 @@ type Props = {
 const CopyRide: NextPage<Props> = ({ data }: Props) => {
   const { data: session } = useSession();
   const user = session?.user;
+  const preferences = session?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const [waiting, setWaiting] = useState(false);
@@ -38,6 +40,7 @@ const CopyRide: NextPage<Props> = ({ data }: Props) => {
   // Initial state for form: set name, leader and time
   const defaultValues = {
     ...data,
+    distance: parseInt(data.distance.toString(), 10),
     ...getFormRideDateAndTime(getNow()),
   };
 
@@ -92,6 +95,7 @@ const CopyRide: NextPage<Props> = ({ data }: Props) => {
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
+          preferences={preferences}
         />
       </div>
     </>
@@ -103,6 +107,8 @@ export default CopyRide;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const role = session && (session.role as string);
+  const preferences =
+    (session && (session.preferences as Preferences)) || undefined;
   const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
 
   if (!isAuthorised) {
@@ -115,7 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const { query } = context;
-  const data = await getRide(query.id, !!session);
+  const data = await getRide(query.id, preferences, !!session);
 
   return {
     props: {

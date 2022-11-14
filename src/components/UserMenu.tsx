@@ -149,8 +149,8 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                 className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                 onClick={closeMenu}
               >
-                <i className="fa-solid fa-user" />
-                <span className="justify-self-start">Profile</span>
+                <i className="fa-solid fa-gear" />
+                <span className="justify-self-start">Settings</span>
               </button>
             </div>
           </Link>

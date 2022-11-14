@@ -36,20 +36,23 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
     email: user.email,
     mobile: user.mobile,
     emergency: user.emergency,
+    preferences: user.preferences,
   };
 
   const onSubmit: SubmitHandler<UserProfileValues> = async ({
     name,
     mobile,
     emergency,
+    preferences,
   }) => {
     setWaiting(true);
-    await mutate("/api/user", async () => {
+    await mutate("/api/rides", async () => {
       const userRecord = await updateUser({
         id: user.id,
         name,
         mobile,
         emergency,
+        preferences,
       });
 
       if (userRecord?.id) {

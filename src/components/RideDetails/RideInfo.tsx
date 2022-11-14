@@ -65,13 +65,13 @@ export const RideInfo = ({ ride }: Props) => {
         {distance && (
           <Row>
             <div>Distance</div>
-            <div>{distance} km</div>
+            <div>{distance}</div>
           </Row>
         )}
         {speed && (
           <Row>
             <div>Average Speed</div>
-            <div>{speed} km/h (est)</div>
+            <div>{speed}/h (est)</div>
           </Row>
         )}
         {leader && (

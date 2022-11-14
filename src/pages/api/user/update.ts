@@ -7,7 +7,7 @@ import { User } from "../../../types";
 
 // Restricted editable fields: name, mobile
 export const updateProfile = async (user: User) => {
-  const { id, name, mobile, emergency } = user;
+  const { id, name, mobile, emergency, preferences } = user;
 
   try {
     const result = await prisma.user.update({
@@ -15,9 +15,11 @@ export const updateProfile = async (user: User) => {
         name,
         mobile,
         emergency,
+        preferences,
       },
       where: { id },
     });
+
     return result;
   } catch (err) {
     return { error: err };

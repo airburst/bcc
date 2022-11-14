@@ -1,5 +1,6 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+import { Preferences } from "../../types";
 import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
 
@@ -9,7 +10,7 @@ export type UserProfileValues = {
   email: string;
   mobile?: string | null;
   emergency?: string | null;
-  // role: string;
+  preferences?: Preferences;
 };
 
 type UserProfileFormProps = {
@@ -116,9 +117,28 @@ export const UserProfileForm = ({
       </label>
     </div>
 
+    <div className="mx-[-8px] flex w-screen flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded">
+      Preferences
+    </div>
+
+    <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
+      <label htmlFor="units" className="flex flex-col">
+        Units
+        <select
+          id="units"
+          className="rounded"
+          defaultValue={defaultValues?.preferences?.units || ""}
+          {...register("preferences.units")}
+        >
+          <option value="km">Km</option>
+          <option value="miles">Miles</option>
+        </select>
+      </label>
+    </div>
+
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
       <Button loading={waiting} type="submit" disabled={!isDirty}>
-        <div>Submit</div>
+        <div>Save</div>
       </Button>
       <CancelButton />
     </div>

@@ -1,4 +1,5 @@
 export * from "./days";
+export * from "./preferences";
 export * from "./rides/tuesday";
 export * from "./rides/wednesday";
 export * from "./rides/wednesday-hills";

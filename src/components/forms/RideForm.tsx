@@ -1,6 +1,7 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import { getNow } from "../../../shared/utils";
+import { Preferences } from "../../types";
 import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
 
@@ -26,6 +27,7 @@ type RideFormProps = {
   errors: Partial<FieldErrorsImpl<FormValues>>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   waiting: boolean;
+  preferences: Preferences;
 };
 
 export const RideForm = ({
@@ -34,6 +36,7 @@ export const RideForm = ({
   errors,
   handleSubmit,
   waiting,
+  preferences,
 }: RideFormProps) => (
   <form
     className="relative grid w-full grid-cols-1 gap-4 p-2"
@@ -125,7 +128,7 @@ export const RideForm = ({
 
     <div className="flex flex-col gap-4 md:gap-8">
       <label htmlFor="distance" className="flex flex-col">
-        Distance (km) *
+        Distance ({preferences.units}) *
         <input
           id="distance"
           type="number"

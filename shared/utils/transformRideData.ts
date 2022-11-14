@@ -13,19 +13,6 @@ const groupByType = (data: Ride[]) => {
     groupedByName.set(d, rideList);
   }
 
-  // If user has joined a ride on a day, only return that ride
-  // if (userId) {
-  //   groupedByName.forEach((value, key) => {
-  //     const rideWithUser = value.filter(({ users }) =>
-  //       users?.map(({ id }) => id).includes(userId)
-  //     );
-
-  //     if (rideWithUser.length > 0) {
-  //       groupedByName.set(key, rideWithUser);
-  //     }
-  //   });
-  // }
-
   return Object.fromEntries(groupedByName);
 };
 

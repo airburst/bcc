@@ -7,7 +7,7 @@ type Props = {
   user?: User;
 };
 
-export const RideGroup: React.FC<Props> = ({ group, user }: Props) => {
+export const RideGroup = ({ group, user }: Props) => {
   const rideData = ungroupRides(group);
   const rideDate = rideData.map(({ date }) => date)[0];
   const types = rideData.map(({ rides }) => ({ rides }));
