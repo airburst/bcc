@@ -1,5 +1,6 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
-import { Ride as RideType } from "../../src/types";
+import { DEFAULT_PREFERENCES } from "../../src/constants";
+import { Preferences, Ride as RideType } from "../../src/types";
 import { getRideDateAndTime } from "./dates";
 import { getPreferences } from "./preferences";
 
@@ -50,16 +51,40 @@ export const formatUser = (
   };
 };
 
-export const formatRideData = (ride: RideData, isAuth = false) => {
+export const convertToMiles = (kms: number): number => Math.floor(kms / 1.6142);
+export const convertToKms = (miles: number): number =>
+  Math.floor(miles * 1.6142);
+
+export const convertDistance = (
+  distance: number | null,
+  units: string | undefined
+) => {
+  if (!distance) {
+    return null;
+  }
+  if (units !== DEFAULT_PREFERENCES.units) {
+    return `${convertToMiles(distance || 0)} ${units}`;
+  }
+  return `${distance} ${units}`;
+};
+
+export const formatRideData = (
+  ride: RideData,
+  preferences: Preferences | undefined,
+  isAuth = false
+) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { date, createdAt, users, ...rest } = ride;
+  const { date, createdAt, users, distance, speed, ...rest } = ride;
   const { day, time } = getRideDateAndTime(date.toISOString());
+  const units = preferences?.units;
 
   return {
     ...rest,
     date: date.toISOString(),
     day,
     time,
+    distance: convertDistance(distance, units),
+    speed: convertDistance(speed, units),
     users: users.map(({ user: u, notes }) => ({
       ...formatUser(u, notes, isAuth),
     })),

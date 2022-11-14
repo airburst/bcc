@@ -2,10 +2,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
 import { formatRideData } from "../../../../shared/utils";
-import { isLoggedIn } from "../auth/authHelpers";
+import { isLoggedIn, getUserPreferences } from "../auth/authHelpers";
+import { Preferences } from "../../../types";
 
 export const getRide = async (
   id: string | string[] | undefined,
+  preferences: Preferences | undefined,
   isAuth = false
 ) => {
   const rideId = Array.isArray(id) ? id[0] : id;
@@ -30,13 +32,14 @@ export const getRide = async (
     return {};
   }
 
-  return formatRideData(ride, isAuth);
+  return formatRideData(ride, preferences, isAuth);
 };
 
 const ride = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAuth = await isLoggedIn(req, res);
+  const preferences = (await getUserPreferences(req, res)) as Preferences;
   const { id } = req.query;
-  const rideDetails = await getRide(id, isAuth);
+  const rideDetails = await getRide(id, preferences, isAuth);
 
   return res.status(200).json(rideDetails);
 };

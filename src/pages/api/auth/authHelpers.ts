@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
+import { DEFAULT_PREFERENCES } from "../../../constants";
 
 // Session object returns the following shape:
 /**
@@ -42,4 +43,13 @@ export const isAdmin = async (req: NextApiRequest, res: NextApiResponse) => {
   const role = session && session.role;
 
   return !!session && role === "ADMIN";
+};
+
+export const getUserPreferences = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  const session = await getServerAuthSession({ req, res });
+
+  return session?.preferences || DEFAULT_PREFERENCES;
 };

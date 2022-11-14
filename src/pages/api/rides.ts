@@ -2,14 +2,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 import { formatRideData, getQueryDateRange } from "../../../shared/utils";
-import { isLoggedIn } from "./auth/authHelpers";
+import { isLoggedIn, getUserPreferences } from "./auth/authHelpers";
+import { Preferences } from "../../types";
 
 type QueryType = {
   start?: string;
   end?: string;
 };
 
-export const getRides = async (query: QueryType, isAuth = false) => {
+export const getRides = async (
+  query: QueryType,
+  preferences: Preferences | undefined,
+  isAuth = false
+) => {
   const { start, end } = getQueryDateRange(query);
 
   const rides = await prisma.ride.findMany({
@@ -36,13 +41,14 @@ export const getRides = async (query: QueryType, isAuth = false) => {
     ],
   });
 
-  return rides.map((ride) => formatRideData(ride, isAuth));
+  return rides.map((ride) => formatRideData(ride, preferences, isAuth));
 };
 
 const rides = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAuth = await isLoggedIn(req, res);
+  const preferences = (await getUserPreferences(req, res)) as Preferences;
   const { query } = req;
-  const rideData = await getRides(query, isAuth);
+  const rideData = await getRides(query, preferences, isAuth);
   return res.status(200).json(rideData);
 };
 

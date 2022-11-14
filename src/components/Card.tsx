@@ -20,9 +20,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const isNotReady = !isReady(ride);
   const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
 
-  const details = destination
-    ? `${destination} - ${distance} km`
-    : `${distance} km`;
+  const details = destination ? `${destination} - ${distance}` : `${distance}`;
 
   const onPress = () => router.push(`/ride/${id}/${date.split("T")[0]}`);
 
