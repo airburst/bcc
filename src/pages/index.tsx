@@ -2,15 +2,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useSession } from "next-auth/react";
-import { useRides } from "../hooks";
+import { useRides, useLocalStorage } from "../hooks";
 import { RideGroup, RideGroupSkeleton } from "../components";
 import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
-import { Preferences, User } from "../types";
+import { Preferences, User, AnonymousUser } from "../types";
 
 const nextDate = getNextWeek();
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
+  const [rider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   // Fetch rides for next 2 weeks
   const { data, loading, error } = useRides();
 
@@ -41,6 +42,10 @@ const Home: NextPage = () => {
   const user = session?.user as User;
   if (user) {
     user.preferences = session?.preferences as Preferences;
+    // Unset anonymous user if stored
+    if (rider?.id) {
+      window.localStorage.clear();
+    }
   }
 
   const groupedRides = groupRides(data);
