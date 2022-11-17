@@ -9,7 +9,7 @@ import { FilterQuery } from "../types";
 type Props = {
   isShowing: boolean;
   closeHandler: () => void;
-  data: string[];
+  data: (string | null | undefined)[];
   queryHandler: (q: FilterQuery) => void;
 };
 
@@ -61,7 +61,7 @@ export const Filters = ({
     search === ""
       ? data
       : data.filter((item) =>
-        item
+        (item || "")
           .toLowerCase()
           .replace(/\s+/g, "")
           .includes(search.toLowerCase().replace(/\s+/g, ""))
@@ -76,7 +76,7 @@ export const Filters = ({
       leave="transition ease-in-out duration-200 transform"
       leaveFrom="-translate-y-0"
       leaveTo="-translate-y-full"
-      className="fixed z-10 h-64 w-full bg-neutral-900 text-white shadow-xl "
+      className="fixed z-10 h-64 w-full bg-neutral-900 text-white shadow-xl top-0"
     >
       <div className="container mx-auto flex w-full flex-col p-4 md:px-4 lg:max-w-[1024px]">
         <div className="flex flex-row justify-between">
@@ -109,7 +109,7 @@ export const Filters = ({
             <div className="relative mt-1">
               <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                 <Combobox.Input
-                  className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                  className="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0"
                   // @ts-ignore
                   displayValue={(item) => item}
                   onChange={handleSearchChange}
@@ -124,7 +124,7 @@ export const Filters = ({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {filteredData.length === 0 && query !== "" ? (
                     <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                       Nothing found.

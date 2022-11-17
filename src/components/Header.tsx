@@ -1,12 +1,11 @@
 import { useSession, signIn } from "next-auth/react";
 import Router, { useRouter } from "next/router";
 import Image from "next/future/image";
-import { useState } from "react";
+import { useAtom } from "jotai";
+import { filterAtom } from "../store";
 import { UserMenu } from "./UserMenu";
-import { Filters } from "./Filters";
 import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
-import { FilterQuery } from "../types";
 
 type ButtonProps = {
   onClick?: () => void;
@@ -25,10 +24,8 @@ const LinkButton = ({ children, ...props }: ButtonProps) => (
 
 const goHome = () => Router.push("/");
 
-const queryHandler = (q: FilterQuery) => console.log(q);
-
 export const Header = () => {
-  const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
+  const [, setShowFilterMenu] = useAtom(filterAtom);
   const { status, data: session } = useSession();
   const isAuthenticated = status === "authenticated";
   const role = session?.role as string;
@@ -39,54 +36,44 @@ export const Header = () => {
   const isHistoric = flattenQuery(rideDate) < getNow();
 
   const showFilters = () => setShowFilterMenu(true);
-  const closeFilters = () => setShowFilterMenu(false);
 
   return (
-    <>
-      <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-blue-900  text-white sm:h-24 md:bg-slate-100 md:text-neutral-700">
-        <div className="container flex w-full flex-row justify-between px-2 md:px-4 lg:max-w-[1024px]">
-          <div className=" text-4xl tracking-wide sm:text-5xl">
+    <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-blue-900  text-white sm:h-24 md:bg-slate-100 md:text-neutral-700">
+      <div className="container flex w-full flex-row justify-between px-2 md:px-4 lg:max-w-[1024px]">
+        <div className=" text-4xl tracking-wide sm:text-5xl">
+          <button
+            type="button"
+            onClick={goHome}
+            title="Home"
+            className="flex items-center gap-4"
+          >
+            <Image
+              className="hidden h-[64px] w-[64px] sm:block"
+              src={Logo}
+              alt="Bath Cycling Club Logo"
+            />
+            BCC Rides
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          {isRidesPage && (
             <button
               type="button"
-              onClick={goHome}
-              title="Home"
-              className="flex items-center gap-4"
+              onClick={showFilters}
+              title="Filter results"
+              className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
             >
-              <Image
-                className="hidden h-[64px] w-[64px] sm:block"
-                src={Logo}
-                alt="Bath Cycling Club Logo"
-              />
-              BCC Rides
+              <i className="fa-solid fa-filter" />
             </button>
-          </div>
-          <div className="flex items-center gap-4">
-            {isRidesPage && (
-              <button
-                type="button"
-                onClick={showFilters}
-                title="Filter results"
-                className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
-              >
-                <i className="fa-solid fa-filter" />
-              </button>
-            )}
+          )}
 
-            {isAuthenticated ? (
-              <UserMenu role={role} rideId={rideId} isHistoric={isHistoric} />
-            ) : (
-              <LinkButton onClick={() => signIn("auth0")}>Log in</LinkButton>
-            )}
-          </div>
+          {isAuthenticated ? (
+            <UserMenu role={role} rideId={rideId} isHistoric={isHistoric} />
+          ) : (
+            <LinkButton onClick={() => signIn("auth0")}>Log in</LinkButton>
+          )}
         </div>
       </div>
-
-      <Filters
-        data={[]}
-        isShowing={showFilterMenu}
-        closeHandler={closeFilters}
-        queryHandler={queryHandler}
-      />
-    </>
+    </div>
   );
 };

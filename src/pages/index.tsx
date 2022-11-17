@@ -2,10 +2,17 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useSession } from "next-auth/react";
+import { useAtom } from "jotai";
 import { useRides, useLocalStorage } from "../hooks";
-import { RideGroup, RideGroupSkeleton } from "../components";
-import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
-import { Preferences, User, AnonymousUser } from "../types";
+import { RideGroup, RideGroupSkeleton, Filters } from "../components";
+import {
+  getNextWeek,
+  groupRides,
+  formatDate,
+  makeFilterData,
+} from "../../shared/utils";
+import { Preferences, User, AnonymousUser, FilterQuery } from "../types";
+import { filterAtom } from "../store";
 
 const nextDate = getNextWeek();
 
@@ -15,6 +22,9 @@ const Home: NextPage = () => {
   // Fetch rides for next 2 weeks
   const { data, loading, error } = useRides();
 
+  const [showFilterMenu, setShowFilterMenu] = useAtom(filterAtom);
+  const closeFilters = () => setShowFilterMenu(false);
+  const queryHandler = (q: FilterQuery) => console.log(q);
   // Skeleton while loading
   if (loading) {
     return (
@@ -75,6 +85,13 @@ const Home: NextPage = () => {
           </div>
         )}
       </div>
+
+      <Filters
+        data={makeFilterData(data)}
+        isShowing={showFilterMenu}
+        closeHandler={closeFilters}
+        queryHandler={queryHandler}
+      />
     </>
   );
 };
