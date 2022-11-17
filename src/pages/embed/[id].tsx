@@ -2,16 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import { useRide } from "../../hooks";
 import { RideDetails, RideDetailsSkeleton, BackButton } from "../../components";
-import { User } from "../../types";
 
 const RideDetailsPage: NextPage = () => {
-  const { data: session } = useSession();
-  const user = session?.user as User;
-  const role = session?.role as string;
-
   const router = useRouter();
   const { ride, loading, error } = useRide(router.query.id);
 
@@ -43,7 +37,7 @@ const RideDetailsPage: NextPage = () => {
         <meta name="description" content="Bath Cycling Club Ride Details" />
       </Head>
 
-      <RideDetails ride={ride} user={user} role={role} />
+      <RideDetails ride={ride} />
     </>
   );
 };
