@@ -37,7 +37,7 @@ const RideDetailsPage: NextPage = () => {
         <meta name="description" content="Bath Cycling Club Ride Details" />
       </Head>
 
-      <RideDetails ride={ride} />
+      <RideDetails ride={ride} embedded />
     </>
   );
 };

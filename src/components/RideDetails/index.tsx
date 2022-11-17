@@ -25,9 +25,10 @@ type Props = {
   ride: Ride;
   user?: User;
   role?: string;
+  embedded?: boolean;
 };
 
-export const RideDetails = ({ ride, user, role }: Props) => {
+export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const [showNotesForm, setShowNotesForm] = useState<boolean>(false);
   const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const { id, name, date, day, users } = ride;
@@ -63,52 +64,60 @@ export const RideDetails = ({ ride, user, role }: Props) => {
         </div>
       </Heading>
 
-      <RidersGoing
-        user={user}
-        users={users}
-        hasRiders={hasRiders}
-        isLeader={isLeader}
-        isGoingAnonymously={isGoingAnonymously}
-      />
-
-      <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
-        <BackButton url={`/#${id}`} />
-
-        {(isGoing || isGoingAnonymously) && (
-          <Button
-            variant="custom"
-            className="flex w-28 items-center justify-center rounded bg-slate-700 p-5 hover:bg-slate-800"
-            onClick={openNotes}
-          >
-            <div className="flex items-center gap-2">
-              <i className="fa-solid fa-pen-to-square" />
-              Note
-            </div>
-          </Button>
-        )}
-
-        {user && isInFuture && (
-          <JoinButton
-            className="flex w-28 items-center justify-center rounded p-5"
-            going={isGoing}
-            ariaLabel={`Join ${name} ride`}
-            rideId={id}
-            userId={user?.id}
+      {embedded ? (
+        <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
+          <BackButton url={`/#${id}`} />
+        </div>
+      ) : (
+        <>
+          <RidersGoing
+            user={user}
+            users={users}
+            hasRiders={hasRiders}
+            isLeader={isLeader}
+            isGoingAnonymously={isGoingAnonymously}
           />
-        )}
-        {!user && !isGoingAnonymously && isInFuture && (
-          <Link href={`/ride/${id}/join`}>
-            <div className="flex h-10">
-              <Button variant="join">
+
+          <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
+            <BackButton url={`/#${id}`} />
+
+            {(isGoing || isGoingAnonymously) && (
+              <Button
+                variant="custom"
+                className="flex w-28 items-center justify-center rounded bg-slate-700 p-5 hover:bg-slate-800"
+                onClick={openNotes}
+              >
                 <div className="flex items-center gap-2">
-                  <i className="fa-solid fa-plus" />
-                  Join
+                  <i className="fa-solid fa-pen-to-square" />
+                  Note
                 </div>
               </Button>
-            </div>
-          </Link>
-        )}
-      </div>
+            )}
+
+            {user && isInFuture && (
+              <JoinButton
+                className="flex w-28 items-center justify-center rounded p-5"
+                going={isGoing}
+                ariaLabel={`Join ${name} ride`}
+                rideId={id}
+                userId={user?.id}
+              />
+            )}
+            {!user && !isGoingAnonymously && isInFuture && (
+              <Link href={`/ride/${id}/join`}>
+                <div className="flex h-10">
+                  <Button variant="join">
+                    <div className="flex items-center gap-2">
+                      <i className="fa-solid fa-plus" />
+                      Join
+                    </div>
+                  </Button>
+                </div>
+              </Link>
+            )}
+          </div>
+        </>
+      )}
 
       <RideNotes
         userId={user?.id || anonRider?.id}
