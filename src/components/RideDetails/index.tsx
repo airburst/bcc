@@ -66,7 +66,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
 
       {embedded ? (
         <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
-          <BackButton url={`/#${id}`} />
+          <BackButton url="/embed" />
         </div>
       ) : (
         <>
