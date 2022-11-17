@@ -6,6 +6,7 @@ import { UserMenu } from "./UserMenu";
 import { Filters } from "./Filters";
 import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
+import { FilterQuery } from "../types";
 
 type ButtonProps = {
   onClick?: () => void;
@@ -24,6 +25,8 @@ const LinkButton = ({ children, ...props }: ButtonProps) => (
 
 const goHome = () => Router.push("/");
 
+const queryHandler = (q: FilterQuery) => console.log(q);
+
 export const Header = () => {
   const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
   const { status, data: session } = useSession();
@@ -32,7 +35,7 @@ export const Header = () => {
   const router = useRouter();
   const rideId = router.query.id;
   const rideDate = router.query.date;
-
+  const isRidesPage = router.pathname === "/";
   const isHistoric = flattenQuery(rideDate) < getNow();
 
   const showFilters = () => setShowFilterMenu(true);
@@ -58,14 +61,17 @@ export const Header = () => {
             </button>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={showFilters}
-              title="Filter results"
-              className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
-            >
-              <i className="fa-solid fa-filter" />
-            </button>
+            {isRidesPage && (
+              <button
+                type="button"
+                onClick={showFilters}
+                title="Filter results"
+                className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
+              >
+                <i className="fa-solid fa-filter" />
+              </button>
+            )}
+
             {isAuthenticated ? (
               <UserMenu role={role} rideId={rideId} isHistoric={isHistoric} />
             ) : (
@@ -74,7 +80,13 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <Filters isShowing={showFilterMenu} closeHandler={closeFilters} />
+
+      <Filters
+        data={[]}
+        isShowing={showFilterMenu}
+        closeHandler={closeFilters}
+        queryHandler={queryHandler}
+      />
     </>
   );
 };

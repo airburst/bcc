@@ -68,3 +68,8 @@ export type SeasonStartTime = {
   winter: StartTime;
   summer: StartTime;
 };
+
+export type FilterQuery = {
+  onlyJoined?: boolean;
+  q?: string;
+};
