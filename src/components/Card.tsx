@@ -22,7 +22,12 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
 
   const details = destination ? `${destination} - ${distance}` : `${distance}`;
 
-  const onPress = () => router.push(`/ride/${id}/${date.split("T")[0]}`);
+  const targetUrl =
+    router.pathname === "/embed"
+      ? `/embed/${id}`
+      : `/ride/${id}/${date.split("T")[0]}`;
+
+  const onPress = () => router.push(targetUrl);
 
   if (!id) {
     return null;
