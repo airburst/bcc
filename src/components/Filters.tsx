@@ -116,7 +116,7 @@ export const Filters = ({
               <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                 <Combobox.Input
                   className="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-700 focus:ring-0"
-                  placeholder="Search ride details, leader or rider"
+                  placeholder="Search ride details"
                   // @ts-ignore
                   displayValue={(item) => item}
                   onChange={handleSearchChange}
