@@ -8,23 +8,23 @@ const isGoing = (userId: string, users: User[] = []) =>
 const filterOnlyJoined = (rides: Ride[], userId: string) =>
   rides.filter((ride) => isGoing(userId, ride.users));
 
-const hasRider = (name: string, users: User[] = []) => {
-  if (users.length === 0) {
-    return false;
-  }
-  return users.map((u: User) => u.name).includes(name);
-};
+// const hasRider = (name: string, users: User[] = []) => {
+//   if (users.length === 0) {
+//     return false;
+//   }
+//   return users.map((u: User) => u.name).includes(name);
+// };
 
+// NOTE: If you change the filters here, also change the Set
+// that holds them in rides.makeFilterData
 const filterSearchText = (rides: Ride[], searchText: string) =>
   rides.filter((ride) => {
-    const { name, group, destination, leader, users } = ride;
+    const { name, group, destination } = ride;
 
     return (
       name?.indexOf(searchText) > -1 ||
       (group || "")?.indexOf(searchText) > -1 ||
-      (destination || "")?.indexOf(searchText) > -1 ||
-      (leader || "")?.indexOf(searchText) > -1 ||
-      hasRider(searchText, users)
+      (destination || "")?.indexOf(searchText) > -1
     );
   });
 

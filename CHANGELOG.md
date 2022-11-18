@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Adds a filter feature to main rides page. Rides can be filters by rides a user has joined and by a query match on ride name, group, destination, leader or rider names.
+- Adds a filter feature to main rides page. Rides can be filters by rides a user has joined and by a query match on ride name, group, destination or leader.
 - User can change look ahead from 2 to 8 weeks
 - settings are saved between visits
 

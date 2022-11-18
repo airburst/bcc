@@ -123,11 +123,7 @@ export const makeFilterData = (
   rides: RideType[]
 ): (string | null | undefined)[] => {
   const data = new Set(
-    rides.flatMap(({ name, group, destination, leader, users = [] }) => {
-      const riders = users.flatMap((user) => (user ? user.name : null));
-
-      return [name, group, destination, leader, ...riders];
-    })
+    rides.flatMap(({ name, group, destination }) => [name, group, destination])
   );
 
   data.delete("");
