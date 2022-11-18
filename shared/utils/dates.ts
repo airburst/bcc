@@ -164,3 +164,10 @@ export const getMonthDateRange = (date: string) => {
 
   return { start, end };
 };
+
+export const getDateInWeeks = (weeks: string) => {
+  const weeksNumber = parseInt(weeks, 10);
+  const nextWeek = dayjs().add(weeksNumber, "week").toISOString();
+
+  return nextWeek.split("T")[0];
+};

@@ -117,3 +117,21 @@ export const isReady = (ride: RideType): boolean => {
   const { leader, route } = ride;
   return leader !== "TBA" && route !== "TBA";
 };
+
+// Flatten ride data into array of searchable text
+export const makeFilterData = (
+  rides: RideType[]
+): (string | null | undefined)[] => {
+  const data = new Set(
+    rides.flatMap(({ name, group, destination, leader, users = [] }) => {
+      const riders = users.flatMap((user) => (user ? user.name : null));
+
+      return [name, group, destination, leader, ...riders];
+    })
+  );
+
+  data.delete("");
+  data.delete(null);
+  data.delete(undefined);
+  return Array.from(data).sort();
+};

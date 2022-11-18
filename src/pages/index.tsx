@@ -2,19 +2,41 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useSession } from "next-auth/react";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
 import { useRides, useLocalStorage } from "../hooks";
-import { RideGroup, RideGroupSkeleton } from "../components";
-import { getNextWeek, groupRides, formatDate } from "../../shared/utils";
-import { Preferences, User, AnonymousUser } from "../types";
+import { RideGroup, RideGroupSkeleton, Filters } from "../components";
+import {
+  getNextWeek,
+  groupRides,
+  formatDate,
+  makeFilterData,
+  getDateInWeeks,
+} from "../../shared/utils";
+import { Preferences, User, AnonymousUser, FilterQuery } from "../types";
+import { showFilterAtom, filterQueryAtom } from "../store";
 
 const nextDate = getNextWeek();
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
   const [rider] = useLocalStorage<AnonymousUser>("bcc-user", {});
-  // Fetch rides for next 2 weeks
-  const { data, loading, error } = useRides();
+  const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
+  // Get reactive data from atom
+  const [showFilterMenu, setShowFilterMenu] = useAtom(showFilterAtom);
+  const [filterQuery, setFilterQuery] = useAtom(filterQueryAtom);
 
+  // Fetch rides for next 2 weeks
+  const { data, loading, error } = useRides(
+    undefined,
+    getDateInWeeks(filterQuery.weeksAhead || "2")
+  );
+
+  useEffect(() => {
+    setFilterQuery(filters);
+  }, [filters, setFilterQuery]);
+
+  const closeFilters = () => setShowFilterMenu(false);
   // Skeleton while loading
   if (loading) {
     return (
@@ -48,7 +70,7 @@ const Home: NextPage = () => {
     }
   }
 
-  const groupedRides = groupRides(data);
+  const groupedRides = groupRides(data, filterQuery, user);
   const ridesFound = groupedRides.length > 0;
 
   return (
@@ -70,11 +92,17 @@ const Home: NextPage = () => {
             ))}
           </>
         ) : (
-          <div className="flex h-full items-center text-3xl">
+          <div className="flex h-full items-center p-8 pt-32 text-2xl">
             No planned rides before {formatDate(nextDate)}
           </div>
         )}
       </div>
+
+      <Filters
+        data={makeFilterData(data)}
+        isShowing={showFilterMenu}
+        closeHandler={closeFilters}
+      />
     </>
   );
 };

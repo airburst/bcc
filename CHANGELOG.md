@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2022-11-17
+
+### Added
+
+- Adds a filter feature to main rides page. Rides can be filters by rides a user has joined and by a query match on ride name, group, destination, leader or rider names.
+- User can change look ahead from 2 to 8 weeks
+- settings are saved between visits
+
 ## [1.2.0] - 2022-11-17
 
 ### Added
