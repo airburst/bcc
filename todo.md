@@ -4,9 +4,6 @@
 
 ### Next up
 
-- Filtering rides
-- click outside closes filters
-
 - Planner persists month in state (or route), so that back button doesn't jump to today
 
 ## Next 13

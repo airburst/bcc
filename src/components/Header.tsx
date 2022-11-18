@@ -2,7 +2,7 @@ import { useSession, signIn } from "next-auth/react";
 import Router, { useRouter } from "next/router";
 import Image from "next/future/image";
 import { useAtom } from "jotai";
-import { filterAtom } from "../store";
+import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
 import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
@@ -25,7 +25,8 @@ const LinkButton = ({ children, ...props }: ButtonProps) => (
 const goHome = () => Router.push("/");
 
 export const Header = () => {
-  const [, setShowFilterMenu] = useAtom(filterAtom);
+  const [, setShowFilterMenu] = useAtom(showFilterAtom);
+  const [filterQuery] = useAtom(filterQueryAtom);
   const { status, data: session } = useSession();
   const isAuthenticated = status === "authenticated";
   const role = session?.role as string;
@@ -36,6 +37,8 @@ export const Header = () => {
   const isHistoric = flattenQuery(rideDate) < getNow();
 
   const showFilters = () => setShowFilterMenu(true);
+
+  const hasFiltersApplied = !!(filterQuery.onlyJoined || filterQuery.q);
 
   return (
     <div className="fixed z-10 flex h-16 w-full items-center justify-center bg-blue-900  text-white sm:h-24 md:bg-slate-100 md:text-neutral-700">
@@ -55,6 +58,7 @@ export const Header = () => {
             BCC Rides
           </button>
         </div>
+
         <div className="flex items-center gap-4">
           {isRidesPage && (
             <button
@@ -63,7 +67,11 @@ export const Header = () => {
               title="Filter results"
               className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
             >
-              <i className="fa-solid fa-filter" />
+              {hasFiltersApplied ? (
+                <i className="fa-solid fa-filter-circle-xmark" />
+              ) : (
+                <i className="fa-solid fa-filter" />
+              )}
             </button>
           )}
 

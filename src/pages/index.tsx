@@ -3,6 +3,7 @@ import Head from "next/head";
 import Error from "next/error";
 import { useSession } from "next-auth/react";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 import { useRides, useLocalStorage } from "../hooks";
 import { RideGroup, RideGroupSkeleton, Filters } from "../components";
 import {
@@ -12,19 +13,25 @@ import {
   makeFilterData,
 } from "../../shared/utils";
 import { Preferences, User, AnonymousUser, FilterQuery } from "../types";
-import { filterAtom } from "../store";
+import { showFilterAtom, filterQueryAtom } from "../store";
 
 const nextDate = getNextWeek();
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
   const [rider] = useLocalStorage<AnonymousUser>("bcc-user", {});
+  const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
   // Fetch rides for next 2 weeks
   const { data, loading, error } = useRides();
 
-  const [showFilterMenu, setShowFilterMenu] = useAtom(filterAtom);
+  const [showFilterMenu, setShowFilterMenu] = useAtom(showFilterAtom);
+  const [filterQuery, setFilterQuery] = useAtom(filterQueryAtom);
+
+  useEffect(() => {
+    setFilterQuery(filters);
+  }, [filters, setFilterQuery]);
+
   const closeFilters = () => setShowFilterMenu(false);
-  const queryHandler = (q: FilterQuery) => console.log(q);
   // Skeleton while loading
   if (loading) {
     return (
@@ -58,7 +65,7 @@ const Home: NextPage = () => {
     }
   }
 
-  const groupedRides = groupRides(data);
+  const groupedRides = groupRides(data, filterQuery, user);
   const ridesFound = groupedRides.length > 0;
 
   return (
@@ -90,7 +97,6 @@ const Home: NextPage = () => {
         data={makeFilterData(data)}
         isShowing={showFilterMenu}
         closeHandler={closeFilters}
-        queryHandler={queryHandler}
       />
     </>
   );
