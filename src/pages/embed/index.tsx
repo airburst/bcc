@@ -36,7 +36,7 @@ const Embed: NextPage = () => {
           ))}
         </>
       ) : (
-        <div className="flex h-full items-center text-3xl">
+        <div className="flex h-full items-center p-8 pt-32 text-2xl">
           No planned rides before {formatDate(nextDate)}
         </div>
       )}

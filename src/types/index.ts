@@ -72,4 +72,5 @@ export type SeasonStartTime = {
 export type FilterQuery = {
   onlyJoined?: boolean;
   q?: string;
+  weeksAhead?: string;
 };

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable prettier/prettier */
-import { useState, useRef, Fragment, ChangeEvent } from "react";
+import { useState, useRef, Fragment, ChangeEvent, FormEvent } from "react";
 import { Transition, Switch, Combobox } from "@headlessui/react";
 import clsx from "clsx";
 import useOnClickOutside from "use-onclickoutside";
@@ -17,16 +17,18 @@ type Props = {
   data: (string | null | undefined)[];
 };
 
+const DEFAULT_WEEKS = "2";
+
 export const Filters = ({
   isShowing,
   closeHandler,
-  // queryHandler,
   data,
 }: Props) => {
   const ref = useRef(null);
   const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
   const [onlyJoined, setOnlyJoined] = useState<boolean>(filters?.onlyJoined || false);
   const [search, setSearch] = useState<string>(filters?.q || "");
+  const [weeksAhead, setWeeksAhead] = useState<string>(filters?.weeksAhead || DEFAULT_WEEKS);
   const [filterQuery, setFilterQuery] = useAtom(filterQueryAtom);
   const [, setFilters] = useLocalStorage<FilterQuery>("bcc-filters", {});
 
@@ -52,6 +54,13 @@ export const Filters = ({
     setSearch(e.target.value);
   };
 
+  const handleWeeksChange = (e: FormEvent<HTMLSelectElement>) => {
+    // @ts-ignore
+    const val = e.target.value;
+    setWeeksAhead(val);
+    setFilterAtomAndStorage({ ...filterQuery, weeksAhead: val });
+  };
+
   const handleSelected = (q: string) => {
     setFilterAtomAndStorage({ ...filterQuery, q });
     setSearch(q);
@@ -60,7 +69,8 @@ export const Filters = ({
   const reset = () => {
     setOnlyJoined(false);
     setSearch("");
-    setFilterAtomAndStorage({ onlyJoined: false });
+    setWeeksAhead(DEFAULT_WEEKS)
+    setFilterAtomAndStorage({ onlyJoined: false, weeksAhead: DEFAULT_WEEKS });
   };
 
   const filteredData =
@@ -85,7 +95,7 @@ export const Filters = ({
       leave="transition ease-in-out duration-200 transform"
       leaveFrom="-translate-y-0"
       leaveTo="-translate-y-full"
-      className="fixed z-10 h-64 w-full bg-neutral-900 text-white shadow-xl top-0"
+      className="fixed z-10 h-82 w-full bg-neutral-800 text-white shadow-xl top-0"
     >
       <div className="container mx-auto flex w-full flex-col p-4 md:px-4 lg:max-w-[1024px]">
         <div className="flex flex-row justify-between">
@@ -100,19 +110,7 @@ export const Filters = ({
           </button>
         </div>
 
-        <div className="my-4 flex flex-row justify-between">
-          <div>Only show my rides</div>
-          <Switch
-            checked={onlyJoined}
-            onChange={handleSwitchChange}
-            className={switchClass}
-          >
-            <span className="sr-only">Enable notifications</span>
-            <span className={toggleClass} />
-          </Switch>
-        </div>
-
-        <div className="flex flex-col gap-4 md:gap-8">
+        <div className="flex flex-col gap-4 md:gap-8 mt-2">
           <Combobox value={search} onChange={handleSelected}>
             <div className="relative mt-1">
               <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
@@ -175,14 +173,50 @@ export const Filters = ({
           </Combobox>
         </div>
 
-        <div className="mt-6 flex flex-row justify-between">
-          <div />
+        <div className="mt-4 flex flex-row justify-between">
+          <div>Only show my rides</div>
+          <Switch
+            checked={onlyJoined}
+            onChange={handleSwitchChange}
+            className={switchClass}
+          >
+            <span className="sr-only">Enable notifications</span>
+            <span className={toggleClass} />
+          </Switch>
+        </div>
+
+        <div className="mt-4 flex flex-row justify-between items-center">
+          <div>Weeks ahead</div>
+          <label htmlFor="weeks" className="flex flex-col gap-1 w-32">
+            <select
+              id="weeks"
+              aria-label="Weeks ahead"
+              className="rounded-md text-neutral-700"
+              value={weeksAhead}
+              onChange={handleWeeksChange}>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="mt-4 flex flex-row justify-end gap-4">
           <Button
             onClick={reset}
             title="Reset filters"
+            variant="cancel"
             className="flex items-center rounded p-1 md:hover:bg-slate-200"
           >
             <span>Reset</span>
+          </Button>
+          <Button
+            onClick={closeHandler}
+            title="Reset filters"
+            className="flex items-center rounded p-1 md:hover:bg-slate-200"
+          >
+            <span>Apply</span>
           </Button>
         </div>
       </div>

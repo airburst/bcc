@@ -8,6 +8,26 @@ const isGoing = (userId: string, users: User[] = []) =>
 const filterOnlyJoined = (rides: Ride[], userId: string) =>
   rides.filter((ride) => isGoing(userId, ride.users));
 
+const hasRider = (name: string, users: User[] = []) => {
+  if (users.length === 0) {
+    return false;
+  }
+  return users.map((u: User) => u.name).includes(name);
+};
+
+const filterSearchText = (rides: Ride[], searchText: string) =>
+  rides.filter((ride) => {
+    const { name, group, destination, leader, users } = ride;
+
+    return (
+      name?.indexOf(searchText) > -1 ||
+      (group || "")?.indexOf(searchText) > -1 ||
+      (destination || "")?.indexOf(searchText) > -1 ||
+      (leader || "")?.indexOf(searchText) > -1 ||
+      hasRider(searchText, users)
+    );
+  });
+
 const filterRides = (
   data: Ride[],
   filterQuery: FilterQuery,
@@ -19,10 +39,13 @@ const filterRides = (
     return data;
   }
 
-  let filteredData: Ride[] = [];
+  let filteredData: Ride[] = data;
 
   if (onlyJoined && user?.id) {
     filteredData = filterOnlyJoined(data, user.id);
+  }
+  if (q) {
+    filteredData = filterSearchText(filteredData, q);
   }
 
   return filteredData;
