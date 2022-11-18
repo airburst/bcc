@@ -104,7 +104,7 @@ export const Filters = ({
             type="button"
             onClick={closeHandler}
             title="Close filters"
-            className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
+            className="flex items-center rounded p-1 text-3xl md:hover:bg-neutral-600"
           >
             <i className="fa-solid fa-close" />
           </button>
@@ -214,7 +214,7 @@ export const Filters = ({
           <Button
             onClick={closeHandler}
             title="Reset filters"
-            className="flex items-center rounded p-1 md:hover:bg-slate-200"
+            className="flex items-center rounded p-1"
           >
             <span>Apply</span>
           </Button>
