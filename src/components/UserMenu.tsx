@@ -164,8 +164,17 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
             <span className="justify-self-start">Log out</span>
           </button>
 
-          <div className="flex h-6 items-center pl-2 text-xs text-neutral-400">
+          <div className="flex h-6 items-center justify-between px-2 pl-2 text-xs text-neutral-400">
             Version {pkg.version}
+            <a
+              href="https://github.com/airburst/bcc/blob/main/CHANGELOG.md"
+              title="Release notes"
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs text-blue-500 underline"
+            >
+              Notes
+            </a>
           </div>
         </div>
       )}

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - "Forever" option in weeks ahead filter, which fetches all future rides in the system
+- Added link to release notes
 
 ### Changed
 
