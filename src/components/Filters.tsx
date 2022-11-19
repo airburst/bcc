@@ -198,6 +198,7 @@ export const Filters = ({
               <option value="4">4</option>
               <option value="6">6</option>
               <option value="8">8</option>
+              <option value="-1">Forever</option>
             </select>
           </label>
         </div>

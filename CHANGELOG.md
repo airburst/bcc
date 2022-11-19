@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.3.0] - 2022-11-17
+## [1.4.0] - 2022-11-19
+
+### Added
+
+- "Forever" option in weeks ahead filter, which fetches all future rides in the system
+
+### Changed
+
+- Rider "Notes" are now "Messages"
+
+## [1.3.0] - 2022-11-18
 
 ### Added
 

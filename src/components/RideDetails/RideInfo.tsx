@@ -108,7 +108,7 @@ export const RideInfo = ({ ride }: Props) => {
       {(riderNotes || []).length > 0 && (
         <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
           <div className="px-2 text-xl font-bold tracking-wide text-neutral-700">
-            Rider Notes
+            Messages
           </div>
           {riderNotes?.map((rider) => (
             <Row key={rider.name}>

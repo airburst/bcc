@@ -76,7 +76,7 @@ export const RideNotes = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Add ride notes
+                  Add Message
                 </Dialog.Title>
 
                 <div className="mt-2">

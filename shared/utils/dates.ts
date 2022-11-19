@@ -167,6 +167,12 @@ export const getMonthDateRange = (date: string) => {
 
 export const getDateInWeeks = (weeks: string) => {
   const weeksNumber = parseInt(weeks, 10);
+
+  // Check for 'forever' code (-1) and return long future date
+  if (weeksNumber === -1) {
+    return "3000-12-31";
+  }
+
   const nextWeek = dayjs().add(weeksNumber, "week").toISOString();
 
   return nextWeek.split("T")[0];
