@@ -4,7 +4,14 @@ import Script from "next/script";
 const Document = () => (
   <Html>
     <Head>
+      <meta charSet="utf-8" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1"
+      />
       <meta name="description" content="Bath Cycling Club Ride Planner" />
+      <meta name="keywords" content="Bath CC Cycling Club Ride Rides Planner" />
       <meta name="author" content="Mark Fairhurst" />
       <link
         rel="apple-touch-icon"

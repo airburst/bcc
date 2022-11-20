@@ -48,6 +48,7 @@ export const Header = () => {
             type="button"
             onClick={goHome}
             title="Home"
+            aria-label="Back to rides page"
             className="flex items-center gap-4"
           >
             <Image
@@ -65,6 +66,7 @@ export const Header = () => {
               type="button"
               onClick={showFilters}
               title="Filter results"
+              aria-label="Filter results"
               className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
             >
               {hasFiltersApplied ? (

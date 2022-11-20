@@ -1,6 +1,7 @@
 // import { env } from "./src/env/server.mjs";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import bundleAnalyzer from "@next/bundle-analyzer";
+import pwa from "next-pwa";
 
 /**
  * Don't be scared of the generics here.
@@ -18,13 +19,19 @@ export const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-export default withBundleAnalyzer(
-  defineNextConfig({
-    reactStrictMode: true,
-    swcMinify: true,
-    i18n: {
-      locales: ["en"],
-      defaultLocale: "en",
-    },
-  })
+const withPWA = pwa({
+  dest: "public",
+});
+
+export default withPWA(
+  withBundleAnalyzer(
+    defineNextConfig({
+      reactStrictMode: true,
+      swcMinify: true,
+      i18n: {
+        locales: ["en"],
+        defaultLocale: "en",
+      },
+    })
+  )
 );
