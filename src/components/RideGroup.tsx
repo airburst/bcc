@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+import autoAnimate from "@formkit/auto-animate";
 import { Card, CardSkeleton } from "./Card";
 import { ungroupRides } from "../../shared/utils";
 import { Group, User } from "../types";
@@ -12,8 +14,16 @@ export const RideGroup = ({ group, user }: Props) => {
   const rideDate = rideData.map(({ date }) => date)[0];
   const types = rideData.map(({ rides }) => ({ rides }));
 
+  const parent = useRef(null);
+
+  useEffect(() => {
+    if (parent.current) {
+      autoAnimate(parent.current);
+    }
+  }, [parent]);
+
   return (
-    <div className="flex w-full flex-col items-start gap-2">
+    <div className="flex w-full flex-col items-start gap-2" ref={parent}>
       <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white">
         <div>{rideDate}</div>
       </div>

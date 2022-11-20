@@ -64,7 +64,12 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
   return (
     <div ref={ref} className="relative">
       <div className="h-10 cursor-pointer rounded p-1 text-3xl md:hover:bg-slate-200">
-        <button type="button" onClick={toggleMenu} onKeyDown={toggleMenu}>
+        <button
+          type="button"
+          aria-label="Menu"
+          onClick={toggleMenu}
+          onKeyDown={toggleMenu}
+        >
           <i className="fa-solid fa-bars" />
         </button>
       </div>
