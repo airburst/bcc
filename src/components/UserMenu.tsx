@@ -4,6 +4,7 @@ import { signOut } from "next-auth/react";
 import { useState, useRef } from "react";
 import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
+import copy from "copy-to-clipboard";
 import { Confirm } from "./Confirm";
 import { deleteRide } from "../hooks";
 import pkg from "../../package.json";
@@ -34,6 +35,8 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
     setShow(false);
     setShowConfirm(false);
   };
+
+  const copyLink = () => copy(window.location.href);
 
   const handleSignout = () => {
     signOut({ callbackUrl: "http://localhost:3000" });
@@ -142,6 +145,17 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                 >
                   <i className="fa-solid fa-trash" />
                   <span className="justify-self-start">Delete Ride</span>
+                </button>
+              </div>
+
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                <button
+                  type="button"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                  onClick={copyLink}
+                >
+                  <i className="fa-solid fa-link" />
+                  <span className="justify-self-start">Copy Ride Link</span>
                 </button>
               </div>
             </>

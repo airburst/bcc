@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.0] - 2022-11-23
+
+### Added
+
+- Added menu entry to copy ride link
+
 ## [1.5.0] - 2022-11-20
 
 ### Added
