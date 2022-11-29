@@ -24,7 +24,12 @@ export const SUNDAY_RIDES: PartialRide[] = [
   {
     group: "Espresso",
     distance: 96,
-    notes: "Approx. pace is 24km/h",
+    notes: `Our Average Speed is 24km/hr to 27km/hr depending on route, weather and how we all feel.
+
+It is very important that we don't drop anyone and get back to Bath togther
+
+The distance we ride depends on the time of year (shorter in the winter) and the route (less climbing more kms).  Weather permitting I will try to organise the routes to different compass points each week.  The routes will use the lanes in the summer but fewer in the summer when they can get muddy`,
+    leader: "David Oliver",
   },
   {
     group: "Americano",
@@ -34,7 +39,7 @@ export const SUNDAY_RIDES: PartialRide[] = [
   {
     group: "Double Shot Latte",
     distance: 82,
-    notes: "Approx. pace is 21km/h",
+    notes: "Approx. pace is 22/24 km/h depending on route",
   },
   {
     group: "Cappuccino",
