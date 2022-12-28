@@ -6,7 +6,7 @@ import { JoinButton } from "../Button/JoinButton";
 import { Badge } from "../Badge";
 import { useLocalStorage } from "../../hooks";
 import { User, Ride, AnonymousUser } from "../../types";
-import { getNow } from "../../../shared/utils";
+import { isJoinable } from "../../../shared/utils";
 import { RideInfo } from "./RideInfo";
 import { RidersGoing } from "./RidersGoing";
 import { RideNotes } from "./RideNotes";
@@ -40,7 +40,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
-  const isInFuture = date >= getNow();
+  const canJoin = isJoinable(date);
   const rideNotes =
     (users && user && users?.find((u: User) => u.id === user.id)?.rideNotes) ||
     (anonRider?.id &&
@@ -94,7 +94,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
               </Button>
             )}
 
-            {user && isInFuture && (
+            {user && canJoin && (
               <JoinButton
                 className="flex w-28 items-center justify-center rounded p-5"
                 going={isGoing}
@@ -103,7 +103,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
                 userId={user?.id}
               />
             )}
-            {!user && !isGoingAnonymously && isInFuture && (
+            {!user && !isGoingAnonymously && canJoin && (
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
                   <Button variant="join">

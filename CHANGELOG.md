@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.7.0] - 2022-12-28
+
+### Changed
+
+- Allow riders to join or leave a ride up to 12 hours after it has started.
+
 ## [1.6.1] - 2022-11-29
 
 ### Changed
