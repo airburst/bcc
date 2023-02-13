@@ -28,7 +28,7 @@ export const SUNDAY_RIDES: PartialRide[] = [
 
 It is very important that we don't drop anyone and get back to Bath togther
 
-The distance we ride depends on the time of year (shorter in the winter) and the route (less climbing more kms).  Weather permitting I will try to organise the routes to different compass points each week.  The routes will use the lanes in the summer but fewer in the summer when they can get muddy`,
+The distance we ride depends on the time of year (shorter in the winter) and the route (less climbing more kms).  Weather permitting I will try to organise the routes to different compass points each week.  The routes will use the lanes in the summer but fewer in the winter, when they can get muddy`,
     leader: "David Oliver",
   },
   {
