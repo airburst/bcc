@@ -22,7 +22,7 @@ type Props = {
 const CopyRide: NextPage<Props> = ({ data }: Props) => {
   const { data: session } = useSession();
   const user = session?.user;
-  const preferences = session?.preferences as Preferences;
+  const preferences = user?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const [waiting, setWaiting] = useState(false);
@@ -106,9 +106,9 @@ export default CopyRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
-  const role = session && (session.role as string);
+  const role = session && (session.user?.role as string);
   const preferences =
-    (session && (session.preferences as Preferences)) || undefined;
+    (session && (session.user?.preferences as Preferences)) || undefined;
   const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
 
   if (!isAuthorised) {

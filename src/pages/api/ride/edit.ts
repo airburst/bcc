@@ -9,6 +9,8 @@ export const changeRide = async (ride: Ride) => {
   const { id, ...data } = ride;
   try {
     const result = await prisma.ride.update({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: We don't send users in request
       data,
       where: { id },
     });

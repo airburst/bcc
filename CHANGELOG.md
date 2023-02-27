@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.0] - 2023-02-27
+
+### Changed
+
+- Upgraded dependencies for NextJS (major version 13)
+- Changed session schema to include user object
+- Added indexes to join tables in Prisma
+- Removed privacy template page
+
+## [1.7.2] - 2023-02-27
+
+### Fixed
+
+- Change Sunday rides winter end date to end of February.
+
 ## [1.7.0] - 2022-12-28
 
 ### Changed

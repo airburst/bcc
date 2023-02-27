@@ -33,14 +33,14 @@ export const isMe =
 // An admin can also manage leader roles
 export const isLeader = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
-  const role = session && (session.role as string);
+  const role = session && (session.user?.role as string);
 
   return !!session && role && ["LEADER", "ADMIN"].includes(role);
 };
 
 export const isAdmin = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
-  const role = session && session.role;
+  const role = session && session.user?.role;
 
   return !!session && role === "ADMIN";
 };
@@ -51,5 +51,5 @@ export const getUserPreferences = async (
 ) => {
   const session = await getServerAuthSession({ req, res });
 
-  return session?.preferences || DEFAULT_PREFERENCES;
+  return session?.user?.preferences || DEFAULT_PREFERENCES;
 };

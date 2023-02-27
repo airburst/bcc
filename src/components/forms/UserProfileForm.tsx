@@ -16,7 +16,7 @@ export type UserProfileValues = {
 type UserProfileFormProps = {
   defaultValues: UserProfileValues;
   register: UseFormRegister<UserProfileValues>;
-  errors: Partial<FieldErrorsImpl<UserProfileValues>>;
+  errors: Partial<FieldErrorsImpl<Omit<UserProfileValues, "preferences">>>;
   isDirty: boolean;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   waiting: boolean;

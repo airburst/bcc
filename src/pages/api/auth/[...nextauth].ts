@@ -1,21 +1,25 @@
 /* eslint-disable no-param-reassign */
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { Awaitable, Session, NextAuthOptions, User } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
-
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
+import { Preferences } from "../../../types";
+
+type SessionUser = User & {
+  role?: string;
+  preferences?: Preferences;
+};
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    session({ session, user }) {
+    session({ session, user }): Awaitable<Session> {
       if (session.user) {
-        session.user.id = user.id;
+        (session.user as SessionUser) = user;
       }
-
-      return { ...session, role: user.role, preferences: user.preferences };
+      return session;
     },
   },
   // Configure one or more authentication providers

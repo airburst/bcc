@@ -1,6 +1,6 @@
 import { useSession, signIn } from "next-auth/react";
 import Router, { useRouter } from "next/router";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useAtom } from "jotai";
 import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
@@ -29,7 +29,7 @@ export const Header = () => {
   const [filterQuery] = useAtom(filterQueryAtom);
   const { status, data: session } = useSession();
   const isAuthenticated = status === "authenticated";
-  const role = session?.role as string;
+  const role = session?.user?.role as string;
   const router = useRouter();
   const rideId = router.query.id;
   const rideDate = router.query.date;

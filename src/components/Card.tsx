@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import clsx from "clsx";

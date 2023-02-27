@@ -14,7 +14,7 @@ import { User } from "../../../types";
 const RideDetailsPage: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
-  const role = session?.role as string;
+  const role = user?.role as string;
 
   const router = useRouter();
   const { ride, loading, error } = useRide(router.query.id);
