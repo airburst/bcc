@@ -6,6 +6,8 @@ import { convertToKms } from "../../../../shared/utils";
 import { Ride, Preferences } from "../../../types";
 
 export const addRide = async (ride: Ride) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: We don't send users in request
   const result = await prisma.ride.create({ data: ride });
   return result;
 };

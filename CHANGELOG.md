@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.7.2] - 2023-02-27
+
+### Fixed
+
+- Change Sunday rides winter end date to end of February.
+
 ## [1.7.0] - 2022-12-28
 
 ### Changed

@@ -3,13 +3,12 @@
 
 generator client {
     provider = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
     provider = "mysql"
     url = env("DATABASE_URL")
-    referentialIntegrity = "prisma"
+    relationMode = "prisma"
 }
 
 model Example {
@@ -34,6 +33,8 @@ model Account {
     createdAt        DateTime @default(now())
 
     @@unique([provider, providerAccountId])
+
+    @@index([userId])
 }
 
 model Session {
@@ -42,6 +43,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
 
 model VerificationToken {
@@ -98,6 +101,9 @@ model UsersOnRides {
     createdAt  DateTime @default(now())
 
     @@id([rideId, userId])
+
+    @@index([userId])
+    @@index([rideId])
 }
 
 enum Role {

@@ -133,7 +133,7 @@ export const daysInMonth = (date?: string) =>
 export const isWinter = (date: string): boolean => {
   const month = dayjs(date).month();
 
-  return month > 10 || month < 3;
+  return month > 10 || month < 2;
 };
 
 const getDateStub = (date: string) => {

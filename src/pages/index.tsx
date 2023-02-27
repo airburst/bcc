@@ -63,7 +63,7 @@ const Home: NextPage = () => {
   // Get user id from session
   const user = session?.user as User;
   if (user) {
-    user.preferences = session?.preferences as Preferences;
+    user.preferences = user?.preferences as Preferences;
     // Unset anonymous user if stored
     if (rider?.id) {
       window.localStorage.clear();
