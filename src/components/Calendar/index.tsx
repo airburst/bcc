@@ -85,7 +85,7 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
   }));
 
   return loading ? (
-    <div className="grid grid-cols-7 gap-0  bg-white shadow-md sm:m-2 lg:m-0">
+    <div className="grid grid-cols-7 gap-0 bg-white shadow-md sm:m-2 lg:m-0">
       <HeadingGroup />
       {calGrid.map(({ type, day, date: calDate }) =>
         type === "historic" ? (
@@ -96,7 +96,7 @@ export const Calendar: React.FC<Props> = ({ rides, loading, date }: Props) => {
       )}
     </div>
   ) : (
-    <div className="grid grid-cols-7 gap-0  bg-white shadow-md  lg:m-0">
+    <div className="grid grid-cols-7 gap-0 bg-white shadow-md lg:m-0">
       <HeadingGroup />
       {daysWithRides.map(({ type, day, rides: mappedRides, date: calDate }) =>
         type === "historic" ? (
