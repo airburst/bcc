@@ -15,5 +15,11 @@ module.exports = {
   variants: {
     borderWidth: ["last"],
   },
-  plugins: [require("@tailwindcss/forms")],
+  daisyui: {
+    styled: true,
+    themes: true,
+    base: true,
+    themes: ["light", "dark", "emerald"],
+  },
+  plugins: [require("@tailwindcss/forms"), require("daisyui")],
 };

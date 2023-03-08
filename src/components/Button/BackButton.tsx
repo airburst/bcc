@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
+import { Button } from "./index";
 
 type ButtonProps = {
-  children?: string;
   url?: string;
 };
 
-export const BackButton = ({ url, children, ...props }: ButtonProps) => {
+export const BackButton = ({ url, ...props }: ButtonProps) => {
   const router = useRouter();
 
   const goBack = () => {
@@ -17,18 +17,9 @@ export const BackButton = ({ url, children, ...props }: ButtonProps) => {
   };
 
   return (
-    <button
-      type="button"
-      className="flex h-8 items-center rounded bg-blue-600 p-5 px-6 text-lg text-white hover:bg-blue-700"
-      {...props}
-      onClick={goBack}
-    >
-      {children || (
-        <div className="flex items-center gap-2">
-          <i className="fa-solid fa-chevron-left" />
-          <span>Back</span>
-        </div>
-      )}
-    </button>
+    <Button variant="secondary" {...props} onClick={goBack}>
+      <i className="fa-solid fa-chevron-left" />
+      Back
+    </Button>
   );
 };
