@@ -1,7 +1,6 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-import { Button } from "../Button";
-import { CancelButton } from "../Button/CancelButton";
+import { Button, CancelButton } from "../Button";
 
 export type AnonymousUserValues = {
   id?: string | null;
@@ -103,6 +102,7 @@ export const AnonymousUserForm = ({
 
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
       <Button
+        primary
         loading={waiting}
         type="submit"
         disabled={!isDirty && !defaultValues.id}

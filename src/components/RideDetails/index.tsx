@@ -82,21 +82,14 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             <BackButton url={`/#${id}`} />
 
             {(isGoing || isGoingAnonymously) && (
-              <Button
-                variant="custom"
-                className="flex w-32 items-center justify-center rounded bg-slate-700 p-5 hover:bg-slate-800"
-                onClick={openNotes}
-              >
-                <div className="flex items-center gap-2">
-                  <i className="fa-solid fa-pen-to-square" />
-                  Message
-                </div>
+              <Button accent onClick={openNotes}>
+                <i className="fa-solid fa-pen-to-square" />
+                Message
               </Button>
             )}
 
             {user && canJoin && (
               <JoinButton
-                className="flex w-28 items-center justify-center rounded p-5"
                 going={isGoing}
                 ariaLabel={`Join ${name} ride`}
                 rideId={id}
@@ -106,11 +99,9 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             {!user && !isGoingAnonymously && canJoin && (
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
-                  <Button variant="join">
-                    <div className="flex items-center gap-2">
-                      <i className="fa-solid fa-plus" />
-                      Join
-                    </div>
+                  <Button error>
+                    <i className="fa-solid fa-plus" />
+                    Join
                   </Button>
                 </div>
               </Link>

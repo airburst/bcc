@@ -19,27 +19,30 @@ type Props = {
 
 const DEFAULT_WEEKS = "2";
 
-export const Filters = ({
-  isShowing,
-  closeHandler,
-  data,
-}: Props) => {
+export const Filters = ({ isShowing, closeHandler, data }: Props) => {
   const ref = useRef(null);
   const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
-  const [onlyJoined, setOnlyJoined] = useState<boolean>(filters?.onlyJoined || false);
+  const [onlyJoined, setOnlyJoined] = useState<boolean>(
+    filters?.onlyJoined || false
+  );
   const [search, setSearch] = useState<string>(filters?.q || "");
-  const [weeksAhead, setWeeksAhead] = useState<string>(filters?.weeksAhead || DEFAULT_WEEKS);
+  const [weeksAhead, setWeeksAhead] = useState<string>(
+    filters?.weeksAhead || DEFAULT_WEEKS
+  );
   const [filterQuery, setFilterQuery] = useAtom(filterQueryAtom);
   const [, setFilters] = useLocalStorage<FilterQuery>("bcc-filters", {});
 
   const setFilterAtomAndStorage = (filter: FilterQuery) => {
     setFilterQuery(filter);
     setFilters(filter);
-  }
+  };
 
   const handleSwitchChange = () => {
     setOnlyJoined(!onlyJoined);
-    setFilterAtomAndStorage({ ...filterQuery, onlyJoined: !filterQuery.onlyJoined });
+    setFilterAtomAndStorage({
+      ...filterQuery,
+      onlyJoined: !filterQuery.onlyJoined,
+    });
   };
   const switchClass = clsx(
     "relative inline-flex h-6 w-11 items-center rounded-full",
@@ -69,7 +72,7 @@ export const Filters = ({
   const reset = () => {
     setOnlyJoined(false);
     setSearch("");
-    setWeeksAhead(DEFAULT_WEEKS)
+    setWeeksAhead(DEFAULT_WEEKS);
     setFilterAtomAndStorage({ onlyJoined: false, weeksAhead: DEFAULT_WEEKS });
   };
 
@@ -77,11 +80,11 @@ export const Filters = ({
     search === ""
       ? data
       : data.filter((item) =>
-        (item || "")
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(search.toLowerCase().replace(/\s+/g, ""))
-      );
+          (item || "")
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(search.toLowerCase().replace(/\s+/g, ""))
+        );
 
   useOnClickOutside(ref, closeHandler);
 
@@ -141,7 +144,8 @@ export const Filters = ({
                       <Combobox.Option
                         key={person}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? "bg-teal-600 text-white" : "text-gray-900"
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active ? "bg-teal-600 text-white" : "text-gray-900"
                           }`
                         }
                         value={person}
@@ -149,15 +153,17 @@ export const Filters = ({
                         {({ selected, active }) => (
                           <>
                             <span
-                              className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                }`}
+                              className={`block truncate ${
+                                selected ? "font-medium" : "font-normal"
+                              }`}
                             >
                               {person}
                             </span>
                             {selected ? (
                               <span
-                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-teal-600"
-                                  }`}
+                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                  active ? "text-white" : "text-teal-600"
+                                }`}
                               >
                                 <i className="fa-solid fa-check" />
                               </span>
@@ -193,7 +199,8 @@ export const Filters = ({
               aria-label="Weeks ahead"
               className="rounded-md text-neutral-700"
               value={weeksAhead}
-              onChange={handleWeeksChange}>
+              onChange={handleWeeksChange}
+            >
               <option value="2">2</option>
               <option value="4">4</option>
               <option value="6">6</option>
@@ -207,12 +214,12 @@ export const Filters = ({
           <Button
             onClick={reset}
             title="Reset filters"
-            variant="cancel"
             className="flex items-center rounded p-1 md:hover:bg-slate-200"
           >
             <span>Reset</span>
           </Button>
           <Button
+            primary
             onClick={closeHandler}
             title="Reset filters"
             className="flex items-center rounded p-1"

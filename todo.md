@@ -4,6 +4,14 @@
 
 ### Next up
 
+## DaisyUI
+
+- Add SVG icons
+- Add chevrons to Calendar buttons
+- Change menu dropdown
+- remove fontawesome
+- Set filters with context instead of atom?
+
 - Planner persists month in state (or route), so that back button doesn't jump to today
 
 ## Next 13

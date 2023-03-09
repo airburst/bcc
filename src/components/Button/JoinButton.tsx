@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { join, leave } from "../../hooks";
-import { Button, ButtonProps } from "./index";
+import { Button, ButtonProps } from "./Button";
 
 type Props = ButtonProps & {
   userId?: string;
@@ -34,18 +34,14 @@ export const JoinButton: React.FC<Props> = ({
   };
 
   return going ? (
-    <Button {...props} variant="going" loading={loading} onClick={handleLeave}>
-      <div className="flex items-center gap-2">
-        <i className="fa-solid fa-xmark" />
-        Leave
-      </div>
+    <Button {...props} success loading={loading} onClick={handleLeave}>
+      <i className="fa-solid fa-xmark" />
+      Leave
     </Button>
   ) : (
-    <Button {...props} variant="join" loading={loading} onClick={handleJoin}>
-      <div className="flex items-center gap-2">
-        <i className="fa-solid fa-plus" />
-        Join
-      </div>
+    <Button {...props} error loading={loading} onClick={handleJoin}>
+      <i className="fa-solid fa-plus" />
+      Join
     </Button>
   );
 };
