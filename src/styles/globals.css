@@ -38,4 +38,5 @@ body {
 /* DaisyUI overrides */
 .btn {
   @apply rounded;
+  @apply text-base;
 }

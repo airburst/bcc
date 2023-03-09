@@ -29,7 +29,7 @@ module.exports = {
           success: "#15803d",
           "success-content": "#ffffff",
           warning: "#FBBD23",
-          error: "#ef5350",
+          error: "#e53935",
           "error-content": "#ffffff",
         },
       },

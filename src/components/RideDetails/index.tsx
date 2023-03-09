@@ -99,7 +99,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             {!user && !isGoingAnonymously && canJoin && (
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
-                  <Button primary>
+                  <Button error>
                     <i className="fa-solid fa-plus" />
                     Join
                   </Button>
