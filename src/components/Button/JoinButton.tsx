@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { join, leave } from "../../hooks";
-import { Button, ButtonProps } from "./index";
+import { Button, ButtonProps } from "./Button";
 
 type Props = ButtonProps & {
   userId?: string;

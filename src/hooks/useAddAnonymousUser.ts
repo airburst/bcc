@@ -1,5 +1,13 @@
 import useSWR from "swr";
-import { AnonymousUserValues } from "../components/forms/AnonymousUserForm";
+
+// Note: this is a copy of the type in AnonymousUserForm
+type AnonymousUserValues = {
+  id?: string | null;
+  name: string;
+  mobile?: string | null;
+  emergency?: string | null;
+  rideId: string;
+};
 
 export const addAnonymousUser = async (userAndRide: AnonymousUserValues) => {
   const { rideId, ...user } = userAndRide;

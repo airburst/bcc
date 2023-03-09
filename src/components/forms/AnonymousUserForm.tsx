@@ -1,7 +1,6 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-import { Button } from "../Button";
-import { CancelButton } from "../Button/CancelButton";
+import { Button, CancelButton } from "../Button";
 
 export type AnonymousUserValues = {
   id?: string | null;

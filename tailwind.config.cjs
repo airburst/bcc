@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -17,9 +18,24 @@ module.exports = {
   },
   daisyui: {
     styled: true,
-    themes: true,
     base: true,
-    themes: ["light", "dark", "emerald"],
+    themes: [
+      "light",
+      "dark",
+      // {
+      //   bcc: {
+      //     primary: "#1e40af",
+      //     secondary: "#831843",
+      //     accent: "#374151",
+      //     neutral: "#f3f4f6",
+      //     "base-100": "#FFFFFF",
+      //     info: "#bae6fd",
+      //     success: "#15803d",
+      //     warning: "#FBBD23",
+      //     error: "#dc2626",
+      //   },
+      // },
+    ],
   },
   plugins: [require("@tailwindcss/forms"), require("daisyui")],
 };

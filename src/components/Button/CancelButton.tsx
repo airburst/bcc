@@ -4,7 +4,12 @@ export const CancelButton = ({ ...props }) => {
   const router = useRouter();
 
   return (
-    <button type="button" {...props} onClick={() => router.push("/")}>
+    <button
+      type="button"
+      className="btn"
+      {...props}
+      onClick={() => router.push("/")}
+    >
       Cancel
     </button>
   );

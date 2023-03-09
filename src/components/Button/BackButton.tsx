@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Button } from "./index";
+import { Button } from "./Button";
 
 type ButtonProps = {
   url?: string;
@@ -17,7 +17,7 @@ export const BackButton = ({ url, ...props }: ButtonProps) => {
   };
 
   return (
-    <Button variant="secondary" {...props} onClick={goBack}>
+    <Button {...props} onClick={goBack}>
       <i className="fa-solid fa-chevron-left" />
       Back
     </Button>

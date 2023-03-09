@@ -4,6 +4,16 @@
 
 ### Next up
 
+## DaisyUI
+
+- Change buttons to use Daisy theme
+- create BCC theme
+- Create button variants
+- Add SVG icons
+- Change menu dropdown
+- remove fontawesome
+- Set filters with context instead of atom?
+
 - Planner persists month in state (or route), so that back button doesn't jump to today
 
 ## Next 13

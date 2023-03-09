@@ -23,15 +23,18 @@ const withPWA = pwa({
   dest: "public",
 });
 
-export default withPWA(
-  withBundleAnalyzer(
-    defineNextConfig({
-      reactStrictMode: true,
-      swcMinify: true,
-      i18n: {
-        locales: ["en"],
-        defaultLocale: "en",
-      },
-    })
-  )
+const appConfig = withBundleAnalyzer(
+  defineNextConfig({
+    reactStrictMode: true,
+    swcMinify: true,
+    i18n: {
+      locales: ["en"],
+      defaultLocale: "en",
+    },
+  })
 );
+
+// Export PWA in production only
+export default process.env.NODE_ENV === "production"
+  ? withPWA(appConfig)
+  : appConfig;
