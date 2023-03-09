@@ -17,7 +17,7 @@ export const BackButton = ({ url, ...props }: ButtonProps) => {
   };
 
   return (
-    <Button {...props} onClick={goBack}>
+    <Button primary {...props} onClick={goBack}>
       <i className="fa-solid fa-chevron-left" />
       Back
     </Button>

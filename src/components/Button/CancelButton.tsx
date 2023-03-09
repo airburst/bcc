@@ -5,10 +5,10 @@ export const CancelButton = ({ ...props }) => {
 
   return (
     <button
-      type="button"
       className="btn"
-      {...props}
+      type="button"
       onClick={() => router.push("/")}
+      {...props}
     >
       Cancel
     </button>

@@ -34,17 +34,12 @@ export const JoinButton: React.FC<Props> = ({
   };
 
   return going ? (
-    <Button
-      {...props}
-      variant="success"
-      loading={loading}
-      onClick={handleLeave}
-    >
+    <Button {...props} success loading={loading} onClick={handleLeave}>
       <i className="fa-solid fa-xmark" />
       Leave
     </Button>
   ) : (
-    <Button {...props} variant="error" loading={loading} onClick={handleJoin}>
+    <Button {...props} error loading={loading} onClick={handleJoin}>
       <i className="fa-solid fa-plus" />
       Join
     </Button>

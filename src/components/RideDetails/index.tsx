@@ -82,7 +82,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             <BackButton url={`/#${id}`} />
 
             {(isGoing || isGoingAnonymously) && (
-              <Button variant="accent" onClick={openNotes}>
+              <Button accent onClick={openNotes}>
                 <i className="fa-solid fa-pen-to-square" />
                 Message
               </Button>
@@ -99,7 +99,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             {!user && !isGoingAnonymously && canJoin && (
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
-                  <Button variant="join">
+                  <Button primary>
                     <i className="fa-solid fa-plus" />
                     Join
                   </Button>

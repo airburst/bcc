@@ -67,18 +67,10 @@ export const Confirm = ({
                 <div className="mt-2">{children}</div>
 
                 <div className="mt-4 flex h-10 flex-row gap-4">
-                  <Button
-                    type="button"
-                    onClick={confirmHandler}
-                    loading={waiting}
-                  >
+                  <Button primary onClick={confirmHandler} loading={waiting}>
                     <span>{okLabel}</span>
                   </Button>
-                  <Button
-                    variant="cancel"
-                    onClick={closeHandler}
-                    disabled={waiting}
-                  >
+                  <Button onClick={closeHandler} disabled={waiting}>
                     <span>{cancelLabel}</span>
                   </Button>
                 </div>

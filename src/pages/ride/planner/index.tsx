@@ -36,11 +36,11 @@ const RideCalendar: NextPage = () => {
       <div className="grid w-full grid-cols-1 gap-0 md:gap-8">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full flex-row items-center justify-between bg-blue-900 p-2 font-bold uppercase tracking-wider text-white sm:rounded">
-            <Button variant="info" onClick={goToLastMonth}>
+            <Button info onClick={goToLastMonth}>
               <span>&lt;</span>
             </Button>
             <span>{formatCalendarDate(date)}</span>
-            <Button variant="info" onClick={goToNextMonth}>
+            <Button info onClick={goToNextMonth}>
               <span>&gt;</span>
             </Button>
           </div>
