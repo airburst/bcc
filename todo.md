@@ -6,9 +6,6 @@
 
 ## DaisyUI
 
-- Change buttons to use Daisy theme
-- create BCC theme
-- Create button variants
 - Add SVG icons
 - Change menu dropdown
 - remove fontawesome

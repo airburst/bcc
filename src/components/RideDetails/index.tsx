@@ -82,7 +82,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             <BackButton url={`/#${id}`} />
 
             {(isGoing || isGoingAnonymously) && (
-              <Button variant="custom" onClick={openNotes}>
+              <Button variant="accent" onClick={openNotes}>
                 <i className="fa-solid fa-pen-to-square" />
                 Message
               </Button>

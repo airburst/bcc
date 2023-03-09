@@ -4,10 +4,6 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        darkblue: "#00157b",
-        maroon: "#8c1a19",
-      },
       fontFamily: {
         sans: ["Prompt", "Helvetica", "Arial", "sans-serif"],
       },
@@ -17,24 +13,26 @@ module.exports = {
     borderWidth: ["last"],
   },
   daisyui: {
-    styled: true,
-    base: true,
     themes: [
-      "light",
+      {
+        bcc: {
+          primary: "#1e40af",
+          "primary-content": "#ffffff",
+          secondary: "#831843",
+          "secondary-content": "#ffffff",
+          accent: "#374151",
+          "accent-content": "#ffffff",
+          neutral: "#e5e7eb",
+          "base-100": "#FFFFFF",
+          info: "#bae6fd",
+          success: "#15803d",
+          "success-content": "#ffffff",
+          warning: "#FBBD23",
+          error: "#dc2626",
+          "error-content": "#ffffff",
+        },
+      },
       "dark",
-      // {
-      //   bcc: {
-      //     primary: "#1e40af",
-      //     secondary: "#831843",
-      //     accent: "#374151",
-      //     neutral: "#f3f4f6",
-      //     "base-100": "#FFFFFF",
-      //     info: "#bae6fd",
-      //     success: "#15803d",
-      //     warning: "#FBBD23",
-      //     error: "#dc2626",
-      //   },
-      // },
     ],
   },
   plugins: [require("@tailwindcss/forms"), require("daisyui")],

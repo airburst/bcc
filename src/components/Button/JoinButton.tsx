@@ -44,7 +44,7 @@ export const JoinButton: React.FC<Props> = ({
       Leave
     </Button>
   ) : (
-    <Button {...props} variant="primary" loading={loading} onClick={handleJoin}>
+    <Button {...props} variant="error" loading={loading} onClick={handleJoin}>
       <i className="fa-solid fa-plus" />
       Join
     </Button>

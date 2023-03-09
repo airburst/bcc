@@ -47,19 +47,19 @@ export const RideInfo = ({ ride }: Props) => {
         {group && (
           <Row>
             <div>Group</div>
-            <div>{group}</div>
+            <div className="min-w-0">{group}</div>
           </Row>
         )}
         {meetPoint && (
           <Row>
             <div>Meet at</div>
-            <div>{meetPoint}</div>
+            <div className="min-w-0">{meetPoint}</div>
           </Row>
         )}
         {destination && (
           <Row>
             <div>Destination</div>
-            <div>{destination}</div>
+            <div className="min-w-0">{destination}</div>
           </Row>
         )}
         {distance && (

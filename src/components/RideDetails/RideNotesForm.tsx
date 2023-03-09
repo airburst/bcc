@@ -54,10 +54,15 @@ export const RideNotesForm = ({
       </div>
 
       <div className="grid w-full grid-cols-3 grid-rows-[48px] gap-4 md:gap-8">
-        <Button loading={waiting} disabled={!isDirty} type="submit">
+        <Button
+          variant="primary"
+          loading={waiting}
+          disabled={!isDirty}
+          type="submit"
+        >
           <div>Add</div>
         </Button>
-        <Button onClick={clearForm} type="submit">
+        <Button variant="accent" onClick={clearForm} type="submit">
           <div>Clear</div>
         </Button>
         <Button variant="cancel" disabled={waiting} onClick={closeHandler}>
