@@ -206,7 +206,7 @@ export const RideForm = ({
     </div>
 
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
-      <Button loading={waiting} type="submit">
+      <Button variant="primary" loading={waiting} type="submit">
         <div>Submit</div>
       </Button>
       <CancelButton />

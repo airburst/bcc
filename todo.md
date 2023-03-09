@@ -7,6 +7,7 @@
 ## DaisyUI
 
 - Add SVG icons
+- Add chevrons to Calendar buttons
 - Change menu dropdown
 - remove fontawesome
 - Set filters with context instead of atom?

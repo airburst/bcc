@@ -102,6 +102,7 @@ export const AnonymousUserForm = ({
 
     <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
       <Button
+        variant="primary"
         loading={waiting}
         type="submit"
         disabled={!isDirty && !defaultValues.id}

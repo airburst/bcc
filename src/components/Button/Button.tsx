@@ -18,8 +18,8 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = "primary",
       type = "button",
+      variant,
       text,
       children,
       loading,
@@ -29,6 +29,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    // TODO: write out full class names for DaisyUI
     const classes = clsx(
       "btn",
       variant && `btn-${variant}`,
@@ -36,32 +37,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled && `btn-${disabled}`,
       "gap-2"
     );
-
-    // switch (variant) {
-    //   case "primary":
-    //     classes += " bg-blue-500 hover:bg-blue-600";
-    //     break;
-    //   case "secondary":
-    //     classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
-    //     break;
-    //   case "going":
-    //     classes += " bg-green-700 hover:bg-green-800";
-    //     break;
-    //   case "join":
-    //     classes += " bg-red-700 hover:bg-red-800";
-    //     break;
-    //   case "red":
-    //     classes += " bg-red-700 hover:bg-red-800";
-    //     break;
-    //   case "cancel":
-    //     classes += " bg-neutral-200 text-neutral-900 hover:bg-neutral-300";
-    //     break;
-    //   case "custom":
-    //     break;
-    //   default: // primary
-    //     classes += " bg-blue-500 hover:bg-blue-600";
-    //     break;
-    // }
 
     return (
       <button
