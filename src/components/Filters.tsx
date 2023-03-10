@@ -7,8 +7,8 @@ import useOnClickOutside from "use-onclickoutside";
 import { useAtom } from "jotai";
 import { useLocalStorage } from "../hooks";
 import { filterQueryAtom } from "../store";
-
 import { Button } from "./Button";
+import { CloseIcon, ChevronDownIcon, TickIcon } from "./Icon";
 import { FilterQuery } from "../types";
 
 type Props = {
@@ -109,7 +109,7 @@ export const Filters = ({ isShowing, closeHandler, data }: Props) => {
             title="Close filters"
             className="flex items-center rounded p-1 text-3xl md:hover:bg-neutral-600"
           >
-            <i className="fa-solid fa-close" />
+            <CloseIcon className="fill-white w-6 h-6" />
           </button>
         </div>
 
@@ -125,7 +125,7 @@ export const Filters = ({ isShowing, closeHandler, data }: Props) => {
                   onChange={handleSearchChange}
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 text-gray-700">
-                  <i className="fa-solid fa-chevron-down" />
+                  <ChevronDownIcon className="fill-neutral-700" />
                 </Combobox.Button>
               </div>
               <Transition
@@ -165,7 +165,7 @@ export const Filters = ({ isShowing, closeHandler, data }: Props) => {
                                   active ? "text-white" : "text-teal-600"
                                 }`}
                               >
-                                <i className="fa-solid fa-check" />
+                                <TickIcon className="fill-white" />
                               </span>
                             ) : null}
                           </>

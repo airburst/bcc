@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button, BackButton, JoinButton } from "../Button";
-import { MessageIcon } from "../Icon";
+import { MessageIcon, PlusIcon } from "../Icon";
 import { Badge } from "../Badge";
 import { useLocalStorage } from "../../hooks";
 import { User, Ride, AnonymousUser } from "../../types";
@@ -99,7 +99,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
                   <Button error>
-                    <i className="fa-solid fa-plus" />
+                    <PlusIcon className="fill-white" />
                     Join
                   </Button>
                 </div>

@@ -10,7 +10,6 @@ export * from "./forms/UserProfileForm";
 export * from "./Header";
 export * from "./Icon";
 export * from "./LayoutEmbedded";
-export * from "./Loading";
 export * from "./MainContent";
 export * from "./NoMatch";
 export * from "./RideDetails";

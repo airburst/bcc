@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { BackButton } from "../components";
+import { BackButton, CircleQuestionIcon } from "../components";
 
 const NotFound = () => (
   <>
@@ -10,7 +10,7 @@ const NotFound = () => (
 
     <div className=" text-neutral-800">
       <div className="flex h-64 items-center justify-center text-8xl text-sky-500">
-        <i className="fa-solid fa-question-circle" />
+        <CircleQuestionIcon className="fill-teal-500 w-24 h-24" />
       </div>
       <div className="flex items-center p-4 text-center text-2xl text-neutral-700">
         Sorry - we can&apos;t find this page.
