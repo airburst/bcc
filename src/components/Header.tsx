@@ -6,6 +6,7 @@ import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
 import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
+import { FilterIcon, FilterSelectedIcon } from "./Icon";
 
 type ButtonProps = {
   onClick?: () => void;
@@ -70,9 +71,9 @@ export const Header = () => {
               className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
             >
               {hasFiltersApplied ? (
-                <i className="fa-solid fa-filter-circle-xmark" />
+                <FilterSelectedIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
               ) : (
-                <i className="fa-solid fa-filter" />
+                <FilterIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
               )}
             </button>
           )}

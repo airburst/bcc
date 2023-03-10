@@ -8,6 +8,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   ariaLabel?: string;
   children?: ReactNode;
   loading?: boolean;
+  link?: boolean;
   disabled?: boolean;
   primary?: boolean;
   secondary?: boolean;
@@ -18,9 +19,6 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   error?: boolean;
 }
 
-// TODO:
-// icon prop -> (create variants with SVGs)
-
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -28,6 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       text,
       children,
       loading,
+      link,
       disabled,
       ariaLabel,
       onClick,
@@ -41,7 +40,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    // TODO: write out full class names for DaisyUI
     const classes = clsx(
       "btn",
       { "btn-primary": primary },
@@ -51,6 +49,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       { "btn-success": success },
       { "btn-warning": warning },
       { "btn-error": error },
+      { "btn-link": link },
       { "btn-disabled": disabled },
       { loading },
       "gap-2"

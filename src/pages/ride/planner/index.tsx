@@ -3,7 +3,12 @@ import Head from "next/head";
 import Error from "next/error";
 import { useState } from "react";
 import { useRides } from "../../../hooks";
-import { Button, Calendar } from "../../../components";
+import {
+  Button,
+  Calendar,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "../../../components";
 import {
   getNow,
   getLastMonth,
@@ -37,11 +42,11 @@ const RideCalendar: NextPage = () => {
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full flex-row items-center justify-between bg-blue-900 p-2 font-bold uppercase tracking-wider text-white sm:rounded">
             <Button info onClick={goToLastMonth}>
-              <span>&lt;</span>
+              <ChevronLeftIcon className="fill-white" />
             </Button>
             <span>{formatCalendarDate(date)}</span>
             <Button info onClick={goToNextMonth}>
-              <span>&gt;</span>
+              <ChevronRightIcon className="fill-white" />
             </Button>
           </div>
         </div>

@@ -6,7 +6,11 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { addAnonymousUser, useLocalStorage } from "../../../hooks";
-import { AnonymousUserForm, AnonymousUserValues } from "../../../components";
+import {
+  AnonymousUserForm,
+  AnonymousUserValues,
+  CircleInfoIcon,
+} from "../../../components";
 import { flattenQuery } from "../../../../shared/utils";
 import { AnonymousUser } from "../../../types";
 
@@ -88,7 +92,7 @@ const JoinRidePage: NextPage = () => {
 
         <div className="m-2 flex flex-row items-center gap-2 rounded border-2 border-blue-200 bg-blue-100 p-2 text-neutral-700">
           <div className="px-2 text-3xl text-blue-500">
-            <i className="fa-solid fa-circle-info" />
+            <CircleInfoIcon className="fill-blue-500 w-8 h-8" />
           </div>
           <p>
             If you sign up to use this app you will only have to provide your

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { Button } from "./Button";
+import { ChevronLeftIcon } from "../Icon";
 
 type ButtonProps = {
   url?: string;
@@ -18,7 +19,7 @@ export const BackButton = ({ url, ...props }: ButtonProps) => {
 
   return (
     <Button primary {...props} onClick={goBack}>
-      <i className="fa-solid fa-chevron-left" />
+      <ChevronLeftIcon className="fill-white" />
       Back
     </Button>
   );

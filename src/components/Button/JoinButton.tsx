@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { join, leave } from "../../hooks";
 import { Button, ButtonProps } from "./Button";
+import { PlusIcon, CloseIcon } from "../Icon";
 
 type Props = ButtonProps & {
   userId?: string;
@@ -35,12 +36,12 @@ export const JoinButton: React.FC<Props> = ({
 
   return going ? (
     <Button {...props} success loading={loading} onClick={handleLeave}>
-      <i className="fa-solid fa-xmark" />
+      <CloseIcon className="fill-white" />
       Leave
     </Button>
   ) : (
     <Button {...props} error loading={loading} onClick={handleJoin}>
-      <i className="fa-solid fa-plus" />
+      <PlusIcon className="fill-white" />
       Join
     </Button>
   );

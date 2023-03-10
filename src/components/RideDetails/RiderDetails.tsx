@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import clsx from "clsx";
+import { PhoneIcon } from "../Icon";
 import { User } from "../../types";
 
 type Props = {
@@ -39,7 +40,7 @@ export const RiderDetails = ({ user, isLeader, sessionUser }: Props) => {
         <div className="grid grid-cols-[1fr_44px] gap-2">
           {!showEmergency && (
             <div className="flex items-center gap-2">
-              {mobile && <i className="fa-solid fa-phone" />}
+              {mobile && <PhoneIcon />}
               <a href={`tel:${mobile}`} className="text-right">
                 {mobile}
               </a>

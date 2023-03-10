@@ -10,6 +10,7 @@ import {
   Button,
   RideGroup,
   RideGroupSkeleton,
+  PlusIcon,
 } from "../../../components";
 import {
   groupRides,
@@ -66,15 +67,13 @@ const Rides: NextPage = () => {
       </Head>
 
       <div className="flex w-full flex-col gap-2 md:gap-4">
-        <div className="mt-2 flex h-10 flex-row justify-center gap-4">
+        <div className="my-2 flex h-10 flex-row justify-center gap-4">
           <BackButton />
           {isInFuture && (
             <Link href={`/ride/new?date=${date}`}>
-              <Button>
-                <div>
-                  <i className="fa-solid fa-plus" />
-                  <span>&nbsp;Add Ride</span>
-                </div>
+              <Button accent>
+                <PlusIcon className="fill-white" />
+                <span>&nbsp;Add Ride</span>
               </Button>
             </Link>
           )}
