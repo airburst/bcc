@@ -94,6 +94,7 @@ export const formatRideData = (
 export const formatInitials = (words: string): string => {
   const parts = words.split(" ");
   return parts
+    .slice(0, 3)
     .map((word) => word[0])
     .join("")
     .toUpperCase();

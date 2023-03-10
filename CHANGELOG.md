@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Removed fontawesome as a dependency script
 - Changed all icons for local SVG versions
+- Changed all badges for DaisyUI version
+- Improved layout of rides in large version of calendar
 
 ## [1.10.0] - 2023-03-09
 

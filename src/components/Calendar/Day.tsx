@@ -11,14 +11,14 @@ type Props = {
   classes?: string;
 };
 
-const getBadgeColour = (
+const getBadgeStyle = (
   past: boolean | undefined,
   hasUnreadyRides: boolean | undefined
 ): string => {
   if (past) {
-    return "bg-slate-500";
+    return "past";
   }
-  return hasUnreadyRides ? "bg-red-500" : "bg-teal-700";
+  return hasUnreadyRides ? "unready" : "ready";
 };
 
 // TODO: fix last-child borders
@@ -43,27 +43,26 @@ export const Day = ({ day, date, rides = [], classes, past }: Props) => {
         {rides && rides.length > 0 && (
           <RoundBadge
             text={rides.length}
-            size="lg"
-            color={getBadgeColour(past, hasUnreadyRides)}
+            style={getBadgeStyle(past, hasUnreadyRides)}
           />
         )}
       </div>
 
-      <div className="invisible grid grid-cols-2 gap-1 sm:visible lg:grid-cols-3 lg:gap-2">
+      <div className="invisible sm:visible flex flex-wrap gap-1">
         {rides &&
           rides.map((ride) => (
             <div key={ride.id} className="truncate">
               {isReady(ride) ? (
                 <Badge
                   text={formatRideBadge(ride)}
-                  size="xs"
-                  color={getBadgeColour(past, false)}
+                  style={getBadgeStyle(past, false)}
+                  small
                 />
               ) : (
                 <Badge
                   text={formatRideBadge(ride)}
-                  size="xs"
-                  color={getBadgeColour(past, true)}
+                  style={getBadgeStyle(past, true)}
+                  small
                 />
               )}
             </div>
