@@ -1,3 +1,4 @@
+import { Cancelled } from "../Cancelled";
 import { Ride, User } from "../../types";
 
 type RowProps = {
@@ -34,7 +35,7 @@ export const RideInfo = ({ ride }: Props) => {
     .map(({ name: riderName, rideNotes }) => ({ name: riderName, rideNotes }));
 
   return (
-    <div className="flex w-full flex-col gap-2 px-2 sm:px-0">
+    <div className="relative flex w-full flex-col gap-2 px-2 sm:px-0">
       <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
         <Row>
           <div className="text-xl font-bold tracking-wide text-neutral-700">
@@ -93,6 +94,8 @@ export const RideInfo = ({ ride }: Props) => {
           </Row>
         )}
       </div>
+
+      <Cancelled cancelled />
 
       {notes && (
         <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
