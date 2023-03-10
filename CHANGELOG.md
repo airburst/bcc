@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.0] - 2023-03-10
+
+### Added
+
+- Removed fontawesome as a dependency script
+- Changed all icons for local SVG versions
+
 ## [1.10.0] - 2023-03-09
 
 ### Added

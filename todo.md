@@ -6,7 +6,6 @@
 
 ## DaisyUI
 
-- remove fontawesome
 - Change menu dropdown
 - Stop jank when joining ride
 - Set filters with context instead of atom?
