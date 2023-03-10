@@ -8,6 +8,7 @@ export * from "./forms/AnonymousUserForm";
 export * from "./forms/RideForm";
 export * from "./forms/UserProfileForm";
 export * from "./Header";
+export * from "./Icon";
 export * from "./LayoutEmbedded";
 export * from "./Loading";
 export * from "./MainContent";

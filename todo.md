@@ -6,10 +6,11 @@
 
 ## DaisyUI
 
-- Add SVG icons
+- Add SVG icons: https://fontawesome.com/v6/docs/web/add-icons/svg-bare
 - Add chevrons to Calendar buttons
 - Change menu dropdown
 - remove fontawesome
+- Stop jank when joining ride
 - Set filters with context instead of atom?
 
 - Planner persists month in state (or route), so that back button doesn't jump to today

@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "../Button";
-import { BackButton } from "../Button/BackButton";
-import { JoinButton } from "../Button/JoinButton";
+import { Button, BackButton, JoinButton } from "../Button";
+import { MessageIcon } from "../Icon";
 import { Badge } from "../Badge";
 import { useLocalStorage } from "../../hooks";
 import { User, Ride, AnonymousUser } from "../../types";
@@ -83,7 +82,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
 
             {(isGoing || isGoingAnonymously) && (
               <Button accent onClick={openNotes}>
-                <i className="fa-solid fa-pen-to-square" />
+                <MessageIcon className="fill-white" />
                 Message
               </Button>
             )}

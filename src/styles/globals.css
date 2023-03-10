@@ -35,6 +35,12 @@ body {
   user-select: none;
 }
 
+/* SVG Icon overrides */
+svg {
+  @apply h-4;
+  @apply w-4;
+}
+
 /* DaisyUI overrides */
 .btn {
   @apply rounded;
