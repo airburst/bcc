@@ -7,6 +7,17 @@ import useOnClickOutside from "use-onclickoutside";
 import copy from "copy-to-clipboard";
 import { Confirm } from "./Confirm";
 import { deleteRide } from "../hooks";
+import {
+  BarsIcon,
+  CalendarIcon,
+  CopyIcon,
+  DeleteIcon,
+  EditIcon,
+  LinkIcon,
+  LogoutIcon,
+  PlusIcon,
+  SettingsIcon,
+} from "./Icon";
 import pkg from "../../package.json";
 
 type MenuProps = {
@@ -73,7 +84,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
           onClick={toggleMenu}
           onKeyDown={toggleMenu}
         >
-          <i className="fa-solid fa-bars" />
+          <BarsIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
         </button>
       </div>
 
@@ -86,7 +97,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                 className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                 onClick={closeMenu}
               >
-                <i className="fa-regular fa-calendar" />
+                <CalendarIcon className="fill-neutral-700" />
                 <span className="justify-self-start">Calendar</span>
               </button>
             </div>
@@ -100,7 +111,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={closeMenu}
                 >
-                  <i className="fa-solid fa-plus" />
+                  <PlusIcon className="fill-neutral-700" />
                   <span className="justify-self-start">Add Ride</span>
                 </button>
               </div>
@@ -115,7 +126,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={closeMenu}
                 >
-                  <i className="fa-solid fa-copy" />
+                  <CopyIcon className="fill-neutral-700" />
                   <span className="justify-self-start">Copy Ride</span>
                 </button>
               </div>
@@ -131,7 +142,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                     className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                     onClick={closeMenu}
                   >
-                    <i className="fa-solid fa-pen-to-square" />
+                    <EditIcon className="fill-neutral-700" />
                     <span className="justify-self-start">Edit Ride</span>
                   </button>
                 </div>
@@ -143,7 +154,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={confirmDelete}
                 >
-                  <i className="fa-solid fa-trash" />
+                  <DeleteIcon className="fill-neutral-700" />
                   <span className="justify-self-start">Delete Ride</span>
                 </button>
               </div>
@@ -154,7 +165,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={copyLink}
                 >
-                  <i className="fa-solid fa-link" />
+                  <LinkIcon className="fill-neutral-700" />
                   <span className="justify-self-start">Copy Ride Link</span>
                 </button>
               </div>
@@ -168,7 +179,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                 className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                 onClick={closeMenu}
               >
-                <i className="fa-solid fa-gear" />
+                <SettingsIcon className="fill-neutral-700" />
                 <span className="justify-self-start">Settings</span>
               </button>
             </div>
@@ -179,7 +190,7 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
             className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2 border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900 "
             onClick={handleSignout}
           >
-            <i className="fa-solid fa-right-from-bracket" />
+            <LogoutIcon className="fill-neutral-700" />
             <span className="justify-self-start">Log out</span>
           </button>
 

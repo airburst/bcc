@@ -6,10 +6,8 @@
 
 ## DaisyUI
 
-- Add SVG icons: https://fontawesome.com/v6/docs/web/add-icons/svg-bare
-- Add chevrons to Calendar buttons
-- Change menu dropdown
 - remove fontawesome
+- Change menu dropdown
 - Stop jank when joining ride
 - Set filters with context instead of atom?
 
