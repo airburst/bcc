@@ -2,8 +2,13 @@
 
 ## DaisyUI
 
-- Change menu dropdown
 - Cancelled badge
+
+  - add column to Ride table in schema
+  - add api cancel-ride method
+  - if cancelled, use flag to show badge and prevent join
+
+- Change menu dropdown
 
 ## Perf
 
