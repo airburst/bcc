@@ -1,25 +1,36 @@
+import clsx from "clsx";
+
 type Props = {
   text?: string | number;
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-  color?: string;
+  style?: string;
+  small?: boolean;
 };
 
-export const Badge = ({ text, size = "md", color = "bg-red-500" }: Props) => {
-  const classes = `flex justify-center truncate rounded ${color} px-2 text-${size} text-white`;
+export const Badge = ({ text, style = "unready", small }: Props) => {
+  const classes = clsx(
+    "badge text-white border-0",
+    { "bg-red-500": style === "unready" },
+    { "bg-teal-500": style === "ready" },
+    { "bg-slate-500": style === "past" },
+    { "badge-md": !small },
+    { "badge-sm": small }
+  );
 
   return <div className={classes}>{text}</div>;
 };
 
-export const RoundBadge = ({
-  text,
-  size = "md",
-  color = "bg-red-500",
-}: Props) => {
-  const classes = `flex justify-center truncate rounded-full ${color} px-3 py-1 text-${size} text-white`;
+export const RoundBadge = ({ text, style = "unready", small }: Props) => {
+  const classes = clsx(
+    "badge badge-lg text-white w-10 h-10",
+    { "bg-red-500": style === "unready" },
+    { "bg-teal-500": style === "ready" },
+    { "bg-slate-500": style === "past" },
+    { "badge-sm": small }
+  );
 
   return (
     <div className={classes}>
-      <span className="flex w-3 justify-center">{text}</span>
+      <span className="flex justify-center">{text}</span>
     </div>
   );
 };

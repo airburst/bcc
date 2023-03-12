@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { useLocalStorage } from "../hooks";
 import { Ride, User, AnonymousUser } from "../types";
 import { isReady } from "../../shared/utils";
+import { Cancelled } from "./Cancelled";
 import "react-loading-skeleton/dist/skeleton.css";
 
 type Props = {
@@ -46,7 +47,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   return (
     <div
       role="presentation"
-      className="md:mx-autotext-neutral-500 box-border flex w-full cursor-pointer gap-2 rounded bg-white shadow-md hover:text-neutral-700 hover:shadow-lg md:gap-2"
+      className="relative md:mx-autotext-neutral-500 box-border flex w-full cursor-pointer gap-2 rounded bg-white shadow-md hover:text-neutral-700 hover:shadow-lg md:gap-2"
       onMouseDown={() => setSwiping(false)}
       onMouseMove={() => setSwiping(true)}
       onMouseUp={(e) => {
@@ -92,6 +93,8 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
           <span className="text-xl font-bold">{riderCount}</span>
         </div>
       </div>
+
+      <Cancelled cancelled={ride.cancelled || false} position="bottom" />
     </div>
   );
 };

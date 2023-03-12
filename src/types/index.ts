@@ -41,6 +41,7 @@ export type Ride = {
   leader?: string | null;
   speed?: number | null;
   notes?: string | null;
+  cancelled?: boolean;
   users?: User[];
 };
 

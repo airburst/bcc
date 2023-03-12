@@ -40,7 +40,7 @@ export const RiderDetails = ({ user, isLeader, sessionUser }: Props) => {
         <div className="grid grid-cols-[1fr_44px] gap-2">
           {!showEmergency && (
             <div className="flex items-center gap-2">
-              {mobile && <PhoneIcon />}
+              {mobile && <PhoneIcon className="fill-neutral-500" />}
               <a href={`tel:${mobile}`} className="text-right">
                 {mobile}
               </a>

@@ -6,7 +6,7 @@ import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
 import copy from "copy-to-clipboard";
 import { Confirm } from "./Confirm";
-import { deleteRide } from "../hooks";
+import { deleteRide, cancelRide } from "../hooks";
 import {
   BarsIcon,
   CalendarIcon,
@@ -17,6 +17,7 @@ import {
   LogoutIcon,
   PlusIcon,
   SettingsIcon,
+  CircleExclamationIcon,
 } from "./Icon";
 import pkg from "../../package.json";
 
@@ -29,7 +30,8 @@ type MenuProps = {
 export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
   const ref = useRef(null);
   const [show, setShow] = useState<boolean>(false);
-  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [showConfirmCancel, setShowConfirmCancel] = useState<boolean>(false);
+  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
   const showEditAndDelete = isLeader && rideId && !isHistoric;
   const router = useRouter();
@@ -38,13 +40,15 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
   const toggleMenu = () => {
     setShow(!show);
     if (show) {
-      setShowConfirm(false);
+      setShowConfirmCancel(false);
+      setShowConfirmDelete(false);
     }
   };
 
   const closeMenu = () => {
     setShow(false);
-    setShowConfirm(false);
+    setShowConfirmCancel(false);
+    setShowConfirmDelete(false);
   };
 
   const copyLink = () => copy(window.location.href);
@@ -52,6 +56,23 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
   const handleSignout = () => {
     signOut({ callbackUrl: "http://localhost:3000" });
     closeMenu();
+  };
+
+  const handleCancel = async (cb: (flag: boolean) => void) => {
+    if (rideId) {
+      mutate("/api/ride", async () => {
+        const results = await cancelRide(rideId);
+        if (results.id) {
+          closeMenu();
+          router.back();
+          cb(true);
+        } else {
+          cb(false);
+        }
+      });
+    } else {
+      cb(false);
+    }
   };
 
   const handleDelete = async (cb: (flag: boolean) => void) => {
@@ -71,7 +92,8 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
     }
   };
 
-  const confirmDelete = () => setShowConfirm(true);
+  const confirmCancel = () => setShowConfirmCancel(true);
+  const confirmDelete = () => setShowConfirmDelete(true);
 
   useOnClickOutside(ref, closeMenu);
 
@@ -152,6 +174,17 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
                 <button
                   type="button"
                   className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
+                  onClick={confirmCancel}
+                >
+                  <CircleExclamationIcon className="fill-neutral-700" />
+                  <span className="justify-self-start">Cancel Ride</span>
+                </button>
+              </div>
+
+              <div className="cursor-pointer border-b-[1px] border-b-neutral-100 p-2 hover:bg-neutral-200 hover:text-neutral-900">
+                <button
+                  type="button"
+                  className="items-centert grid w-full grid-cols-[20px_1fr] items-center gap-2"
                   onClick={confirmDelete}
                 >
                   <DeleteIcon className="fill-neutral-700" />
@@ -210,7 +243,14 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
       )}
 
       <Confirm
-        open={showConfirm}
+        open={showConfirmCancel}
+        closeHandler={closeMenu}
+        heading="Are you sure you want to CANCEL this ride?  You cannot undo this action."
+        onYes={(callback) => handleCancel(callback)}
+      />
+
+      <Confirm
+        open={showConfirmDelete}
         closeHandler={closeMenu}
         heading="Are you sure you want to delete this ride?"
         onYes={(callback) => handleDelete(callback)}

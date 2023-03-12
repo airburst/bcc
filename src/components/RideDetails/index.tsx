@@ -30,7 +30,7 @@ type Props = {
 export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const [showNotesForm, setShowNotesForm] = useState<boolean>(false);
   const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
-  const { id, name, date, day, users } = ride;
+  const { id, name, date, day, cancelled, users } = ride;
 
   const hasRiders = users && users?.length > 0;
   const isGoingAnonymously = !!(
@@ -80,14 +80,14 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
           <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
             <BackButton url={`/#${id}`} />
 
-            {(isGoing || isGoingAnonymously) && (
+            {(isGoing || isGoingAnonymously) && !cancelled && (
               <Button accent onClick={openNotes}>
                 <MessageIcon className="fill-white" />
                 Message
               </Button>
             )}
 
-            {user && canJoin && (
+            {user && canJoin && !cancelled && (
               <JoinButton
                 going={isGoing}
                 ariaLabel={`Join ${name} ride`}
@@ -95,7 +95,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
                 userId={user?.id}
               />
             )}
-            {!user && !isGoingAnonymously && canJoin && (
+            {!user && !isGoingAnonymously && canJoin && !cancelled && (
               <Link href={`/ride/${id}/join`}>
                 <div className="flex h-10">
                   <Button error>
