@@ -1,17 +1,16 @@
 # TODO
 
-## DaisyUI
+- if cancelled, do not show cancel menu entry
+- refactor menu
+- Change menu dropdown to DaisyUI
 
-- Cancelled badge
+## Notes Editor
 
-  - add column to Ride table in schema
-  - add api cancel-ride method
-  - if cancelled, use flag to show badge and prevent join
-
-- Change menu dropdown
+- Add Markdown editor TBC
 
 ## Perf
 
+- Archive old rides and empty rides
 - Dynamic imports to reduce bundle size
 - Fonts
 - Stop jank when joining ride

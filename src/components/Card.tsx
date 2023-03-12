@@ -14,8 +14,6 @@ type Props = {
   user?: User;
 };
 
-const cancelled = true; // FIXMEL:
-
 export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
@@ -96,7 +94,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
         </div>
       </div>
 
-      <Cancelled cancelled={cancelled} position="bottom" />
+      <Cancelled cancelled={ride.cancelled || false} position="bottom" />
     </div>
   );
 };

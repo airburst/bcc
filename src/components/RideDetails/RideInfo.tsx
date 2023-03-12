@@ -28,6 +28,7 @@ export const RideInfo = ({ ride }: Props) => {
     route,
     speed,
     notes,
+    cancelled,
     users,
   } = ride;
 
@@ -36,8 +37,8 @@ export const RideInfo = ({ ride }: Props) => {
     .map(({ name: riderName, rideNotes }) => ({ name: riderName, rideNotes }));
 
   return (
-    <div className="relative flex w-full flex-col gap-2 px-2 sm:px-0">
-      <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
+    <div className="flex w-full flex-col gap-2 px-2 sm:px-0">
+      <div className="relative flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">
         <Row>
           <div className="text-xl font-bold tracking-wide text-neutral-700">
             {time}
@@ -94,9 +95,8 @@ export const RideInfo = ({ ride }: Props) => {
             </a>
           </Row>
         )}
+        <Cancelled cancelled={cancelled || false} position="bottom" />
       </div>
-
-      <Cancelled cancelled />
 
       {notes && (
         <div className="flex w-full flex-col gap-2 rounded bg-white py-2 shadow-md">

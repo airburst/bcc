@@ -8,14 +8,15 @@ type Props = {
 
 export const Cancelled = ({ cancelled, position = "top" }: Props) => {
   const classes = clsx(
-    "absolute",
+    "absolute w-full opacity-90 text-xl",
     { "bottom-0": position === "bottom" },
-    "m-1 badge badge-error rounded gap-2 uppercase py-4"
+    "badge badge-error rounded gap-4 uppercase py-4"
   );
   return cancelled ? (
     <div className={classes}>
       <CircleExclamationIcon className="fill-white" />
-      Cancelled
+      This ride is Cancelled
+      <CircleExclamationIcon className="fill-white" />
     </div>
   ) : null;
 };
