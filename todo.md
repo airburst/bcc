@@ -1,8 +1,7 @@
 # TODO
 
+- Investigate using signal-based state (for ride cancelled in menu)
 - if cancelled, do not show cancel menu entry
-- refactor menu
-- Change menu dropdown to DaisyUI
 
 ## Notes Editor
 
