@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { CircleExclamationIcon } from "./Icon";
 
 type Props = {
   cancelled: boolean;
@@ -8,15 +7,15 @@ type Props = {
 
 export const Cancelled = ({ cancelled, position = "top" }: Props) => {
   const classes = clsx(
-    "absolute w-full opacity-90 text-xl",
+    "absolute w-[calc(100%_-_8px)] m-1 text-lg",
     { "bottom-0": position === "bottom" },
-    "badge badge-error rounded gap-4 uppercase py-4"
+    "badge badge-error rounded gap-8 uppercase py-4"
   );
   return cancelled ? (
     <div className={classes}>
-      <CircleExclamationIcon className="fill-white" />
+      <span>⚠️</span>
       This ride is Cancelled
-      <CircleExclamationIcon className="fill-white" />
+      <span>⚠️</span>
     </div>
   ) : null;
 };
