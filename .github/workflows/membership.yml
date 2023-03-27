@@ -1,0 +1,13 @@
+name: RiderHQ Membership
+on:
+  workflow_dispatch:
+
+jobs:
+  membership:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest RiderHQ membership info
+        run: |
+          curl --request POST \
+          --url "https://bcc-psi.vercel.app/api/riderhq" \
+          --header "Authorization: Bearer ${{ secrets.API_KEY }}"

@@ -8,8 +8,6 @@ type Props = {
   userId: string;
 };
 
-// TODO: Check whether rider is already on a ride on the same day
-// Prevent joining more than one
 export const addRiderToRide = async ({ rideId, userId }: Props) => {
   const result = await prisma.usersOnRides.create({ data: { rideId, userId } });
 

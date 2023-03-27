@@ -33,7 +33,8 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      // TODO:
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   };
   return [storedValue, setValue] as const;
