@@ -43,7 +43,7 @@ const fetchAllMembers = async (
 };
 
 /**
- * This API is designed to be hit by a manual workflow in GitHub.
+ * This API is designed to be hit by a manual workflow in GitHub
  */
 export default async function handler(
   req: NextApiRequest,
@@ -56,11 +56,11 @@ export default async function handler(
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         const members: Member[] = await fetchAllMembers();
 
-        // TODO: Write data to table (having truncated first)
+        // TODO: Write members data to table (having truncated first)
 
+        // Do not return members
         res.status(200).json({
           success: true,
-          members,
           count: members.length,
         });
       } else {
