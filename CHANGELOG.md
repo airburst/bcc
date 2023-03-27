@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.13.3] - 2023-03-22
+
+### Changed
+
+- Changed "Mystery Ride" to "Long Americano" in Sunday Ride configuration.
+
 ## [1.13.2] - 2023-03-17
 
 ### Changed
