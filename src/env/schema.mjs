@@ -13,6 +13,9 @@ export const serverSchema = z.object({
   AUTH0_CLIENT_ID: z.string(),
   AUTH0_CLIENT_SECRET: z.string(),
   AUTH0_ISSUER: z.string(),
+  RIDERHQ_URL: z.string(),
+  RIDERHQ_ACCOUNT_ID: z.string(),
+  RIDERHQ_PRIVATE_KEY: z.string(),
 });
 
 /**
