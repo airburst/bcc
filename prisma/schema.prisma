@@ -105,6 +105,22 @@ model UsersOnRides {
   @@index([rideId])
 }
 
+// Necessary for Next auth
+model Membership {
+  memberId   String   @id
+  userId     String
+  handle     String
+  isUser     Boolean
+  firstnames String
+  lastname   String
+  email      String
+  expires    String?
+  isVerified Boolean?
+  isGuest    Boolean?
+
+  @@index([email])
+}
+
 enum Role {
   USER
   LEADER

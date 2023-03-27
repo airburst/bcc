@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.14.0] - 2023-03-27
+
+### Added
+
+- Added `riderhq` api route, to fetch and sanitise a list of club members.
+- Write members to a new database table (Membership)
+- TODO: Add queries to compare user with our official membership
+
 ## [1.13.3] - 2023-03-22
 
 ### Changed

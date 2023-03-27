@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../../env/server.mjs";
 import { Member, MemberData, convertMembers } from "./convertMembers";
+import { loadMembers } from "./loadMembers";
 
 const { RIDERHQ_URL, RIDERHQ_ACCOUNT_ID, RIDERHQ_PRIVATE_KEY } = env;
 const Authorization = `Basic ${Buffer.from(
@@ -56,7 +57,10 @@ export default async function handler(
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         const members: Member[] = await fetchAllMembers();
 
-        // TODO: Write members data to table (having truncated first)
+        // Write members data to table (having truncated first)
+        if (members.length > 0) {
+          await loadMembers(members);
+        }
 
         // Do not return members
         res.status(200).json({
