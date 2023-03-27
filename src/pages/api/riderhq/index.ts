@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../../env/server.mjs";
-import { Member, MemberData, transformMember } from "./transformMember";
+import { Member, MemberData, convertMembers } from "./convertMembers";
 
 const { RIDERHQ_URL, RIDERHQ_ACCOUNT_ID, RIDERHQ_PRIVATE_KEY } = env;
 const Authorization = `Basic ${Buffer.from(
@@ -33,8 +33,8 @@ const fetchAllMembers = async (
 ): Promise<Member[]> => {
   const results: MembersResponse = await fetchMembers(startAfter);
   // Add to collection
-  const allMembers = [...(members || []), ...results.data.map(transformMember)];
-  // Paginate
+  const allMembers = [...(members || []), ...convertMembers(results.data)];
+  // Paginate recursively
   if (results.has_more_bool) {
     const lastMemberId = results.data[results.data.length - 1]?.id;
     return fetchAllMembers(allMembers, lastMemberId);
@@ -54,13 +54,14 @@ export default async function handler(
       const { authorization } = req.headers;
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
-        // eslint-disable-next-line camelcase
         const members: Member[] = await fetchAllMembers();
 
-        // More rides to follow
+        // TODO: Write data to table (having truncated first)
+
         res.status(200).json({
           success: true,
           members,
+          count: members.length,
         });
       } else {
         res.status(401).json({ success: false });

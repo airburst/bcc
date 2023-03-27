@@ -10,6 +10,9 @@
 ## Perf
 
 - Archive old rides and empty rides
+- Reconcile with members
+- Turn off anonymous access and accounts TBD
+
 - Dynamic imports to reduce bundle size
 - Fonts
 - Stop jank when joining ride

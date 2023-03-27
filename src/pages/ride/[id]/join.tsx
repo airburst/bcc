@@ -14,8 +14,6 @@ import {
 import { flattenQuery } from "../../../../shared/utils";
 import { AnonymousUser } from "../../../types";
 
-// TODO: redirect if user in session
-
 const JoinRidePage: NextPage = () => {
   const { mutate } = useSWRConfig();
   const router = useRouter();
