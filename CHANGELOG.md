@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added `riderhq` api route, to fetch and sanitise a list of club members.
 - Write members to a new database table (Membership)
-- TODO: Add queries to compare user with our official membership
 
 ## [1.13.3] - 2023-03-22
 
