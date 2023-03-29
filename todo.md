@@ -1,23 +1,26 @@
 # TODO
 
+## State
+
 - Investigate using signal-based state (for ride cancelled in menu)
 - if cancelled, do not show cancel menu entry
-
-## Notes Editor
-
-- Add Markdown editor TBC
 
 ## Perf
 
 - Archive old rides and empty rides
 - Reconcile with members
 - Turn off anonymous access and accounts TBD
+- database.js - activate .env and change all queries
 
 - Dynamic imports to reduce bundle size
 - Fonts
 - Stop jank when joining ride
 
-## Next 13
+## Notes Editor
+
+- Add Markdown editor TBC
+
+## Next 13 App Router and RSC
 
 - Upgrade to use hook
 - Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
