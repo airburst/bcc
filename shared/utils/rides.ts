@@ -1,7 +1,7 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
 import { DEFAULT_PREFERENCES } from "../../src/constants";
 import { Preferences, Ride as RideType } from "../../src/types";
-import { getRideDateAndTime } from "./dates";
+import { getRideDateAndTime, getDateFromString } from "./dates";
 import { getPreferences } from "./preferences";
 
 const ANONYMISED_NAME = "Log in to see rider's details";
@@ -88,6 +88,33 @@ export const formatRideData = (
     users: users.map(({ user: u, notes }) => ({
       ...formatUser(u, notes, isAuth),
     })),
+  };
+};
+
+type RideTypeV2 = Ride & {
+  date: string;
+  count: string;
+  includesMe: string;
+};
+export const formatRideDataV2 = (
+  ride: RideTypeV2,
+  preferences: Preferences | undefined
+) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { date, createdAt, distance, speed, count, includesMe, ...rest } = ride;
+  const d = getDateFromString(date);
+  const { day, time } = getRideDateAndTime(d);
+  const units = preferences?.units;
+
+  return {
+    ...rest,
+    date: d,
+    day,
+    time,
+    distance: convertDistance(distance, units),
+    speed: convertDistance(speed, units),
+    count: +count,
+    includesMe: includesMe === "1",
   };
 };
 
