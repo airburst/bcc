@@ -45,6 +45,25 @@ export type Ride = {
   users?: User[];
 };
 
+export type RideV2 = {
+  id?: string;
+  name: string; // Enum sunday | paceline | event
+  date: string;
+  day: string;
+  time: string;
+  destination?: string | null;
+  group?: string | null;
+  distance?: number | null;
+  meetPoint?: string | null;
+  route?: string | null;
+  leader?: string | null;
+  speed?: number | null;
+  notes?: string | null;
+  cancelled?: boolean;
+  count: number;
+  includesMe: boolean;
+};
+
 export type PartialRide = Omit<Ride, "day" | "date" | "time"> & {
   time?: string;
 };

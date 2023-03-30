@@ -11,6 +11,7 @@
 - Reconcile with members
 - Turn off anonymous access and accounts TBD
 - database.js - activate .env and change all queries
+- Type safe queries: https://github.com/kysely-org/kysely
 
 - Dynamic imports to reduce bundle size
 - Fonts
