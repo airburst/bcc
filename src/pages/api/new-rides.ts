@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // src/pages/api/new-rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Ride } from "@prisma/client";
@@ -21,12 +20,17 @@ type QueryType = {
 export const getRides = async (
   query: QueryType,
   preferences: Preferences | undefined,
-  userId: string
+  userId?: string
 ) => {
   const { start, end } = getQueryDateRange(query);
-  const params = { start, end, userId };
+  const params = { start, end, userId: userId || "" };
   const sql = `SELECT
-    r.*,
+    r.id,
+    r.name,
+    r.group,
+    r.distance,
+    r.destination,
+    r.date,
     COALESCE(ur.cnt,0) as count,
     COALESCE(ur.me,false) as includesMe
   from Ride r
@@ -53,7 +57,6 @@ export const getRides = async (
       formatRideDataV2(<RideType>row, preferences)
     );
   } catch (error) {
-    console.error("getRides FAIL", error);
     return new Error("Unable to fetch rides");
   }
 };
@@ -63,14 +66,14 @@ const rides = async (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = req;
   const rideData = await getRides(
     query,
-    preferences,
-    "cla4gyokx0000ju08ldmve5lv"
+    preferences
+    // "cla4gyokx0000ju08ldmve5lv" // FIXME:
   );
   return res.status(200).json(rideData);
 };
 
 export default rides;
 
-// export const config = {
-//   runtime: "experimental-edge",
-// };
+export const config = {
+  runtime: "experimental-edge",
+};

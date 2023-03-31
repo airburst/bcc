@@ -2,14 +2,13 @@ import { useRef, useEffect } from "react";
 import autoAnimate from "@formkit/auto-animate";
 import { Card, CardSkeleton } from "./Card";
 import { ungroupRides } from "../../shared/utils";
-import { Group, User } from "../types";
+import { Group } from "../types";
 
 type Props = {
   group: Group;
-  user?: User;
 };
 
-export const RideGroup = ({ group, user }: Props) => {
+export const RideGroup = ({ group }: Props) => {
   const rideData = ungroupRides(group);
   const rideDate = rideData.map(({ date }) => date)[0];
   const types = rideData.map(({ rides }) => ({ rides }));
@@ -35,7 +34,7 @@ export const RideGroup = ({ group, user }: Props) => {
             key={ride.id}
             className="w-full scroll-mt-16 px-2 md:scroll-mt-24 md:px-0"
           >
-            <Card ride={ride} user={user} />
+            <Card ride={ride} />
           </div>
         ))
       )}
