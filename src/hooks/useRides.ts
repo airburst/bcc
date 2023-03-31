@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
 const fetchRides = async (start?: string, end?: string) => {
-  let url = `/api/new-rides?`;
+  let url = `/api/rides?`;
   if (start) {
     url += `start=${start}`;
   }

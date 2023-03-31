@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.14.3] - 2023-03-31
+
+### Changed
+
+- Using optimised query for rides (main landing) page
+- Added `getUser` auth helper to api
+- Updated type for Ride
+- Added borders and truncation to rider messages section
+
 ## [1.14.2] - 2023-03-30
 
 ### Changed

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import { formatDate } from "./dates";
-import { Ride, RideV2, Group, FilterQuery } from "../../src/types";
+import { RideV2, Group, FilterQuery } from "../../src/types";
 
 const filterOnlyJoined = (rides: RideV2[]) =>
   rides.filter(({ includesMe }) => includesMe);
@@ -82,5 +82,5 @@ export const ungroupRides = (group: Group) =>
     Object.entries(types).map(([type, rides]) => ({ date, type, rides }))
   );
 
-export const mapRidesToDate = (rides: Ride[], date: string): Ride[] =>
+export const mapRidesToDate = (rides: RideV2[], date: string): RideV2[] =>
   rides.filter((r) => r?.date?.startsWith(date));

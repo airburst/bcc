@@ -2,19 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { DEFAULT_PREFERENCES } from "../../../constants";
 
-// Session object returns the following shape:
-/**
-  {
-    {
-      name: 'mark.fairhurst',
-      email: 'mark.fairhurst@outlook.com',
-      id: 'cl8umxaaf0000tlvhyztr8ste'
-    },
-    expires: '2022-11-09T18:08:19.709Z',
-    role: "USER" | "LEADER" | "ADMIN"
-  }
- *
- */
 export const isLoggedIn = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
 
@@ -29,6 +16,12 @@ export const isMe =
 
     return !!session && user?.id === userId;
   };
+
+export const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = await getServerAuthSession({ req, res });
+
+  return session?.user;
+};
 
 // An admin can also manage leader roles
 export const isLeader = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -45,6 +38,7 @@ export const isAdmin = async (req: NextApiRequest, res: NextApiResponse) => {
   return !!session && role === "ADMIN";
 };
 
+// TODO: Deprecate and remove
 export const getUserPreferences = async (
   req: NextApiRequest,
   res: NextApiResponse
