@@ -127,3 +127,34 @@ enum Role {
   ADMIN
   ANONYMOUS
 }
+
+// Archive Tables for rides and user joins
+model ArchivedRide {
+  id          String   @id @default(cuid())
+  name        String
+  group       String?
+  date        DateTime
+  destination String?
+  distance    Int?
+  meetPoint   String?
+  route       String?
+  leader      String?
+  notes       String?  @db.Text
+  speed       Int?
+  deleted     Boolean  @default(false)
+  cancelled   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([date, deleted])
+}
+
+model ArchivedUsersOnRides {
+  rideId    String
+  userId    String
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@id([rideId, userId])
+  @@index([userId])
+  @@index([rideId])
+}

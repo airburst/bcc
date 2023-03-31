@@ -5,6 +5,7 @@ import { conn } from "../../server/db/planetscale";
 import { formatRideDataV2, getQueryDateRange } from "../../../shared/utils";
 import { getUser } from "./auth/authHelpers";
 import { Preferences } from "../../types";
+import { DEFAULT_PREFERENCES } from "../../constants";
 
 type RideType = Ride & {
   date: string;
@@ -54,7 +55,7 @@ export const getRides = async (
     const rideData = await conn.execute(sql, params);
 
     return rideData.rows.map((row) =>
-      formatRideDataV2(<RideType>row, preferences)
+      formatRideDataV2(<RideType>row, preferences || DEFAULT_PREFERENCES)
     );
   } catch (error) {
     return new Error("Unable to fetch rides");
