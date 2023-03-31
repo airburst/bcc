@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useRides } from "../../../hooks";
@@ -18,10 +17,8 @@ import {
   flattenQuery,
   getNow,
 } from "../../../../shared/utils";
-import { User } from "../../../types";
 
 const Rides: NextPage = () => {
-  const { data: session } = useSession();
   const router = useRouter();
   const {
     query: { date },
@@ -55,7 +52,6 @@ const Rides: NextPage = () => {
   }
 
   // Get user id from session
-  const user = session?.user as User;
   const groupedRides = groupRides(data);
   const ridesFound = groupedRides.length > 0;
 
@@ -82,11 +78,7 @@ const Rides: NextPage = () => {
         {ridesFound ? (
           <>
             {groupedRides.map((group) => (
-              <RideGroup
-                key={Object.keys(group)[0]}
-                group={group}
-                user={user}
-              />
+              <RideGroup key={Object.keys(group)[0]} group={group} />
             ))}
           </>
         ) : (

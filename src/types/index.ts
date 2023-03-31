@@ -75,7 +75,7 @@ export type Riders = {
 
 export type Group = {
   [date: string]: {
-    [name: string]: Ride[];
+    [name: string]: RideV2[];
   };
 };
 

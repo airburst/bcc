@@ -1,23 +1,13 @@
 /* eslint-disable no-restricted-syntax */
 import { formatDate } from "./dates";
-import { User, Ride, Group, FilterQuery } from "../../src/types";
+import { RideV2, Group, FilterQuery } from "../../src/types";
 
-const isGoing = (userId: string, users: User[] = []) =>
-  users.map((u: User) => u.id).includes(userId);
-
-const filterOnlyJoined = (rides: Ride[], userId: string) =>
-  rides.filter((ride) => isGoing(userId, ride.users));
-
-// const hasRider = (name: string, users: User[] = []) => {
-//   if (users.length === 0) {
-//     return false;
-//   }
-//   return users.map((u: User) => u.name).includes(name);
-// };
+const filterOnlyJoined = (rides: RideV2[]) =>
+  rides.filter(({ includesMe }) => includesMe);
 
 // NOTE: If you change the filters here, also change the Set
 // that holds them in rides.makeFilterData
-const filterSearchText = (rides: Ride[], searchText: string) =>
+const filterSearchText = (rides: RideV2[], searchText: string) =>
   rides.filter((ride) => {
     const { name, group, destination } = ride;
 
@@ -28,21 +18,17 @@ const filterSearchText = (rides: Ride[], searchText: string) =>
     );
   });
 
-const filterRides = (
-  data: Ride[],
-  filterQuery: FilterQuery,
-  user?: User
-): Ride[] => {
+const filterRides = (data: RideV2[], filterQuery: FilterQuery): RideV2[] => {
   const { onlyJoined, q } = filterQuery;
 
   if (!q && !onlyJoined) {
     return data;
   }
 
-  let filteredData: Ride[] = data;
+  let filteredData: RideV2[] = data;
 
-  if (onlyJoined && user?.id) {
-    filteredData = filterOnlyJoined(data, user.id);
+  if (onlyJoined) {
+    filteredData = filterOnlyJoined(data);
   }
   if (q) {
     filteredData = filterSearchText(filteredData, q);
@@ -51,9 +37,9 @@ const filterRides = (
   return filteredData;
 };
 
-const groupByType = (data: Ride[]) => {
+const groupByType = (data: RideV2[]) => {
   // Group rides by date, then type
-  const groupedByName = new Map<string, Ride[]>();
+  const groupedByName = new Map<string, RideV2[]>();
 
   for (const ride of data) {
     const d = ride.name;
@@ -66,17 +52,14 @@ const groupByType = (data: Ride[]) => {
 };
 
 export const groupRides = (
-  data: Ride[],
-  filterQuery?: FilterQuery,
-  user?: User
+  data: RideV2[],
+  filterQuery?: FilterQuery
 ): Group[] => {
   // Group rides by date
-  const groupedByDate = new Map<string, Ride[]>();
+  const groupedByDate = new Map<string, RideV2[]>();
 
   // Filter ride list
-  const filteredRides = filterQuery
-    ? filterRides(data, filterQuery, user)
-    : data;
+  const filteredRides = filterQuery ? filterRides(data, filterQuery) : data;
 
   for (const ride of filteredRides) {
     const d = formatDate(ride.date);
@@ -99,5 +82,5 @@ export const ungroupRides = (group: Group) =>
     Object.entries(types).map(([type, rides]) => ({ date, type, rides }))
   );
 
-export const mapRidesToDate = (rides: Ride[], date: string): Ride[] =>
+export const mapRidesToDate = (rides: RideV2[], date: string): RideV2[] =>
   rides.filter((r) => r?.date?.startsWith(date));

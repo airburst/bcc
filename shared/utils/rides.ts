@@ -4,7 +4,7 @@ import { Preferences, Ride as RideType } from "../../src/types";
 import { getRideDateAndTime, getDateFromString } from "./dates";
 import { getPreferences } from "./preferences";
 
-const ANONYMISED_NAME = "Log in to see rider's details";
+const ANONYMISED_NAME = "👤";
 
 type RideData = Ride & {
   users: (UsersOnRides & {

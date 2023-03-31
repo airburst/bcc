@@ -7,10 +7,12 @@
 
 ## Perf
 
+- database.js - activate .env and change all queries
+- Rename RideV2 type -> Ride
+
 - Archive old rides and empty rides
 - Reconcile with members
 - Turn off anonymous access and accounts TBD
-- database.js - activate .env and change all queries
 - Type safe queries: https://github.com/kysely-org/kysely
 
 - Dynamic imports to reduce bundle size
