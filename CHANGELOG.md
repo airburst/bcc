@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.14.4] - 2023-03-31
+
+### Changed
+
+- Create schema for archived rides tables
+- Add queries to archive rides before date and with no riders
+
+### Fixed
+
+- Set default preferences (kms) for anonymouse users on rides page
+
 ## [1.14.3] - 2023-03-31
 
 ### Changed
