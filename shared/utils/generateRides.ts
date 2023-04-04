@@ -7,7 +7,8 @@ import {
   WEDNESDAY_HILLS,
   FRIDAY_RIDES,
   PACELINE,
-  SATURDAY_SOCIAL,
+  SATURDAY_SOCIAL_LONG,
+  SATURDAY_SOCIAL_SHORT,
   SUNDAY,
 } from "../../src/constants";
 import { PartialRide, SeasonStartTime } from "../../src/types";
@@ -33,7 +34,8 @@ const findRidesForDay = (date: string): PartialRideWithDate[] => {
     WEDNESDAY_HILLS,
     FRIDAY_RIDES,
     PACELINE,
-    SATURDAY_SOCIAL,
+    SATURDAY_SOCIAL_LONG,
+    SATURDAY_SOCIAL_SHORT,
     SUNDAY,
   ]
     .filter(({ day: rideDay }) => day === rideDay)
