@@ -11,10 +11,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Example {
-  id String @id @default(cuid())
-}
-
 // Necessary for Next auth
 model Account {
   id                String   @id @default(cuid())
@@ -69,6 +65,7 @@ model User {
   preferences   Json?
   createdAt     DateTime       @default(now())
 
+  @@index(id)
   @@index(email)
 }
 
