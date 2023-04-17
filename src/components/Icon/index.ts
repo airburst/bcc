@@ -14,6 +14,7 @@ export * from "./EditIcon";
 export * from "./FilterIcon";
 export * from "./FilterSelectedIcon";
 export * from "./LinkIcon";
+export * from "./LoginIcon";
 export * from "./LogoutIcon";
 export * from "./MessageIcon";
 export * from "./PhoneIcon";
