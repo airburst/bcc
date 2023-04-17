@@ -1,10 +1,11 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { authOptions } from "@/api/auth/[...nextauth]";
 import { addAnonymousUser, useLocalStorage } from "../../../hooks";
 import {
   AnonymousUserForm,
@@ -14,12 +15,13 @@ import {
 import { flattenQuery } from "../../../../shared/utils";
 import { AnonymousUser } from "../../../types";
 
-const JoinRidePage: NextPage = () => {
+type Props = {
+  rideId: string | string[] | undefined;
+};
+
+const JoinRidePage: NextPage<Props> = ({ rideId }: Props) => {
   const { mutate } = useSWRConfig();
   const router = useRouter();
-  const {
-    query: { id: rideId },
-  } = router;
   const [rider, setRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const [waiting, setWaiting] = useState(false);
 
@@ -106,7 +108,7 @@ const JoinRidePage: NextPage = () => {
 export default JoinRidePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
   const { id } = context.query;
 
   // Redirect user back to ride if they are aleready logged in
@@ -120,6 +122,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {},
+    props: {
+      rideId: id,
+    },
   };
 };

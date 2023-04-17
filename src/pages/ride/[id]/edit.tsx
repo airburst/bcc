@@ -1,23 +1,27 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession, getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { authOptions } from "@/api/auth/[...nextauth]";
 import { getRide } from "../../api/ride";
 import { updateRide } from "../../../hooks";
-import { makeUtcDate, getFormRideDateAndTime } from "../../../../shared/utils";
+import {
+  makeUtcDate,
+  getFormRideDateAndTime,
+  serialiseUser,
+} from "../../../../shared/utils";
 import { RideForm, FormValues } from "../../../components";
-import { Preferences } from "../../../types";
+import { Preferences, User } from "../../../types";
 
 type Props = {
   data: FormValues;
+  user: User;
 };
 
-const EditRide: NextPage<Props> = ({ data }: Props) => {
-  const { data: session } = useSession();
-  const user = session?.user;
+const EditRide: NextPage<Props> = ({ data, user }: Props) => {
   const preferences = user?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
@@ -102,8 +106,11 @@ const EditRide: NextPage<Props> = ({ data }: Props) => {
 export default EditRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const role = session && (session.user?.role as string);
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore session user complains
+  const user = serialiseUser(session?.user);
+  const role = user?.role;
   const preferences =
     (session && (session.user?.preferences as Preferences)) || undefined;
   const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
@@ -123,6 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       data,
+      user,
     },
   };
 };

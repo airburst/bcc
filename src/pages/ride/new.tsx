@@ -1,22 +1,26 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { useSession, getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { authOptions } from "@/api/auth/[...nextauth]";
+import { RideForm, FormValues } from "../../components";
 import { addRide } from "../../hooks";
 import {
   formatUserName,
   makeUtcDate,
   flattenQuery,
+  serialiseUser,
 } from "../../../shared/utils";
-import { RideForm, FormValues } from "../../components";
-import { Preferences } from "../../types";
+import { Preferences, User } from "../../types";
 
-const AddRide: NextPage = () => {
-  const { data: session } = useSession();
-  const user = session?.user;
+type Props = {
+  user: User;
+};
+
+const AddRide: NextPage<Props> = ({ user }: Props) => {
   const preferences = user?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
@@ -112,8 +116,11 @@ const AddRide: NextPage = () => {
 export default AddRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const role = session && (session.user?.role as string);
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore session user complains
+  const user = serialiseUser(session?.user);
+  const role = user?.role;
   const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
 
   if (!isAuthorised) {
@@ -126,6 +133,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {},
+    props: {
+      user,
+    },
   };
 };
