@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { signOut } from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 import { useState, useRef } from "react";
 import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
@@ -14,6 +14,7 @@ import {
   EditIcon,
   LinkIcon,
   LogoutIcon,
+  LoginIcon,
   PlusIcon,
   SettingsIcon,
   CircleExclamationIcon,
@@ -25,9 +26,15 @@ type MenuProps = {
   role: string | null;
   rideId?: string | string[];
   isHistoric: boolean;
+  isAuthenticated: boolean;
 };
 
-export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
+export const UserMenu = ({
+  role,
+  rideId,
+  isHistoric,
+  isAuthenticated,
+}: MenuProps) => {
   const ref = useRef(null);
   const [show, setShow] = useState<boolean>(false);
   const [showConfirmCancel, setShowConfirmCancel] = useState<boolean>(false);
@@ -55,6 +62,11 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
 
   const handleSignout = () => {
     signOut({ callbackUrl: "http://localhost:3000" });
+    closeMenu();
+  };
+
+  const handleSignin = () => {
+    signIn("auth0");
     closeMenu();
   };
 
@@ -111,6 +123,12 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
 
       {show && (
         <div className="absolute right-0 top-12 grid w-48 grid-cols-1 rounded bg-white text-neutral-700 shadow-xl">
+          {!isAuthenticated && (
+            <MenuEntry label="Log in" onClick={handleSignin}>
+              <LoginIcon className="fill-neutral-700" />
+            </MenuEntry>
+          )}
+
           <MenuEntry label="Calendar" href="/ride/planner" onClick={closeMenu}>
             <CalendarIcon className="fill-neutral-700" />
           </MenuEntry>
@@ -152,12 +170,16 @@ export const UserMenu = ({ role, rideId, isHistoric }: MenuProps) => {
             </>
           )}
 
-          <MenuEntry label="Settings" href="/profile" onClick={closeMenu}>
-            <SettingsIcon className="fill-neutral-700" />
-          </MenuEntry>
-          <MenuEntry label="Log out" onClick={handleSignout}>
-            <LogoutIcon className="fill-neutral-700" />
-          </MenuEntry>
+          {isAuthenticated && (
+            <>
+              <MenuEntry label="Settings" href="/profile" onClick={closeMenu}>
+                <SettingsIcon className="fill-neutral-700" />
+              </MenuEntry>
+              <MenuEntry label="Log out" onClick={handleSignout}>
+                <LogoutIcon className="fill-neutral-700" />
+              </MenuEntry>
+            </>
+          )}
 
           <div className="flex h-6 items-center justify-between px-2 pl-2 text-xs text-neutral-400">
             Version {pkg.version}

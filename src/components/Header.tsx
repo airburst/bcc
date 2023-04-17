@@ -1,4 +1,3 @@
-import { useSession, signIn } from "next-auth/react";
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { useAtom } from "jotai";
@@ -8,29 +7,16 @@ import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
 import { FilterIcon, FilterSelectedIcon } from "./Icon";
 
-type ButtonProps = {
-  onClick?: () => void;
-  children: string;
-};
-
-const LinkButton = ({ children, ...props }: ButtonProps) => (
-  <button
-    type="button"
-    className="flex h-8 border-0 border-b-4 border-b-transparent bg-transparent text-lg hover:border-b-red-500"
-    {...props}
-  >
-    {children}
-  </button>
-);
-
 const goHome = () => Router.push("/");
 
-export const Header = () => {
+type Props = {
+  isAuthenticated: boolean;
+  role: string;
+};
+
+export const Header = ({ isAuthenticated, role }: Props) => {
   const [, setShowFilterMenu] = useAtom(showFilterAtom);
   const [filterQuery] = useAtom(filterQueryAtom);
-  const { status, data: session } = useSession();
-  const isAuthenticated = status === "authenticated";
-  const role = session?.user?.role as string;
   const router = useRouter();
   const rideId = router.query.id;
   const rideDate = router.query.date;
@@ -78,11 +64,12 @@ export const Header = () => {
             </button>
           )}
 
-          {isAuthenticated ? (
-            <UserMenu role={role} rideId={rideId} isHistoric={isHistoric} />
-          ) : (
-            <LinkButton onClick={() => signIn("auth0")}>Log in</LinkButton>
-          )}
+          <UserMenu
+            isAuthenticated={isAuthenticated}
+            role={role}
+            rideId={rideId}
+            isHistoric={isHistoric}
+          />
         </div>
       </div>
     </div>
