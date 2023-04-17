@@ -10,7 +10,7 @@
 - database.js - activate .env and change all queries
 - Rename RideV2 type -> Ride
 
-- Archive old rides and empty rides
+- Schedule ride archival
 - Reconcile with members
 - Turn off anonymous access and accounts TBD
 - Type safe queries: https://github.com/kysely-org/kysely
@@ -25,6 +25,7 @@
 
 ## Next 13 App Router and RSC
 
+- Add @ aliases
 - Upgrade to use hook
 - Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
 
