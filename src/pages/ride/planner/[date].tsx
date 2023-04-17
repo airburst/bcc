@@ -1,6 +1,8 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useRides } from "../../../hooks";
@@ -16,9 +18,14 @@ import {
   formatDate,
   flattenQuery,
   getNow,
+  serialiseUser,
 } from "../../../../shared/utils";
 
-const Rides: NextPage = () => {
+type Props = {
+  isLeader: boolean;
+};
+
+const Rides: NextPage<Props> = ({ isLeader }: Props) => {
   const router = useRouter();
   const {
     query: { date },
@@ -63,9 +70,9 @@ const Rides: NextPage = () => {
       </Head>
 
       <div className="flex w-full flex-col gap-2 md:gap-4">
-        <div className="my-2 flex h-10 flex-row justify-center gap-4">
+        <div className="m-2 sm:mx-0 flex h-10 flex-row justify-between gap-4">
           <BackButton />
-          {isInFuture && (
+          {isLeader && isInFuture && (
             <Link href={`/ride/new?date=${date}`}>
               <Button accent>
                 <PlusIcon className="fill-white" />
@@ -97,3 +104,18 @@ const Rides: NextPage = () => {
 };
 
 export default Rides;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore session user complains
+  const user = serialiseUser(session?.user);
+  const role = user?.role as string;
+  const isLeader = ["LEADER", "ADMIN"].includes(role);
+
+  return {
+    props: {
+      isLeader,
+    },
+  };
+};
