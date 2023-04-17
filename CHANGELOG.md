@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Changed method for fetching session info about current user; much faster performance for pages with forms.
+- Changed session to server side in main rides and ride details pages
+- Unified user menu for all users; login button is now inside menu. Removes jank when loading
+
+### Fixed
+
+- Calendar no longer displays Add Ride button unless you are a leader
 
 ## [1.14.6] - 2023-04-16
 
