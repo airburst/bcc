@@ -1,6 +1,10 @@
 import { Ride, UsersOnRides, User } from "@prisma/client";
 import { DEFAULT_PREFERENCES } from "../../src/constants";
-import { Preferences, Ride as RideType } from "../../src/types";
+import {
+  Preferences,
+  Ride as RideType,
+  User as SerialisedUser,
+} from "../../src/types";
 import { getRideDateAndTime, getDateFromString } from "./dates";
 import { getPreferences } from "./preferences";
 
@@ -23,6 +27,26 @@ export const formatUserName = (name: string | null | undefined): string => {
       /\w\S*/g,
       (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     );
+};
+
+export const serialiseUser = (user?: User): SerialisedUser | null => {
+  if (!user) {
+    return null;
+  }
+
+  const { id, name, email, image, mobile, emergency, role } = user;
+  const preferences = getPreferences(user);
+
+  return {
+    id,
+    name: formatUserName(name),
+    email: email || "Not supplied",
+    image,
+    mobile,
+    emergency,
+    role,
+    preferences,
+  };
 };
 
 export const formatUser = (

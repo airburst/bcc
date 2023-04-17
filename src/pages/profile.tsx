@@ -1,10 +1,11 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { getProfile } from "./api/new-user";
 import { updateUser } from "../hooks";
 import { UserProfileForm, UserProfileValues } from "../components";
@@ -90,7 +91,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
 export default Profile;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
     return {
