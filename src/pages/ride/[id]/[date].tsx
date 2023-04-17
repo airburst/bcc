@@ -1,19 +1,23 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRide } from "../../../hooks";
 import {
   RideDetails,
   RideDetailsSkeleton,
   BackButton,
 } from "../../../components";
+import { serialiseUser } from "../../../../shared/utils";
 import { User } from "../../../types";
 
-const RideDetailsPage: NextPage = () => {
-  const { data: session } = useSession();
-  const user = session?.user as User;
+type Props = {
+  user: User;
+};
+
+const RideDetailsPage: NextPage<Props> = ({ user }: Props) => {
   const role = user?.role as string;
 
   const router = useRouter();
@@ -53,3 +57,16 @@ const RideDetailsPage: NextPage = () => {
 };
 
 export default RideDetailsPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore session user complains
+  const user = serialiseUser(session?.user);
+
+  return {
+    props: {
+      user,
+    },
+  };
+};

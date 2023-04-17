@@ -14,11 +14,9 @@ const App: AppType<{ session: Session | null }> = ({
 }) => {
   if (router.pathname.startsWith("/embed")) {
     return (
-      <SessionProvider session={session}>
-        <LayoutEmbedded>
-          <Component {...pageProps} />
-        </LayoutEmbedded>
-      </SessionProvider>
+      <LayoutEmbedded>
+        <Component {...pageProps} />
+      </LayoutEmbedded>
     );
   }
 

@@ -1,9 +1,10 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Error from "next/error";
-import { useSession } from "next-auth/react";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRides, useLocalStorage } from "../hooks";
 import { RideGroup, RideGroupSkeleton, Filters } from "../components";
 import {
@@ -12,14 +13,18 @@ import {
   formatDate,
   makeFilterData,
   getDateInWeeks,
+  serialiseUser,
 } from "../../shared/utils";
-import { Preferences, User, AnonymousUser, FilterQuery } from "../types";
+import { User, AnonymousUser, FilterQuery } from "../types";
 import { showFilterAtom, filterQueryAtom } from "../store";
+
+type Props = {
+  user: User;
+};
 
 const nextDate = getNextWeek();
 
-const Home: NextPage = () => {
-  const { data: session } = useSession();
+const Home: NextPage<Props> = ({ user }: Props) => {
   const [rider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
   // Get reactive data from atom
@@ -61,9 +66,7 @@ const Home: NextPage = () => {
   }
 
   // Get user id from session
-  const user = session?.user as User;
   if (user) {
-    user.preferences = user?.preferences as Preferences;
     // Unset anonymous user if stored
     if (rider?.id) {
       window.localStorage.clear();
@@ -104,3 +107,16 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore session user complains
+  const user = serialiseUser(session?.user);
+
+  return {
+    props: {
+      user,
+    },
+  };
+};
