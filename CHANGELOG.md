@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.1] - 2023-04-25
+
+### Changed
+
+- Added Prisma experimental feature to speed up database queries and reduce cold start times.
+
 ## [1.15.0] - 2023-04-17
 
 ### Changed
