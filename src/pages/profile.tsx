@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { getProfile } from "./api/new-user";
+import { getProfile } from "./api/user";
 import { updateUser } from "../hooks";
 import { UserProfileForm, UserProfileValues } from "../components";
 import { User } from "../types";
