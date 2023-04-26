@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { formatRideBadge, getNow, isReady } from "../../../shared/utils";
-import { RideV2 } from "../../types";
+import { Ride } from "../../types";
 import { RoundBadge, Badge } from "../Badge";
 
 type Props = {
   day: number;
   date: string;
   past?: boolean;
-  rides?: RideV2[];
+  rides?: Ride[];
   classes?: string;
 };
 

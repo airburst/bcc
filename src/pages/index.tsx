@@ -73,7 +73,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
     }
   }
 
-  const groupedRides = groupRides(data, filterQuery);
+  const groupedRides = groupRides(data, filterQuery, user);
   const ridesFound = groupedRides.length > 0;
 
   return (
@@ -87,7 +87,11 @@ const Home: NextPage<Props> = ({ user }: Props) => {
         {ridesFound ? (
           <>
             {groupedRides.map((group) => (
-              <RideGroup key={Object.keys(group)[0]} group={group} />
+              <RideGroup
+                key={Object.keys(group)[0]}
+                group={group}
+                user={user}
+              />
             ))}
           </>
         ) : (

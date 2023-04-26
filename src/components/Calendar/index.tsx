@@ -8,11 +8,11 @@ import {
   mapRidesToDate,
   getNow,
 } from "../../../shared/utils";
-import { RideV2 } from "../../types";
+import { Ride } from "../../types";
 
 type Props = {
   date: string;
-  rides?: RideV2[];
+  rides?: Ride[];
   loading: boolean;
 };
 
