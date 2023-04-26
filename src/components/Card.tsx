@@ -3,30 +3,23 @@ import Image from "next/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import clsx from "clsx";
-import { RideV2 } from "../types";
+import { useLocalStorage } from "../hooks";
+import { Ride, User, AnonymousUser } from "../types";
 import { isReady } from "../../shared/utils";
 import { Cancelled } from "./Cancelled";
 import "react-loading-skeleton/dist/skeleton.css";
 
 type Props = {
-  ride: RideV2;
+  ride: Ride;
+  user?: User;
 };
 
-export const Card: React.FC<Props> = ({ ride }: Props) => {
+export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
-  const {
-    id,
-    name,
-    date,
-    time,
-    group,
-    destination,
-    distance,
-    count,
-    includesMe,
-  } = ride;
+  const { id, name, date, time, group, destination, distance, users } = ride;
   const isNotReady = !isReady(ride);
+  const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
 
   const details = destination ? `${destination} - ${distance}` : `${distance}`;
 
@@ -40,6 +33,11 @@ export const Card: React.FC<Props> = ({ ride }: Props) => {
   if (!id) {
     return null;
   }
+
+  const isGoing = user ? users?.map((u) => u.id).includes(user.id) : false;
+  const isGoingAnonymously =
+    anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
+  const riderCount = users?.length;
 
   const cardClass = clsx(
     "grid w-full grid-cols-[auto_1fr_68px] pl-1 border-l-4",
@@ -74,7 +72,7 @@ export const Card: React.FC<Props> = ({ ride }: Props) => {
         </div>
 
         <div className="justify-self-center">
-          {includesMe && (
+          {(isGoing || isGoingAnonymously) && (
             <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
               GOING
             </div>
@@ -92,7 +90,7 @@ export const Card: React.FC<Props> = ({ ride }: Props) => {
             height={16}
             alt="Number of riders"
           />
-          <span className="text-xl font-bold">{count}</span>
+          <span className="text-xl font-bold">{riderCount}</span>
         </div>
       </div>
 

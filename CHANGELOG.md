@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.2] - 2023-04-26
+
+### Changed
+
+- Reverted to original Prisma query for rides
+
 ## [1.15.1] - 2023-04-25
 
 ### Changed
