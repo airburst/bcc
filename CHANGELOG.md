@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added next/font management
 - Changed core (Google) font from Prompt to Outfit; a variable font
+- Increased base font size in all pages
 
 ## [1.15.2] - 2023-04-26
 
