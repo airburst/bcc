@@ -1,3 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -5,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Prompt", "Helvetica", "Arial", "sans-serif"],
+        sans: ["var(--font-outfit)", ...fontFamily.sans],
       },
     },
   },
