@@ -34,10 +34,6 @@ const Document = () => (
       <meta name="msapplication-TileColor" content="#2b5797" />
       <meta name="theme-color" content="#ffffff" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap"
-        rel="stylesheet"
-      />
-      <link
         href="/static/splashscreens/iphone5_splash.png"
         media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
       />

@@ -40,7 +40,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const riderCount = users?.length;
 
   const cardClass = clsx(
-    "grid w-full grid-cols-[auto_1fr_68px] pl-1 border-l-4",
+    "grid w-full grid-cols-[auto_1fr_80px] pl-1 border-l-4",
     isNotReady ? "border-red-500 rounded-l" : "border-transparent"
   );
 

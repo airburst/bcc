@@ -11,9 +11,9 @@ export const Layout: React.FC<Props> = ({ children }: Props) => {
   const isAuthenticated = status === "authenticated";
   const role = session?.user?.role as string;
   return (
-    <>
+    <div className="text-lg">
       <Header isAuthenticated={isAuthenticated} role={role} />
       <MainContent>{children}</MainContent>
-    </>
+    </div>
   );
 };

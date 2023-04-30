@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.3] - 2023-04-30
+
+### Changed
+
+- Added next/font management
+- Changed core (Google) font from Prompt to Outfit; a variable font
+- Increased base font size in all pages
+
 ## [1.15.2] - 2023-04-26
 
 ### Changed

@@ -34,7 +34,7 @@ export const RiderDetails = ({ user, isLeader, sessionUser }: Props) => {
 
   return (
     <div className={rowClass} key={userId}>
-      <div>{userName}</div>
+      <div className="truncate">{userName}</div>
 
       {isLeader && (
         <div className="grid grid-cols-[1fr_44px] gap-2">
