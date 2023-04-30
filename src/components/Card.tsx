@@ -38,7 +38,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const isGoingAnonymously =
     anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const riderCount = users?.length;
-  const titleSpan = isGoing ? 2 : 3;
+  const titleSpan = isGoing || isGoingAnonymously ? 2 : 3;
 
   const cardClass = clsx(
     "grid w-full grid-cols-[auto_1fr_80px] pl-1 border-l-4",
