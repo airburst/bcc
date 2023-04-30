@@ -38,9 +38,10 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const isGoingAnonymously =
     anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const riderCount = users?.length;
+  const titleSpan = isGoing ? 2 : 3;
 
   const cardClass = clsx(
-    "grid w-full grid-cols-[auto_1fr_68px] pl-1 border-l-4",
+    "grid w-full grid-cols-[auto_1fr_80px] pl-1 border-l-4",
     isNotReady ? "border-red-500 rounded-l" : "border-transparent"
   );
 
@@ -67,17 +68,19 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
       }}
     >
       <div className={cardClass}>
-        <div className="col-span-2 truncate p-1 font-bold uppercase tracking-wide">
+        <div
+          className={`col-span-${titleSpan} truncate p-1 font-bold uppercase tracking-wide`}
+        >
           {name} {group ? `- ${group}` : ""}{" "}
         </div>
 
-        <div className="justify-self-center">
-          {(isGoing || isGoingAnonymously) && (
+        {(isGoing || isGoingAnonymously) && (
+          <div className="justify-self-center">
             <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
               GOING
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="p-1 font-bold tracking-wide text-neutral-600">
           {time}
