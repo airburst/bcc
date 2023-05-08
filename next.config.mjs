@@ -30,6 +30,7 @@ const appConfig = withBundleAnalyzer(
     experimental: {
       appDir: true,
     },
+    runtime: "edge",
   })
 );
 
