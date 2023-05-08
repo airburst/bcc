@@ -1,12 +1,8 @@
-// import { env } from "./src/env/server.mjs";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import bundleAnalyzer from "@next/bundle-analyzer";
 import pwa from "next-pwa";
 
 /**
- * Don't be scared of the generics here.
- * All they do is to give us autocompletion when using this.
- *
  * @template {import('next').NextConfig} T
  * @param {T} config - A generic parameter that flows through to the return type
  * @constraint {{import('next').NextConfig}}
@@ -31,6 +27,10 @@ const appConfig = withBundleAnalyzer(
       locales: ["en"],
       defaultLocale: "en",
     },
+    // experimental: {
+    //   appDir: true,
+    // },
+    runtime: "edge",
   })
 );
 
