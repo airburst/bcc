@@ -35,6 +35,11 @@ const App: AppType<{ session: Session | null }> = ({
           <Component {...pageProps} />
         </Layout>
       </div>
+      <style>{`
+        :root {
+          --font-outfit: __Outfit_a14fc5, __Outfit_Fallback_a14fc5
+        }
+      `}</style>
     </SessionProvider>
   );
 };

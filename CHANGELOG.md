@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.15.4] - 2023-05-08
+
+### Changed
+
+- Updated latest dependencies, including NextJS 13.4
+
+### Fixed
+
+- Font is correct in dialogs again (confirm and messages)
+
 ## [1.15.3] - 2023-04-30
 
 ### Changed
