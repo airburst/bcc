@@ -63,6 +63,11 @@ export const groupRides = (
   filterQuery?: FilterQuery,
   user?: User
 ): Group[] => {
+  // data can be an empty object when db connection is unavailable
+  if (!Array.isArray(data)) {
+    // eslint-disable-next-line no-console
+    console.log("Database error");
+  }
   // Group rides by date
   const groupedByDate = new Map<string, Ride[]>();
 
