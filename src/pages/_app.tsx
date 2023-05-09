@@ -3,8 +3,7 @@ import type { AppType } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { Outfit } from "next/font/google";
-import { Layout } from "../components/Layout";
-import { LayoutEmbedded } from "../components/LayoutEmbedded";
+import { Layout, LayoutEmbedded, ErrorBoundary } from "../components";
 
 import "../styles/globals.css";
 
@@ -22,7 +21,9 @@ const App: AppType<{ session: Session | null }> = ({
     return (
       <div className={`${outfit.variable} font-sans`}>
         <LayoutEmbedded>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </LayoutEmbedded>
       </div>
     );
@@ -32,7 +33,9 @@ const App: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <div className={`${outfit.variable} font-sans`}>
         <Layout>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </Layout>
       </div>
       <style>{`
