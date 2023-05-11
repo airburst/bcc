@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { addRidesForMonth } from "./ride/create-rides-for-month";
+import { archiveRides } from "./ride/archive-rides";
 import { getNextMonth } from "../../../shared/utils";
 
 /**
@@ -22,11 +23,13 @@ export default async function handler(
         const targetMonth = date || getNextMonth();
         const results = await addRidesForMonth(targetMonth);
 
+        const archiveResults = await archiveRides(date);
+
         // More rides to follow
         res.status(200).json({
           success: true,
           targetMonth,
-          results,
+          results: { ...results, ...archiveResults },
         });
       } else {
         res.status(401).json({ success: false });

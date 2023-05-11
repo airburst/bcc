@@ -186,3 +186,5 @@ export const getDateInWeeks = (weeks: string) => {
 
   return nextWeek.split("T")[0];
 };
+
+export const sqlDate = (date: string) => date.replace("T", " ").slice(0, 16);

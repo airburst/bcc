@@ -10,7 +10,6 @@
 - Schedule ride archival
 - Reconcile with members
 - Turn off anonymous access and accounts TBD
-- Type safe queries: https://github.com/kysely-org/kysely
 
 - Dynamic imports to reduce bundle size
 - Stop jank when joining ride
