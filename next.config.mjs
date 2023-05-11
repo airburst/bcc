@@ -27,7 +27,6 @@ const appConfig = withBundleAnalyzer(
       locales: ["en"],
       defaultLocale: "en",
     },
-    runtime: "edge",
   })
 );
 
