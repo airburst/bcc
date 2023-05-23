@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.16.0] - 2023-05-22
+
+### Added
+
+- Automatically archive previous rides on first day of each month.
+
+### Changed
+
+- Added Fast Sunday Ride Group
+- Changed Capuccino to Social Sunday Ride group
+
 ## [1.15.4] - 2023-05-08
 
 ### Changed

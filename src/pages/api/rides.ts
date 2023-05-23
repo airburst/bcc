@@ -38,6 +38,9 @@ export const getRides = async (
         {
           date: "asc",
         },
+        {
+          createdAt: "asc",
+        },
       ],
     });
 

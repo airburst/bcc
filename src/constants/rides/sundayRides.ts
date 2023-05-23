@@ -19,6 +19,10 @@ const notes =
 
 export const SUNDAY_RIDES: PartialRide[] = [
   {
+    group: "Fast",
+    distance: 120,
+  },
+  {
     group: "Double Espresso",
     distance: 110,
   },
@@ -31,17 +35,17 @@ export const SUNDAY_RIDES: PartialRide[] = [
     group: "Americano",
     distance: 90,
   },
-  {
-    name: "Long Americano",
-    distance: 100,
-  },
+  // {
+  //   name: "Long Americano",
+  //   distance: 100,
+  // },
   {
     group: "Double Shot Latte",
     distance: 82,
   },
   {
-    group: "Cappuccino",
-    distance: 67,
+    group: "Social",
+    distance: 65,
   },
 ].map((ride) => ({
   name,
