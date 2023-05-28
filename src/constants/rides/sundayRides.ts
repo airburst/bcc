@@ -32,13 +32,14 @@ export const SUNDAY_RIDES: PartialRide[] = [
     leader: "David Oliver",
   },
   {
+    group: "Espresso #2",
+    distance: 95,
+    leader: "Robert Mcmillan",
+  },
+  {
     group: "Americano",
     distance: 90,
   },
-  // {
-  //   name: "Long Americano",
-  //   distance: 100,
-  // },
   {
     group: "Double Shot Latte",
     distance: 82,

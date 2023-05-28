@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.16.1] - 2023-05-28
+
+### Changed
+
+- Added Espresso #2 Sunday Ride Group
+
+### Fixed
+
+- When copying a ride, set the new ride time to the same as the copied one.
+
 ## [1.16.0] - 2023-05-22
 
 ### Added

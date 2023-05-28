@@ -43,6 +43,7 @@ const CopyRide: NextPage<Props> = ({ data, user }: Props) => {
     ...data,
     distance: parseInt(data.distance.toString(), 10),
     ...getFormRideDateAndTime(getNow()),
+    time: data.time,
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({
