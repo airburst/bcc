@@ -35,6 +35,7 @@ export const SUNDAY_RIDES: PartialRide[] = [
     group: "Espresso #2",
     distance: 95,
     leader: "Robert Mcmillan",
+    route: "No GPS",
   },
   {
     group: "Americano",
