@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.16.2] - 2023-05-29
+
+### Changed
+
+- Spread ride title across full width of card before truncating, when user is not going (i.e. don't always make space for the GOING badge)
+- Right align ride count in card
+
 ## [1.16.1] - 2023-05-28
 
 ### Changed

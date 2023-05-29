@@ -44,6 +44,13 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     isNotReady ? "border-red-500 rounded-l" : "border-transparent"
   );
 
+  // If a rider is going, span the title across 2 columns to make space
+  // else span the entire row (of 3 columns)
+  const titleClass = clsx(
+    "truncate p-1 font-bold uppercase tracking-wide",
+    isGoing ? "col-span-2" : "col-span-3"
+  );
+
   return (
     <div
       role="presentation"
@@ -67,23 +74,24 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
       }}
     >
       <div className={cardClass}>
-        <div className="col-span-2 truncate p-1 font-bold uppercase tracking-wide">
+        <div className={titleClass}>
           {name} {group ? `- ${group}` : ""}{" "}
         </div>
 
-        <div className="justify-self-center">
-          {(isGoing || isGoingAnonymously) && (
-            <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
-              GOING
-            </div>
-          )}
-        </div>
+        {/* <div className="justify-self-center"> */}
+        {(isGoing || isGoingAnonymously) && (
+          <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
+            GOING
+          </div>
+        )}
+        {/* </div> */}
 
         <div className="p-1 font-bold tracking-wide text-neutral-600">
           {time}
         </div>
         <div className="truncate p-1">{details}</div>
-        <div className="flex flex-row items-center justify-center gap-1 p-1">
+        {/* Rider count icon */}
+        <div className="flex flex-row items-center justify-end gap-2 pr-2">
           <Image
             src="/static/images/biking-neutral-500-64.png"
             width={16}
