@@ -24,7 +24,7 @@ export const RideGroup = ({ group, user }: Props) => {
 
   return (
     <div className="flex w-full flex-col items-start gap-2" ref={parent}>
-      <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white">
+      <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white sm:rounded">
         <div>{rideDate}</div>
       </div>
 
@@ -53,7 +53,7 @@ export const RideGroupSkeleton = ({
   numberOfCards = 5,
 }: SkeletonProps) => (
   <div className="flex w-full flex-col items-start gap-2">
-    <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white">
+    <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white sm:rounded">
       <div>{dateText}</div>
     </div>
     {Array.from(Array(numberOfCards).keys()).map((key) => (

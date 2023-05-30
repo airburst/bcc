@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Spread ride title across full width of card before truncating, when user is not going (i.e. don't always make space for the GOING badge)
 - Right align ride count in card
+- Rounded headers in viewports larger than mobile
 
 ## [1.16.1] - 2023-05-28
 
