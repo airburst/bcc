@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.17.0] - 2023-06-12
+
+### Changed
+
+- Archived anonymous users from database
+- Removed anonymous user features
+- Something about adding/deleting a ride today
+
 ## [1.16.2] - 2023-05-29
 
 ### Changed

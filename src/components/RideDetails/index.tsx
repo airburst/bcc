@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { useState } from "react";
 import { Button, BackButton, JoinButton } from "../Button";
-import { MessageIcon, PlusIcon } from "../Icon";
+import { MessageIcon } from "../Icon";
 import { Badge } from "../Badge";
-import { useLocalStorage } from "../../hooks";
-import { User, Ride, AnonymousUser } from "../../types";
+import { User, Ride } from "../../types";
 import { isJoinable } from "../../../shared/utils";
 import { RideInfo } from "./RideInfo";
 import { RidersGoing } from "./RidersGoing";
@@ -29,21 +27,15 @@ type Props = {
 
 export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const [showNotesForm, setShowNotesForm] = useState<boolean>(false);
-  const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const { id, name, date, day, cancelled, users } = ride;
 
   const hasRiders = users && users?.length > 0;
-  const isGoingAnonymously = !!(
-    anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id)
-  );
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
   const canJoin = isJoinable(date);
   const rideNotes =
-    (users && user && users?.find((u: User) => u.id === user.id)?.rideNotes) ||
-    (anonRider?.id &&
-      users?.find((u: User) => u.id === anonRider.id)?.rideNotes);
+    users && user && users?.find((u: User) => u.id === user.id)?.rideNotes;
 
   const openNotes = () => setShowNotesForm(true);
   const closeNotes = () => setShowNotesForm(false);
@@ -74,13 +66,12 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
             users={users}
             hasRiders={hasRiders}
             isLeader={isLeader}
-            isGoingAnonymously={isGoingAnonymously}
           />
 
           <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
             <BackButton url={`/#${id}`} />
 
-            {(isGoing || isGoingAnonymously) && !cancelled && (
+            {isGoing && !cancelled && (
               <Button accent onClick={openNotes}>
                 <MessageIcon className="fill-white" />
                 Message
@@ -95,22 +86,12 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
                 userId={user?.id}
               />
             )}
-            {!user && !isGoingAnonymously && canJoin && !cancelled && (
-              <Link href={`/ride/${id}/join`}>
-                <div className="flex h-10">
-                  <Button error>
-                    <PlusIcon className="fill-white" />
-                    Join
-                  </Button>
-                </div>
-              </Link>
-            )}
           </div>
         </>
       )}
 
       <RideNotes
-        userId={user?.id || anonRider?.id}
+        userId={user?.id}
         rideId={id}
         rideNotes={rideNotes}
         showNotesForm={showNotesForm}

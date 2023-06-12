@@ -5,7 +5,6 @@ export * from "./Card";
 export * from "./Confirm";
 export * from "./ErrorBoundary";
 export * from "./Filters";
-export * from "./forms/AnonymousUserForm";
 export * from "./forms/RideForm";
 export * from "./forms/UserProfileForm";
 export * from "./Header";
