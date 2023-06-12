@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useAtom } from "jotai";
 import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
-import { getNow, flattenQuery } from "../../shared/utils";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
 import { FilterIcon, FilterSelectedIcon } from "./Icon";
 
@@ -19,9 +18,7 @@ export const Header = ({ isAuthenticated, role }: Props) => {
   const [filterQuery] = useAtom(filterQueryAtom);
   const router = useRouter();
   const rideId = router.query.id;
-  const rideDate = router.query.date;
   const isRidesPage = router.pathname === "/";
-  const isHistoric = flattenQuery(rideDate) < getNow();
 
   const showFilters = () => setShowFilterMenu(true);
 
@@ -68,7 +65,6 @@ export const Header = ({ isAuthenticated, role }: Props) => {
             isAuthenticated={isAuthenticated}
             role={role}
             rideId={rideId}
-            isHistoric={isHistoric}
           />
         </div>
       </div>
