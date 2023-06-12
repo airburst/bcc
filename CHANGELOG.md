@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Archived anonymous users from database
 - Removed anonymous user features
-- Something about adding/deleting a ride today
+- Allow leaders to delete a ride on the same day
 
 ## [1.16.2] - 2023-05-29
 
