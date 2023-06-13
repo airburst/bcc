@@ -3,8 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import clsx from "clsx";
-import { useLocalStorage } from "../hooks";
-import { Ride, User, AnonymousUser } from "../types";
+import { Ride, User } from "../types";
 import { isReady } from "../../shared/utils";
 import { Cancelled } from "./Cancelled";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -19,7 +18,6 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const router = useRouter();
   const { id, name, date, time, group, destination, distance, users } = ride;
   const isNotReady = !isReady(ride);
-  const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {});
 
   const details = destination ? `${destination} - ${distance}` : `${distance}`;
 
@@ -35,12 +33,10 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   }
 
   const isGoing = user ? users?.map((u) => u.id).includes(user.id) : false;
-  const isGoingAnonymously =
-    anonRider?.id && users?.map((u: User) => u.id).includes(anonRider?.id);
   const riderCount = users?.length;
 
   const cardClass = clsx(
-    "grid w-full grid-cols-[auto_1fr_80px] pl-1 border-l-4",
+    "grid w-full grid-cols-[auto_1fr_80px] pl-1 pb-1 border-l-4",
     isNotReady ? "border-red-500 rounded-l" : "border-transparent"
   );
 
@@ -78,13 +74,11 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
           {name} {group ? `- ${group}` : ""}{" "}
         </div>
 
-        {/* <div className="justify-self-center"> */}
-        {(isGoing || isGoingAnonymously) && (
+        {isGoing && (
           <div className="rounded-tr-md bg-green-700 p-1 px-2 font-bold tracking-wide text-white">
             GOING
           </div>
         )}
-        {/* </div> */}
 
         <div className="p-1 font-bold tracking-wide text-neutral-600">
           {time}

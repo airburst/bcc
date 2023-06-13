@@ -6,7 +6,6 @@ type Props = {
   users?: User[];
   isLeader: boolean;
   hasRiders?: boolean;
-  isGoingAnonymously?: boolean;
   rideNotes?: string;
 };
 
@@ -15,7 +14,6 @@ export const RidersGoing = ({
   users,
   hasRiders,
   isLeader,
-  isGoingAnonymously,
   rideNotes,
 }: Props) => {
   if (!hasRiders) {
@@ -36,9 +34,6 @@ export const RidersGoing = ({
           ))
         ) : (
           <div className="flex flex-col gap-2 px-2">
-            {isGoingAnonymously && (
-              <div className="text-red-700">You are going</div>
-            )}
             {rideNotes && <div>Note: {rideNotes}</div>}
             <div>Please log in to see other rider details</div>
           </div>

@@ -15,7 +15,7 @@ import {
   getDateInWeeks,
   serialiseUser,
 } from "../../shared/utils";
-import { User, AnonymousUser, FilterQuery } from "../types";
+import { User, FilterQuery } from "../types";
 import { showFilterAtom, filterQueryAtom } from "../store";
 
 type Props = {
@@ -25,7 +25,6 @@ type Props = {
 const nextDate = getNextWeek();
 
 const Home: NextPage<Props> = ({ user }: Props) => {
-  const [rider] = useLocalStorage<AnonymousUser>("bcc-user", {});
   const [filters] = useLocalStorage<FilterQuery>("bcc-filters", {});
   // Get reactive data from atom
   const [showFilterMenu, setShowFilterMenu] = useAtom(showFilterAtom);
@@ -63,14 +62,6 @@ const Home: NextPage<Props> = ({ user }: Props) => {
 
   if (error) {
     return <Error statusCode={500} />;
-  }
-
-  // Get user id from session
-  if (user) {
-    // Unset anonymous user if stored
-    if (rider?.id) {
-      window.localStorage.clear();
-    }
   }
 
   const groupedRides = groupRides(data, filterQuery, user);

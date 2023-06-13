@@ -7,10 +7,6 @@
 
 ## Perf
 
-- Schedule ride archival
-- Reconcile with members
-- Turn off anonymous access and accounts TBD
-
 - Dynamic imports to reduce bundle size
 - Stop jank when joining ride
 
@@ -19,10 +15,6 @@
 - Add Markdown editor TBC
 
 ## Next 13 App Router and RSC
-
-- Add @ aliases
-- Upgrade to use hook
-- Hoist const [anonRider] = useLocalStorage<AnonymousUser>("bcc-user", {}); to layout state or context?
 
 ## Auth
 

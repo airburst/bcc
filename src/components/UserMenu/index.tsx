@@ -25,22 +25,16 @@ import pkg from "../../../package.json";
 type MenuProps = {
   role: string | null;
   rideId?: string | string[];
-  isHistoric: boolean;
   isAuthenticated: boolean;
 };
 
-export const UserMenu = ({
-  role,
-  rideId,
-  isHistoric,
-  isAuthenticated,
-}: MenuProps) => {
+export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
   const ref = useRef(null);
   const [show, setShow] = useState<boolean>(false);
   const [showConfirmCancel, setShowConfirmCancel] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
-  const showEditAndDelete = isLeader && rideId && !isHistoric;
+  const showEditAndDelete = isLeader && rideId;
   const router = useRouter();
   const { mutate } = useSWRConfig();
 

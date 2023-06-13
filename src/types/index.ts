@@ -9,16 +9,9 @@ export type User = {
   mobile?: string | null;
   emergency?: string | null;
   image?: string | null; // url
-  role: string; // USER | ADMIN
+  role: string;
   preferences?: Preferences;
   rideNotes?: string;
-};
-
-export type AnonymousUser = {
-  id?: string;
-  name?: string;
-  mobile?: string | null;
-  emergency?: string | null;
 };
 
 export type DbResponse<T> = {

@@ -8,8 +8,6 @@ import {
 import { getRideDateAndTime } from "./dates";
 import { getPreferences } from "./preferences";
 
-const ANONYMISED_NAME = "👤";
-
 type RideData = Ride & {
   users: (UsersOnRides & {
     user: User;
@@ -59,7 +57,7 @@ export const formatUser = (
   const preferences = getPreferences(user);
 
   if (!isAuth) {
-    return { id, name: ANONYMISED_NAME, rideNotes: notes };
+    return { id, name: "", rideNotes: notes };
   }
 
   return {

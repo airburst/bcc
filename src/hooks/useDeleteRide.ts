@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const deleteRide = async (id: string | string[]) => {
   const results = await fetch(`/api/ride/delete`, {
-    method: "DELETE",
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

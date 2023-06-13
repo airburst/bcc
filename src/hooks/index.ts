@@ -1,4 +1,3 @@
-export * from "./useAddAnonymousUser";
 export * from "./useAddPacelineRides";
 export * from "./useAddRide";
 export * from "./useCancelRide";
