@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { CLUB_SHORT_NAME } from "constants/theme";
 import { useRides } from "../../../hooks";
 import {
   BackButton,
@@ -41,7 +42,9 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
     return (
       <>
         <Head>
-          <title>BCC Rides on {date}</title>
+          <title>
+            {CLUB_SHORT_NAME} Rides on {date}
+          </title>
           <meta name="description" content="Bath Cycling Club Ride Planner" />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
@@ -65,7 +68,9 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
   return (
     <>
       <Head>
-        <title>BCC Rides on {date}</title>
+        <title>
+          {CLUB_SHORT_NAME} Rides on {date}
+        </title>
         <meta name="description" content="Bath Cycling Club Ride Planner" />
       </Head>
 

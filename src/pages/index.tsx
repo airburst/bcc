@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
+import { CLUB_SHORT_NAME } from "constants/theme";
 import { useRides, useLocalStorage } from "../hooks";
 import { RideGroup, RideGroupSkeleton, Filters } from "../components";
 import {
@@ -46,7 +47,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
     return (
       <>
         <Head>
-          <title>BCC Rides</title>
+          <title>{CLUB_SHORT_NAME} Rides</title>
           <meta name="description" content="Bath Cycling Club Ride Planner" />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
@@ -70,7 +71,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
       <Head>
-        <title>BCC Rides</title>
+        <title>{CLUB_SHORT_NAME} Rides</title>
         <meta name="description" content="Bath Cycling Club Ride Planner" />
       </Head>
 

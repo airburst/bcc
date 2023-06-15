@@ -4,6 +4,7 @@ import Error from "next/error";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
+import { CLUB_SHORT_NAME } from "constants/theme";
 import { useRide } from "../../../hooks";
 import {
   RideDetails,
@@ -47,7 +48,7 @@ const RideDetailsPage: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
       <Head>
-        <title>BCC Ride Details</title>
+        <title>{CLUB_SHORT_NAME} Ride Details</title>
         <meta name="description" content="Bath Cycling Club Ride Details" />
       </Head>
 

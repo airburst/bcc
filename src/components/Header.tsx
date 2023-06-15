@@ -1,6 +1,7 @@
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { useAtom } from "jotai";
+import { CLUB_SHORT_NAME } from "constants/theme";
 import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
@@ -40,7 +41,7 @@ export const Header = ({ isAuthenticated, role }: Props) => {
               src={Logo}
               alt="Bath Cycling Club Logo"
             />
-            BCC Rides
+            {CLUB_SHORT_NAME} Rides
           </button>
         </div>
 

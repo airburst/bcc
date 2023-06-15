@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useState } from "react";
+import { CLUB_SHORT_NAME } from "constants/theme";
 import { useRides } from "../../../hooks";
 import {
   Button,
@@ -34,7 +35,7 @@ const RideCalendar: NextPage = () => {
   return (
     <>
       <Head>
-        <title>BCC Rides - Calendar</title>
+        <title>{CLUB_SHORT_NAME} Rides - Calendar</title>
         <meta name="description" content="Bath Cycling Club Ride Calendar" />
       </Head>
 
