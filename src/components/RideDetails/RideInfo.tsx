@@ -86,7 +86,7 @@ export const RideInfo = ({ ride }: Props) => {
         {route && (
           <Row>
             <a
-              className="col-span-2 text-blue-700 underline hover:text-blue-800"
+              className="col-span-2 text-primary underline hover:text-primary-focus"
               href={route}
               target="_blank"
               rel="noreferrer"

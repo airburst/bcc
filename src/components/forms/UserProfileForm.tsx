@@ -117,7 +117,7 @@ export const UserProfileForm = ({
       </label>
     </div>
 
-    <div className="mx-[-8px] flex w-screen flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded md:mx-0 md:w-full">
+    <div className="mx-[-8px] flex w-screen flex-row items-center justify-center bg-primary p-2 font-bold uppercase tracking-wide text-white sm:rounded md:mx-0 md:w-full">
       Preferences
     </div>
 

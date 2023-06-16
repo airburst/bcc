@@ -95,7 +95,7 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
           </>
         ) : (
           <>
-            <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white">
+            <div className="flex w-full justify-center bg-primary p-2 font-bold uppercase tracking-widest text-white">
               <div>{formatDate(dateString)}</div>
             </div>
             <div className="flex h-32 w-full items-center justify-center text-4xl">

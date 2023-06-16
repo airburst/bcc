@@ -182,7 +182,7 @@ export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
               title="Release notes"
               target="_blank"
               rel="noreferrer"
-              className="text-xs text-blue-500 underline"
+              className="text-xs text-primary underline"
             >
               Notes
             </a>

@@ -86,7 +86,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
       </Head>
 
       <div className="w-full text-neutral-800">
-        <div className="flex w-full flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded">
+        <div className="flex w-full flex-row items-center justify-center bg-primary p-2 font-bold uppercase tracking-wide text-white sm:rounded">
           Add Ride
         </div>
 
