@@ -14,5 +14,7 @@ module.exports = {
   warning: "#FBBD23",
   error: "#b91c1c",
   "error-content": "#ffffff",
+
+  // Utility classes
+  "--rounded-btn": "0.5rem", // border radius rounded-btn utility class
 };
-// primaryDarker:"#165ba8",
