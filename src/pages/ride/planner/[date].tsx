@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CLUB_SHORT_NAME } from "constants/theme";
+import { env } from "../../../env/client.mjs";
 import { useRides } from "../../../hooks";
 import {
   BackButton,
@@ -21,6 +21,8 @@ import {
   getNow,
   serialiseUser,
 } from "../../../../shared/utils";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 type Props = {
   isLeader: boolean;
@@ -43,9 +45,12 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
       <>
         <Head>
           <title>
-            {CLUB_SHORT_NAME} Rides on {date}
+            {NEXT_PUBLIC_CLUB_SHORT_NAME} Rides on {date}
           </title>
-          <meta name="description" content="Bath Cycling Club Ride Planner" />
+          <meta
+            name="description"
+            content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
+          />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
           <RideGroupSkeleton
@@ -69,9 +74,12 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
     <>
       <Head>
         <title>
-          {CLUB_SHORT_NAME} Rides on {date}
+          {NEXT_PUBLIC_CLUB_SHORT_NAME} Rides on {date}
         </title>
-        <meta name="description" content="Bath Cycling Club Ride Planner" />
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
+        />
       </Head>
 
       <div className="flex w-full flex-col gap-2 md:gap-4">

@@ -1,11 +1,13 @@
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { useAtom } from "jotai";
-import { CLUB_SHORT_NAME } from "constants/theme";
+import { env } from "../env/client.mjs";
 import { showFilterAtom, filterQueryAtom } from "../store";
 import { UserMenu } from "./UserMenu";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
 import { FilterIcon, FilterSelectedIcon } from "./Icon";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME } = env;
 
 const goHome = () => Router.push("/");
 
@@ -41,7 +43,7 @@ export const Header = ({ isAuthenticated, role }: Props) => {
               src={Logo}
               alt="Bath Cycling Club Logo"
             />
-            {CLUB_SHORT_NAME} Rides
+            {NEXT_PUBLIC_CLUB_SHORT_NAME} Rides
           </button>
         </div>
 

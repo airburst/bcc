@@ -5,6 +5,7 @@ import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
 import copy from "copy-to-clipboard";
 import { Confirm } from "../Confirm";
+import { env } from "../../env/client.mjs";
 import { deleteRide, cancelRide } from "../../hooks";
 import {
   BarsIcon,
@@ -21,6 +22,8 @@ import {
 } from "../Icon";
 import { MenuEntry } from "./MenuEntry";
 import pkg from "../../../package.json";
+
+const { NEXT_PUBLIC_REPO } = env;
 
 type MenuProps = {
   role: string | null;
@@ -178,7 +181,7 @@ export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
           <div className="flex h-6 items-center justify-between px-2 pl-2 text-xs text-neutral-400">
             Version {pkg.version}
             <a
-              href="https://github.com/airburst/bcc/blob/main/CHANGELOG.md"
+              href={`${NEXT_PUBLIC_REPO}/blob/main/CHANGELOG.md`}
               title="Release notes"
               target="_blank"
               rel="noreferrer"

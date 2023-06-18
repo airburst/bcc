@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
-import { CLUB_SHORT_NAME } from "constants/theme";
+import { env } from "../env/client.mjs";
 import { useRides, useLocalStorage } from "../hooks";
 import { RideGroup, RideGroupSkeleton, Filters } from "../components";
 import {
@@ -18,6 +18,8 @@ import {
 } from "../../shared/utils";
 import { User, FilterQuery } from "../types";
 import { showFilterAtom, filterQueryAtom } from "../store";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 type Props = {
   user: User;
@@ -47,7 +49,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
     return (
       <>
         <Head>
-          <title>{CLUB_SHORT_NAME} Rides</title>
+          <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Rides</title>
           <meta name="description" content="Bath Cycling Club Ride Planner" />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
@@ -71,8 +73,11 @@ const Home: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
       <Head>
-        <title>{CLUB_SHORT_NAME} Rides</title>
-        <meta name="description" content="Bath Cycling Club Ride Planner" />
+        <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Rides</title>
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
+        />
       </Head>
 
       <div className="grid w-full grid-cols-1 gap-4 md:gap-8">

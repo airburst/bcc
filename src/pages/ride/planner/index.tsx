@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useState } from "react";
-import { CLUB_SHORT_NAME } from "constants/theme";
+import { env } from "../../../env/client.mjs";
 import { useRides } from "../../../hooks";
 import {
   Button,
@@ -17,6 +17,8 @@ import {
   formatCalendarDate,
   getMonthDateRange,
 } from "../../../../shared/utils";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 const RideCalendar: NextPage = () => {
   const [date, setDate] = useState<string>(getNow());
@@ -35,19 +37,22 @@ const RideCalendar: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{CLUB_SHORT_NAME} Rides - Calendar</title>
-        <meta name="description" content="Bath Cycling Club Ride Calendar" />
+        <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Rides - Calendar</title>
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Calendar`}
+        />
       </Head>
 
       <div className="grid w-full grid-cols-1 gap-0 md:gap-8">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full flex-row items-center justify-between bg-primary p-2 font-bold uppercase tracking-wider text-white sm:rounded">
-            <Button info onClick={goToLastMonth}>
-              <ChevronLeftIcon className="fill-white" />
+            <Button accent onClick={goToLastMonth}>
+              <ChevronLeftIcon className="fill-accent-content" />
             </Button>
             <span>{formatCalendarDate(date)}</span>
-            <Button info onClick={goToNextMonth}>
-              <ChevronRightIcon className="fill-white" />
+            <Button accent onClick={goToNextMonth}>
+              <ChevronRightIcon className="fill-accent-content" />
             </Button>
           </div>
         </div>

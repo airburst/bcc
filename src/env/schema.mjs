@@ -6,6 +6,7 @@ import { z } from "zod";
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
+  HOST_URL: z.string().url(),
   DATABASE_URL: z.string().url(),
   DATABASE_HOST: z.string(),
   DATABASE_USERNAME: z.string(),
@@ -27,7 +28,9 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  // NEXT_PUBLIC_BAR: z.string(),
+  NEXT_PUBLIC_CLUB_LONG_NAME: z.string(),
+  NEXT_PUBLIC_CLUB_SHORT_NAME: z.string(),
+  NEXT_PUBLIC_REPO: z.string().url(),
 });
 
 /**
@@ -37,5 +40,7 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-  // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
+  NEXT_PUBLIC_CLUB_LONG_NAME: process.env.NEXT_PUBLIC_CLUB_LONG_NAME,
+  NEXT_PUBLIC_CLUB_SHORT_NAME: process.env.NEXT_PUBLIC_CLUB_SHORT_NAME,
+  NEXT_PUBLIC_REPO: process.env.NEXT_PUBLIC_REPO,
 };
