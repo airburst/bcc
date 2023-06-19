@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import { RiderDetails } from "./RiderDetails";
 import { User } from "../../types";
 
@@ -8,6 +9,8 @@ type Props = {
   hasRiders?: boolean;
   rideNotes?: string;
 };
+
+const handleSignIn = () => signIn("auth0");
 
 export const RidersGoing = ({
   user,
@@ -35,7 +38,18 @@ export const RidersGoing = ({
         ) : (
           <div className="flex flex-col gap-2 px-2">
             {rideNotes && <div>Note: {rideNotes}</div>}
-            <div>Please log in to see other rider details</div>
+            <div>
+              Please{" "}
+              <button
+                className="underline cursor-pointer text-primary"
+                type="button"
+                aria-label="Click to log in"
+                onClick={handleSignIn}
+              >
+                log in
+              </button>{" "}
+              to see other rider details and join rides.
+            </div>
           </div>
         )}
       </div>
