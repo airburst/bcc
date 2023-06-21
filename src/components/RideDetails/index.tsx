@@ -13,7 +13,7 @@ type RowProps = {
 };
 
 const Heading = ({ children }: RowProps) => (
-  <div className="flex w-full flex-row items-center justify-center bg-blue-900 p-2 font-bold uppercase tracking-wide text-white sm:rounded">
+  <div className="flex w-full flex-row items-center justify-center bg-primary p-2 font-bold uppercase tracking-wide text-white sm:rounded">
     {children}
   </div>
 );

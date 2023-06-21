@@ -4,6 +4,7 @@ import Error from "next/error";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
+import { env } from "../../../env/client.mjs";
 import { useRide } from "../../../hooks";
 import {
   RideDetails,
@@ -12,6 +13,8 @@ import {
 } from "../../../components";
 import { serialiseUser } from "../../../../shared/utils";
 import { User } from "../../../types";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 type Props = {
   user: User;
@@ -47,8 +50,11 @@ const RideDetailsPage: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
       <Head>
-        <title>BCC Ride Details</title>
-        <meta name="description" content="Bath Cycling Club Ride Details" />
+        <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Ride Details</title>
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Details`}
+        />
       </Head>
 
       <RideDetails ride={ride} user={user} role={role} />

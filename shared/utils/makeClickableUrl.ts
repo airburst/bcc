@@ -3,7 +3,7 @@ export const makeClickableUrl = (text: string) => {
     /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
   const text1 = text.replace(
     exp,
-    "<a class=\"underline text-blue-700\" href='$1'>link</a>"
+    "<a class=\"underline text-primary\" href='$1'>link</a>"
   );
   const exp2 = /(^|[^/])(www\.[\S]+(\b|$))/gim;
 

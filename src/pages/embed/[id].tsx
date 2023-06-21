@@ -2,8 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Error from "next/error";
 import { useRouter } from "next/router";
+import { env } from "../../env/client.mjs";
 import { useRide } from "../../hooks";
 import { RideDetails, RideDetailsSkeleton, BackButton } from "../../components";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 const RideDetailsPage: NextPage = () => {
   const router = useRouter();
@@ -33,8 +36,11 @@ const RideDetailsPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>BCC Ride Details</title>
-        <meta name="description" content="Bath Cycling Club Ride Details" />
+        <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Ride Details</title>
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Details`}
+        />
       </Head>
 
       <RideDetails ride={ride} embedded />

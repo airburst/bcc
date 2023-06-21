@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { env } from "../../../env/client.mjs";
 import { useRides } from "../../../hooks";
 import {
   BackButton,
@@ -20,6 +21,8 @@ import {
   getNow,
   serialiseUser,
 } from "../../../../shared/utils";
+
+const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
 type Props = {
   isLeader: boolean;
@@ -41,8 +44,13 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
     return (
       <>
         <Head>
-          <title>BCC Rides on {date}</title>
-          <meta name="description" content="Bath Cycling Club Ride Planner" />
+          <title>
+            {NEXT_PUBLIC_CLUB_SHORT_NAME} Rides on {date}
+          </title>
+          <meta
+            name="description"
+            content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
+          />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
           <RideGroupSkeleton
@@ -65,8 +73,13 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
   return (
     <>
       <Head>
-        <title>BCC Rides on {date}</title>
-        <meta name="description" content="Bath Cycling Club Ride Planner" />
+        <title>
+          {NEXT_PUBLIC_CLUB_SHORT_NAME} Rides on {date}
+        </title>
+        <meta
+          name="description"
+          content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
+        />
       </Head>
 
       <div className="flex w-full flex-col gap-2 md:gap-4">
@@ -90,7 +103,7 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
           </>
         ) : (
           <>
-            <div className="flex w-full justify-center bg-blue-900 p-2 font-bold uppercase tracking-widest text-white">
+            <div className="flex w-full justify-center bg-primary p-2 font-bold uppercase tracking-widest text-white">
               <div>{formatDate(dateString)}</div>
             </div>
             <div className="flex h-32 w-full items-center justify-center text-4xl">

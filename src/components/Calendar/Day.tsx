@@ -28,8 +28,8 @@ export const Day = ({ day, date, rides = [], classes, past }: Props) => {
   const hasUnreadyRides = rides.filter((r) => !isReady(r)).length > 0;
 
   const cellStyle = isToday
-    ? "bg-indigo-100 text-black hover:bg-blue-50 hover:text-neutral-900"
-    : "hover:bg-blue-50 hover:text-neutral-900 cursor-pointer";
+    ? "bg-base-300 text-black"
+    : "hover:bg-base-300 cursor-pointer";
 
   const wrapperClasses =
     classes ||
@@ -78,7 +78,7 @@ export const Day = ({ day, date, rides = [], classes, past }: Props) => {
 export const OutsideDay = (props: Props) => (
   <Day
     {...props}
-    classes="lg:text-md h-28 sm:h-32 w-full justify-self-center bg-neutral-50 p-1 text-sm text-neutral-400 cursor-pointer"
+    classes="lg:text-md h-28 sm:h-32 w-full justify-self-center bg-base-200 p-1 text-sm text-neutral-400 cursor-pointer"
     past
   />
 );

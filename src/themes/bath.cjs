@@ -1,0 +1,17 @@
+module.exports = {
+  primary: "#24376E",
+  "primary-content": "#ffffff",
+  secondary: "#831843",
+  "secondary-content": "#ffffff",
+  accent: "#3f60c0",
+  "accent-content": "#ffffff",
+  neutral: "#e5e7eb",
+  "base-100": "#FFFFFF",
+  info: "#3b82f6",
+  "info-content": "#ffffff",
+  success: "#15803d",
+  "success-content": "#ffffff",
+  warning: "#FBBD23",
+  error: "#b91c1c",
+  "error-content": "#ffffff",
+};

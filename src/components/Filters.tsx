@@ -219,7 +219,7 @@ export const Filters = ({ isShowing, closeHandler, data }: Props) => {
             <span>Reset</span>
           </Button>
           <Button
-            primary
+            secondary
             onClick={closeHandler}
             title="Reset filters"
             className="flex items-center rounded p-1"
