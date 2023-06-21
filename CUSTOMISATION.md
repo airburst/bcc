@@ -175,6 +175,8 @@ curl --request POST -d '{"date":"2023-06-01"}' \
 
 Having first set an API_KEY in `.env` and in Vercel, **and added it as a Github secret**, and where the date is in the current month. The api should generate all rides for the following month.
 
+For the cron job to run in production, you must modify the github action. Open the file `.github/workflows/cron.yml` and change the url on line 22 to use your domain.
+
 ### Web manifest
 
 Open `public/static/site.webmanifest` in your code editor and change values for `name` and `short_name`. These settings change the display name when saving the app shortcut to mobile phone home screens.
