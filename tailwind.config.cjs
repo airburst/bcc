@@ -1,9 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { fontFamily } = require("tailwindcss/defaultTheme");
-// const bcc = require("./src/themes/bcc.cjs");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const club = require("./src/themes/shrewsbury.cjs");
+const club = require("./src/themes/bath.cjs");
 
 /* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */

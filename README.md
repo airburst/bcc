@@ -48,3 +48,7 @@ yarn pushdb
 - Navigate to [https://app.planetscale.com/mark-fairhurst/bcc-rides/dev](https://app.planetscale.com/mark-fairhurst/bcc-rides/dev)
 - Click `Create Deploy Request`
 - If that passes, click `Deploy Changes`
+
+## Making a copy of the app
+
+See [Customisation docs](./CUSTOMISATION.md).

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.18.0] - 2023-06-21
+
+It's the Longest Day, so to celebrate the Rides app is becoming easier for clubs to customise and host their own version.
+
+### Added
+
+- Club colours can be set in a theme file
+- Supports environmental variables for club name, host url and repo
+- Added customisation docs
+
 ## [1.17.0] - 2023-06-12
 
 ### Changed
