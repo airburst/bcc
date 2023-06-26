@@ -54,4 +54,5 @@ export const PACELINE = {
   day: DAYS.SATURDAY,
   rides: PACELINE_RIDES,
   startTime: PACELINE_START_TIME,
+  limit: 8, // Max of 8 riders per group
 };

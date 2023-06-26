@@ -83,6 +83,7 @@ model Ride {
   leader      String?
   notes       String?        @db.Text
   speed       Int?
+  limit       Int            @default(-1)
   users       UsersOnRides[] @relation("usersOnRides_ride")
   deleted     Boolean        @default(false)
   cancelled   Boolean        @default(false)
@@ -139,6 +140,7 @@ model ArchivedRide {
   leader      String?
   notes       String?  @db.Text
   speed       Int?
+  limit       Int      @default(-1)
   deleted     Boolean  @default(false)
   cancelled   Boolean  @default(false)
   createdAt   DateTime @default(now())

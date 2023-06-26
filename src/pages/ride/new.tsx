@@ -66,6 +66,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     leader,
     route,
     notes,
+    limit,
   }) => {
     setWaiting(true);
     // Transform data before sending
@@ -81,6 +82,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
         route,
         meetPoint,
         notes,
+        limit,
       })
     );
     if (results.id) {

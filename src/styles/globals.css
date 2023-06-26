@@ -36,3 +36,7 @@ svg {
   @apply rounded;
   @apply text-base;
 }
+
+.alert {
+  @apply rounded;
+}

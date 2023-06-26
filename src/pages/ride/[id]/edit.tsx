@@ -55,6 +55,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
     leader,
     route,
     notes,
+    limit,
   }) => {
     setWaiting(true);
     // Transform data before sending
@@ -71,6 +72,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
         leader,
         route,
         notes,
+        limit,
       })
     );
     if (results.id) {
