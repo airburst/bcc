@@ -66,8 +66,11 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
       ) : (
         <>
           {!isSpace && (
-            <div className="alert alert-warning">
-              This ride is full. Please contact the leader if you want to join.
+            <div className="mx-2 sm:mx-0">
+              <div className="alert alert-warning">
+                This ride is full. Please contact the leader if you want to
+                join.
+              </div>
             </div>
           )}
           <RidersGoing
