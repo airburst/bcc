@@ -13,6 +13,9 @@ Paceline rides are getting oversubscribed. This release adds rider limits on rid
 
 - Added limit (int) column to Ride table
 - Added limit select to ride form
+- Added alert to ride details page to show when ride is full; Join button is removed, but a signed-up rider can still leave
+- Added limit of 8 riders to Paceline config (for ride generation)
+- Show count/limit when there is a limit applied (card and details views)
 
 ## [1.18.0] - 2023-06-21
 

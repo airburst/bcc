@@ -27,7 +27,7 @@ type Props = {
 
 export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const [showNotesForm, setShowNotesForm] = useState<boolean>(false);
-  const { id, name, date, day, cancelled, users } = ride;
+  const { id, name, date, day, cancelled, limit, users } = ride;
 
   const hasRiders = users && users?.length > 0;
   const isGoing =
@@ -37,6 +37,9 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const canJoin = isJoinable(date) && isSpace;
   const rideNotes =
     users && user && users?.find((u: User) => u.id === user.id)?.rideNotes;
+  const riderCount = users?.length || 0;
+  const hasLimit = limit && limit > -1;
+  const ridersLabel = hasLimit ? `${riderCount}/${limit}` : riderCount;
 
   const openNotes = () => setShowNotesForm(true);
   const closeNotes = () => setShowNotesForm(false);
@@ -52,7 +55,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
       <Heading>
         <div className="flex items-center gap-4">
           Going
-          <Badge text={users?.length} />
+          <Badge text={ridersLabel} />
         </div>
       </Heading>
 

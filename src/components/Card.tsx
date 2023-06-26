@@ -16,7 +16,8 @@ type Props = {
 export const Card: React.FC<Props> = ({ ride, user }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
-  const { id, name, date, time, group, destination, distance, users } = ride;
+  const { id, name, date, time, group, destination, distance, limit, users } =
+    ride;
   const isNotReady = !isReady(ride);
 
   const details = destination ? `${destination} - ${distance}` : `${distance}`;
@@ -34,6 +35,8 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
 
   const isGoing = user ? users?.map((u) => u.id).includes(user.id) : false;
   const riderCount = users?.length;
+  const hasLimit = limit && limit > -1;
+  const ridersLabel = hasLimit ? `${riderCount}/${limit}` : riderCount;
 
   const cardClass = clsx(
     "grid w-full grid-cols-[auto_1fr_80px] pl-1 pb-1 border-l-4",
@@ -92,7 +95,7 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
             height={16}
             alt="Number of riders"
           />
-          <span className="text-xl font-bold">{riderCount}</span>
+          <span className="text-xl font-bold">{ridersLabel}</span>
         </div>
       </div>
 
