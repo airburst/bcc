@@ -154,3 +154,14 @@ export const makeFilterData = (
   data.delete(undefined);
   return Array.from(data).sort();
 };
+
+export const hasSpace = (ride: RideType): boolean => {
+  const rideLimit = ride.limit || -1;
+  const hasLimit = rideLimit > -1;
+
+  if (!hasLimit) {
+    return true;
+  }
+
+  return (ride.users?.length || 0) < rideLimit;
+};

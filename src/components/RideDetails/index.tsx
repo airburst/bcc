@@ -3,7 +3,7 @@ import { Button, BackButton, JoinButton } from "../Button";
 import { MessageIcon } from "../Icon";
 import { Badge } from "../Badge";
 import { User, Ride } from "../../types";
-import { isJoinable } from "../../../shared/utils";
+import { isJoinable, hasSpace } from "../../../shared/utils";
 import { RideInfo } from "./RideInfo";
 import { RidersGoing } from "./RidersGoing";
 import { RideNotes } from "./RideNotes";
@@ -33,7 +33,8 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
   const isGoing =
     users && user ? users?.map((u: User) => u.id).includes(user?.id) : false;
   const isLeader = ["ADMIN", "LEADER"].includes(role || "");
-  const canJoin = isJoinable(date);
+  const isSpace = hasSpace(ride);
+  const canJoin = isJoinable(date) && isSpace;
   const rideNotes =
     users && user && users?.find((u: User) => u.id === user.id)?.rideNotes;
 
@@ -61,13 +62,17 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
         </div>
       ) : (
         <>
+          {!isSpace && (
+            <div className="alert alert-warning">
+              This ride is full. Please contact the leader if you want to join.
+            </div>
+          )}
           <RidersGoing
             user={user}
             users={users}
             hasRiders={hasRiders}
             isLeader={isLeader}
           />
-
           <div className="flex h-4 flex-row justify-between px-2 pt-2 sm:px-0">
             <BackButton url={`/#${id}`} />
 
@@ -78,7 +83,7 @@ export const RideDetails = ({ ride, user, role, embedded }: Props) => {
               </Button>
             )}
 
-            {user && canJoin && !cancelled && (
+            {user && (canJoin || isGoing) && !cancelled && (
               <JoinButton
                 going={isGoing}
                 ariaLabel={`Join ${name} ride`}
