@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.19.0] - 2023-06-26
+
+Paceline rides are getting oversubscribed. This release adds rider limits on rides.
+
+### Added
+
+- Added limit (int) column to Ride table
+- Added limit select to ride form
+
 ## [1.18.0] - 2023-06-21
 
 It's the Longest Day, so to celebrate the Rides app is becoming easier for clubs to customise and host their own version.

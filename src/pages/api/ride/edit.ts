@@ -32,6 +32,9 @@ const editRide = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const ride = req.body;
+    // Cast limit to number
+    ride.limit = +ride.limit;
+
     // A user can only add themselves; a leader can add other riders
     const hasLeaderRole = await isLeader(req, res);
     // Do not edit historic rides

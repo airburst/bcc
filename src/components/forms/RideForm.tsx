@@ -1,5 +1,6 @@
 import { FormEventHandler } from "react";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+import { RIDER_LIMIT_OPTIONS } from "../../constants";
 import { getNow } from "../../../shared/utils";
 import { Preferences } from "../../types";
 import { Button } from "../Button";
@@ -19,6 +20,7 @@ export type FormValues = {
   distance: number;
   leader: string;
   route: string;
+  limit?: number;
 };
 
 type RideFormProps = {
@@ -60,18 +62,39 @@ export const RideForm = ({
       </label>
     </div>
 
-    <div className="flex flex-col gap-4 md:gap-8">
-      <label htmlFor="group" className="flex flex-col gap-1 font-medium">
-        Group name
-        <input
-          id="group"
-          type="text"
-          className="rounded font-normal"
-          defaultValue={defaultValues.group}
-          {...register("group")}
-        />
-      </label>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4 md:gap-8">
+        <label htmlFor="group" className="flex flex-col gap-1 font-medium">
+          Group name
+          <input
+            id="group"
+            type="text"
+            className="rounded font-normal"
+            defaultValue={defaultValues.group}
+            {...register("group")}
+          />
+        </label>
+      </div>
+      <div className="flex flex-col gap-4 md:gap-8">
+        <label htmlFor="limit" className="flex flex-col gap-1 font-medium">
+          Rider limit
+          <select
+            id="limit"
+            className="rounded font-normal"
+            defaultValue={defaultValues.limit}
+            {...register("limit")}
+          >
+            <option value="-1">No limit</option>
+            {RIDER_LIMIT_OPTIONS.map((val: number) => (
+              <option key={`limit-${val}`} value={val}>
+                {val}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </div>
+
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4 md:gap-8">
         <label htmlFor="date" className="flex flex-col gap-1 font-medium">

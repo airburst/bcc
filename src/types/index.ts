@@ -35,6 +35,7 @@ export type Ride = {
   speed?: number | null;
   notes?: string | null;
   cancelled?: boolean;
+  limit?: number;
   users?: User[];
 };
 
