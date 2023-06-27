@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { Role } from "@prisma/client";
 import { Preferences } from "../types";
 
 type UpdateUser = {
@@ -7,6 +8,7 @@ type UpdateUser = {
   mobile?: string | null;
   emergency?: string | null;
   preferences?: Preferences | null;
+  role?: Role;
 };
 
 export const updateUser = (user: UpdateUser) =>
