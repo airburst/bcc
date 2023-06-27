@@ -21,3 +21,4 @@ export * from "./PhoneIcon";
 export * from "./PlusIcon";
 export * from "./SettingsIcon";
 export * from "./TickIcon";
+export * from "./UsersIcon";

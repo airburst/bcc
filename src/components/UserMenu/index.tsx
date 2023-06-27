@@ -19,6 +19,7 @@ import {
   PlusIcon,
   SettingsIcon,
   CircleExclamationIcon,
+  UsersIcon,
 } from "../Icon";
 import { MenuEntry } from "./MenuEntry";
 import pkg from "../../../package.json";
@@ -37,6 +38,7 @@ export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
   const [showConfirmCancel, setShowConfirmCancel] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const isLeader = role && ["ADMIN", "LEADER"].includes(role);
+  const isAdmin = role === "ADMIN";
   const showEditAndDelete = isLeader && rideId;
   const router = useRouter();
   const { mutate } = useSWRConfig();
@@ -167,6 +169,11 @@ export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
             </>
           )}
 
+          {isAdmin && (
+            <MenuEntry label="Manage Users" href="/users" onClick={closeMenu}>
+              <UsersIcon className="fill-neutral-700" />
+            </MenuEntry>
+          )}
           {isAuthenticated && (
             <>
               <MenuEntry label="Settings" href="/profile" onClick={closeMenu}>

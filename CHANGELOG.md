@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.20.0] - 2023-06-27
+
+### Added
+
+- Manage users list view and api (ADMIN roles only)
+- Update user form and api (ADMIN roles only)
+
 ## [1.19.0] - 2023-06-26
 
 Paceline rides are getting oversubscribed. This release adds rider limits on rides.

@@ -1,5 +1,6 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Role } from "@prisma/client";
 import { prisma } from "../../../server/db/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isMe, isAdmin } from "../auth/authHelpers";
@@ -7,7 +8,7 @@ import { User } from "../../../types";
 
 // Restricted editable fields: name, mobile
 export const updateProfile = async (user: User) => {
-  const { id, name, mobile, emergency, preferences } = user;
+  const { id, name, mobile, emergency, preferences, role } = user;
 
   try {
     const result = await prisma.user.update({
@@ -16,6 +17,7 @@ export const updateProfile = async (user: User) => {
         mobile,
         emergency,
         preferences,
+        role: role as Role,
       },
       where: { id },
     });

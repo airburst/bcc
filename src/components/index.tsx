@@ -7,6 +7,7 @@ export * from "./ErrorBoundary";
 export * from "./Filters";
 export * from "./forms/RideForm";
 export * from "./forms/UserProfileForm";
+export * from "./forms/ManagedUserForm";
 export * from "./Header";
 export * from "./Icon";
 export * from "./Layout";

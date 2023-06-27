@@ -20,6 +20,20 @@ export const getProfile = async (user: User) => {
   return formatUser(userRecord, null, true);
 };
 
+export const getProfileForUser = async (id: string) => {
+  const userRecord = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!userRecord) {
+    return {};
+  }
+
+  return formatUser(userRecord, null, true);
+};
+
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerAuthSession({ req, res });
 
