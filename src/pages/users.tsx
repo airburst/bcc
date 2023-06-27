@@ -6,6 +6,7 @@ import { useState, ChangeEvent } from "react";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { listUsers } from "./api/user/list";
 import { User } from "../types";
+import { Badge } from "../components";
 
 type Props = {
   users: User[];
@@ -57,7 +58,7 @@ const UsersList: NextPage<Props> = ({ users }: Props) => {
       </div>
 
       <div className="grid w-full grid-cols-1 gap-2 md:gap-2 px-2 sm:px-0">
-        {filteredUsers.map(({ id, name, email }) => (
+        {filteredUsers.map(({ id, name, email, role }) => (
           <div
             key={id}
             id={id}
@@ -81,9 +82,15 @@ const UsersList: NextPage<Props> = ({ users }: Props) => {
               setSwiping(false);
             }}
           >
-            <div className="flex-auto p-1 px-2 font-bold uppercase tracking-wide">
+            <div className="flex-auto align-middle p-1 px-2 font-bold uppercase tracking-wide">
               {name}
             </div>
+            {["ADMIN", "LEADER"].includes(role) && (
+              <div className="pt-[3px]">
+                <Badge text={role} />
+              </div>
+            )}
+
             <div className="truncate p-1">{email}</div>
           </div>
         ))}
