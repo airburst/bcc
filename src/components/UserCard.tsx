@@ -46,7 +46,7 @@ export const UserCard: React.FC<Props> = ({ user }: Props) => {
         setSwiping(false);
       }}
     >
-      <div className="flex-col lg:flex-row flex-1 p-2 gap-1">
+      <div className="flex-col lg:flex-row flex-1 p-2 gap-1 truncate">
         <div className="align-middle font-bold uppercase tracking-wide">
           {name}
         </div>
