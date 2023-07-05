@@ -51,7 +51,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
     role,
   }) => {
     setWaiting(true);
-    await mutate("/api/rides", async () => {
+    await mutate("/api/user/update", async () => {
       const userRecord = await updateUser({
         id: user.id,
         name,
@@ -62,7 +62,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
       });
 
       if (userRecord?.id) {
-        router.push("/");
+        router.push("/users");
       }
       setWaiting(false);
     });
