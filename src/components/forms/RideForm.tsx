@@ -41,7 +41,7 @@ export const RideForm = ({
   preferences,
 }: RideFormProps) => (
   <form
-    className="relative grid w-full grid-cols-1 gap-4 p-2"
+    className="form-control relative grid w-full grid-cols-1 gap-4 p-2"
     onSubmit={handleSubmit}
   >
     <div className="flex flex-col gap-4 md:gap-8">

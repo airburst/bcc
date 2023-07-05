@@ -109,14 +109,14 @@ export const UserMenu = ({ role, rideId, isAuthenticated }: MenuProps) => {
 
   return (
     <div ref={ref} className="relative">
-      <div className="h-10 cursor-pointer rounded p-1 text-3xl md:hover:bg-slate-200">
+      <div className="h-10 cursor-pointer rounded p-1 text-3xl">
         <button
           type="button"
           aria-label="Menu"
           onClick={toggleMenu}
           onKeyDown={toggleMenu}
         >
-          <BarsIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
+          <BarsIcon className="fill-white w-6 h-6" />
         </button>
       </div>
 

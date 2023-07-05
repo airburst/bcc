@@ -33,7 +33,7 @@ export const ManagedUserForm = ({
   waiting,
 }: ManagedUserFormProps) => (
   <form
-    className="relative grid w-full grid-cols-1 gap-4 p-2"
+    className="form-control relative grid w-full grid-cols-1 gap-4 p-2"
     onSubmit={handleSubmit}
   >
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
@@ -106,12 +106,12 @@ export const ManagedUserForm = ({
     </div>
 
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
-      <label htmlFor="email" className="flex flex-col gap-1 font-medium">
+      <label htmlFor="email" className="flex flex-col gap-1">
         Email
         <input
           id="email"
           type="text"
-          className="rounded border-neutral-300 bg-neutral-200 font-normal text-neutral-600"
+          className="input"
           defaultValue={defaultValues.email}
           disabled
           {...register("email")}

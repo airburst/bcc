@@ -28,7 +28,7 @@ export const Header = ({ isAuthenticated, role }: Props) => {
   const hasFiltersApplied = !!(filterQuery.onlyJoined || filterQuery.q);
 
   return (
-    <div className="fixed -mt-16 sm:-mt-24 lg:-mt-32 z-10 flex h-16 w-full items-center justify-center bg-primary  text-white sm:h-24 md:bg-slate-100 md:text-neutral-700">
+    <div className="fixed -mt-16 sm:-mt-24 lg:-mt-32 z-10 flex h-16 w-full items-center justify-center bg-primary text-white sm:h-24  ">
       <div className="container flex w-full flex-row justify-between px-2 md:px-4 lg:max-w-[1024px]">
         <div className=" text-4xl tracking-wide sm:text-5xl">
           <button
@@ -54,12 +54,12 @@ export const Header = ({ isAuthenticated, role }: Props) => {
               onClick={showFilters}
               title="Filter results"
               aria-label="Filter results"
-              className="flex items-center rounded p-1 text-3xl md:hover:bg-slate-200"
+              className="flex items-center rounded p-1 text-3xl"
             >
               {hasFiltersApplied ? (
-                <FilterSelectedIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
+                <FilterSelectedIcon className="fill-white w-6 h-6" />
               ) : (
-                <FilterIcon className="fill-white sm:fill-neutral-700 w-6 h-6" />
+                <FilterIcon className="fill-white w-6 h-6" />
               )}
             </button>
           )}
