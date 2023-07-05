@@ -45,7 +45,7 @@ export const RideForm = ({
     onSubmit={handleSubmit}
   >
     <div className="flex flex-col gap-4 md:gap-8">
-      <label htmlFor="name" className="flex flex-col gap-1 font-medium">
+      <label htmlFor="name" className="flex flex-col gap-1">
         Ride name *
         <input
           id="name"
@@ -64,7 +64,7 @@ export const RideForm = ({
 
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4 md:gap-8">
-        <label htmlFor="group" className="flex flex-col gap-1 font-medium">
+        <label htmlFor="group" className="flex flex-col gap-1">
           Group name
           <input
             id="group"
@@ -76,7 +76,7 @@ export const RideForm = ({
         </label>
       </div>
       <div className="flex flex-col gap-4 md:gap-8">
-        <label htmlFor="limit" className="flex flex-col gap-1 font-medium">
+        <label htmlFor="limit" className="flex flex-col gap-1">
           Rider limit
           <select
             id="limit"
@@ -97,7 +97,7 @@ export const RideForm = ({
 
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4 md:gap-8">
-        <label htmlFor="date" className="flex flex-col gap-1 font-medium">
+        <label htmlFor="date" className="flex flex-col gap-1">
           Date *
           <input
             id="date"
@@ -118,7 +118,7 @@ export const RideForm = ({
       </div>
 
       <div className="flex flex-col gap-4 md:gap-8">
-        <label htmlFor="time" className="flex flex-col gap-1 font-medium">
+        <label htmlFor="time" className="flex flex-col gap-1">
           Start time *
           <input
             id="time"
@@ -137,7 +137,7 @@ export const RideForm = ({
     </div>
 
     <div className="flex flex-col gap-4 md:gap-8">
-      <label htmlFor="meetPoint" className="flex flex-col gap-1 font-medium">
+      <label htmlFor="meetPoint" className="flex flex-col gap-1">
         Meeting point
         <input
           id="meetPoint"
