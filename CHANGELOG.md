@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - After changing a user record, Admin returns to 'All Users' page
 - Changing a user record invalidates the user cache
+- Updated form styles
 - Bumped dependencies
 
 ## [1.20.1] - 2023-06-29

@@ -50,7 +50,7 @@ export const RideForm = ({
         <input
           id="name"
           type="text"
-          className="rounded font-normal"
+          className="input"
           defaultValue={defaultValues.name}
           {...register("name", { required: true })}
         />
@@ -69,7 +69,7 @@ export const RideForm = ({
           <input
             id="group"
             type="text"
-            className="rounded font-normal"
+            className="input"
             defaultValue={defaultValues.group}
             {...register("group")}
           />
@@ -80,7 +80,7 @@ export const RideForm = ({
           Rider limit
           <select
             id="limit"
-            className="rounded font-normal"
+            className="input"
             defaultValue={defaultValues.limit}
             {...register("limit")}
           >
@@ -103,7 +103,7 @@ export const RideForm = ({
             id="date"
             type="date"
             min={today}
-            className="rounded font-normal"
+            className="input"
             defaultValue={defaultValues.date}
             {...register("date", {
               required: true,
@@ -123,7 +123,7 @@ export const RideForm = ({
           <input
             id="time"
             type="time"
-            className="rounded font-normal"
+            className="input"
             defaultValue={defaultValues.time}
             {...register("time", { required: true })}
           />
@@ -142,7 +142,7 @@ export const RideForm = ({
         <input
           id="meetPoint"
           type="text"
-          className="rounded font-normal"
+          className="input"
           defaultValue={defaultValues.meetPoint}
           {...register("meetPoint", { required: true })}
         />
@@ -155,7 +155,7 @@ export const RideForm = ({
         <input
           id="distance"
           type="number"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.distance}
           {...register("distance", {
             required: {
@@ -182,7 +182,7 @@ export const RideForm = ({
         <input
           id="destination"
           type="text"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.destination}
           {...register("destination")}
         />
@@ -195,7 +195,7 @@ export const RideForm = ({
         <input
           id="route"
           type="text"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.route}
           {...register("route")}
         />
@@ -208,7 +208,7 @@ export const RideForm = ({
         <input
           id="leader"
           type="text"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.leader}
           {...register("leader")}
         />
@@ -220,7 +220,7 @@ export const RideForm = ({
         Notes
         <textarea
           id="notes"
-          className="rounded"
+          className="textarea"
           rows={4}
           defaultValue={defaultValues.notes}
           {...register("notes")}

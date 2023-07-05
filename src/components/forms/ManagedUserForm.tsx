@@ -42,7 +42,7 @@ export const ManagedUserForm = ({
         <input
           id="name"
           type="text"
-          className="rounded font-normal"
+          className="input"
           defaultValue={defaultValues.name}
           {...register("name", { required: true })}
         />
@@ -60,7 +60,7 @@ export const ManagedUserForm = ({
         <input
           id="mobile"
           type="text"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.mobile || ""}
           {...register("mobile", {
             required: true,
@@ -86,7 +86,7 @@ export const ManagedUserForm = ({
           id="emergency"
           type="text"
           placeholder="Name and contact number"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues.emergency || ""}
           {...register("emergency", {
             required: true,
@@ -124,7 +124,7 @@ export const ManagedUserForm = ({
         Role
         <select
           id="role"
-          className="rounded"
+          className="input"
           defaultValue={defaultValues?.role || ""}
           {...register("role")}
         >
@@ -144,7 +144,7 @@ export const ManagedUserForm = ({
         Units
         <select
           id="units"
-          className="rounded"
+          className="select"
           defaultValue={defaultValues?.preferences?.units || ""}
           {...register("preferences.units")}
         >
