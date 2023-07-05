@@ -115,12 +115,12 @@ export const RideInfo = ({ ride }: Props) => {
 
       {(riderNotes || []).length > 0 && (
         <div className="flex w-full flex-col rounded bg-white py-2 shadow-md divide-y divide-neutral-100">
-          <div className="px-2 text-xl font-bold tracking-wide text-neutral-700">
+          <div className="px-2 pb-2 text-xl font-bold tracking-wide text-neutral-700">
             Messages
           </div>
           {riderNotes?.map((rider) => (
             <Row key={rider.name}>
-              <div className="whitespace-pre-line truncate">{rider.name}</div>
+              <div className="truncate">{rider.name}</div>
               <div className="whitespace-pre-line">{rider.rideNotes}</div>
             </Row>
           ))}

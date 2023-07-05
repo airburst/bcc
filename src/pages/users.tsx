@@ -1,8 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { getServerSession } from "next-auth";
-import { useState, ChangeEvent, useRef, useEffect } from "react";
-import autoAnimate from "@formkit/auto-animate";
+import { useState, ChangeEvent } from "react";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { listUsers } from "./api/user/list";
 import { User } from "../types";
@@ -14,13 +13,6 @@ type Props = {
 
 const UsersList: NextPage<Props> = ({ users }: Props) => {
   const [searchText, setSearchText] = useState<string | null>(null);
-  const parent = useRef(null);
-
-  useEffect(() => {
-    if (parent.current) {
-      autoAnimate(parent.current);
-    }
-  }, [parent]);
 
   if (!users) {
     return null; // Redirect? or error
@@ -58,10 +50,7 @@ const UsersList: NextPage<Props> = ({ users }: Props) => {
         />
       </div>
 
-      <div
-        ref={parent}
-        className="grid w-full grid-cols-1 gap-2 md:gap-2 px-2 sm:px-0"
-      >
+      <div className="grid w-full grid-cols-1 gap-2 md:gap-2 px-2 sm:px-0">
         {filteredUsers.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
