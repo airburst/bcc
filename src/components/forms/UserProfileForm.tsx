@@ -35,7 +35,7 @@ export const UserProfileForm = ({
     onSubmit={handleSubmit}
   >
     <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
-      <label htmlFor="name" className="flex flex-col gap-1 font-medium">
+      <label htmlFor="name" className="flex flex-col gap-1">
         Name *
         <input
           id="name"
