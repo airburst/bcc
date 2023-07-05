@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.20.1] - 2023-06-9
+## [1.20.2] - 2023-07-05
+
+### Changed
+
+- After changing a user record, Admin returns to 'All Users' page
+- Changing a user record invalidates the user cache
+- Animate filtering on users page when searching
+- Bumped dependencies
+
+## [1.20.1] - 2023-06-29
 
 ### Changed
 
