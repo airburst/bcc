@@ -22,7 +22,7 @@ export type DbResponse<T> = {
 
 export type Ride = {
   id?: string;
-  name: string; // Enum sunday | paceline | event
+  name: string;
   date: string;
   day: string;
   time: string;
@@ -37,6 +37,33 @@ export type Ride = {
   cancelled?: boolean;
   limit?: number;
   users?: User[];
+};
+
+export type RepeatingRide = {
+  id?: string;
+  name: string;
+  freq: number;
+  interval?: number;
+  startDate: string;
+  winterStartTime?: string | null;
+  endDate?: string | null;
+  destination?: string | null;
+  group?: string | null;
+  distance?: number | null;
+  meetPoint?: string | null;
+  route?: string | null;
+  leader?: string | null;
+  speed?: number | null;
+  notes?: string | null;
+  cancelled?: boolean;
+  limit?: number;
+};
+
+export type RepeatingRideDb = Omit<
+  RepeatingRide,
+  "freq" | "interval" | "startDate" | "endDate"
+> & {
+  schedule: string;
 };
 
 export type PartialRide = Omit<Ride, "day" | "date" | "time"> & {

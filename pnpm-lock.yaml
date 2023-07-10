@@ -59,6 +59,9 @@ dependencies:
   react-loading-skeleton:
     specifier: ^3.3.1
     version: 3.3.1(react@18.2.0)
+  rrule:
+    specifier: ^2.7.2
+    version: 2.7.2
   swr:
     specifier: ^2.2.0
     version: 2.2.0(react@18.2.0)
@@ -4981,6 +4984,12 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: false
+
+  /rrule@2.7.2:
+    resolution: {integrity: sha512-NkBsEEB6FIZOZ3T8frvEBOB243dm46SPufpDckY/Ap/YH24V1zLeMmDY8OA10lk452NdrF621+ynDThE7FQU2A==}
+    dependencies:
+      tslib: 2.5.0
     dev: false
 
   /run-parallel@1.2.0:
