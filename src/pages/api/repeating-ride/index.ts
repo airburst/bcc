@@ -3,12 +3,18 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isAdmin } from "../auth/authHelpers";
-import { repeatingRideFromDb } from "../../../../shared/utils";
+import {
+  repeatingRideFromDb,
+  // getRidesInPeriod,
+} from "../../../../shared/utils";
 
 export const listRepeatingRides = async () => {
   const rideRecords = await prisma.repeatingRide.findMany({
     orderBy: { name: "asc" },
   });
+
+  // const rides = rideRecords.map((r) => getRidesInPeriod(r));
+  // console.log("🚀 ~ file: index.ts:17 ~ listRepeatingRides ~ rides:", rides);
 
   if (!rideRecords) {
     return {};
@@ -25,6 +31,7 @@ const getRepeatingRides = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const hasAdminRole = await isAdmin(req, res);
+  // const hasAdminRole = true;
 
   if (hasAdminRole) {
     const userData = await listRepeatingRides();
