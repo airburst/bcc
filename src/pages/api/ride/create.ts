@@ -25,7 +25,7 @@ const createRide = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const ride = req.body;
     // Cast limit to number
-    ride.limit = +ride.limit;
+    ride.limit = +ride.limit || -1;
     // A user can only add themselves; a leader can add other riders
     const hasLeaderRole = await isLeader(req, res);
 
