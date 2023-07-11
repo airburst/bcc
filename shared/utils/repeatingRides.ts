@@ -1,6 +1,6 @@
 import { RRule } from "rrule";
-import { RepeatingRide, RepeatingRideDb } from "types";
-import { isWinter } from "./dates";
+import { RepeatingRideDb, RepeatingRide, PartialRide } from "src/types";
+import { getDateFromString, isWinter } from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {
   const { freq, interval = 1, startDate, endDate } = data;
@@ -49,12 +49,13 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
 export const changeToWinterTime = (
   dateTime: Date,
   winterStartTime: string
-): Date => {
-  if (!isWinter(dateTime.toISOString())) {
-    return dateTime;
+): string => {
+  const adjustedDate = getDateFromString(dateTime.toISOString());
+
+  if (!isWinter(adjustedDate)) {
+    return adjustedDate;
   }
 
-  // TODO: account for UTC in winter time
   const [hours, minutes] = winterStartTime.split(":");
 
   if (hours) {
@@ -64,10 +65,40 @@ export const changeToWinterTime = (
     dateTime.setMinutes(+minutes);
   }
 
-  return dateTime;
+  return getDateFromString(dateTime.toISOString());
 };
 
-export const getRidesInPeriod = (template: RepeatingRideDb): Date[] => {
+// Generate ride for a given template and date
+export const generateRide = (template: RepeatingRideDb, date: string) => {
+  const {
+    name,
+    destination,
+    group,
+    distance,
+    meetPoint,
+    route,
+    leader,
+    speed,
+    notes,
+    limit,
+  } = template;
+
+  return {
+    name,
+    date,
+    destination,
+    group,
+    distance,
+    meetPoint,
+    route,
+    leader,
+    speed,
+    notes,
+    limit,
+  };
+};
+
+export const makeRidesInPeriod = (template: RepeatingRideDb): PartialRide[] => {
   const { schedule } = template;
   const start = new Date();
   // TODO: Set end of following month
@@ -77,9 +108,14 @@ export const getRidesInPeriod = (template: RepeatingRideDb): Date[] => {
   // Update timings if winterStartTime is set
   if (typeof template.winterStartTime === "string") {
     return rideDates.map((r) =>
-      changeToWinterTime(r, template.winterStartTime as string)
+      generateRide(
+        template,
+        changeToWinterTime(r, template.winterStartTime as string)
+      )
     );
   }
 
-  return rideDates;
+  return rideDates.map((r) =>
+    generateRide(template, getDateFromString(r.toISOString()))
+  );
 };

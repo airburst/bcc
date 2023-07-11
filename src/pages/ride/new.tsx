@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { authOptions } from "@/api/auth/[...nextauth]";
+import { authOptions } from "@api/auth/[...nextauth]";
 import { RideForm, FormValues } from "../../components";
 import { addRide } from "../../hooks";
 import {
