@@ -1,7 +1,7 @@
 import { getNextMonth } from "@utils/dates";
 import { NextApiRequest, NextApiResponse } from "next";
 import { makeRidesInPeriod } from "@utils/repeatingRides";
-import { RepeatingRideDb } from "src/types";
+import { RepeatingRideDb, TemplateRide } from "src/types";
 import { prisma } from "../../../server/db/client";
 
 // TODO: Update comments
@@ -16,22 +16,29 @@ type BodyProps = {
   scheduleId?: string;
 };
 
-// TODO: Handle date period
 export const getTemplates = async ({ scheduleId }: BodyProps) => {
   // If we have an id, find one match, else return all templates
-  const rideRecords: RepeatingRideDb[] = await prisma.repeatingRide.findMany({
+  const templates: RepeatingRideDb[] = await prisma.repeatingRide.findMany({
     orderBy: { name: "asc" },
     where: { id: scheduleId },
   });
 
-  if (!rideRecords) {
+  if (!templates) {
     return [];
   }
 
   // For each template, get a list rides to create
-  const rides = rideRecords.flatMap((r) => makeRidesInPeriod(r));
+  return templates.flatMap((template) => makeRidesInPeriod(template));
+};
 
-  return rides;
+export const createRides = async (rides: TemplateRide[]) => {
+  // Create all rides
+  const createdRides = await prisma.ride.createMany({ data: rides });
+  // TODO: update template with latestInstance in TX
+  // Get latest date
+  // const latestInstanceDate = rides.at(-1)?.date;
+
+  return createdRides;
 };
 
 export default async function handler(
@@ -47,13 +54,14 @@ export default async function handler(
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         const targetMonth = date || getNextMonth();
 
-        const templates = await getTemplates({ scheduleId });
+        const rides = await getTemplates({ scheduleId });
+        const results = await createRides(rides);
 
         res.status(200).json({
           success: true,
           targetMonth,
           scheduleId,
-          templates,
+          results,
         });
       } else {
         res.status(401).json({ success: false });

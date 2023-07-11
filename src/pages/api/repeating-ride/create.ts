@@ -27,9 +27,7 @@ const createRepeatingRide = async (
     const ride = repeatingRideToDb(req.body);
 
     // Cast limit to number
-    if (ride.limit) {
-      ride.limit = +ride.limit;
-    }
+    ride.limit = +(ride.limit || -1);
 
     const hasAdminRole = await isAdmin(req, res);
 

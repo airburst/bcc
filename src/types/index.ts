@@ -70,6 +70,10 @@ export type PartialRide = Omit<Ride, "day" | "date" | "time"> & {
   time?: string;
 };
 
+export type TemplateRide = PartialRide & {
+  date: string;
+};
+
 export type Riders = {
   name: string;
   mobile?: string;

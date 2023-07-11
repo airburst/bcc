@@ -1,11 +1,12 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
+import { RepeatingRideDb, RepeatingRide } from "src/types";
 import { prisma } from "../../../server/db/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isAdmin } from "../auth/authHelpers";
 import { repeatingRideFromDb } from "../../../../shared/utils";
 
-export const listRepeatingRides = async () => {
+export const listRepeatingRides = async (): Promise<RepeatingRide[]> => {
   const rideRecords = await prisma.repeatingRide.findMany({
     orderBy: { name: "asc" },
   });
@@ -14,7 +15,7 @@ export const listRepeatingRides = async () => {
     return [];
   }
 
-  return rideRecords.map((ride) => repeatingRideFromDb(ride));
+  return rideRecords.map((ride: RepeatingRideDb) => repeatingRideFromDb(ride));
 };
 
 const getRepeatingRides = async (req: NextApiRequest, res: NextApiResponse) => {

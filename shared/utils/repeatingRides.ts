@@ -1,6 +1,11 @@
 import { RRule } from "rrule";
-import { RepeatingRideDb, RepeatingRide, PartialRide } from "src/types";
-import { getDateFromString, isWinter } from "./dates";
+import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
+import {
+  daysInMonth,
+  getDateFromString,
+  getNextMonth,
+  isWinter,
+} from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {
   const { freq, interval = 1, startDate, endDate } = data;
@@ -69,8 +74,9 @@ export const changeToWinterTime = (
 };
 
 // Generate ride for a given template and date
-export const generateRide = (template: RepeatingRideDb, date: string) => {
-  const {
+export const generateRide = (
+  {
+    id,
     name,
     destination,
     group,
@@ -81,9 +87,10 @@ export const generateRide = (template: RepeatingRideDb, date: string) => {
     speed,
     notes,
     limit,
-  } = template;
-
-  return {
+  }: RepeatingRideDb,
+  date: string
+) => {
+  const ride = {
     name,
     date,
     destination,
@@ -95,14 +102,24 @@ export const generateRide = (template: RepeatingRideDb, date: string) => {
     speed,
     notes,
     limit,
+    scheduleId: id,
   };
+
+  return Object.fromEntries(
+    Object.entries(ride).filter(([, val]) => val)
+  ) as unknown as TemplateRide;
 };
 
-export const makeRidesInPeriod = (template: RepeatingRideDb): PartialRide[] => {
+export const makeRidesInPeriod = (
+  template: RepeatingRideDb
+): TemplateRide[] => {
   const { schedule } = template;
   const start = new Date();
-  // TODO: Set end of following month
-  const end = new Date(2023, 7, 31);
+  const nextMonth = getNextMonth();
+  const lastDay = daysInMonth(nextMonth);
+  const end = new Date(`${nextMonth.substring(0, 8)}${lastDay.toString()}`);
+  // TODO: Override with template.latestInstanceDate
+
   const rideDates = RRule.fromString(schedule).between(start, end);
 
   // Update timings if winterStartTime is set
