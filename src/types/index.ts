@@ -72,6 +72,7 @@ export type PartialRide = Omit<Ride, "day" | "date" | "time"> & {
 
 export type TemplateRide = PartialRide & {
   date: string;
+  scheduleId?: string;
 };
 
 export type Riders = {

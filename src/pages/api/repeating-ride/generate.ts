@@ -1,7 +1,11 @@
 import { getNextMonth } from "@utils/dates";
 import { NextApiRequest, NextApiResponse } from "next";
-import { makeRidesInPeriod } from "@utils/repeatingRides";
-import { RepeatingRideDb, TemplateRide } from "src/types";
+import {
+  RideSet,
+  makeRidesInPeriod,
+  updateRRuleStartDate,
+} from "@utils/repeatingRides";
+import { RepeatingRideDb } from "src/types";
 import { prisma } from "../../../server/db/client";
 
 // TODO: Update comments
@@ -16,7 +20,7 @@ type BodyProps = {
   scheduleId?: string;
 };
 
-export const getTemplates = async ({ scheduleId }: BodyProps) => {
+export const getRidesFromTemplates = async ({ scheduleId }: BodyProps) => {
   // If we have an id, find one match, else return all templates
   const templates: RepeatingRideDb[] = await prisma.repeatingRide.findMany({
     orderBy: { name: "asc" },
@@ -28,17 +32,34 @@ export const getTemplates = async ({ scheduleId }: BodyProps) => {
   }
 
   // For each template, get a list rides to create
-  return templates.flatMap((template) => makeRidesInPeriod(template));
+  return templates.map((template) => makeRidesInPeriod(template));
 };
 
-export const createRides = async (rides: TemplateRide[]) => {
-  // Create all rides
-  const createdRides = await prisma.ride.createMany({ data: rides });
-  // TODO: update template with latestInstance in TX
-  // Get latest date
-  // const latestInstanceDate = rides.at(-1)?.date;
+export const createRides = async (rideSet: RideSet[]) => {
+  // Map over each array of rides
+  const results = rideSet.map(async ({ id, rides, schedule }: RideSet) => {
+    if (rides.length === 0) {
+      return null;
+    }
 
-  return createdRides;
+    // find the latest date to update template
+    const lastDate = rides?.at(-1)?.date;
+
+    const data = { schedule: updateRRuleStartDate(schedule, lastDate) };
+
+    // Create all rides and update schedule start date
+    // to be later than last ride; done as a transaction
+    const [createdRides] = await prisma.$transaction([
+      prisma.ride.createMany({ data: rides }),
+      prisma.repeatingRide.update({
+        data,
+        where: { id },
+      }),
+    ]);
+
+    return createdRides;
+  });
+  return results;
 };
 
 export default async function handler(
@@ -53,9 +74,9 @@ export default async function handler(
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
         const targetMonth = date || getNextMonth();
-
-        const rides = await getTemplates({ scheduleId });
+        const rides = await getRidesFromTemplates({ scheduleId });
         const results = await createRides(rides);
+        console.log("🚀 ~ file: generate.ts:72 ~ results:", results);
 
         res.status(200).json({
           success: true,

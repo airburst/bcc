@@ -1,11 +1,6 @@
 import { RRule } from "rrule";
 import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
-import {
-  daysInMonth,
-  getDateFromString,
-  getNextMonth,
-  isWinter,
-} from "./dates";
+import { daysInMonth, getNextMonth, isWinter } from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {
   const { freq, interval = 1, startDate, endDate } = data;
@@ -22,6 +17,29 @@ export const convertToRRule = (data: RepeatingRide): string => {
   });
 
   return rrule.toString();
+};
+
+export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
+  if (!startDate) {
+    return schedule;
+  }
+
+  // Convert rrule back into editable variables
+  const rrule = RRule.fromString(schedule);
+  const { freq, until, interval } = rrule.options;
+  // Add one day to start date
+  const dtstart = new Date(startDate.valueOf());
+  dtstart.setDate(dtstart.getDate() + 1);
+
+  // Update start date
+  const updatedSchedule = new RRule({
+    freq,
+    dtstart,
+    until,
+    interval,
+  });
+
+  return updatedSchedule.toString();
 };
 
 export const repeatingRideToDb = (ride: RepeatingRide): RepeatingRideDb => {
@@ -51,14 +69,15 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
   };
 };
 
+// TODO: UTC adjustment!
 export const changeToWinterTime = (
   dateTime: Date,
   winterStartTime: string
 ): string => {
-  const adjustedDate = getDateFromString(dateTime.toISOString());
+  const dateString = dateTime.toISOString();
 
-  if (!isWinter(adjustedDate)) {
-    return adjustedDate;
+  if (!isWinter(dateString)) {
+    return dateString;
   }
 
   const [hours, minutes] = winterStartTime.split(":");
@@ -70,7 +89,7 @@ export const changeToWinterTime = (
     dateTime.setMinutes(+minutes);
   }
 
-  return getDateFromString(dateTime.toISOString());
+  return dateTime.toISOString();
 };
 
 // Generate ride for a given template and date
@@ -110,29 +129,34 @@ export const generateRide = (
   ) as unknown as TemplateRide;
 };
 
-export const makeRidesInPeriod = (
-  template: RepeatingRideDb
-): TemplateRide[] => {
-  const { schedule } = template;
+export type RideSet = {
+  id?: string;
+  schedule: string;
+  rides: TemplateRide[];
+};
+
+export const makeRidesInPeriod = (template: RepeatingRideDb): RideSet => {
+  const { id, schedule } = template;
   const start = new Date();
   const nextMonth = getNextMonth();
   const lastDay = daysInMonth(nextMonth);
   const end = new Date(`${nextMonth.substring(0, 8)}${lastDay.toString()}`);
-  // TODO: Override with template.latestInstanceDate
-
   const rideDates = RRule.fromString(schedule).between(start, end);
 
   // Update timings if winterStartTime is set
-  if (typeof template.winterStartTime === "string") {
-    return rideDates.map((r) =>
-      generateRide(
-        template,
-        changeToWinterTime(r, template.winterStartTime as string)
-      )
-    );
-  }
+  const rides =
+    typeof template.winterStartTime === "string"
+      ? rideDates.map((r) =>
+          generateRide(
+            template,
+            changeToWinterTime(r, template.winterStartTime as string)
+          )
+        )
+      : rideDates.map((r) => generateRide(template, r.toISOString()));
 
-  return rideDates.map((r) =>
-    generateRide(template, getDateFromString(r.toISOString()))
-  );
+  return {
+    id,
+    schedule,
+    rides,
+  };
 };
