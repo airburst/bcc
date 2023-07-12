@@ -3,7 +3,7 @@ import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
 import { daysInMonth, getNextMonth, isWinter } from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {
-  const { freq, interval = 1, startDate, endDate } = data;
+  const { freq, interval = 1, byweekday, startDate, endDate } = data;
 
   const dtstart = new Date(startDate);
   const until = endDate ? new Date(endDate) : undefined;
@@ -11,7 +11,10 @@ export const convertToRRule = (data: RepeatingRide): string => {
   const rrule = new RRule({
     freq,
     interval,
-    // byweekday: [RRule.MO, RRule.FR],
+    byweekday, // 0 == RRule.MO
+    // bymonth, number | number[]
+    // bymonthday, number | number[]
+    // byyearday, number | number[]
     dtstart,
     until,
   });

@@ -44,6 +44,10 @@ export type RepeatingRide = {
   name: string;
   freq: number;
   interval?: number;
+  byweekday?: number | number[];
+  // bymonth, number | number[]
+  // bymonthday, number | number[]
+  // byyearday, number | number[]
   startDate: string;
   winterStartTime?: string | null;
   endDate?: string | null;
@@ -61,7 +65,7 @@ export type RepeatingRide = {
 
 export type RepeatingRideDb = Omit<
   RepeatingRide,
-  "freq" | "interval" | "startDate" | "endDate"
+  "freq" | "interval" | "startDate" | "endDate" | "byweekday"
 > & {
   schedule: string;
 };
