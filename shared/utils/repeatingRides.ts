@@ -29,7 +29,7 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
 
   // Convert rrule back into editable variables
   const rrule = RRule.fromString(schedule);
-  const { freq, until, interval } = rrule.options;
+  const { freq, until, interval, byweekday } = rrule.options;
   // Add one day to start date
   const dtstart = new Date(startDate.valueOf());
   dtstart.setDate(dtstart.getDate() + 1);
@@ -40,6 +40,7 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
     dtstart,
     until,
     interval,
+    byweekday,
   });
 
   return updatedSchedule.toString();
@@ -47,7 +48,7 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
 
 export const repeatingRideToDb = (ride: RepeatingRide): RepeatingRideDb => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { freq, interval, startDate, endDate, ...rest } = ride;
+  const { freq, interval, startDate, endDate, byweekday, ...rest } = ride;
   const schedule = convertToRRule(ride);
 
   return {
