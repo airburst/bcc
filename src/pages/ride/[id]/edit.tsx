@@ -37,6 +37,8 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
     return null;
   }
 
+  const isAdmin = user.role === "ADMIN";
+
   // Initial state for form: set name, leader and time
   const defaultValues = {
     ...data,
@@ -99,6 +101,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
           preferences={preferences}
+          isAdmin={isAdmin}
         />
       </div>
     </>

@@ -41,6 +41,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     return null;
   }
 
+  const isAdmin = user.role === "ADMIN";
+
   // Initial state for form: set name, leader and time
   const defaultValues = {
     name: "",
@@ -53,6 +55,10 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     leader: formatUserName(user.name),
     route: "",
     notes: "",
+    // Repeats
+    interval: 1,
+    freq: 2,
+    byweekday: 0,
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({
@@ -109,6 +115,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           handleSubmit={handleSubmit(onSubmit)}
           waiting={waiting}
           preferences={preferences}
+          isAdmin={isAdmin}
         />
       </div>
     </>
