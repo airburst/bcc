@@ -196,3 +196,10 @@ export const rruleToday = () => {
 
   return day < 0 ? 7 + day : day;
 };
+
+export const rruleDaysInMonth = (month: number) => {
+  const mm = month.toString().padStart(2, "0");
+  const date = `2023-${mm}-01T00:00:00.000Z`;
+
+  return dayjs(date).daysInMonth();
+};

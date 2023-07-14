@@ -29,13 +29,14 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   const {
     query: { date: queryDate },
   } = router;
-  const dateString = flattenQuery(queryDate);
-
   const [waiting, setWaiting] = useState(false);
+  const dateString = flattenQuery(queryDate);
+  const defaultFrequency = 1; // Monthly
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -44,6 +45,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   }
 
   const isAdmin = user.role === "ADMIN";
+  const repeatFreq = watch("freq");
+  const selectedMonth = watch("bymonth");
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
@@ -59,13 +62,13 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     notes: "",
     // Repeats
     interval: 1,
-    freq: 2,
-    byweekday: rruleToday(),
+    freq: defaultFrequency,
     startDate: formatFormDate(),
-    winterStartTime: "08:30",
-    bymonth: new Date().getMonth(),
-    bymonthday: new Date().getDate(),
-    byyearday: -1,
+    winterStartTime: "08:30", // Update when time changes
+    byweekday: rruleToday(), // Only set if displayed!
+    byweekno: rruleToday(), // Only set if displayed!
+    bymonth: new Date().getMonth() + 1, // Only set if displayed!
+    bymonthday: undefined, // Only set if displayed!
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({
@@ -123,6 +126,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}
+          repeatFreq={repeatFreq ? +repeatFreq : defaultFrequency}
+          selectedMonth={selectedMonth ? +selectedMonth : defaultValues.bymonth}
         />
       </div>
     </>
