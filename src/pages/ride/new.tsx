@@ -13,6 +13,8 @@ import {
   makeUtcDate,
   flattenQuery,
   serialiseUser,
+  rruleToday,
+  formatFormDate,
 } from "../../../shared/utils";
 import { Preferences, User } from "../../types";
 
@@ -58,7 +60,12 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     // Repeats
     interval: 1,
     freq: 2,
-    byweekday: 0,
+    byweekday: rruleToday(),
+    startDate: formatFormDate(),
+    winterStartTime: "08:30",
+    bymonth: new Date().getMonth(),
+    bymonthday: new Date().getDate(),
+    byyearday: -1,
   };
 
   const onSubmit: SubmitHandler<FormValues> = async ({

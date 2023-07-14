@@ -99,7 +99,7 @@ export const formatCalendarDate = (date: string) =>
 
 export const formatTime = (date: string) => dayjs(date).utc().format("HH:mm");
 
-export const formatFormDate = (date: string) =>
+export const formatFormDate = (date: string = getNow()) =>
   dayjs(date).utc().format("YYYY-MM-DD");
 
 export const getRideDateAndTime = (date: string) => ({
@@ -188,3 +188,11 @@ export const getDateInWeeks = (weeks: string) => {
 };
 
 export const sqlDate = (date: string) => date.replace("T", " ").slice(0, 16);
+
+// Get day of week (integer) in RRule format
+// Monday = 0, instead of Sunday
+export const rruleToday = () => {
+  const day = new Date().getDay() - 1;
+
+  return day < 0 ? 7 + day : day;
+};
