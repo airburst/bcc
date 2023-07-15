@@ -8,7 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { authOptions } from "@api/auth/[...nextauth]";
 import { addRepeatingRide } from "@api/repeating-ride/create";
-import { RideForm } from "../../components";
+import { Confirm, RideForm } from "../../components";
 import { addRide } from "../../hooks";
 import {
   formatUserName,
@@ -16,8 +16,10 @@ import {
   serialiseUser,
   rruleDay,
   formatFormDate,
+  formatDate,
   makeRide,
   makeRepeatingRide,
+  makeRidesInPeriod,
 } from "../../../shared/utils";
 import { Preferences, RideFormValues, User } from "../../types";
 
@@ -33,8 +35,15 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     query: { date: queryDate },
   } = router;
   const [waiting, setWaiting] = useState(false);
+  const [showCreate, setShowCreate] = useState<boolean>(false);
+  const [rideDateList, setRideDateList] = useState<string[]>([]);
   const dateString = flattenQuery(queryDate);
   const defaultFrequency = 2; // Weekly
+
+  const show = () => setShowCreate(true);
+  const hide = () => {
+    setShowCreate(false);
+  };
 
   const {
     register,
@@ -75,22 +84,21 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   };
 
   const createRide: SubmitHandler<RideFormValues> = async (formData) => {
-    // setWaiting(true);
+    setWaiting(true);
 
     const payload = makeRide(formData);
-    // const results = await mutate("/api/ride", () => addRide(payload));
-    // if (results.id) {
-    //   router.push("/");
-    // }
+    const results = await mutate("/api/ride", () => addRide(payload));
+    if (results.id) {
+      router.push("/");
+    }
   };
 
   const createRepeatingRide: SubmitHandler<RideFormValues> = async (
     formData
   ) => {
-    setWaiting(true);
+    // setWaiting(true);
 
     const payload = makeRepeatingRide(formData);
-    console.log("🚀 ~ file: new.tsx:92 ~ payload:", payload);
 
     // const results = await mutate("/api/repeating-ride", () =>
     //   addRepeatingRide(payload)
@@ -98,6 +106,32 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     // if (results?.id) {
     //   router.push("/");
     // }
+
+    // Set scheduleId so we can generate with it!
+
+    // Calculate rides list and ask to create them
+    const rideList = makeRidesInPeriod(payload);
+    const rideDates = rideList.rides.map(({ date }) => formatDate(date));
+    if (rideDates.length > 0) {
+      setRideDateList(rideDates);
+      show();
+    }
+  };
+
+  const handleConfirmation = async (cb: (flag: boolean) => void) => {
+    // console.log("Generate a load of rides with schedule id...  TODO");
+    hide();
+
+    // mutate("/api/ride", async () => {
+    //   const results = await deleteRide(rideId);
+    //   if (results.id) {
+    //     router.back();
+    //     cb(true);
+    //   } else {
+    //     cb(false);
+    //   }
+    // });
+    cb(true);
   };
 
   return (
@@ -125,6 +159,19 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           setValue={setValue}
         />
       </div>
+
+      <Confirm
+        open={showCreate}
+        closeHandler={hide}
+        heading="Do you want to create rides on the following dates using this schedule?"
+        onYes={(callback) => handleConfirmation(callback)}
+      >
+        <>
+          {rideDateList.map((date) => (
+            <div key={date}>{date}</div>
+          ))}
+        </>
+      </Confirm>
     </>
   );
 };

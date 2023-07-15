@@ -262,14 +262,14 @@ export const RepeatingRideForm = ({
           </label>
         </div>
         <div className="flex flex-col gap-4 md:gap-8">
-          <label htmlFor="until" className="flex flex-col gap-1">
+          <label htmlFor="endDate" className="flex flex-col gap-1">
             End Date (optional)
             <input
-              id="until"
+              id="endDate"
               type="date"
               min={today}
               className="input"
-              {...register("until")}
+              {...register("endDate")}
             />
           </label>
         </div>

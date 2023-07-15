@@ -36,26 +36,26 @@ export const makeRide = (formData: RideFormValues) => {
 export const makeRepeatingRide = (
   formData: RideFormValues
 ): RepeatingRideDb => {
-  const {
-    date: startDate,
-    bymonth,
-    bymonthday,
-    byweekno,
-    byweekday,
-    ...data
-  } = formData;
+  const { bymonth, bymonthday, byweekno, byweekday, ...data } = formData;
+  // Cast string form values to numbers
+  const weekday = byweekday || 5;
+  const weekno = byweekno || 1;
+  const month = bymonth || 1;
+  const monthday = bymonthday || 1;
 
-  let payload: RepeatingRide = { ...data, startDate };
+  let payload: RepeatingRide = {
+    ...data,
+  };
   // Remove unwanted keys
   // Weekly - remove all monthly and annual values
-  if (formData.freq === 2) {
-    payload = { ...payload, byweekday };
+  if (+formData.freq === 2) {
+    payload = { ...payload, byweekday: +weekday };
   }
-  if (formData.freq === 1) {
+  if (+formData.freq === 1) {
     if (bymonth && bymonthday) {
-      payload = { ...payload, bymonth, bymonthday };
+      payload = { ...payload, bymonth: +month, bymonthday: +monthday };
     } else {
-      payload = { ...payload, byweekno, byweekday };
+      payload = { ...payload, byweekno: +weekno, byweekday: +weekday };
     }
   }
   // TODO: Annual

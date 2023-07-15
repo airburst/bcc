@@ -125,7 +125,7 @@ export type RideFormValues = {
   interval?: number;
   freq: number;
   startDate: string;
-  until?: string;
+  endDate?: string;
   winterStartTime?: string;
   byweekday?: number;
   byweekno?: number;

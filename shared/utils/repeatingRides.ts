@@ -3,7 +3,16 @@ import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
 import { daysInMonth, getNextMonth, isWinter } from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {
-  const { freq, interval = 1, byweekday, startDate, endDate } = data;
+  const {
+    freq,
+    interval = 1,
+    startDate,
+    endDate,
+    byweekday,
+    byweekno,
+    bymonth,
+    bymonthday,
+  } = data;
 
   const dtstart = new Date(startDate);
   const until = endDate ? new Date(endDate) : undefined;
@@ -12,8 +21,9 @@ export const convertToRRule = (data: RepeatingRide): string => {
     freq,
     interval,
     byweekday, // 0 == RRule.MO
-    // bymonth, number | number[]
-    // bymonthday, number | number[]
+    byweekno,
+    bymonth,
+    bymonthday,
     // byyearday, number | number[]
     dtstart,
     until,
@@ -29,7 +39,16 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
 
   // Convert rrule back into editable variables
   const rrule = RRule.fromString(schedule);
-  const { freq, until, interval, byweekday } = rrule.options;
+  const {
+    freq,
+    interval,
+    byweekday, // 0 == RRule.MO
+    byweekno,
+    bymonth,
+    bymonthday,
+    // byyearday, number | number[]
+    until,
+  } = rrule.options;
   // Add one day to start date
   const dtstart = new Date(startDate.valueOf());
   dtstart.setDate(dtstart.getDate() + 1);
@@ -41,6 +60,9 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
     until,
     interval,
     byweekday,
+    byweekno,
+    bymonth,
+    bymonthday,
   });
 
   return updatedSchedule.toString();
@@ -62,7 +84,17 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
   // Convert rrule back into editable variables
   const rrule = RRule.fromString(schedule);
 
-  const { freq, dtstart, until, interval } = rrule.options;
+  const {
+    freq,
+    interval,
+    dtstart,
+    byweekday,
+    byweekno,
+    bymonth,
+    bymonthday,
+    // byyearday, number | number[]
+    until,
+  } = rrule.options;
 
   return {
     ...rest,
@@ -70,6 +102,10 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     interval,
     startDate: new Date(dtstart).toISOString(),
     endDate: until ? new Date(until).toISOString() : undefined,
+    byweekday,
+    byweekno,
+    bymonth,
+    bymonthday,
   };
 };
 

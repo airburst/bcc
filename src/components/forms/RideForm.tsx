@@ -34,7 +34,7 @@ export const RideForm = ({
   register,
   errors,
   handleSubmit,
-  // handleSchedule,
+  handleSchedule,
   waiting,
   preferences,
   isAdmin,
@@ -55,12 +55,10 @@ export const RideForm = ({
   );
   const handleRepeatsChange = () => setRepeats(!repeats);
 
-  // TODO: handleSchedule
-
   return (
     <form
       className="form-control relative grid w-full grid-cols-1 gap-4 p-2"
-      onSubmit={handleSubmit}
+      onSubmit={repeats ? handleSchedule : handleSubmit}
     >
       <div className="flex flex-col gap-4 md:gap-8">
         <label htmlFor="name" className="flex flex-col gap-1">
