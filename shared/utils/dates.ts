@@ -193,8 +193,8 @@ export const sqlDate = (date: string) => date.replace("T", " ").slice(0, 16);
 
 // Get day of week (integer) in RRule format
 // Monday = 0, instead of Sunday
-export const rruleToday = () => {
-  const day = new Date().getDay() - 1;
+export const rruleDay = (date?: string) => {
+  const day = date ? new Date(date).getDay() - 1 : new Date().getDay() - 1;
 
   return day < 0 ? 7 + day : day;
 };

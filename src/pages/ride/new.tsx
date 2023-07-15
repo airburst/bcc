@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { getServerSession } from "next-auth";
@@ -6,17 +7,19 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { authOptions } from "@api/auth/[...nextauth]";
-import { RideForm, FormValues } from "../../components";
+import { addRepeatingRide } from "@api/repeating-ride/create";
+import { RideForm } from "../../components";
 import { addRide } from "../../hooks";
 import {
   formatUserName,
-  makeUtcDate,
   flattenQuery,
   serialiseUser,
-  rruleToday,
+  rruleDay,
   formatFormDate,
+  makeRide,
+  makeRepeatingRide,
 } from "../../../shared/utils";
-import { Preferences, User } from "../../types";
+import { Preferences, RideFormValues, User } from "../../types";
 
 type Props = {
   user: User;
@@ -31,7 +34,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   } = router;
   const [waiting, setWaiting] = useState(false);
   const dateString = flattenQuery(queryDate);
-  const defaultFrequency = 1; // Monthly
+  const defaultFrequency = 2; // Weekly
 
   const {
     register,
@@ -39,7 +42,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<RideFormValues>();
 
   if (!user) {
     return null;
@@ -65,46 +68,37 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     startDate: formatFormDate(),
     until: undefined,
     winterStartTime: "08:30", // Update when time changes
-    byweekday: rruleToday(), // Only set if displayed!
-    byweekno: rruleToday(), // Only set if displayed!
+    byweekday: rruleDay(), // Only set if displayed!
+    byweekno: rruleDay(), // Only set if displayed!
     bymonth: new Date().getMonth() + 1, // Only set if displayed!
     bymonthday: undefined, // Only set if displayed!
   };
 
-  const onSubmit: SubmitHandler<FormValues> = async ({
-    name,
-    date,
-    time,
-    group,
-    meetPoint,
-    destination,
-    distance,
-    leader,
-    route,
-    notes,
-    limit,
-  }) => {
+  const createRide: SubmitHandler<RideFormValues> = async (formData) => {
     setWaiting(true);
-    // Transform data before sending
-    const utcDate = makeUtcDate(date, time);
-    const results = await mutate("/api/ride", () =>
-      addRide({
-        name,
-        date: utcDate,
-        group,
-        destination,
-        distance: +distance,
-        leader,
-        route,
-        meetPoint,
-        notes,
-        limit,
-      })
-    );
+
+    const payload = makeRide(formData);
+    const results = await mutate("/api/ride", () => addRide(payload));
     if (results.id) {
       router.push("/");
     }
   };
+
+  // const createRepeatingRide: SubmitHandler<RideFormValues> = async (
+  //   formData
+  // ) => {
+  //   setWaiting(true);
+
+  //   const payload = makeRepeatingRide(formData);
+  //   console.log("🚀 ~ file: new.tsx:92 ~ payload:", payload);
+
+  //   const results = await mutate("/api/repeating-ride", () =>
+  //     addRepeatingRide(payload)
+  //   );
+  //   if (results?.id) {
+  //     router.push("/");
+  //   }
+  // };
 
   return (
     <>
@@ -122,7 +116,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           defaultValues={defaultValues}
           errors={errors}
           register={register}
-          handleSubmit={handleSubmit(onSubmit)}
+          handleSubmit={handleSubmit(createRide)}
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}

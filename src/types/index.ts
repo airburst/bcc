@@ -45,8 +45,8 @@ export type RepeatingRide = {
   freq: number;
   interval?: number;
   byweekday?: number | number[];
-  // bymonth, number | number[]
-  // bymonthday, number | number[]
+  bymonth?: number | number[];
+  bymonthday?: number | number[];
   // byyearday, number | number[]
   startDate: string;
   winterStartTime?: string | null;
@@ -104,4 +104,30 @@ export type FilterQuery = {
   onlyJoined?: boolean;
   q?: string;
   weeksAhead?: string;
+};
+
+//  Forms
+export type RideFormValues = {
+  id?: string;
+  name: string;
+  date: string;
+  time: string;
+  group?: string;
+  destination?: string;
+  meetPoint?: string;
+  notes?: string;
+  distance: number;
+  leader: string;
+  route: string;
+  limit?: number;
+  // Repeating ride
+  interval?: number;
+  freq: number;
+  startDate: string;
+  until?: string;
+  winterStartTime?: string;
+  byweekday?: number;
+  byweekno?: number;
+  bymonth?: number;
+  bymonthday?: number;
 };

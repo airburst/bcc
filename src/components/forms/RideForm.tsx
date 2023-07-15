@@ -9,23 +9,23 @@ import { Switch } from "@headlessui/react";
 import clsx from "clsx";
 import { RIDER_LIMIT_OPTIONS } from "../../constants";
 import { getNow } from "../../../shared/utils";
-import { Preferences } from "../../types";
+import { Preferences, RideFormValues } from "../../types";
 import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
-import { RepeatingRideForm, FormValues } from "./RepeatingRideForm";
+import { RepeatingRideForm } from "./RepeatingRideForm";
 
 const today = getNow().split("T")[0] || "";
 
 type RideFormProps = {
-  defaultValues: FormValues;
-  register: UseFormRegister<FormValues>;
-  errors: Partial<FieldErrorsImpl<FormValues>>;
+  defaultValues: RideFormValues;
+  register: UseFormRegister<RideFormValues>;
+  errors: Partial<FieldErrorsImpl<RideFormValues>>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   waiting: boolean;
   preferences: Preferences;
   isAdmin: boolean;
-  watch: UseFormReturn<FormValues>["watch"];
-  setValue: UseFormReturn<FormValues>["setValue"];
+  watch: UseFormReturn<RideFormValues>["watch"];
+  setValue: UseFormReturn<RideFormValues>["setValue"];
 };
 
 export const RideForm = ({
@@ -39,7 +39,9 @@ export const RideForm = ({
   watch,
   setValue,
 }: RideFormProps) => {
-  const [repeats, setRepeats] = useState<boolean>(true);
+  const isNewRide = !defaultValues.id;
+  const [repeats, setRepeats] = useState<boolean>(false);
+  const showRepeatingSwitch = isAdmin && isNewRide;
 
   const switchClass = clsx(
     "relative inline-flex h-6 w-11 items-center rounded-full",
@@ -240,29 +242,28 @@ export const RideForm = ({
         </label>
       </div>
 
-      {isAdmin && (
-        <div className="flex flex-row">
-          <div className="pr-8">This ride repeats</div>
-          <Switch
-            checked={repeats}
-            onChange={handleRepeatsChange}
-            className={switchClass}
-          >
-            <span className="sr-only">Enable notifications</span>
-            <span className={toggleClass} />
-          </Switch>
-        </div>
-      )}
-
-      {isAdmin && repeats && (
-        <RepeatingRideForm
-          defaultValues={defaultValues}
-          register={register}
-          errors={errors}
-          repeats={repeats}
-          watch={watch}
-          setValue={setValue}
-        />
+      {showRepeatingSwitch && (
+        <>
+          <div className="flex flex-row">
+            <div className="pr-8">This ride repeats</div>
+            <Switch
+              checked={repeats}
+              onChange={handleRepeatsChange}
+              className={switchClass}
+            >
+              <span className="sr-only">Enable notifications</span>
+              <span className={toggleClass} />
+            </Switch>
+          </div>
+          <RepeatingRideForm
+            defaultValues={defaultValues}
+            register={register}
+            errors={errors}
+            repeats={repeats}
+            watch={watch}
+            setValue={setValue}
+          />
+        </>
       )}
 
       <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
@@ -274,5 +275,3 @@ export const RideForm = ({
     </form>
   );
 };
-
-export { type FormValues };

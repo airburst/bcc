@@ -13,11 +13,11 @@ import {
   getFormRideDateAndTime,
   serialiseUser,
 } from "../../../../shared/utils";
-import { RideForm, FormValues } from "../../../components";
-import { Preferences, User } from "../../../types";
+import { RideForm } from "../../../components";
+import { Preferences, RideFormValues, User } from "../../../types";
 
 type Props = {
-  data: FormValues;
+  data: RideFormValues;
   user: User;
 };
 
@@ -33,7 +33,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<RideFormValues>();
 
   if (!user) {
     return null;
@@ -44,11 +44,11 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
   // Initial state for form: set name, leader and time
   const defaultValues = {
     ...data,
-    distance: parseInt(data.distance.toString(), 10),
+    distance: parseInt((data.distance || 1).toString(), 10),
     ...getFormRideDateAndTime(data.date),
   };
 
-  const onSubmit: SubmitHandler<FormValues> = async ({
+  const onSubmit: SubmitHandler<RideFormValues> = async ({
     name,
     date,
     time,
