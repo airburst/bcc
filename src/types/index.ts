@@ -45,6 +45,7 @@ export type RepeatingRide = {
   freq: number;
   interval?: number;
   byweekday?: number | number[];
+  byweekno?: number | number[];
   bymonth?: number | number[];
   bymonthday?: number | number[];
   // byyearday, number | number[]

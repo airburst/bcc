@@ -75,30 +75,30 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   };
 
   const createRide: SubmitHandler<RideFormValues> = async (formData) => {
-    setWaiting(true);
+    // setWaiting(true);
 
     const payload = makeRide(formData);
-    const results = await mutate("/api/ride", () => addRide(payload));
-    if (results.id) {
-      router.push("/");
-    }
+    // const results = await mutate("/api/ride", () => addRide(payload));
+    // if (results.id) {
+    //   router.push("/");
+    // }
   };
 
-  // const createRepeatingRide: SubmitHandler<RideFormValues> = async (
-  //   formData
-  // ) => {
-  //   setWaiting(true);
+  const createRepeatingRide: SubmitHandler<RideFormValues> = async (
+    formData
+  ) => {
+    setWaiting(true);
 
-  //   const payload = makeRepeatingRide(formData);
-  //   console.log("🚀 ~ file: new.tsx:92 ~ payload:", payload);
+    const payload = makeRepeatingRide(formData);
+    console.log("🚀 ~ file: new.tsx:92 ~ payload:", payload);
 
-  //   const results = await mutate("/api/repeating-ride", () =>
-  //     addRepeatingRide(payload)
-  //   );
-  //   if (results?.id) {
-  //     router.push("/");
-  //   }
-  // };
+    // const results = await mutate("/api/repeating-ride", () =>
+    //   addRepeatingRide(payload)
+    // );
+    // if (results?.id) {
+    //   router.push("/");
+    // }
+  };
 
   return (
     <>
@@ -117,6 +117,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           errors={errors}
           register={register}
           handleSubmit={handleSubmit(createRide)}
+          handleSchedule={handleSubmit(createRepeatingRide)}
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}

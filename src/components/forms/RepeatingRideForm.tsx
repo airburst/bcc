@@ -59,6 +59,19 @@ export const RepeatingRideForm = ({
     setValue("winterStartTime", time);
   }, [time, setValue]);
 
+  // Unset irrelevant fields for monthly cadence
+  useEffect(() => {
+    if (monthType === "byweek") {
+      // Unset week values
+      setValue("bymonth", undefined);
+      setValue("bymonthday", undefined);
+    } else {
+      // Unset week values
+      setValue("byweekno", undefined);
+      setValue("byweekday", undefined);
+    }
+  }, [monthType, setValue]);
+
   // Repeating rule chosen frequency
   const isYearly = freq === 0;
   const isMonthly = freq === 1;

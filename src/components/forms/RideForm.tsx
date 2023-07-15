@@ -21,6 +21,7 @@ type RideFormProps = {
   register: UseFormRegister<RideFormValues>;
   errors: Partial<FieldErrorsImpl<RideFormValues>>;
   handleSubmit: FormEventHandler<HTMLFormElement>;
+  handleSchedule?: FormEventHandler<HTMLFormElement>;
   waiting: boolean;
   preferences: Preferences;
   isAdmin: boolean;
@@ -33,6 +34,7 @@ export const RideForm = ({
   register,
   errors,
   handleSubmit,
+  // handleSchedule,
   waiting,
   preferences,
   isAdmin,
@@ -52,6 +54,8 @@ export const RideForm = ({
     repeats ? "translate-x-6" : "translate-x-1"
   );
   const handleRepeatsChange = () => setRepeats(!repeats);
+
+  // TODO: handleSchedule
 
   return (
     <form
