@@ -30,6 +30,8 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -102,6 +104,8 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}
+          watch={watch}
+          setValue={setValue}
         />
       </div>
     </>

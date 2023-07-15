@@ -97,6 +97,8 @@ export const formatDate = (date: string) =>
 export const formatCalendarDate = (date: string) =>
   dayjs(date).utc().format("MMMM YYYY");
 
+export const getDay = (date?: string): number => +(dayjs(date).date() || 1);
+
 export const formatTime = (date: string) => dayjs(date).utc().format("HH:mm");
 
 export const formatFormDate = (date: string = getNow()) =>

@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-import { useState } from "react";
-import { getNow, rruleDaysInMonth } from "../../../shared/utils";
+import {
+  UseFormRegister,
+  FieldErrorsImpl,
+  UseFormReturn,
+} from "react-hook-form";
+import { useEffect, useState } from "react";
+import { getDay, getNow, rruleDaysInMonth } from "../../../shared/utils";
 
 const today = getNow().split("T")[0] || "";
 
@@ -22,6 +26,7 @@ export type FormValues = {
   interval?: number;
   freq?: number;
   startDate?: string;
+  until?: string;
   winterStartTime?: string;
   byweekday?: number;
   byweekno?: number;
@@ -34,8 +39,8 @@ type RepeatingRideFormProps = {
   register: UseFormRegister<FormValues>;
   errors: Partial<FieldErrorsImpl<FormValues>>;
   repeats: boolean;
-  repeatFreq?: number;
-  selectedMonth?: number;
+  watch: UseFormReturn<FormValues>["watch"];
+  setValue: UseFormReturn<FormValues>["setValue"];
 };
 
 export const RepeatingRideForm = ({
@@ -43,17 +48,39 @@ export const RepeatingRideForm = ({
   register,
   errors,
   repeats,
-  repeatFreq,
-  selectedMonth,
+  watch,
+  setValue,
 }: RepeatingRideFormProps) => {
   const [monthType, setMonthType] = useState<string>("byday");
+  // Get watched values
+  const watchDate = watch("date");
+  const date = watchDate || defaultValues.date;
+  const monthDay = getDay(date);
+  const watchTime = watch("time");
+  const time = watchTime || defaultValues.time;
+  const watchFreq = watch("freq");
+  const freq = watchFreq ? +watchFreq : defaultValues.freq;
+  const watchMonth = watch("freq");
+  const month = watchMonth ? +watchMonth : defaultValues.bymonth;
+
+  // Change repeating day-of-month when form changes
+  useEffect(() => {
+    setValue("bymonthday", monthDay);
+  }, [monthDay, setValue]);
+  // Change winter time when form changes
+  useEffect(() => {
+    setValue("winterStartTime", time);
+  }, [time, setValue]);
+
+  // TODO: Calculate on every Nth Thursday rule from date -> rrule
+
   // Repeating rule chosen frequency
-  const isYearly = repeatFreq === 0;
-  const isMonthly = repeatFreq === 1;
-  const isWeekly = repeatFreq === 2;
-  const daysArray = Array.from(
-    Array(rruleDaysInMonth(selectedMonth || 1)).keys()
-  ).map((n) => n + 1);
+  const isYearly = freq === 0;
+  const isMonthly = freq === 1;
+  const isWeekly = freq === 2;
+  const daysArray = Array.from(Array(rruleDaysInMonth(month || 1)).keys()).map(
+    (n) => n + 1
+  );
 
   return (
     <>
@@ -116,8 +143,8 @@ export const RepeatingRideForm = ({
           )}
 
           {isMonthly && (
-            <div className="grid grid-cols-5 gap-4">
-              <div className="form-control col-span-2 w-full">
+            <>
+              <div className="form-control w-full">
                 <label htmlFor="repeat-type">Repeat type</label>
                 <select
                   id="repeat-type"
@@ -125,51 +152,52 @@ export const RepeatingRideForm = ({
                   defaultValue={monthType}
                   onChange={(e) => setMonthType(e.target.value)}
                 >
-                  <option value="byday">By day</option>
-                  <option value="byweek">By week</option>
+                  <option value="byday">On the same day each month</option>
+                  <option value="byweek">On every Nth Xday TODO</option>
                 </select>
               </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="form-control w-full">
+                  <label htmlFor="bymonthday">Day</label>
+                  <select
+                    id="bymonthday"
+                    className="select text-lg font-normal"
+                    defaultValue={monthDay}
+                    {...register("bymonthday")}
+                  >
+                    {daysArray.map((day) => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="form-control w-full">
-                <label htmlFor="bymonthday">Day</label>
-                <select
-                  id="bymonthday"
-                  className="select text-lg font-normal"
-                  defaultValue={defaultValues.bymonthday}
-                  {...register("bymonthday")}
-                >
-                  {daysArray.map((day) => (
-                    <option key={day} value={day}>
-                      {day}
-                    </option>
-                  ))}
-                </select>
+                <div className="col-span-2 form-control w-full">
+                  <label htmlFor="bymonth">Month</label>
+                  <select
+                    id="bymonth"
+                    aria-label="Repeating schedule freqency"
+                    className="select text-lg font-normal"
+                    defaultValue={defaultValues.bymonth}
+                    {...register("bymonth")}
+                  >
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
               </div>
-
-              <div className="col-span-2 form-control w-full">
-                <label htmlFor="bymonth">Month</label>
-                <select
-                  id="bymonth"
-                  aria-label="Repeating schedule freqency"
-                  className="select text-lg font-normal"
-                  defaultValue={defaultValues.bymonth}
-                  {...register("bymonth")}
-                >
-                  <option value="1">January</option>
-                  <option value="2">February</option>
-                  <option value="3">March</option>
-                  <option value="4">April</option>
-                  <option value="5">May</option>
-                  <option value="6">June</option>
-                  <option value="7">July</option>
-                  <option value="8">August</option>
-                  <option value="9">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
-                </select>
-              </div>
-            </div>
+            </>
           )}
           {isYearly && <div>TODO</div>}
 
@@ -182,7 +210,7 @@ export const RepeatingRideForm = ({
                   type="date"
                   min={today}
                   className="input"
-                  defaultValue={defaultValues.startDate}
+                  defaultValue={date}
                   {...register("startDate", {
                     required: true,
                   })}

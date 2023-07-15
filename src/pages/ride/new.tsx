@@ -37,6 +37,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -45,8 +46,6 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   }
 
   const isAdmin = user.role === "ADMIN";
-  const repeatFreq = watch("freq");
-  const selectedMonth = watch("bymonth");
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
@@ -64,6 +63,7 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     interval: 1,
     freq: defaultFrequency,
     startDate: formatFormDate(),
+    until: undefined,
     winterStartTime: "08:30", // Update when time changes
     byweekday: rruleToday(), // Only set if displayed!
     byweekno: rruleToday(), // Only set if displayed!
@@ -126,8 +126,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}
-          repeatFreq={repeatFreq ? +repeatFreq : defaultFrequency}
-          selectedMonth={selectedMonth ? +selectedMonth : defaultValues.bymonth}
+          watch={watch}
+          setValue={setValue}
         />
       </div>
     </>

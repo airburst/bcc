@@ -1,6 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FormEventHandler, useState } from "react";
-import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+import {
+  UseFormRegister,
+  FieldErrorsImpl,
+  UseFormReturn,
+} from "react-hook-form";
 import { Switch } from "@headlessui/react";
 import clsx from "clsx";
 import { RIDER_LIMIT_OPTIONS } from "../../constants";
@@ -20,8 +24,8 @@ type RideFormProps = {
   waiting: boolean;
   preferences: Preferences;
   isAdmin: boolean;
-  repeatFreq?: number;
-  selectedMonth?: number;
+  watch: UseFormReturn<FormValues>["watch"];
+  setValue: UseFormReturn<FormValues>["setValue"];
 };
 
 export const RideForm = ({
@@ -32,10 +36,11 @@ export const RideForm = ({
   waiting,
   preferences,
   isAdmin,
-  repeatFreq,
-  selectedMonth,
+  watch,
+  setValue,
 }: RideFormProps) => {
   const [repeats, setRepeats] = useState<boolean>(true);
+
   const switchClass = clsx(
     "relative inline-flex h-6 w-11 items-center rounded-full",
     repeats ? "bg-green-600" : "bg-gray-200"
@@ -255,8 +260,8 @@ export const RideForm = ({
           register={register}
           errors={errors}
           repeats={repeats}
-          repeatFreq={repeatFreq}
-          selectedMonth={selectedMonth}
+          watch={watch}
+          setValue={setValue}
         />
       )}
 
