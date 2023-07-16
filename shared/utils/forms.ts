@@ -73,7 +73,6 @@ export const makeRepeatingRide = (formData: RideFormValues): RepeatingRide => {
       payload = { ...payload, bysetpos: +weekno, byweekday: +weekday };
     }
   }
-  // TODO: Annual
 
   // Convert to RRule
   return payload;

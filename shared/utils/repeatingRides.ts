@@ -25,7 +25,6 @@ export const convertToRRule = (data: RepeatingRide): string => {
     bysetpos,
     bymonth,
     bymonthday,
-    // byyearday, number | number[]
     dtstart,
     until,
   });
@@ -47,7 +46,6 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
     bysetpos,
     bymonth,
     bymonthday,
-    // byyearday, number | number[]
     until,
   } = rrule.options;
   // Add one day to start date
@@ -102,7 +100,6 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     bysetpos,
     bymonth,
     bymonthday,
-    // byyearday, number | number[]
     until,
   } = rrule.options;
 
@@ -119,7 +116,6 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
   };
 };
 
-// TODO: UTC adjustment!
 export const changeToWinterTime = (
   dateTime: Date,
   winterStartTime: string
@@ -210,11 +206,3 @@ export const makeRidesInPeriod = (template: RepeatingRideDb): RideSet => {
     rides,
   };
 };
-
-//  Monthly on 10th of each month
-// DTSTART:20230716T083000Z
-// RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTH=7;BYMONTHDAY=10
-
-// Last friday in each month
-// DTSTART:20230721T103000Z
-// RRULE:FREQ=MONTHLY;INTERVAL=1;BYDAY=FR;bysetpos=-1
