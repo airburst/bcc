@@ -63,11 +63,10 @@ export const RepeatingRideForm = ({
   useEffect(() => {
     if (monthType === "byweek") {
       // Unset week values
-      setValue("bymonth", undefined);
       setValue("bymonthday", undefined);
     } else {
       // Unset week values
-      setValue("byweekno", undefined);
+      setValue("bysetpos", undefined);
       setValue("byweekday", undefined);
     }
   }, [monthType, setValue]);
@@ -156,7 +155,7 @@ export const RepeatingRideForm = ({
             </select>
           </div>
           {monthType === "byday" && (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="flex">
               <div className="form-control w-full">
                 <label htmlFor="bymonthday">Day</label>
                 <select
@@ -173,7 +172,7 @@ export const RepeatingRideForm = ({
                 </select>
               </div>
 
-              <div className="col-span-2 form-control w-full">
+              {/* <div className="col-span-2 form-control w-full">
                 <label htmlFor="bymonth">Month</label>
                 <select
                   id="bymonth"
@@ -195,18 +194,18 @@ export const RepeatingRideForm = ({
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </select>
-              </div>
+              </div> */}
             </div>
           )}
           {monthType === "byweek" && (
             <div className="grid grid-cols-3 gap-4">
               <div className="form-control w-full">
-                <label htmlFor="byweekno">Week</label>
+                <label htmlFor="bysetpos">Week</label>
                 <select
-                  id="byweekno"
+                  id="bysetpos"
                   className="select text-lg font-normal"
                   defaultValue={1}
-                  {...register("byweekno")}
+                  {...register("bysetpos")}
                 >
                   <option value="1">1st</option>
                   <option value="2">2nd</option>

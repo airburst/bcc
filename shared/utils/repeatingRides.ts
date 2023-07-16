@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { RRule } from "rrule";
 import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
 import { daysInMonth, getNextMonth, isWinter } from "./dates";
@@ -9,7 +10,7 @@ export const convertToRRule = (data: RepeatingRide): string => {
     startDate,
     endDate,
     byweekday,
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
   } = data;
@@ -21,7 +22,7 @@ export const convertToRRule = (data: RepeatingRide): string => {
     freq,
     interval,
     byweekday, // 0 == RRule.MO
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
     // byyearday, number | number[]
@@ -43,7 +44,7 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
     freq,
     interval,
     byweekday, // 0 == RRule.MO
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
     // byyearday, number | number[]
@@ -60,7 +61,7 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
     until,
     interval,
     byweekday,
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
   });
@@ -69,8 +70,17 @@ export const updateRRuleStartDate = (schedule: string, startDate?: string) => {
 };
 
 export const repeatingRideToDb = (ride: RepeatingRide): RepeatingRideDb => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { freq, interval, startDate, endDate, byweekday, ...rest } = ride;
+  const {
+    freq,
+    interval,
+    startDate,
+    endDate,
+    byweekday,
+    bysetpos,
+    bymonth,
+    bymonthday,
+    ...rest
+  } = ride;
   const schedule = convertToRRule(ride);
 
   return {
@@ -89,7 +99,7 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     interval,
     dtstart,
     byweekday,
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
     // byyearday, number | number[]
@@ -103,7 +113,7 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     startDate: new Date(dtstart).toISOString(),
     endDate: until ? new Date(until).toISOString() : undefined,
     byweekday,
-    byweekno,
+    bysetpos,
     bymonth,
     bymonthday,
   };
@@ -200,3 +210,11 @@ export const makeRidesInPeriod = (template: RepeatingRideDb): RideSet => {
     rides,
   };
 };
+
+//  Monthly on 10th of each month
+// DTSTART:20230716T083000Z
+// RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTH=7;BYMONTHDAY=10
+
+// Last friday in each month
+// DTSTART:20230721T103000Z
+// RRULE:FREQ=MONTHLY;INTERVAL=1;BYDAY=FR;bysetpos=-1

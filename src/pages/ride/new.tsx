@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
@@ -7,9 +8,8 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { authOptions } from "@api/auth/[...nextauth]";
-import { addRepeatingRide } from "@api/repeating-ride/create";
 import { Confirm, RideForm } from "../../components";
-import { addRide } from "../../hooks";
+import { addRide, addRepeatingRide } from "../../hooks";
 import {
   formatUserName,
   flattenQuery,
@@ -20,6 +20,7 @@ import {
   makeRide,
   makeRepeatingRide,
   makeRidesInPeriod,
+  repeatingRideToDb,
 } from "../../../shared/utils";
 import { Preferences, RideFormValues, User } from "../../types";
 
@@ -78,8 +79,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     until: undefined,
     winterStartTime: "08:30", // Update when time changes
     byweekday: rruleDay(), // Only set if displayed!
-    byweekno: rruleDay(), // Only set if displayed!
-    bymonth: new Date().getMonth() + 1, // Only set if displayed!
+    bysetpos: rruleDay(), // Only set if displayed!
+    // bymonth: new Date().getMonth() + 1, // Only set if displayed!
     bymonthday: undefined, // Only set if displayed!
   };
 
@@ -98,23 +99,27 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
   ) => {
     // setWaiting(true);
 
-    const payload = makeRepeatingRide(formData);
+    try {
+      const payload = makeRepeatingRide(formData);
+      const results = await mutate("/api/repeating-ride", () =>
+        addRepeatingRide(payload)
+      );
 
-    // const results = await mutate("/api/repeating-ride", () =>
-    //   addRepeatingRide(payload)
-    // );
-    // if (results?.id) {
-    //   router.push("/");
-    // }
-
-    // Set scheduleId so we can generate with it!
-
-    // Calculate rides list and ask to create them
-    const rideList = makeRidesInPeriod(payload);
-    const rideDates = rideList.rides.map(({ date }) => formatDate(date));
-    if (rideDates.length > 0) {
-      setRideDateList(rideDates);
-      show();
+      if (results?.id) {
+        console.log("🚀 ~ file: new.tsx:109 ~ results?.id:", results?.id);
+        // Calculate rides list and ask to create them
+        const rideList = makeRidesInPeriod(repeatingRideToDb(payload));
+        const rideDates = rideList.rides.map(({ date }) => formatDate(date));
+        if (rideDates.length > 0) {
+          setRideDateList(rideDates);
+          show();
+        }
+        // if (results?.id) {
+        //   router.push("/");
+        // }
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -132,6 +137,9 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
     //   }
     // });
     cb(true);
+    // if (results?.id) {
+    //   router.push("/");
+    // }
   };
 
   return (

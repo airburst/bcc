@@ -45,7 +45,7 @@ export type RepeatingRide = {
   freq: number;
   interval?: number;
   byweekday?: number | number[];
-  byweekno?: number | number[];
+  bysetpos?: number | number[];
   bymonth?: number | number[];
   bymonthday?: number | number[];
   // byyearday, number | number[]
@@ -66,7 +66,14 @@ export type RepeatingRide = {
 
 export type RepeatingRideDb = Omit<
   RepeatingRide,
-  "freq" | "interval" | "startDate" | "endDate" | "byweekday"
+  | "freq"
+  | "interval"
+  | "startDate"
+  | "endDate"
+  | "byweekday"
+  | "bysetpos"
+  | "bymonth"
+  | "bymonthday"
 > & {
   schedule: string;
 };
@@ -128,7 +135,7 @@ export type RideFormValues = {
   endDate?: string;
   winterStartTime?: string;
   byweekday?: number;
-  byweekno?: number;
+  bysetpos?: number;
   bymonth?: number;
   bymonthday?: number;
 };

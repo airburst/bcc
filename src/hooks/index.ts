@@ -1,5 +1,6 @@
 export * from "./useAddPacelineRides";
 export * from "./useAddRide";
+export * from "./useAddRepeatingRide";
 export * from "./useCancelRide";
 export * from "./useDeleteRide";
 export * from "./useEditRide";

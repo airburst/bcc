@@ -46,6 +46,8 @@ const createRepeatingRide = async (
       error: "Not authorised to use this API",
     });
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("🚀 ~ ", err);
     // Could send actual error!
     return res.status(401).send({
       error: "Not authorised to use this API",
