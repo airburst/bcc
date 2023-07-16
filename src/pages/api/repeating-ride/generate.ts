@@ -6,6 +6,7 @@ import {
   updateRRuleStartDate,
 } from "@utils/repeatingRides";
 import { RepeatingRideDb } from "src/types";
+import { isAdmin } from "@api/auth/authHelpers";
 import { prisma } from "../../../server/db/client";
 
 // TODO: Update comments
@@ -71,28 +72,32 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { date, scheduleId }: BodyProps = req.body;
-
     try {
+      const { date, scheduleId }: BodyProps = req.body;
       const { authorization } = req.headers;
+      const isAuth = await isAdmin(req, res);
+      const isValidApiRequest =
+        authorization === `Bearer ${process.env.API_KEY}`;
 
-      if (authorization === `Bearer ${process.env.API_KEY}`) {
-        const targetMonth = date || getNextMonth();
-        const rides = await getRidesFromTemplates({ scheduleId });
-        const results = await createRides(rides);
-
-        res.status(200).json({
-          success: true,
-          targetMonth,
-          scheduleId,
-          results,
-        });
-      } else {
-        res.status(401).json({ success: false });
+      if (!(isAuth || isValidApiRequest)) {
+        res.status(401).end("Not authorised");
       }
+
+      const targetMonth = date || getNextMonth();
+      const rides = await getRidesFromTemplates({ scheduleId });
+      const results = await createRides(rides);
+
+      res.status(200).json({
+        success: true,
+        targetMonth,
+        scheduleId,
+        results,
+      });
     } catch (err) {
       if (err instanceof Error) {
-        res.status(500).json({ statusCode: 500, message: err.message });
+        res
+          .status(500)
+          .json({ success: false, statusCode: 500, message: err.message });
       }
     }
   } else {

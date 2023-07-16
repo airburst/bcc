@@ -101,7 +101,7 @@ export const RepeatingRideForm = ({
           </select>
         </div>
 
-        <div className="col-span-2 form-control w-full">
+        <div className="col-span-2 md:col-span-1 form-control w-full">
           <label htmlFor="freq">Frequency</label>
           <select
             id="freq"
@@ -115,11 +115,9 @@ export const RepeatingRideForm = ({
             {/* <option value="0">Years</option> */}
           </select>
         </div>
-      </div>
 
-      {isWeekly && (
-        <div className="flex">
-          <div className="col-span-2 form-control w-full">
+        {isWeekly && (
+          <div className="col-span-3 md:col-span-1 form-control w-full">
             <label htmlFor="byweekday">On</label>
             <select
               id="byweekday"
@@ -137,12 +135,10 @@ export const RepeatingRideForm = ({
               <option value="6">Sunday</option>
             </select>
           </div>
-        </div>
-      )}
+        )}
 
-      {isMonthly && (
-        <>
-          <div className="form-control w-full">
+        {isMonthly && (
+          <div className="form-control w-full col-span-3 md:col-span-1">
             <label htmlFor="repeat-type">Repeat type</label>
             <select
               id="repeat-type"
@@ -154,6 +150,11 @@ export const RepeatingRideForm = ({
               <option value="byweek">On specific day and week</option>
             </select>
           </div>
+        )}
+      </div>
+
+      {isMonthly && (
+        <>
           {monthType === "byday" && (
             <div className="flex">
               <div className="form-control w-full">
@@ -239,7 +240,7 @@ export const RepeatingRideForm = ({
       )}
       {isYearly && <div>TODO</div>}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div className="flex flex-col gap-4 md:gap-8">
           <label htmlFor="startDate" className="flex flex-col gap-1">
             Start Date *
@@ -272,9 +273,7 @@ export const RepeatingRideForm = ({
             />
           </label>
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-4 md:gap-8">
           <label htmlFor="winterStartTime" className="flex flex-col gap-1">
             Winter Start
