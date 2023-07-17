@@ -2,10 +2,10 @@ import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { getServerSession } from "next-auth";
 import { useState, ChangeEvent } from "react";
-import { listRepeatingRides } from "@api/repeating-ride";
+import { listRepeatingRides } from "@api/repeating-ride/list";
 import { RepeatingRideCard } from "@components/RepeatingRideCard";
-import { authOptions } from "./api/auth/[...nextauth]";
-import { RepeatingRide } from "../types";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { RepeatingRide } from "../../types";
 
 type Props = {
   repeatingRides: RepeatingRide[];

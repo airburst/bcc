@@ -91,6 +91,7 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
   const { schedule, ...rest } = ride;
   // Convert rrule back into editable variables
   const rrule = RRule.fromString(schedule);
+  const textRule = rrule.toText();
 
   const {
     freq,
@@ -113,6 +114,7 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     bysetpos,
     bymonth,
     bymonthday,
+    textRule,
   };
 };
 

@@ -16,9 +16,7 @@ export const RepeatingRideCard: React.FC<Props> = ({ ride }: Props) => {
     ? `${destination} - ${distance || ""} km`
     : `${distance || ""} km`;
 
-  const targetUrl = "/"; // FIXME:
-
-  const onPress = () => router.push(targetUrl);
+  const onPress = () => router.push(`/repeating-rides/${id}`);
 
   if (!id) {
     return null;

@@ -1,41 +1,46 @@
-// src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { RepeatingRide } from "src/types";
 import { prisma } from "../../../server/db/client";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isAdmin } from "../auth/authHelpers";
 import { repeatingRideFromDb } from "../../../../shared/utils";
 
-export const listRepeatingRides = async (): Promise<RepeatingRide[]> => {
-  const rideRecords = await prisma.repeatingRide.findMany({
-    orderBy: { name: "asc" },
+export const getRepeatingRide = async (
+  id: string | string[] | undefined
+): Promise<RepeatingRide | null> => {
+  const scheduleId = Array.isArray(id) ? id[0] : id;
+
+  if (!scheduleId) {
+    return null;
+  }
+
+  const ride = await prisma.repeatingRide.findUnique({
+    where: {
+      id: scheduleId,
+    },
   });
 
-  if (!rideRecords) {
-    return [];
+  if (!ride) {
+    return null;
   }
 
   // Remove createdAt key
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return rideRecords.map(({ createdAt, ...ride }) => repeatingRideFromDb(ride));
+  const { createdAt, ...rest } = ride;
+
+  return repeatingRideFromDb(rest);
 };
 
-const getRepeatingRides = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerAuthSession({ req, res });
+const repeatingRide = async (req: NextApiRequest, res: NextApiResponse) => {
+  const isAuth = await isAdmin(req, res);
+  const { id } = req.query;
 
-  if (!session || !session.user) {
+  if (!isAuth) {
     return res.status(401).json({ error: "Not authorised" });
   }
 
-  const hasAdminRole = await isAdmin(req, res);
+  const rideDetails = await getRepeatingRide(id);
 
-  if (hasAdminRole) {
-    const userData = await listRepeatingRides();
-    return res.status(200).json(userData);
-  }
-  return res.status(401).send({
-    error: "Not authorised to use this API",
-  });
+  return res.status(200).json(rideDetails);
 };
 
-export default getRepeatingRides;
+export default repeatingRide;

@@ -48,6 +48,7 @@ export type RepeatingRide = {
   bysetpos?: number | number[];
   bymonth?: number | number[];
   bymonthday?: number | number[];
+  textRule?: string;
   // byyearday, number | number[]
   startDate: string;
   winterStartTime?: string | null;

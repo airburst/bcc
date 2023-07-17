@@ -36,6 +36,7 @@ export const RepeatingRideForm = ({
   const isEditMode = !!defaultValues.id;
   // Get watched values
   const watchDate = watch("date");
+  const watchStartDate = watch("startDate");
   const date = watchDate || defaultValues.date;
   const monthDay = getDay(date);
   const dayOfWeek = rruleDay(date);
@@ -45,6 +46,8 @@ export const RepeatingRideForm = ({
   const freq = watchFreq ? +watchFreq : defaultValues.freq;
   const watchMonth = watch("freq");
   const month = watchMonth ? +watchMonth : defaultValues.bymonth;
+  const minEndDate =
+    (watchDate || "") > (watchStartDate || "") ? watchDate : watchStartDate;
 
   // Change repeating day-of-month when form changes
   useEffect(() => {
@@ -267,7 +270,7 @@ export const RepeatingRideForm = ({
             <input
               id="endDate"
               type="date"
-              min={today}
+              min={minEndDate}
               className="input"
               {...register("endDate")}
             />
