@@ -1,6 +1,6 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { RepeatingRideDb, RepeatingRide } from "src/types";
+import { RepeatingRide } from "src/types";
 import { prisma } from "../../../server/db/client";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 import { isAdmin } from "../auth/authHelpers";
@@ -15,7 +15,9 @@ export const listRepeatingRides = async (): Promise<RepeatingRide[]> => {
     return [];
   }
 
-  return rideRecords.map((ride: RepeatingRideDb) => repeatingRideFromDb(ride));
+  // Remove createdAt key
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return rideRecords.map(({ createdAt, ...ride }) => repeatingRideFromDb(ride));
 };
 
 const getRepeatingRides = async (req: NextApiRequest, res: NextApiResponse) => {

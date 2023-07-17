@@ -108,7 +108,7 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     freq,
     interval,
     startDate: new Date(dtstart).toISOString(),
-    endDate: until ? new Date(until).toISOString() : undefined,
+    endDate: until ? new Date(until).toISOString() : null,
     byweekday,
     bysetpos,
     bymonth,
