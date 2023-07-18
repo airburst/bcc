@@ -27,6 +27,7 @@ type RideFormProps = {
   isAdmin: boolean;
   watch: UseFormReturn<RideFormValues>["watch"];
   setValue: UseFormReturn<RideFormValues>["setValue"];
+  isRepeating?: boolean;
 };
 
 export const RideForm = ({
@@ -40,10 +41,11 @@ export const RideForm = ({
   isAdmin,
   watch,
   setValue,
+  isRepeating = false,
 }: RideFormProps) => {
   const isNewRide = !defaultValues.id;
-  const [repeats, setRepeats] = useState<boolean>(false);
-  const showRepeatingSwitch = isAdmin && isNewRide;
+  const [repeats, setRepeats] = useState<boolean>(isRepeating);
+  const showRepeatingSwitch = isAdmin && (isNewRide || isRepeating);
 
   const switchClass = clsx(
     "relative inline-flex h-6 w-11 items-center rounded-full",
@@ -160,7 +162,7 @@ export const RideForm = ({
             type="text"
             className="input"
             defaultValue={defaultValues.meetPoint}
-            {...register("meetPoint", { required: true })}
+            {...register("meetPoint")}
           />
         </label>
       </div>
@@ -264,6 +266,7 @@ export const RideForm = ({
             repeats={repeats}
             watch={watch}
             setValue={setValue}
+            isRepeating={isRepeating}
           />
         </>
       )}

@@ -1,32 +1,45 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { getRide } from "../../api/ride";
-import { addRide } from "../../../hooks";
+import { authOptions } from "@api/auth/[...nextauth]";
+import { Confirm, RideForm } from "src/components";
+import { formatFormDate, formatDate, getNow } from "@utils/dates";
+import { addRepeatingRide, addRide, generateRides } from "src/hooks";
 import {
-  makeUtcDate,
-  getFormRideDateAndTime,
-  getNow,
   serialiseUser,
-} from "../../../../shared/utils";
-import { RideForm } from "../../../components";
-import { Preferences, RideFormValues, User } from "../../../types";
+  makeRide,
+  makeRepeatingRide,
+  makeRidesInPeriod,
+  repeatingRideToDb,
+  flattenArrayNumber,
+} from "shared/utils";
+import { Preferences, RepeatingRide, RideFormValues, User } from "src/types";
+import { getRepeatingRide } from "@api/repeating-ride";
 
 type Props = {
-  data: RideFormValues;
+  repeatingRide: RepeatingRide;
   user: User;
 };
 
-const CopyRide: NextPage<Props> = ({ data, user }: Props) => {
+const CopyRepeatingRide: NextPage<Props> = ({ repeatingRide, user }: Props) => {
   const preferences = user?.preferences as Preferences;
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const [waiting, setWaiting] = useState(false);
+  const [showCreate, setShowCreate] = useState<boolean>(false);
+  const [rideDateList, setRideDateList] = useState<string[]>([]);
+  const [scheduleId, setScheduleId] = useState<string | null>(null);
+
+  const show = () => setShowCreate(true);
+  const hide = () => {
+    setShowCreate(false);
+  };
 
   const {
     register,
@@ -44,42 +57,86 @@ const CopyRide: NextPage<Props> = ({ data, user }: Props) => {
 
   // Initial state for form: set name, leader and time
   const defaultValues = {
-    ...data,
-    distance: parseInt((data.distance || 1).toString(), 10),
-    ...getFormRideDateAndTime(getNow()),
-    time: data.time,
+    name: repeatingRide.name,
+    freq: repeatingRide.freq,
+    date: formatFormDate(getNow()),
+    startDate: repeatingRide.startDate,
+    endDate: repeatingRide.endDate
+      ? formatFormDate(repeatingRide.endDate)
+      : undefined,
+    time: "08:30",
+    winterStartTime: "08:30",
+    // Cast potentially nullish values as empty
+    group: repeatingRide.group || "",
+    destination: repeatingRide.destination || "",
+    meetPoint: repeatingRide.meetPoint || "",
+    notes: repeatingRide.notes || "",
+    leader: repeatingRide.leader || "",
+    route: repeatingRide.route || "",
+    distance: repeatingRide.distance || 1,
+    // Cast arrays o rnumbers to strongs for form
+    byweekday: flattenArrayNumber(repeatingRide.byweekday),
+    bysetpos: flattenArrayNumber(repeatingRide.bysetpos),
+    bymonthday: flattenArrayNumber(repeatingRide.bymonthday),
   };
 
-  const onSubmit: SubmitHandler<RideFormValues> = async ({
-    name,
-    date,
-    time,
-    group,
-    meetPoint,
-    destination,
-    distance,
-    leader,
-    route,
-    notes,
-  }) => {
+  const createRide: SubmitHandler<RideFormValues> = async (formData) => {
     setWaiting(true);
-    // Transform data before sending
-    const utcDate = makeUtcDate(date, time);
-    const results = await mutate("/api/ride", () =>
-      addRide({
-        name,
-        date: utcDate,
-        group,
-        meetPoint,
-        destination,
-        distance: +distance,
-        leader,
-        route,
-        notes,
-      })
-    );
+
+    const payload = makeRide(formData);
+    const results = await mutate("/api/ride", () => addRide(payload));
     if (results.id) {
-      router.back();
+      router.push("/");
+    }
+  };
+
+  const createRepeatingRide: SubmitHandler<RideFormValues> = async (
+    formData
+  ) => {
+    setWaiting(true);
+
+    try {
+      const payload = makeRepeatingRide(formData);
+      const results = await mutate("/api/repeating-ride", () =>
+        addRepeatingRide(payload)
+      );
+
+      if (results?.id) {
+        // Store schedule id to use in handleYes function
+        setScheduleId(results.id);
+        // Calculate rides list and ask to create them
+        const rideList = makeRidesInPeriod(repeatingRideToDb(payload));
+        const rideDates = rideList.rides.map(({ date }) => formatDate(date));
+        if (rideDates.length > 0) {
+          setRideDateList(rideDates);
+          show();
+        } else {
+          router.push("/");
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleNo = () => {
+    hide();
+    router.push("/");
+  };
+
+  const handleYes = async (cb: (flag: boolean) => void) => {
+    hide();
+
+    if (scheduleId) {
+      mutate("/api/ride", async () => {
+        const results = await generateRides(scheduleId);
+        if (results.success) {
+          router.push("/");
+          cb(true);
+        } else {
+          cb(false);
+        }
+      });
     }
   };
 
@@ -99,19 +156,34 @@ const CopyRide: NextPage<Props> = ({ data, user }: Props) => {
           defaultValues={defaultValues}
           errors={errors}
           register={register}
-          handleSubmit={handleSubmit(onSubmit)}
+          handleSubmit={handleSubmit(createRide)}
+          handleSchedule={handleSubmit(createRepeatingRide)}
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}
           watch={watch}
           setValue={setValue}
+          isRepeating
         />
       </div>
+
+      <Confirm
+        open={showCreate}
+        closeHandler={handleNo}
+        heading="Do you want to create rides on the following dates using this schedule?"
+        onYes={(callback) => handleYes(callback)}
+      >
+        <>
+          {rideDateList.map((date) => (
+            <div key={date}>{date}</div>
+          ))}
+        </>
+      </Confirm>
     </>
   );
 };
 
-export default CopyRide;
+export default CopyRepeatingRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -119,9 +191,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);
   const role = user?.role;
-  const isAuthorised = !!session && role && ["LEADER", "ADMIN"].includes(role);
-  const preferences =
-    (session && (session.user?.preferences as Preferences)) || undefined;
+  const isAuthorised = !!session && role === "ADMIN";
 
   if (!isAuthorised) {
     return {
@@ -133,11 +203,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const { query } = context;
-  const data = await getRide(query.id, preferences, !!session);
+  const repeatingRide = await getRepeatingRide(query.id);
 
   return {
     props: {
-      data,
+      repeatingRide,
       user,
     },
   };

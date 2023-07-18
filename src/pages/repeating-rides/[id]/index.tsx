@@ -3,7 +3,7 @@ import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@api/auth/[...nextauth]";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { getRepeatingRide } from "@api/repeating-ride";
 import { RepeatingRide } from "src/types";
 import { BackButton, Button } from "@components/Button";
@@ -30,6 +30,7 @@ const Row = ({ children }: RowProps) => (
 
 const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
   const {
+    id,
     name,
     group,
     meetPoint,
@@ -45,8 +46,10 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
     endDate,
     textRule,
   } = data;
-
   const time = formatTime(startDate);
+  const router = useRouter();
+
+  const goToCopy = () => router.push(`./${id}/copy`);
 
   return (
     <>
@@ -167,7 +170,7 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
           {endDate && (
             <Row>
               <div>End date</div>
-              <div>{endDate}</div>
+              <div>{formatDate(endDate)}</div>
             </Row>
           )}
         </div>
@@ -175,10 +178,10 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
 
       <div className="flex justify-between sm:justify-start w-full gap-4 px-2 sm:p-0">
         <BackButton />
-        <Button accent onClick={() => alert("TODO: Copy")}>
+        <Button accent onClick={goToCopy}>
           Copy
         </Button>
-        <Button error onClick={() => alert("TODO: Delete")}>
+        <Button error disabled onClick={() => alert("TODO: Delete")}>
           Delete
         </Button>
       </div>

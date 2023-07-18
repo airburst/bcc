@@ -1,6 +1,15 @@
 import { RepeatingRide, RideFormValues } from "src/types";
 import { makeUtcDate } from "./dates";
 
+export const flattenArrayNumber = (
+  value?: number[] | number | null
+): number | undefined => {
+  if (!value) {
+    return undefined;
+  }
+  return Array.isArray(value) ? value[0] : value;
+};
+
 export const makeRide = (formData: RideFormValues) => {
   const {
     name,

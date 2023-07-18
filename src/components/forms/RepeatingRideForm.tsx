@@ -22,6 +22,7 @@ type RepeatingRideFormProps = {
   repeats: boolean;
   watch: UseFormReturn<RideFormValues>["watch"];
   setValue: UseFormReturn<RideFormValues>["setValue"];
+  isRepeating?: boolean;
 };
 
 export const RepeatingRideForm = ({
@@ -31,15 +32,18 @@ export const RepeatingRideForm = ({
   repeats,
   watch,
   setValue,
+  isRepeating = false,
 }: RepeatingRideFormProps) => {
-  const [monthType, setMonthType] = useState<string>("byday");
-  const isEditMode = !!defaultValues.id;
+  // Calculate byweek or month for copied schedule
+  const monthlyCadence = defaultValues.bysetpos ? "byweek" : "byday";
+  const [monthType, setMonthType] = useState<string>(monthlyCadence);
+  const isEditMode = !!defaultValues.id && !isRepeating;
   // Get watched values
   const watchDate = watch("date");
   const watchStartDate = watch("startDate");
   const date = watchDate || defaultValues.date;
-  const monthDay = getDay(date);
-  const dayOfWeek = rruleDay(date);
+  const monthDay = defaultValues.bymonthday || getDay(date);
+  const dayOfWeek = defaultValues.byweekday || rruleDay(date);
   const watchTime = watch("time");
   const time = watchTime || defaultValues.time;
   const watchFreq = watch("freq");
@@ -49,6 +53,10 @@ export const RepeatingRideForm = ({
   const minEndDate =
     (watchDate || "") > (watchStartDate || "") ? watchDate : watchStartDate;
 
+  // Change startDate when form changes
+  useEffect(() => {
+    setValue("startDate", date);
+  }, [date, setValue]);
   // Change repeating day-of-month when form changes
   useEffect(() => {
     setValue("bymonthday", monthDay);
@@ -208,7 +216,7 @@ export const RepeatingRideForm = ({
                 <select
                   id="bysetpos"
                   className="select text-lg font-normal"
-                  defaultValue={1}
+                  defaultValue={defaultValues.bysetpos || 1}
                   {...register("bysetpos")}
                 >
                   <option value="1">1st</option>
