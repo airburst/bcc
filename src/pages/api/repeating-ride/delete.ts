@@ -1,7 +1,7 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isAdmin } from "../auth/authHelpers";
+import { isAdmin } from "../auth/authHelpers";
 
 export const removeRepeatingRide = async (id: string) => {
   try {
@@ -14,27 +14,20 @@ export const removeRepeatingRide = async (id: string) => {
   }
 };
 
-// Only a logged-in user can join a ride
 const deleteRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isAdmin(req, res);
 
   if (!isAuth) {
     return res.status(401).send({
-      error: "Only a leader can delete a ride.",
+      error: "Not authorised to use this API",
     });
   }
 
   try {
     const id = req.body;
-    const hasAdminRole = await isAdmin(req, res);
+    const success = await removeRepeatingRide(id);
 
-    if (hasAdminRole) {
-      const success = await removeRepeatingRide(id);
-      return res.status(200).json(success);
-    }
-    return res.status(401).send({
-      error: "Not authorised to use this API",
-    });
+    return res.status(200).json(success);
   } catch (err) {
     // Could send actual error!
     return res.status(401).send({

@@ -4,9 +4,13 @@ import Head from "next/head";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@api/auth/[...nextauth]";
 import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
 import { getRepeatingRide } from "@api/repeating-ride";
 import { RepeatingRide } from "src/types";
 import { BackButton, Button } from "@components/Button";
+import { useState } from "react";
+import { Confirm } from "@components/Confirm";
+import { deleteRepeatingRide } from "src/hooks";
 import {
   formatDate,
   formatTime,
@@ -29,6 +33,7 @@ const Row = ({ children }: RowProps) => (
 );
 
 const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
+  const [showConfirmDelete, setShowDelete] = useState<boolean>(false);
   const {
     id,
     name,
@@ -48,8 +53,32 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
   } = data;
   const time = formatTime(startDate);
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const goToCopy = () => router.push(`./${id}/copy`);
+
+  const handleDelete = async (cb: (flag: boolean) => void) => {
+    if (id) {
+      mutate("/api/ride", async () => {
+        const results = await deleteRepeatingRide(id);
+        console.log("🚀 ~ file: index.tsx:64 ~ mutate ~ results:", results);
+
+        // TODO: cancel or delete rides
+        if (results.id) {
+          router.back();
+          setShowDelete(false);
+          cb(true);
+        } else {
+          cb(false);
+        }
+      });
+    } else {
+      cb(false);
+    }
+  };
+
+  const showConfirm = () => setShowDelete(true);
+  const hideConfirm = () => setShowDelete(false);
 
   return (
     <>
@@ -181,10 +210,43 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
         <Button accent onClick={goToCopy}>
           Copy
         </Button>
-        <Button error disabled onClick={() => alert("TODO: Delete")}>
+        <Button error onClick={showConfirm}>
           Delete
         </Button>
       </div>
+
+      <Confirm
+        open={showConfirmDelete}
+        closeHandler={hideConfirm}
+        heading="Are you sure you want to delete this repeating ride?"
+        onYes={(callback) => handleDelete(callback)}
+      >
+        <div>
+          <div className="form-control">
+            <label htmlFor="cascade" className="label cursor-pointer">
+              <span className="label-text">Red pill</span>
+              <input
+                id="cascade"
+                type="radio"
+                name="radio-cascade"
+                className="radio"
+                checked
+              />
+            </label>
+          </div>
+          <div className="form-control">
+            <label htmlFor="no-cascade" className="label cursor-pointer">
+              <span className="label-text">Blue pill</span>
+              <input
+                id="no-cascade"
+                type="radio"
+                name="radio-cascade"
+                className="radio radio-primary"
+              />
+            </label>
+          </div>
+        </div>
+      </Confirm>
     </>
   );
 };
