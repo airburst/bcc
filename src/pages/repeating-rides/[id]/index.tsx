@@ -34,6 +34,10 @@ const Row = ({ children }: RowProps) => (
 
 const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
   const [showConfirmDelete, setShowDelete] = useState<boolean>(false);
+  const [deleteAllRides, setDeleteAllRides] = useState<boolean>(true);
+  const router = useRouter();
+  const { mutate } = useSWRConfig();
+
   const {
     id,
     name,
@@ -52,18 +56,16 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
     textRule,
   } = data;
   const time = formatTime(startDate);
-  const router = useRouter();
-  const { mutate } = useSWRConfig();
 
   const goToCopy = () => router.push(`./${id}/copy`);
+
+  const toggleDeleteAllRides = () => setDeleteAllRides(!deleteAllRides);
 
   const handleDelete = async (cb: (flag: boolean) => void) => {
     if (id) {
       mutate("/api/ride", async () => {
-        const results = await deleteRepeatingRide(id);
-        console.log("🚀 ~ file: index.tsx:64 ~ mutate ~ results:", results);
+        const results = await deleteRepeatingRide(id, deleteAllRides);
 
-        // TODO: cancel or delete rides
         if (results.id) {
           router.back();
           setShowDelete(false);
@@ -224,24 +226,30 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
         <div>
           <div className="form-control">
             <label htmlFor="cascade" className="label cursor-pointer">
-              <span className="label-text">Red pill</span>
+              <span className="label-text">
+                Also delete or cancel every future ride created from this
+                schedule
+              </span>
               <input
                 id="cascade"
                 type="radio"
                 name="radio-cascade"
-                className="radio"
-                checked
+                checked={deleteAllRides}
+                onChange={toggleDeleteAllRides}
               />
             </label>
           </div>
           <div className="form-control">
             <label htmlFor="no-cascade" className="label cursor-pointer">
-              <span className="label-text">Blue pill</span>
+              <span className="label-text">
+                Only delete the schedule and keep all of the rides
+              </span>
               <input
                 id="no-cascade"
                 type="radio"
                 name="radio-cascade"
-                className="radio radio-primary"
+                checked={!deleteAllRides}
+                onChange={toggleDeleteAllRides}
               />
             </label>
           </div>
@@ -272,6 +280,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { query } = context;
   const data = await getRepeatingRide(query.id);
+
+  if (!data) {
+    return {
+      redirect: {
+        destination: "/repeating-rides",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

@@ -1,20 +1,26 @@
 import useSWR from "swr";
 
-export const deleteRepeatingRide = async (id: string | string[]) => {
+export const deleteRepeatingRide = async (
+  id: string,
+  deleteAllRides?: boolean
+) => {
   const results = await fetch(`/api/repeating-ride/delete`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(id),
+    body: JSON.stringify({ id, deleteAllRides }),
   }).then((res) => res.json());
   return results;
 };
 
-export const useDeleteRepeatingRide = (id: string) => {
+export const useDeleteRepeatingRide = (
+  id: string,
+  deleteAllRides?: boolean
+) => {
   const { data, error } = useSWR(`/api/repeating-ride/delete`, () =>
-    deleteRepeatingRide(id)
+    deleteRepeatingRide(id, deleteAllRides)
   );
 
   return {
