@@ -2,7 +2,7 @@ import { RepeatingRide, RideFormValues } from "src/types";
 import { makeUtcDate } from "./dates";
 
 export const flattenArrayNumber = (
-  value?: number[] | number | null
+  value?: number[] | number | null,
 ): number | undefined => {
   if (!value) {
     return undefined;
@@ -40,6 +40,7 @@ export const makeRide = (formData: RideFormValues) => {
   };
 };
 
+// TODO: Set empty values to null so that rides are created with red flags
 // Filter ride form with repeating information into a valid API request shape
 export const makeRepeatingRide = (formData: RideFormValues): RepeatingRide => {
   const {
