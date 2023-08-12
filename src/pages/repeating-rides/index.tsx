@@ -23,8 +23,10 @@ const RepeatingRidesList: NextPage<Props> = ({ repeatingRides }: Props) => {
   };
 
   const filteredRides = searchText
-    ? repeatingRides.filter(({ name }) =>
-        `${name}`.toLowerCase().includes(searchText.toLowerCase())
+    ? repeatingRides.filter(({ name, group, textRule }) =>
+        `${name}${group}${textRule}`
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
       )
     : repeatingRides;
 
@@ -45,7 +47,7 @@ const RepeatingRidesList: NextPage<Props> = ({ repeatingRides }: Props) => {
         <input
           type="text"
           className="input input-bordered input-lg w-full mb-4"
-          placeholder="Search by ride name"
+          placeholder="Search by ride name, group or day"
           onChange={handleSearch}
         />
       </div>

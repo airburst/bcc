@@ -1,7 +1,8 @@
+import { getNow } from "@utils/dates";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { RepeatingRide } from "../types";
 import "react-loading-skeleton/dist/skeleton.css";
+import { RepeatingRide } from "../types";
 
 type Props = {
   ride: RepeatingRide;
@@ -10,11 +11,10 @@ type Props = {
 export const RepeatingRideCard: React.FC<Props> = ({ ride }: Props) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
-  const { id, name, group, destination, distance } = ride;
+  const { id, name, group, distance, textRule, endDate } = ride;
 
-  const details = destination
-    ? `${destination} - ${distance || ""} km`
-    : `${distance || ""} km`;
+  const isExpired = endDate ? endDate <= getNow() : false;
+  const details = `${distance || ""} km | ${textRule}`;
 
   const onPress = () => router.push(`/repeating-rides/${id}`);
 
@@ -50,6 +50,12 @@ export const RepeatingRideCard: React.FC<Props> = ({ ride }: Props) => {
         </div>
         <div className="truncate">{details}</div>
       </div>
+
+      {isExpired && (
+        <div className="px-2 text-white h-full flex items-center justify-center rounded-r w-24 bg-secondary">
+          EXPIRED
+        </div>
+      )}
     </div>
   );
 };
