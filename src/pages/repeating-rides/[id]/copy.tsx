@@ -75,7 +75,7 @@ const CopyRepeatingRide: NextPage<Props> = ({ repeatingRide, user }: Props) => {
     route: repeatingRide.route || "",
     distance: repeatingRide.distance || 1,
     limit: repeatingRide.limit || -1,
-    // Cast arrays o rnumbers to strongs for form
+    // Flatten arrays to scalars
     byweekday: flattenArrayNumber(repeatingRide.byweekday),
     bysetpos: flattenArrayNumber(repeatingRide.bysetpos),
     bymonthday: flattenArrayNumber(repeatingRide.bymonthday),
@@ -132,7 +132,7 @@ const CopyRepeatingRide: NextPage<Props> = ({ repeatingRide, user }: Props) => {
       mutate("/api/ride", async () => {
         const results = await generateRides(scheduleId);
         if (results.success) {
-          router.push("/");
+          router.push("/repeating-rides");
           cb(true);
         } else {
           cb(false);

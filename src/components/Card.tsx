@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
+import clsx from "clsx";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import clsx from "clsx";
-import { Ride, User } from "../types";
-import { isReady } from "../../shared/utils";
-import { Cancelled } from "./Cancelled";
 import "react-loading-skeleton/dist/skeleton.css";
+import { isReady } from "../../shared/utils";
+import { Ride, User } from "../types";
+import { Cancelled } from "./Cancelled";
 
 type Props = {
   ride: Ride;
@@ -76,7 +76,8 @@ export const Card: React.FC<Props> = ({ ride, user }: Props) => {
     >
       <div className={cardClass}>
         <div className={titleClass}>
-          {name} {group ? `- ${group}` : ""}{" "}
+          {name}
+          {group ? `: ${group}` : ""}{" "}
         </div>
 
         {isGoing && (

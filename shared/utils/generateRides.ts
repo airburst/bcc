@@ -1,17 +1,14 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { isWinter, daysInMonth } from "./dates";
 import {
-  TUESDAY_RIDES,
-  WEDNESDAY_RIDES,
-  WEDNESDAY_HILLS,
   FRIDAY_RIDES,
-  PACELINE,
-  SATURDAY_SOCIAL_LONG,
-  SATURDAY_SOCIAL_SHORT,
   SUNDAY,
+  TUESDAY_RIDES,
+  WEDNESDAY_HILLS,
+  WEDNESDAY_RIDES,
 } from "../../src/constants";
 import { PartialRide, SeasonStartTime } from "../../src/types";
+import { daysInMonth, isWinter } from "./dates";
 
 dayjs.extend(utc);
 
@@ -28,16 +25,7 @@ export const getStartTime = (date: string, startTime: SeasonStartTime) => {
 
 const findRidesForDay = (date: string): PartialRideWithDate[] => {
   const day = dayjs(date).day();
-  return [
-    TUESDAY_RIDES,
-    WEDNESDAY_RIDES,
-    WEDNESDAY_HILLS,
-    FRIDAY_RIDES,
-    PACELINE,
-    SATURDAY_SOCIAL_LONG,
-    SATURDAY_SOCIAL_SHORT,
-    SUNDAY,
-  ]
+  return [TUESDAY_RIDES, WEDNESDAY_RIDES, WEDNESDAY_HILLS, FRIDAY_RIDES, SUNDAY]
     .filter(({ day: rideDay }) => day === rideDay)
     .map(({ rides, startTime }) =>
       rides.map((r) => ({ ...r, date: getStartTime(date, startTime) }))
