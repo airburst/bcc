@@ -1,4 +1,4 @@
-import { Ride, UsersOnRides, User } from "@prisma/client";
+import { Ride, User, UsersOnRides } from "@prisma/client";
 import { DEFAULT_PREFERENCES } from "../../src/constants";
 import {
   Preferences,
@@ -138,6 +138,9 @@ export const formatRideBadge = (ride: RideType): string => {
 // Return true if these have not been changed
 export const isReady = (ride: RideType): boolean => {
   const { leader, route } = ride;
+  if (!leader && !route) {
+    return false;
+  }
   return leader !== "TBA" && route !== "TBA";
 };
 

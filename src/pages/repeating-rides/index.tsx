@@ -1,11 +1,11 @@
-import type { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
-import { getServerSession } from "next-auth";
-import { useState, ChangeEvent } from "react";
 import { listRepeatingRides } from "@api/repeating-ride/list";
 import { RepeatingRideCard } from "@components/RepeatingRideCard";
-import { authOptions } from "../api/auth/[...nextauth]";
+import type { GetServerSideProps, NextPage } from "next";
+import { getServerSession } from "next-auth";
+import Head from "next/head";
+import { ChangeEvent, useState } from "react";
 import { RepeatingRide } from "../../types";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type Props = {
   repeatingRides: RepeatingRide[];
@@ -61,8 +61,8 @@ const RepeatingRidesList: NextPage<Props> = ({ repeatingRides }: Props) => {
 
 export default RepeatingRidesList;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session || (session && session.user?.role !== "ADMIN")) {
     return {
@@ -72,6 +72,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+
+  // Do not cache
+  res.setHeader("Cache-Control", "no-store");
 
   const repeatingRides = await listRepeatingRides();
 

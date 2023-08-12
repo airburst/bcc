@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { addRidesForMonth } from "./ride/create-rides-for-month";
+import { getNow } from "../../../shared/utils";
 import { archiveRides } from "./ride/archive-rides";
-import { getNextMonth } from "../../../shared/utils";
 
 /**
  * This API is designed to be hit by a scheduled workflow
@@ -20,16 +19,15 @@ export default async function handler(
       const { authorization } = req.headers;
 
       if (authorization === `Bearer ${process.env.API_KEY}`) {
-        const targetMonth = date || getNextMonth();
-        const results = await addRidesForMonth(targetMonth);
+        const runDate = date ? new Date(date).toISOString() : getNow();
 
-        const archiveResults = await archiveRides(date);
+        const archiveResults = await archiveRides(runDate);
 
         // More rides to follow
         res.status(200).json({
           success: true,
-          targetMonth,
-          results: { ...results, ...archiveResults },
+          runDate,
+          archiveResults,
         });
       } else {
         res.status(401).json({ success: false });
@@ -49,6 +47,6 @@ export default async function handler(
  * Test with the following curl command:
 
    curl --request POST \
-     --url 'http://localhost:3000/api/cron' \
+     --url 'http://localhost:3000/api/archive-rides' \
      --header 'Authorization: Bearer {API_KEY}'
  */

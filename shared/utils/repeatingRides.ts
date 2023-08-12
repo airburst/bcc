@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { RRule } from "rrule";
-import { RepeatingRideDb, RepeatingRide, TemplateRide } from "src/types";
+import { RepeatingRide, RepeatingRideDb, TemplateRide } from "src/types";
 import { daysInMonth, getNextMonth, isWinter } from "./dates";
 
 export const convertToRRule = (data: RepeatingRide): string => {

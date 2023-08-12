@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { useEffect, useState } from "react";
 import {
-  UseFormRegister,
   FieldErrorsImpl,
+  UseFormRegister,
   UseFormReturn,
 } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { RideFormValues } from "src/types";
 import {
   getDay,
@@ -35,7 +35,7 @@ export const RepeatingRideForm = ({
   isRepeating = false,
 }: RepeatingRideFormProps) => {
   // Calculate byweek or month for copied schedule
-  const monthlyCadence = defaultValues.bysetpos ? "byweek" : "byday";
+  const monthlyCadence = defaultValues.byweekday ? "byweek" : "byday";
   const [monthType, setMonthType] = useState<string>(monthlyCadence);
   const isEditMode = !!defaultValues.id && !isRepeating;
   // Get watched values
