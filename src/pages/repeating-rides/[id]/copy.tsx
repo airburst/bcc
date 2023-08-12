@@ -1,26 +1,26 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
+import { authOptions } from "@api/auth/[...nextauth]";
+import { getRepeatingRide } from "@api/repeating-ride";
+import { formatDate, formatFormDate, getNow } from "@utils/dates";
+import type { GetServerSideProps, NextPage } from "next";
 import { getServerSession } from "next-auth";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useSWRConfig } from "swr";
-import { authOptions } from "@api/auth/[...nextauth]";
-import { Confirm, RideForm } from "src/components";
-import { formatFormDate, formatDate, getNow } from "@utils/dates";
-import { addRepeatingRide, addRide, generateRides } from "src/hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
-  serialiseUser,
-  makeRide,
+  flattenArrayNumber,
   makeRepeatingRide,
+  makeRide,
   makeRidesInPeriod,
   repeatingRideToDb,
-  flattenArrayNumber,
+  serialiseUser,
 } from "shared/utils";
+import { Confirm, RideForm } from "src/components";
+import { addRepeatingRide, addRide, generateRides } from "src/hooks";
 import { Preferences, RepeatingRide, RideFormValues, User } from "src/types";
-import { getRepeatingRide } from "@api/repeating-ride";
+import { useSWRConfig } from "swr";
 
 type Props = {
   repeatingRide: RepeatingRide;
@@ -74,6 +74,7 @@ const CopyRepeatingRide: NextPage<Props> = ({ repeatingRide, user }: Props) => {
     leader: repeatingRide.leader || "",
     route: repeatingRide.route || "",
     distance: repeatingRide.distance || 1,
+    limit: repeatingRide.limit || -1,
     // Cast arrays o rnumbers to strongs for form
     byweekday: flattenArrayNumber(repeatingRide.byweekday),
     bysetpos: flattenArrayNumber(repeatingRide.bysetpos),

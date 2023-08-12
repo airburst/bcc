@@ -23,7 +23,7 @@ export const formatUserName = (name: string | null | undefined): string => {
     .replace(".", " ")
     .replace(
       /\w\S*/g,
-      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
     );
 };
 
@@ -50,7 +50,7 @@ export const serialiseUser = (user?: User): SerialisedUser | null => {
 export const formatUser = (
   user: User,
   notes?: string | null,
-  isAuth = false
+  isAuth = false,
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, name, email, image, mobile, emergency, role } = user;
@@ -79,7 +79,7 @@ export const convertToKms = (miles: number): number =>
 
 export const convertDistance = (
   distance: number | null,
-  units: string | undefined
+  units: string | undefined,
 ) => {
   if (!distance) {
     return null;
@@ -93,7 +93,7 @@ export const convertDistance = (
 export const formatRideData = (
   ride: RideData,
   preferences: Preferences | undefined,
-  isAuth = false
+  isAuth = false,
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { date, createdAt, users, distance, speed, ...rest } = ride;
@@ -138,15 +138,18 @@ export const formatRideBadge = (ride: RideType): string => {
 // Return true if these have not been changed
 export const isReady = (ride: RideType): boolean => {
   const { leader, route } = ride;
+  if (!leader || !route) {
+    return false;
+  }
   return leader !== "TBA" && route !== "TBA";
 };
 
 // Flatten ride data into array of searchable text
 export const makeFilterData = (
-  rides: RideType[]
+  rides: RideType[],
 ): (string | null | undefined)[] => {
   const data = new Set(
-    rides.flatMap(({ name, group, destination }) => [name, group, destination])
+    rides.flatMap(({ name, group, destination }) => [name, group, destination]),
   );
 
   data.delete("");
