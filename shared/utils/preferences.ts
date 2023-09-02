@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
-import { Preferences } from "../../src/types";
 import { DEFAULT_PREFERENCES } from "../../src/constants";
+import { Preferences } from "../../src/types";
 
 export const getPreferences = (user: User): Preferences => {
   const preferences = user.preferences as Preferences;
