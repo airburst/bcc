@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.0.0] - TBD
+## [2.0.1] - 2023-09-02
+
+### Changed
+
+- Updated libraries to latest versions (Next, next-auth, Prisma, etc.)
+
+## [2.0.0] - 2023-08-20
 
 This is a major release with breaking changes to the way that repeating rides are managed in the app.
 
