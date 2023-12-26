@@ -1,6 +1,6 @@
-import { Cancelled } from "../Cancelled";
-import { Ride, User } from "../../types";
 import { makeClickableUrl } from "../../../shared/utils";
+import { Ride, User } from "../../types";
+import { Cancelled } from "../Cancelled";
 
 type RowProps = {
   children: JSX.Element | JSX.Element[] | null | undefined;
@@ -121,7 +121,12 @@ export const RideInfo = ({ ride }: Props) => {
           {riderNotes?.map((rider) => (
             <Row key={rider.name}>
               <div className="truncate">{rider.name}</div>
-              <div className="whitespace-pre-line">{rider.rideNotes}</div>
+              <div
+                className="whitespace-pre-line" // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: makeClickableUrl(rider.rideNotes || ""),
+                }}
+              />
             </Row>
           ))}
         </div>
