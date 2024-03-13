@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable prettier/prettier */
-import { useState, useRef, Fragment, ChangeEvent, FormEvent } from "react";
-import { Transition, Switch, Combobox } from "@headlessui/react";
+import { Combobox, Switch, Transition } from "@headlessui/react";
 import clsx from "clsx";
-import useOnClickOutside from "use-onclickoutside";
 import { useAtom } from "jotai";
+import { ChangeEvent, FormEvent, Fragment, useRef, useState } from "react";
+import useOnClickOutside from "use-onclickoutside";
 import { useLocalStorage } from "../hooks";
 import { filterQueryAtom } from "../store";
-import { Button } from "./Button";
-import { CloseIcon, ChevronDownIcon, TickIcon } from "./Icon";
 import { FilterQuery } from "../types";
+import { Button } from "./Button";
+import { ChevronDownIcon, CloseIcon, TickIcon } from "./Icon";
 
 type Props = {
   isShowing: boolean;
@@ -105,6 +105,7 @@ export const Filters = ({ isShowing, closeHandler, data }: Props) => {
           <div className="text-3xl">Filters</div>
           <button
             type="button"
+            aria-label="Close filters"
             onClick={closeHandler}
             title="Close filters"
             className="flex items-center rounded p-1 text-3xl"
