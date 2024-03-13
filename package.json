@@ -85,5 +85,24 @@
   },
   "ct3aMetadata": {
     "initVersion": "5.15.0"
-  }
+  },
+  "browserslist": {
+    "production": [
+      "last 3 major versions",
+      "not ie 10",
+      "not ie 11",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=18.0.0"
+  },
+  "packageManager": "yarn@4.1.1"
 }
