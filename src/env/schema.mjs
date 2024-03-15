@@ -8,9 +8,10 @@ import { z } from "zod";
 export const serverSchema = z.object({
   HOST_URL: z.string().url(),
   DATABASE_URL: z.string().url(),
-  DATABASE_HOST: z.string(),
-  DATABASE_USERNAME: z.string(),
-  DATABASE_PASSWORD: z.string(),
+  DIRECT_URL: z.string().url(),
+  // DATABASE_HOST: z.string(),
+  // DATABASE_USERNAME: z.string(),
+  // DATABASE_PASSWORD: z.string(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXTAUTH_SECRET: z.string(),
   NEXTAUTH_URL: z.string().url(),
