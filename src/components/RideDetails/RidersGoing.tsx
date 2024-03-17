@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
-import { RiderDetails } from "./RiderDetails";
 import { User } from "../../types";
+import { RiderDetails } from "./RiderDetails";
 
 type Props = {
   user?: User;
