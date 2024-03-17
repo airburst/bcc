@@ -24,7 +24,7 @@ export const Messages = ({ riderNotes = [] }: Props) => {
           <div className="flex flex-col w-full leading-1.5 p-2 px-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <span className="text-sm font-semibold text-neutral-700">
-                name
+                {name}
               </span>
             </div>
             <p
