@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0 - 2024-10-16
+
+### Changed
+
+- Messages use chat bubble style.
+
+## 2.1.0 - 2024-10-16
+
+### Changed
+
+- Migrates database from hosted MySQL (PlanetScale) to hosted Postgres (Supabase) due to end of free tier.
+
 ## [2.0.1] - 2023-09-02
 
 ### Changed
@@ -19,7 +31,9 @@ Admin users can now create, copy and delete repeating rides with scheduling rule
 
 Cron-triggered actions to generate rides use the new data model.
 
-_NOTE: It is currently not possible to edit a repeating ride due to the complexities of updating ride instances, which may have already been joined by riders_
+### Note
+
+It is currently not possible to edit a repeating ride due to the complexities of updating ride instances, which may have already been joined by riders.
 
 ### Added
 

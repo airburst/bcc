@@ -1,29 +1,29 @@
+import copy from "copy-to-clipboard";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { signOut, signIn } from "next-auth/react";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
-import copy from "copy-to-clipboard";
-import { Confirm } from "../Confirm";
+import pkg from "../../../package.json";
 import { env } from "../../env/client.mjs";
-import { deleteRide, cancelRide } from "../../hooks";
+import { cancelRide, deleteRide } from "../../hooks";
+import { Confirm } from "../Confirm";
 import {
   BarsIcon,
   CalendarIcon,
+  CircleExclamationIcon,
   CopyIcon,
   DeleteIcon,
   EditIcon,
   LinkIcon,
-  LogoutIcon,
   LoginIcon,
+  LogoutIcon,
   PlusIcon,
-  SettingsIcon,
-  CircleExclamationIcon,
-  UsersIcon,
   RepeatIcon,
+  SettingsIcon,
+  UsersIcon,
 } from "../Icon";
 import { MenuEntry } from "./MenuEntry";
-import pkg from "../../../package.json";
 
 const { NEXT_PUBLIC_REPO } = env;
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
+import { FilterQuery, Group, Ride, User } from "../../src/types";
 import { formatDate } from "./dates";
-import { User, Ride, Group, FilterQuery } from "../../src/types";
 
 const isGoing = (userId: string, users: User[] = []) =>
   users.map((u: User) => u.id).includes(userId);
