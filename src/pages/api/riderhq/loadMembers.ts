@@ -3,6 +3,7 @@ import { Member } from "./convertMembers";
 
 export const loadMembers = async (members: Member[]) => {
   // Clean existing table
+  // @ts-expect-error prisma schema
   await prisma.membership.deleteMany();
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
