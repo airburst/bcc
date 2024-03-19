@@ -11,7 +11,7 @@ export const Messages = ({ riderNotes = [] }: Props) => {
   }
 
   return (
-    <div className="flex w-full flex-col rounded bg-white py-2 shadow-md ">
+    <div className="relative flex w-full flex-col rounded bg-white py-2 shadow-md ">
       <div className="px-2 pb-2 text-xl font-bold tracking-wide text-neutral-700">
         Messages
       </div>
