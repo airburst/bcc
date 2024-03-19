@@ -40,6 +40,12 @@ export type Ride = {
   users?: User[];
 };
 
+export type RideNote = {
+  name: string;
+  rideNotes: string | undefined;
+  image?: string | null;
+};
+
 export type RepeatingRide = {
   id?: string;
   name: string;

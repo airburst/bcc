@@ -26,7 +26,11 @@ export const RideInfo = ({ ride }: Props) => {
 
   const riderNotes = users
     ?.filter((u: User) => u.rideNotes)
-    .map(({ name: riderName, rideNotes }) => ({ name: riderName, rideNotes }));
+    .map(({ name: riderName, rideNotes, image }) => ({
+      name: riderName,
+      rideNotes,
+      image,
+    }));
 
   return (
     <div className="flex w-full flex-col gap-2 px-2 sm:px-0">
