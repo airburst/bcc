@@ -6,7 +6,7 @@ export const ChatMessage: React.FC<RideNote> = ({
   rideNotes,
   image,
 }: RideNote) => (
-  <div className="chat chat-start pl-2">
+  <div className="flex chat chat-start pl-2">
     {image && (
       <div className="chat-image avatar placeholder">
         <div className="bg-neutral text-neutral-content rounded-full w-10">
@@ -14,7 +14,9 @@ export const ChatMessage: React.FC<RideNote> = ({
         </div>
       </div>
     )}
-    <div className="chat-header">{name}</div>
-    <div className="chat-bubble">{rideNotes}</div>
+    <div className="flex w-full flex-col">
+      <div className="chat-header">{name}</div>
+      <div className="chat-bubble">{rideNotes}</div>
+    </div>
   </div>
 );
