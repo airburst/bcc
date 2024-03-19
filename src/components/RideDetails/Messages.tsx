@@ -1,4 +1,4 @@
-import { ChatMessage } from "@components/ChatMessage";
+// import { ChatMessage } from "@components/ChatMessage";
 import { RideNote } from "src/types";
 
 type Props = {
@@ -10,13 +10,41 @@ export const Messages = ({ riderNotes = [] }: Props) => {
     return null;
   }
 
+  // return (
+  //   <div>
+  //     <div className="flex w-full flex-col rounded bg-white py-2 shadow-md ">
+  //       <div className="px-2 pb-2 text-xl font-bold tracking-wide text-neutral-700">
+  //         Messages
+  //       </div>
+  //       {riderNotes?.map((notes, i) => (
+  //         <ChatMessage key={notes.name || i} {...notes} />
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="relative flex w-full flex-col rounded bg-white py-2 shadow-md ">
+    <div className="flex w-full flex-col rounded bg-white py-2 shadow-md ">
       <div className="px-2 pb-2 text-xl font-bold tracking-wide text-neutral-700">
         Messages
       </div>
-      {riderNotes?.map((notes, i) => (
-        <ChatMessage key={notes.name || i} {...notes} />
+      {riderNotes?.map(({ name, rideNotes }, i) => (
+        <div key={name || i} className="flex items-start py-1 px-2">
+          <div className="flex flex-col w-full leading-1.5 p-2 px-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <span className="text-sm font-semibold text-neutral-700">
+                {name}
+              </span>
+            </div>
+            <p
+              className="text-sm font-normal text-neutral-700"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: rideNotes || "",
+              }}
+            />
+          </div>
+        </div>
       ))}
     </div>
   );
