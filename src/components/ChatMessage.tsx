@@ -17,7 +17,11 @@ export const ChatMessage: React.FC<RideNote> = ({
     )}
     <div className="flex w-full flex-col">
       <div className="chat-header">{name}</div>
-      <div className="chat-bubble">{makeClickableUrl(rideNotes || "")}</div>
+      <div
+        className="chat-bubble"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: makeClickableUrl(rideNotes || "") }}
+      />
     </div>
   </div>
 );
