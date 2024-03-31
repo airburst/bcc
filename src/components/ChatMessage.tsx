@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { makeClickableUrl } from "@utils/makeClickableUrl";
 import { RideNote } from "src/types";
 
 export const ChatMessage: React.FC<RideNote> = ({
@@ -16,7 +17,7 @@ export const ChatMessage: React.FC<RideNote> = ({
     )}
     <div className="flex w-full flex-col">
       <div className="chat-header">{name}</div>
-      <div className="chat-bubble">{rideNotes}</div>
+      <div className="chat-bubble">{makeClickableUrl(rideNotes || "")}</div>
     </div>
   </div>
 );
