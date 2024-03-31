@@ -1,23 +1,23 @@
-import type { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
-import Error from "next/error";
-import { useAtom } from "jotai";
-import { useEffect } from "react";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@api/auth/[...nextauth]";
-import { env } from "../env/client.mjs";
-import { useRides, useLocalStorage } from "../hooks";
-import { RideGroup, RideGroupSkeleton, Filters } from "../components";
+import { useAtom } from "jotai";
+import type { GetServerSideProps, NextPage } from "next";
+import { getServerSession } from "next-auth";
+import Error from "next/error";
+import Head from "next/head";
+import { useEffect } from "react";
 import {
+  formatDate,
+  getDateInWeeks,
   getNextWeek,
   groupRides,
-  formatDate,
   makeFilterData,
-  getDateInWeeks,
   serialiseUser,
 } from "../../shared/utils";
-import { User, FilterQuery } from "../types";
-import { showFilterAtom, filterQueryAtom } from "../store";
+import { Filters, RideGroup, RideGroupSkeleton } from "../components";
+import { env } from "../env/client.mjs";
+import { useLocalStorage, useRides } from "../hooks";
+import { filterQueryAtom, showFilterAtom } from "../store";
+import { FilterQuery, User } from "../types";
 
 const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
@@ -49,7 +49,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
     return (
       <>
         <Head>
-          <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Rides</title>
+          <title>{`${NEXT_PUBLIC_CLUB_SHORT_NAME} Rides`}</title>
           <meta name="description" content="Bath Cycling Club Ride Planner" />
         </Head>
         <div className="grid w-full grid-cols-1 gap-4 md:gap-8">
@@ -73,7 +73,7 @@ const Home: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
       <Head>
-        <title>{NEXT_PUBLIC_CLUB_SHORT_NAME} Rides</title>
+        <title>{`${NEXT_PUBLIC_CLUB_SHORT_NAME} Rides`}</title>
         <meta
           name="description"
           content={`${NEXT_PUBLIC_CLUB_LONG_NAME} Ride Planner`}
