@@ -1,9 +1,9 @@
 // src/pages/api/rides.ts
+import { getServerAuthSession } from "@/server/auth";
+import { isAdmin } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
-import { isAdmin } from "../auth/authHelpers";
 import { formatUser } from "../../../../shared/utils";
+import { prisma } from "../../../server/db/client";
 
 export const listUsers = async () => {
   const userRecords = await prisma.user.findMany({
@@ -18,13 +18,13 @@ export const listUsers = async () => {
 };
 
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerAuthSession({ req, res });
+  const session = await getServerAuthSession();
 
   if (!session || !session.user) {
     return res.status(401).json({ error: "Not authorised" });
   }
 
-  const hasAdminRole = await isAdmin(req, res);
+  const hasAdminRole = await isAdmin();
 
   if (hasAdminRole) {
     const userData = await listUsers();

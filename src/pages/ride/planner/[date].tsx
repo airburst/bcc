@@ -1,26 +1,25 @@
-import type { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
+import { env } from "@/env";
+import { getServerAuthSession } from "@/server/auth";
+import type { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@api/auth/[...nextauth]";
-import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "next/link";
-import { env } from "../../../env/client.mjs";
-import { useRides } from "../../../hooks";
+import { useRouter } from "next/router";
+import {
+  flattenQuery,
+  formatDate,
+  getNow,
+  groupRides,
+  serialiseUser,
+} from "../../../../shared/utils";
 import {
   BackButton,
   Button,
+  PlusIcon,
   RideGroup,
   RideGroupSkeleton,
-  PlusIcon,
 } from "../../../components";
-import {
-  groupRides,
-  formatDate,
-  flattenQuery,
-  getNow,
-  serialiseUser,
-} from "../../../../shared/utils";
+import { useRides } from "../../../hooks";
 
 const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 
@@ -118,8 +117,8 @@ const Rides: NextPage<Props> = ({ isLeader }: Props) => {
 
 export default Rides;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = await getServerAuthSession();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);

@@ -1,11 +1,11 @@
-import Router, { useRouter } from "next/router";
-import Image from "next/image";
+import { env } from "@/env";
 import { useAtom } from "jotai";
-import { env } from "../env/client.mjs";
-import { showFilterAtom, filterQueryAtom } from "../store";
-import { UserMenu } from "./UserMenu";
+import Image from "next/image";
+import Router, { useRouter } from "next/router";
 import Logo from "../../public/static/images/bath-cc-logo.svg";
+import { filterQueryAtom, showFilterAtom } from "../store";
 import { FilterIcon, FilterSelectedIcon } from "./Icon";
+import { UserMenu } from "./UserMenu";
 
 const { NEXT_PUBLIC_CLUB_SHORT_NAME } = env;
 

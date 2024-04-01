@@ -1,17 +1,16 @@
-import type { NextPage, GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
+import { Role } from "@prisma/client";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { Role } from "@prisma/client";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { getProfileForUser } from "../api/user";
-import { updateUser } from "../../hooks";
-import { ManagedUserForm, ManagedUserValues } from "../../components";
-import { User } from "../../types";
 import { flattenQuery } from "../../../shared/utils";
+import { ManagedUserForm, ManagedUserValues } from "../../components";
+import { updateUser } from "../../hooks";
+import { User } from "../../types";
+import { getProfileForUser } from "../api/user";
 
 type Props = {
   user: User;
@@ -96,7 +95,7 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
 export default Profile;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerAuthSession();
   const userId = flattenQuery(context.params?.id);
 
   if (!session || (session && session.user?.role !== "ADMIN")) {

@@ -1,7 +1,7 @@
 // src/pages/api/add-rider-to-ride.ts
+import { isLeader, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isLeader } from "../auth/authHelpers";
 
 export const doCancelRide = async (id: string) => {
   try {
@@ -16,7 +16,7 @@ export const doCancelRide = async (id: string) => {
 };
 
 const cancelRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isLoggedIn();
 
   if (!isAuth) {
     return res.status(401).send({
@@ -26,7 +26,7 @@ const cancelRide = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const id = req.body;
-    const hasLeaderRole = await isLeader(req, res);
+    const hasLeaderRole = await isLeader();
 
     if (hasLeaderRole) {
       const success = await doCancelRide(id);

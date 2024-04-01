@@ -1,15 +1,14 @@
-import type { NextPage, GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { getProfile } from "../api/user";
-import { updateUser } from "../../hooks";
 import { UserProfileForm, UserProfileValues } from "../../components";
+import { updateUser } from "../../hooks";
 import { User } from "../../types";
+import { getProfile } from "../api/user";
 
 type Props = {
   user: User;
@@ -90,8 +89,8 @@ const Profile: NextPage<Props> = ({ user }: Props) => {
 
 export default Profile;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = await getServerAuthSession();
 
   if (!session) {
     return {

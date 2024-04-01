@@ -1,22 +1,22 @@
+import { env } from "@/env";
 import type { NextPage } from "next";
-import Head from "next/head";
 import Error from "next/error";
+import Head from "next/head";
 import { useState } from "react";
-import { env } from "../../../env/client.mjs";
-import { useRides } from "../../../hooks";
+import {
+  formatCalendarDate,
+  getLastMonth,
+  getMonthDateRange,
+  getNextMonth,
+  getNow,
+} from "../../../../shared/utils";
 import {
   Button,
   Calendar,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "../../../components";
-import {
-  getNow,
-  getLastMonth,
-  getNextMonth,
-  formatCalendarDate,
-  getMonthDateRange,
-} from "../../../../shared/utils";
+import { useRides } from "../../../hooks";
 
 const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 

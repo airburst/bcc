@@ -1,27 +1,26 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { NextPage, GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { authOptions } from "@api/auth/[...nextauth]";
-import { Confirm, RideForm } from "../../components";
-import { addRide, addRepeatingRide, generateRides } from "../../hooks";
 import {
-  formatUserName,
   flattenQuery,
-  serialiseUser,
-  rruleDay,
-  formatFormDate,
   formatDate,
-  makeRide,
+  formatFormDate,
+  formatUserName,
   makeRepeatingRide,
+  makeRide,
   makeRidesInPeriod,
   repeatingRideToDb,
+  rruleDay,
+  serialiseUser,
 } from "../../../shared/utils";
+import { Confirm, RideForm } from "../../components";
+import { addRepeatingRide, addRide, generateRides } from "../../hooks";
 import { Preferences, RideFormValues, User } from "../../types";
 
 type Props = {
@@ -186,8 +185,8 @@ const AddRide: NextPage<Props> = ({ user }: Props) => {
 
 export default AddRide;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = await getServerAuthSession();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);

@@ -1,9 +1,9 @@
 // src/pages/api/rides.ts
-import type { NextApiRequest, NextApiResponse } from "next";
+import { isAdmin, isMe } from "@/app/api/[...nextauth]/authHelpers";
+import { getServerAuthSession } from "@/server/auth";
 import { Role } from "@prisma/client";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
-import { isMe, isAdmin } from "../auth/authHelpers";
 import { User } from "../../../types";
 
 // Restricted editable fields: name, mobile
@@ -29,7 +29,7 @@ export const updateProfile = async (user: User) => {
 };
 
 const editProfile = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerAuthSession({ req, res });
+  const session = await getServerAuthSession();
 
   if (!session || !session.user) {
     return res.status(401).json({ error: "Not authorised" });
@@ -38,8 +38,8 @@ const editProfile = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const user = req.body;
     // A user can only add themselves; a leader can add other riders
-    const isMyRecord = await isMe(req, res)(user.id);
-    const hasLeaderRole = await isAdmin(req, res);
+    const isMyRecord = await isMe()(user.id);
+    const hasLeaderRole = await isAdmin();
 
     if (isMyRecord || hasLeaderRole) {
       const userData = await updateProfile(user);

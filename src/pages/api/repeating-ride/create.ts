@@ -1,8 +1,8 @@
 // src/pages/api/add-rider-to-ride.ts
+import { getUserPreferences, isAdmin, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { isLoggedIn, getUserPreferences, isAdmin } from "../auth/authHelpers";
 import { convertToKms, repeatingRideToDb } from "../../../../shared/utils";
+import { prisma } from "../../../server/db/client";
 import { Preferences, RepeatingRideDb } from "../../../types";
 
 export const addRepeatingRide = async (ride: RepeatingRideDb) => {
@@ -15,7 +15,7 @@ const createRepeatingRide = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isLoggedIn();
 
   if (!isAuth) {
     return res.status(401).send({
@@ -29,11 +29,11 @@ const createRepeatingRide = async (
     // Cast limit to number
     ride.limit = +(ride.limit || -1);
 
-    const hasAdminRole = await isAdmin(req, res);
+    const hasAdminRole = await isAdmin();
 
     if (hasAdminRole) {
       // Convert to kms if necessary
-      const preferences = (await getUserPreferences(req, res)) as Preferences;
+      const preferences = (await getUserPreferences()) as Preferences;
 
       if (ride.distance && preferences.units === "miles") {
         ride.distance = convertToKms(ride.distance);

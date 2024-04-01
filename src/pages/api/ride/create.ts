@@ -1,9 +1,9 @@
 // src/pages/api/add-rider-to-ride.ts
+import { getUserPreferences, isLeader, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isLeader, getUserPreferences } from "../auth/authHelpers";
 import { convertToKms } from "../../../../shared/utils";
-import { Ride, Preferences } from "../../../types";
+import { prisma } from "../../../server/db/client";
+import { Preferences, Ride } from "../../../types";
 
 export const addRide = async (ride: Ride) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -14,7 +14,7 @@ export const addRide = async (ride: Ride) => {
 
 // Only a logged-in user can join a ride
 const createRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isLoggedIn();
 
   if (!isAuth) {
     return res.status(401).send({
@@ -27,11 +27,11 @@ const createRide = async (req: NextApiRequest, res: NextApiResponse) => {
     // Cast limit to number
     ride.limit = +ride.limit || -1;
     // A user can only add themselves; a leader can add other riders
-    const hasLeaderRole = await isLeader(req, res);
+    const hasLeaderRole = await isLeader();
 
     if (hasLeaderRole) {
       // Convert to kms if necessary
-      const preferences = (await getUserPreferences(req, res)) as Preferences;
+      const preferences = (await getUserPreferences()) as Preferences;
 
       if (preferences.units === "miles") {
         ride.distance = convertToKms(ride.distance);

@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { authOptions } from "@api/auth/[...nextauth]";
+import { getServerAuthSession } from "@/server/auth";
 import { getRepeatingRide } from "@api/repeating-ride";
 import { formatDate, formatFormDate, getNow } from "@utils/dates";
 import type { GetServerSideProps, NextPage } from "next";
-import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -187,7 +186,7 @@ const CopyRepeatingRide: NextPage<Props> = ({ repeatingRide, user }: Props) => {
 export default CopyRepeatingRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerAuthSession();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);

@@ -1,12 +1,12 @@
+import { isAdmin } from "@auth/authHelpers";
 import { getNextMonth } from "@utils/dates";
-import { NextApiRequest, NextApiResponse } from "next";
 import {
   RideSet,
   makeRidesInPeriod,
   updateRRuleStartDate,
 } from "@utils/repeatingRides";
+import { NextApiRequest, NextApiResponse } from "next";
 import { RepeatingRideDb } from "src/types";
-import { isAdmin } from "@api/auth/authHelpers";
 import { prisma } from "../../../server/db/client";
 
 // TODO: Update comments
@@ -75,7 +75,7 @@ export default async function handler(
     try {
       const { date, scheduleId }: BodyProps = req.body;
       const { authorization } = req.headers;
-      const isAuth = await isAdmin(req, res);
+      const isAuth = await isAdmin();
       const isValidApiRequest =
         authorization === `Bearer ${process.env.API_KEY}`;
 

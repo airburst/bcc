@@ -1,8 +1,8 @@
 // src/pages/api/rides.ts
+import { getUserPreferences, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
 import { formatRideData } from "../../../../shared/utils";
-import { isLoggedIn, getUserPreferences } from "../auth/authHelpers";
+import { prisma } from "../../../server/db/client";
 import { Preferences } from "../../../types";
 
 export const getRide = async (
@@ -36,8 +36,8 @@ export const getRide = async (
 };
 
 const ride = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
-  const preferences = (await getUserPreferences(req, res)) as Preferences;
+  const isAuth = await isLoggedIn();
+  const preferences = (await getUserPreferences()) as Preferences;
   const { id } = req.query;
   const rideDetails = await getRide(id, preferences, isAuth);
 

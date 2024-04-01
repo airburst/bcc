@@ -1,5 +1,5 @@
+import { env } from "@/env";
 import { NextApiRequest, NextApiResponse } from "next";
-import { env } from "../../../env/server.mjs";
 import { Member, MemberData, convertMembers } from "./convertMembers";
 import { loadMembers } from "./loadMembers";
 

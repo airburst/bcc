@@ -17,8 +17,10 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "@components/*": ["src/components/*"],
       "@api/*": ["src/pages/api/*"],
+      "@auth/*": ["src/app/api/[...nextauth]/*"],
       "@utils/*": ["shared/utils/*"]
     },
     "plugins": [

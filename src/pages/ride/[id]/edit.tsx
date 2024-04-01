@@ -1,20 +1,19 @@
-import type { NextPage, GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { authOptions } from "@api/auth/[...nextauth]";
-import { getRide } from "../../api/ride";
-import { updateRide } from "../../../hooks";
 import {
-  makeUtcDate,
   getFormRideDateAndTime,
+  makeUtcDate,
   serialiseUser,
 } from "../../../../shared/utils";
 import { RideForm } from "../../../components";
+import { updateRide } from "../../../hooks";
 import { Preferences, RideFormValues, User } from "../../../types";
+import { getRide } from "../../api/ride";
 
 type Props = {
   data: RideFormValues;
@@ -115,7 +114,7 @@ const EditRide: NextPage<Props> = ({ data, user }: Props) => {
 export default EditRide;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerAuthSession();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);

@@ -1,9 +1,9 @@
 // src/pages/api/add-rider-to-ride.ts
+import { getUserPreferences, isLeader, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isLeader, getUserPreferences } from "../auth/authHelpers";
 import { convertToKms, getNow } from "../../../../shared/utils";
-import { Ride, Preferences } from "../../../types";
+import { prisma } from "../../../server/db/client";
+import { Preferences, Ride } from "../../../types";
 
 export const changeRide = async (ride: Ride) => {
   const { id, ...data } = ride;
@@ -22,7 +22,7 @@ export const changeRide = async (ride: Ride) => {
 
 // Only a logged-in user can join a ride
 const editRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isLoggedIn();
 
   if (!isAuth) {
     return res.status(401).send({
@@ -36,13 +36,13 @@ const editRide = async (req: NextApiRequest, res: NextApiResponse) => {
     ride.limit = +ride.limit;
 
     // A user can only add themselves; a leader can add other riders
-    const hasLeaderRole = await isLeader(req, res);
+    const hasLeaderRole = await isLeader();
     // Do not edit historic rides
     const isInFuture = ride.date >= getNow();
 
     if (hasLeaderRole && isInFuture) {
       // Convert to kms if necessary
-      const preferences = (await getUserPreferences(req, res)) as Preferences;
+      const preferences = (await getUserPreferences()) as Preferences;
 
       if (preferences.units === "miles") {
         ride.distance = convertToKms(ride.distance);

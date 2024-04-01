@@ -1,7 +1,7 @@
 // src/pages/api/add-rider-to-ride.ts
+import { isLeader, isLoggedIn } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isLoggedIn, isLeader } from "../auth/authHelpers";
 
 export const removeRide = async (id: string) => {
   try {
@@ -17,7 +17,7 @@ export const removeRide = async (id: string) => {
 
 // Only a logged-in user can join a ride
 const deleteRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isLoggedIn(req, res);
+  const isAuth = await isLoggedIn();
 
   if (!isAuth) {
     return res.status(401).send({
@@ -28,7 +28,7 @@ const deleteRide = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const id = req.body;
     // A user can only add themselves; a leader can add other riders
-    const hasLeaderRole = await isLeader(req, res);
+    const hasLeaderRole = await isLeader();
 
     if (hasLeaderRole) {
       const success = await removeRide(id);

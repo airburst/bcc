@@ -1,11 +1,10 @@
+import { getServerAuthSession } from "@/server/auth";
 import { listRepeatingRides } from "@api/repeating-ride/list";
 import { RepeatingRideCard } from "@components/RepeatingRideCard";
 import type { GetServerSideProps, NextPage } from "next";
-import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
 import { RepeatingRide } from "../../types";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 type Props = {
   repeatingRides: RepeatingRide[];
@@ -63,8 +62,8 @@ const RepeatingRidesList: NextPage<Props> = ({ repeatingRides }: Props) => {
 
 export default RepeatingRidesList;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, authOptions);
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const session = await getServerAuthSession();
 
   if (!session || (session && session.user?.role !== "ADMIN")) {
     return {

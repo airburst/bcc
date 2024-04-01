@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import copy from "copy-to-clipboard";
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -5,7 +6,6 @@ import { useRef, useState } from "react";
 import { useSWRConfig } from "swr";
 import useOnClickOutside from "use-onclickoutside";
 import pkg from "../../../package.json";
-import { env } from "../../env/client.mjs";
 import { cancelRide, deleteRide } from "../../hooks";
 import { Confirm } from "../Confirm";
 import {

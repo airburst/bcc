@@ -1,9 +1,9 @@
 // src/pages/api/rides.ts
+import { getServerAuthSession } from "@/server/auth";
+import { isAdmin, isMe } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
-import { isMe, isAdmin } from "../auth/authHelpers";
 import { formatUser } from "../../../../shared/utils";
+import { prisma } from "../../../server/db/client";
 import { User } from "../../../types";
 
 export const getProfile = async (user: User) => {
@@ -35,14 +35,14 @@ export const getProfileForUser = async (id: string) => {
 };
 
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerAuthSession({ req, res });
+  const session = await getServerAuthSession();
 
   if (!session || !session.user) {
     return res.status(401).json({ error: "Not authorised" });
   }
 
-  const isMyRecord = await isMe(req, res)(session.user.id);
-  const hasLeaderRole = await isAdmin(req, res);
+  const isMyRecord = await isMe()(session.user.id);
+  const hasLeaderRole = await isAdmin();
 
   if (isMyRecord || hasLeaderRole) {
     const userData = await getProfile(session.user as User);

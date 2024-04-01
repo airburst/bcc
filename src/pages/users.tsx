@@ -1,11 +1,10 @@
-import type { NextPage, GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { getServerSession } from "next-auth";
-import { useState, ChangeEvent } from "react";
-import { authOptions } from "./api/auth/[...nextauth]";
-import { listUsers } from "./api/user/list";
-import { User } from "../types";
+import { ChangeEvent, useState } from "react";
 import { UserCard } from "../components/UserCard";
+import { User } from "../types";
+import { listUsers } from "./api/user/list";
 
 type Props = {
   users: User[];
@@ -61,8 +60,8 @@ const UsersList: NextPage<Props> = ({ users }: Props) => {
 
 export default UsersList;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = await getServerAuthSession();
 
   if (!session || (session && session.user?.role !== "ADMIN")) {
     return {

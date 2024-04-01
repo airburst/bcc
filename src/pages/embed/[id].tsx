@@ -1,10 +1,10 @@
+import { env } from "@/env";
 import type { NextPage } from "next";
-import Head from "next/head";
 import Error from "next/error";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { env } from "../../env/client.mjs";
+import { BackButton, RideDetails, RideDetailsSkeleton } from "../../components";
 import { useRide } from "../../hooks";
-import { RideDetails, RideDetailsSkeleton, BackButton } from "../../components";
 
 const { NEXT_PUBLIC_CLUB_SHORT_NAME, NEXT_PUBLIC_CLUB_LONG_NAME } = env;
 

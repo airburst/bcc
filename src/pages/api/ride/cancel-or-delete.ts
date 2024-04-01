@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 // src/pages/api/add-rider-to-ride.ts
+import { isAdmin } from "@auth/authHelpers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isAdmin } from "../auth/authHelpers";
 import { doCancelRide } from "./cancel";
 import { removeRide } from "./delete";
 
@@ -43,7 +43,7 @@ const cancelOrDeleteRides = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const isAuth = await isAdmin(req, res);
+  const isAuth = await isAdmin();
 
   if (!isAuth) {
     return res.status(401).send({

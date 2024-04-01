@@ -1,7 +1,7 @@
-import { authOptions } from "@api/auth/[...nextauth]";
+import { env } from "@/env";
+import { getServerAuthSession } from "@/server/auth";
 import { useAtom } from "jotai";
 import type { GetServerSideProps, NextPage } from "next";
-import { getServerSession } from "next-auth";
 import Error from "next/error";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -14,7 +14,6 @@ import {
   serialiseUser,
 } from "../../shared/utils";
 import { Filters, RideGroup, RideGroupSkeleton } from "../components";
-import { env } from "../env/client.mjs";
 import { useLocalStorage, useRides } from "../hooks";
 import { filterQueryAtom, showFilterAtom } from "../store";
 import { FilterQuery, User } from "../types";
@@ -109,8 +108,8 @@ const Home: NextPage<Props> = ({ user }: Props) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = await getServerAuthSession();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore session user complains
   const user = serialiseUser(session?.user);

@@ -1,8 +1,8 @@
 // src/pages/api/add-rider-to-ride.ts
-import type { NextApiRequest, NextApiResponse } from "next";
 import { removeOrCancelRides } from "@api/ride/cancel-or-delete";
+import { isAdmin } from "@auth/authHelpers";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../server/db/client";
-import { isAdmin } from "../auth/authHelpers";
 
 export const removeRepeatingRide = async (
   id: string,
@@ -26,7 +26,7 @@ export const removeRepeatingRide = async (
 };
 
 const deleteRide = async (req: NextApiRequest, res: NextApiResponse) => {
-  const isAuth = await isAdmin(req, res);
+  const isAuth = await isAdmin();
 
   if (!isAuth) {
     return res.status(401).send({
