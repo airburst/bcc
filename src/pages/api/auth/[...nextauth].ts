@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
-import NextAuth, { Awaitable, Session, NextAuthOptions, User } from "next-auth";
+import NextAuth, { Awaitable, NextAuthOptions, Session, User } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
+import { prisma } from "../../../server/db/client";
 import { Preferences } from "../../../types";
 
 type SessionUser = User & {

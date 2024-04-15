@@ -1,9 +1,9 @@
 // src/pages/api/rides.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../server/db/client";
 import { formatRideData, getQueryDateRange } from "../../../shared/utils";
-import { isLoggedIn, getUserPreferences } from "./auth/authHelpers";
+import { prisma } from "../../server/db/client";
 import { Preferences } from "../../types";
+import { getUserPreferences, isLoggedIn } from "./auth/authHelpers";
 
 type QueryType = {
   start?: string;
@@ -39,7 +39,10 @@ export const getRides = async (
           date: "asc",
         },
         {
-          createdAt: "asc",
+          name: "asc",
+        },
+        {
+          distance: "desc",
         },
       ],
     });

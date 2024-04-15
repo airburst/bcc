@@ -5,13 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.2.1 - 2024-10-19
+## 2.3.0- 2024-04-15
+
+### Changed
+
+- Rides are now sorted by name (asc) and distance (desc)
+
+## 2.2.1 - 2024-03-19
 
 ### Changed
 
 - Updated message chat bubble style and added basic avatar support
 
-## 2.2.0 - 2024-10-16
+## 2.2.0 - 2024-03-16
 
 ### Changed
 

@@ -8,7 +8,7 @@ import { isAdmin } from "../auth/authHelpers";
 
 export const listRepeatingRides = async (): Promise<RepeatingRide[]> => {
   const rideRecords = await prisma.repeatingRide.findMany({
-    orderBy: { name: "asc" },
+    orderBy: [{ name: "asc" }, { distance: "desc" }],
   });
 
   if (!rideRecords) {
