@@ -1,9 +1,9 @@
 {
   "name": "bcc",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "test": "jest",
@@ -104,5 +104,5 @@
     "npm": ">=7.0.0",
     "node": ">=18.0.0"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.2.2"
 }
