@@ -7,7 +7,7 @@ export const CancelButton = ({ ...props }) => {
     <button
       className="btn"
       type="button"
-      onClick={() => router.push("/")}
+      onClick={() => router.back()}
       {...props}
     >
       Cancel

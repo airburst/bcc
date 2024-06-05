@@ -1,16 +1,16 @@
 /* eslint-disable no-alert */
-import type { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@api/auth/[...nextauth]";
-import { useRouter } from "next/router";
-import { useSWRConfig } from "swr";
 import { getRepeatingRide } from "@api/repeating-ride";
-import { RepeatingRide } from "src/types";
 import { BackButton, Button } from "@components/Button";
-import { useState } from "react";
 import { Confirm } from "@components/Confirm";
+import type { GetServerSideProps, NextPage } from "next";
+import { getServerSession } from "next-auth";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { deleteRepeatingRide } from "src/hooks";
+import { RepeatingRide } from "src/types";
+import { useSWRConfig } from "swr";
 import {
   formatDate,
   formatTime,
@@ -58,6 +58,8 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
   const time = formatTime(startDate);
 
   const goToCopy = () => router.push(`./${id}/copy`);
+
+  const goToEdit = () => router.push(`./${id}/edit`);
 
   const toggleDeleteAllRides = () => setDeleteAllRides(!deleteAllRides);
 
@@ -209,6 +211,9 @@ const RepeatingRideDetails: NextPage<Props> = ({ data }: Props) => {
 
       <div className="flex justify-between sm:justify-start w-full gap-4 px-2 sm:p-0">
         <BackButton />
+        <Button secondary onClick={goToEdit}>
+          Edit
+        </Button>
         <Button accent onClick={goToCopy}>
           Copy
         </Button>
