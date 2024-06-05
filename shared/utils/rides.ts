@@ -1,4 +1,5 @@
 import { Ride, User, UsersOnRides } from "@prisma/client";
+import dayjs from "dayjs";
 import { DEFAULT_PREFERENCES } from "../../src/constants";
 import {
   Preferences,
@@ -96,13 +97,14 @@ export const formatRideData = (
   isAuth = false
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { date, createdAt, users, distance, speed, ...rest } = ride;
-  const { day, time } = getRideDateAndTime(date.toISOString());
+  const { date: pgDate, createdAt, users, distance, speed, ...rest } = ride;
+  const date = dayjs(pgDate).toISOString();
+  const { day, time } = getRideDateAndTime(dayjs(date).toISOString());
   const units = preferences?.units;
 
   return {
     ...rest,
-    date: date.toISOString(),
+    date,
     day,
     time,
     distance: convertDistance(distance, units),

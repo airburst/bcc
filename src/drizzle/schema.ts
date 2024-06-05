@@ -11,61 +11,15 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm/relations";
 
-export const aal_level = pgEnum("aal_level", ["aal1", "aal2", "aal3"]);
-export const code_challenge_method = pgEnum("code_challenge_method", [
-  "s256",
-  "plain",
-]);
-export const factor_status = pgEnum("factor_status", [
-  "unverified",
-  "verified",
-]);
-export const factor_type = pgEnum("factor_type", ["totp", "webauthn"]);
-export const one_time_token_type = pgEnum("one_time_token_type", [
-  "confirmation_token",
-  "reauthentication_token",
-  "recovery_token",
-  "email_change_token_new",
-  "email_change_token_current",
-  "phone_change_token",
-]);
-export const key_status = pgEnum("key_status", [
-  "default",
-  "valid",
-  "invalid",
-  "expired",
-]);
-export const key_type = pgEnum("key_type", [
-  "aead-ietf",
-  "aead-det",
-  "hmacsha512",
-  "hmacsha256",
-  "auth",
-  "shorthash",
-  "generichash",
-  "kdf",
-  "secretbox",
-  "secretstream",
-  "stream_xchacha20",
-]);
+// TODO: Rename tables to lower case, plural
+// Rename bad columns (group, date)
+// Add relations
+// Split into table files
+// Rework queries
+
 export const Role = pgEnum("Role", ["USER", "LEADER", "ADMIN"]);
-export const action = pgEnum("action", [
-  "INSERT",
-  "UPDATE",
-  "DELETE",
-  "TRUNCATE",
-  "ERROR",
-]);
-export const equality_op = pgEnum("equality_op", [
-  "eq",
-  "neq",
-  "lt",
-  "lte",
-  "gt",
-  "gte",
-  "in",
-]);
 
 export const Account = pgTable(
   "Account",
@@ -134,7 +88,7 @@ export const VerificationToken = pgTable(
   })
 );
 
-export const User = pgTable(
+export const users = pgTable(
   "User",
   {
     id: text("id").primaryKey().notNull(),
@@ -157,7 +111,7 @@ export const User = pgTable(
   })
 );
 
-export const Ride = pgTable(
+export const rides = pgTable(
   "Ride",
   {
     id: text("id").primaryKey().notNull(),
@@ -262,22 +216,23 @@ export const ArchivedRide = pgTable(
   })
 );
 
-export const UsersOnRides = pgTable(
+export const usersToRides = pgTable(
   "UsersOnRides",
   {
-    rideId: text("rideId").notNull(),
-    userId: text("userId").notNull(),
+    rideId: text("rideId")
+      .notNull()
+      .references(() => rides.id),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id),
     notes: text("notes"),
     createdAt: timestamp("createdAt", { precision: 3, mode: "string" })
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
-    rideId_idx: index("UsersOnRides_rideId_idx").using("btree", table.rideId),
-    userId_idx: index("UsersOnRides_userId_idx").using("btree", table.userId),
-    UsersOnRides_pkey: primaryKey({
-      columns: [table.rideId, table.userId],
-      name: "UsersOnRides_pkey",
+  (t) => ({
+    pk: primaryKey({
+      columns: [t.rideId, t.userId],
     }),
   })
 );
@@ -292,18 +247,32 @@ export const ArchivedUsersOnRides = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => ({
+  (t) => ({
     rideId_idx: index("ArchivedUsersOnRides_rideId_idx").using(
       "btree",
-      table.rideId
+      t.rideId
     ),
     userId_idx: index("ArchivedUsersOnRides_userId_idx").using(
       "btree",
-      table.userId
+      t.userId
     ),
     ArchivedUsersOnRides_pkey: primaryKey({
-      columns: [table.rideId, table.userId],
+      columns: [t.rideId, t.userId],
       name: "ArchivedUsersOnRides_pkey",
     }),
   })
 );
+
+// Relations
+export const usersRelations = relations(users, ({ many }) => ({
+  rides: many(rides),
+}));
+
+export const ridesRelations = relations(rides, ({ many }) => ({
+  users: many(users),
+}));
+
+export const usersToRidesRelations = relations(usersToRides, ({ one }) => ({
+  ride: one(rides, { fields: [usersToRides.rideId], references: [rides.id] }),
+  user: one(users, { fields: [usersToRides.userId], references: [users.id] }),
+}));

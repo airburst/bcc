@@ -19,7 +19,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@api/*": ["src/pages/api/*"],
-      "@utils/*": ["shared/utils/*"]
+      "@utils/*": ["shared/utils/*"],
+      "@drizzle/*": ["src/drizzle/*"]
     },
     "plugins": [
       {
