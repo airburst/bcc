@@ -82,6 +82,7 @@ const EditRepeatingRide: NextPage<Props> = ({ data, user }: Props) => {
           errors={errors}
           register={register}
           handleSubmit={handleSubmit(onSubmit)}
+          handleSchedule={handleSubmit(onSubmit)}
           waiting={waiting}
           preferences={preferences}
           isAdmin={isAdmin}
