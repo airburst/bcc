@@ -111,9 +111,9 @@ export const getRideDateAndTime = (date: string) => ({
 
 // Formatted for form inputs:
 // date = "yyyy-mm-dd" and time = "hh:mm"
-export const getFormRideDateAndTime = (date: string) => ({
-  date: formatFormDate(date),
-  time: formatTime(date),
+export const getFormRideDateAndTime = (date: string, fixedDate?: string) => ({
+  date: formatFormDate(fixedDate || date),
+  time: formatTime(fixedDate || date),
 });
 
 // Calendar view helpers

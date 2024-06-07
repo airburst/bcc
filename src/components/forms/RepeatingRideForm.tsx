@@ -45,13 +45,14 @@ export const RepeatingRideForm = ({
   const monthDay = defaultValues.bymonthday || getDay(date);
   const dayOfWeek = defaultValues.byweekday || rruleDay(date);
   const watchTime = watch("time");
-  const time = watchTime || defaultValues.time;
+  const time = defaultValues.winterStartTime || watchTime || defaultValues.time;
   const watchFreq = watch("freq");
   const freq = watchFreq ? +watchFreq : defaultValues.freq;
   const watchMonth = watch("freq");
   const month = watchMonth ? +watchMonth : defaultValues.bymonth;
   const minEndDate =
     (watchDate || "") > (watchStartDate || "") ? watchDate : watchStartDate;
+  const defaultEndDate = (defaultValues.endDate || "").split("T")[0];
 
   // Change startDate when form changes
   useEffect(() => {
@@ -278,6 +279,7 @@ export const RepeatingRideForm = ({
             <input
               id="endDate"
               type="date"
+              defaultValue={defaultEndDate}
               min={minEndDate}
               className="input"
               {...register("endDate")}

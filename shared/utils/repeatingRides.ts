@@ -2,6 +2,7 @@
 import { RRule } from "rrule";
 import { RepeatingRide, RepeatingRideDb, TemplateRide } from "src/types";
 import { daysInMonth, getNextMonth, isWinter } from "./dates";
+import { getScalarValue } from "./general";
 
 export const convertToRRule = (data: RepeatingRide): string => {
   const {
@@ -110,10 +111,10 @@ export const repeatingRideFromDb = (ride: RepeatingRideDb): RepeatingRide => {
     interval,
     startDate: new Date(dtstart).toISOString(),
     endDate: until ? new Date(until).toISOString() : null,
-    byweekday,
-    bysetpos,
-    bymonth,
-    bymonthday,
+    byweekday: getScalarValue(byweekday),
+    bysetpos: getScalarValue(bysetpos),
+    bymonth: getScalarValue(bymonth),
+    bymonthday: getScalarValue(bymonthday),
     textRule,
   };
 };

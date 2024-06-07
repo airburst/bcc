@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { RepeatingRide } from "src/types";
+import { repeatingRideFromDb } from "../../../../shared/utils";
 import { prisma } from "../../../server/db/client";
 import { isAdmin } from "../auth/authHelpers";
-import { repeatingRideFromDb } from "../../../../shared/utils";
 
 export const getRepeatingRide = async (
   id: string | string[] | undefined

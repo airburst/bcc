@@ -1,9 +1,9 @@
 // src/pages/api/add-rider-to-ride.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/client";
-import { isLoggedIn, getUserPreferences, isAdmin } from "../auth/authHelpers";
 import { convertToKms, repeatingRideToDb } from "../../../../shared/utils";
+import { prisma } from "../../../server/db/client";
 import { Preferences, RepeatingRideDb } from "../../../types";
+import { getUserPreferences, isAdmin, isLoggedIn } from "../auth/authHelpers";
 
 export const changeRepeatingRide = async (ride: RepeatingRideDb) => {
   const { id, ...data } = ride;

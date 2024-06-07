@@ -3,6 +3,7 @@ export * from "./useAddRide";
 export * from "./useCancelRide";
 export * from "./useDeleteRepeatingRide";
 export * from "./useDeleteRide";
+export * from "./useEditRepeatingRide";
 export * from "./useEditRide";
 export * from "./useGenerateRides";
 export * from "./useJoinRide";

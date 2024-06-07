@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { FormEventHandler, useState } from "react";
-import {
-  UseFormRegister,
-  FieldErrorsImpl,
-  UseFormReturn,
-} from "react-hook-form";
 import { Switch } from "@headlessui/react";
 import clsx from "clsx";
-import { RIDER_LIMIT_OPTIONS } from "../../constants";
+import { FormEventHandler, useState } from "react";
+import {
+  FieldErrorsImpl,
+  UseFormRegister,
+  UseFormReturn,
+} from "react-hook-form";
 import { getNow } from "../../../shared/utils";
+import { RIDER_LIMIT_OPTIONS } from "../../constants";
 import { Preferences, RideFormValues } from "../../types";
 import { Button } from "../Button";
 import { CancelButton } from "../Button/CancelButton";
