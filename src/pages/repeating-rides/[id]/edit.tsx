@@ -46,17 +46,30 @@ const EditRepeatingRide: NextPage<Props> = ({ data, user }: Props) => {
     distance: parseInt((data.distance || 1).toString(), 10),
     ...getFormRideDateAndTime(data.date, data.startDate),
   };
+
   const onSubmit: SubmitHandler<RideFormValues> = async (formData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { date, time, ...rideData } = formData;
+    const { date, time, distance, ...rideData } = formData;
+    // Recreate startDate from date and time
+    const startDate = `${date}T${time}:00Z`;
+
     setWaiting(true);
     const results = await mutate("/api/repeating-ride", () =>
-      updateRepeatingRide(rideData)
+      updateRepeatingRide({
+        id: defaultValues.id,
+        distance: Number(distance),
+        ...rideData,
+        startDate,
+      })
     );
-    console.log(
-      "🚀 ~ constonSubmit:SubmitHandler<RideFormValues>= ~ results:",
-      results
-    );
+
+    if (results.error) {
+      setWaiting(false);
+      // eslint-disable-next-line no-console
+      console.error(results.error);
+      return;
+    }
+
     if (results.id) {
       router.back();
     }

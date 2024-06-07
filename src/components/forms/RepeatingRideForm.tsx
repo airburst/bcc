@@ -52,6 +52,7 @@ export const RepeatingRideForm = ({
   const month = watchMonth ? +watchMonth : defaultValues.bymonth;
   const minEndDate =
     (watchDate || "") > (watchStartDate || "") ? watchDate : watchStartDate;
+  const defaultEndDate = (defaultValues.endDate || "").split("T")[0];
 
   // Change startDate when form changes
   useEffect(() => {
@@ -278,6 +279,7 @@ export const RepeatingRideForm = ({
             <input
               id="endDate"
               type="date"
+              defaultValue={defaultEndDate}
               min={minEndDate}
               className="input"
               {...register("endDate")}
