@@ -1,11 +1,12 @@
 // src/pages/api/add-rider-to-ride.ts
-import { getLastMonth, getNow } from "../../../../shared/utils";
+import { getNow } from "../../../../shared/utils";
 import { prisma } from "../../../server/db/client";
 
 export const archiveRides = async (date?: string) => {
   const runDate = date ? new Date(date).toISOString() : getNow();
   // Subtract one month; we will only archive rides older than a month
-  const archiveDate = getLastMonth(runDate);
+  // const archiveDate = getLastMonth(runDate);
+  const archiveDate = runDate;
 
   try {
     const movedRiders = await prisma.$executeRaw`
