@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.0- 2024-07-12
+
+### Added
+
+- Permanent redirect to bcc-rides app
+
 ## 2.5.0- 2024-06-07
 
 ### Added
